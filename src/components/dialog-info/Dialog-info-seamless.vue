@@ -43,7 +43,7 @@ export default {
   methods: {
     aaa(colorArr){
       console.log(this.mapName)
-      this.$store.commit('base/updateColorsArr',colorArr);
+      this.$store.commit('base/updateColorsArr',{mapName:this.mapName,colorArr:colorArr});
       Layers.seamlessObj[this.mapName].getSource().changed()
     }
   },
