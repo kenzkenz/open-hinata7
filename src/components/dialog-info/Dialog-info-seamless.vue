@@ -3,21 +3,21 @@
    <div id="group-name-div">
      地質で検索
       <li v-for="item in groupName" :id="item.id">
-        <input type="radio" name="gloupName"
-               :id="item.name"
+        <input type="radio" :name="mapName"
+               :id="mapName + item.name"
                v-model="choosed"
                :value="item.name"
                @click = aaa(item.colorArr)>
-        <label :for="item.name">{{ item.name }}</label>
+        <label :for="mapName + item.name">{{ item.name }}</label>
       </li>
      <br>
      時代で検索
      <li v-for="item in formationAge" :id="item.id">
-       <input type="radio" name="gloupName"
-              :id="item.ageName"
+       <input type="radio" :name="mapName"
+              :id="mapName + item.ageName"
               :value="item.ageName"
               @click = aaa(item.colorArr)>
-       <label :for="item.ageName">{{ item.ageName }}</label>
+       <label :for="mapName + item.ageName">{{ item.ageName }}</label>
      </li>
    </div>
 <!--    <b-button class='olbtn' :size="btnSize" @click="reset">リセット</b-button>-->
@@ -43,19 +43,13 @@ export default {
   methods: {
     aaa(colorArr){
       console.log(this.mapName)
-      console.log(colorArr)
       this.$store.commit('base/updateColorsArr',colorArr);
-      Layers.seamlessObj[this.mapName].getSource().changed()
-    },
-    reset(){
-      this.$store.commit('base/updateColorsArr',[]);
       Layers.seamlessObj[this.mapName].getSource().changed()
     }
   },
   mounted ()  {
     this.$nextTick(function () {
       const vm = this;
-      var formationAgeArr = [];
       let id = 1
       let id2 = 100
       const url = 'https://gbank.gsj.jp/seamless/v2/api/1.0/legend.json'
@@ -132,7 +126,6 @@ export default {
           });
         }
       }
-      console.log(vm.formationAge)
     })
   },
   watch: {
@@ -149,9 +142,9 @@ li {
   list-style-type: none;
 }
 #group-name-div{
-  margin: 10px;
+  margin: 5px;
   border: 1px solid grey;
-  padding: 10px;
+  padding: 5px;
 }
 
 </style>
