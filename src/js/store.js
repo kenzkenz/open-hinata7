@@ -6,7 +6,7 @@ Vue.use(Vuex);
 const moduleBase = {
   namespaced: true,
   state: {
-    colorsArr: {
+    colorArr: {
       map01: [],
       map02: [],
       map03: [],
@@ -66,10 +66,10 @@ const moduleBase = {
     }
   },
   mutations: {
-    updateColorsArr (state, payload) {
+    updateColorArr (state, payload) {
       // state.colorsArr[payload.mapName] = payload.colorsArr
       console.log(payload)
-      state.colorsArr[payload.mapName] = payload.colorArr
+      state.colorArr[payload.mapName] = payload.colorArr
     },
     //------------------------------------------------------------------------------------
     popUpContReset(state) {

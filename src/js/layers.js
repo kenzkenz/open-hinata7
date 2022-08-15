@@ -115,11 +115,11 @@ export const seamlessObj = {};
 for (let i of mapsStr) {
   seamlessObj[i] = new ImageLaye(new seamless())
   seamlessObj[i].getSource().on('beforeoperations', function(event) {
-  if (store.state.base.colorsArr[i].length===0) {
+  if (store.state.base.colorArr[i].length===0) {
 
   }else{
     // console.log(store.state.base.colorsArr[i])
-    event.data.colorArr = store.state.base.colorsArr[i]
+    event.data.colorArr = store.state.base.colorArr[i]
   }
 
 
