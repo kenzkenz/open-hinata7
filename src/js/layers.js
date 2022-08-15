@@ -1,35 +1,34 @@
 import store from './store'
 import TileLayer from 'ol/layer/Tile'
-import VectorLayer from 'ol/layer/Vector';
+import VectorLayer from 'ol/layer/Vector'
 import ImageLaye from 'ol/layer/Image'
-import VectorSource from 'ol/source/Vector';
+import VectorSource from 'ol/source/Vector'
 import OSM from 'ol/source/OSM.js'
 import XYZ from 'ol/source/XYZ.js'
-import GeoJSON from 'ol/format/GeoJSON';
-import {Fill, Stroke, Style, Text} from 'ol/style';
-import RasterSource from 'ol/source/Raster';
+import GeoJSON from 'ol/format/GeoJSON'
+import {Fill, Stroke, Style, Text} from 'ol/style'
+import RasterSource from 'ol/source/Raster'
 import { transformExtent, fromLonLat } from 'ol/proj.js'
-import LayerGroup from 'ol/layer/Group';
+import LayerGroup from 'ol/layer/Group'
 import mw5 from './mw/mw5'
 import mw20 from './mw/mw20'
 import Feature from 'ol/Feature'
-import Polygon  from "ol/geom/Polygon";
+import Polygon  from "ol/geom/Polygon"
 import Crop from 'ol-ext/filter/Crop'
 import Mask from 'ol-ext/filter/Mask'
 import  * as MaskDep from './mask-dep'
 import  * as LayersMvt from './layers-mvt'
-import {hinanObj, suiroObj} from "./layers-mvt";
-const mapsStr = ['map01','map02','map03','map04'];
+const mapsStr = ['map01','map02','map03','map04']
 const transformE = extent => {
-  return transformExtent(extent,'EPSG:4326','EPSG:3857');
+  return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
 function flood(pixels, data) {
-  var pixel = pixels[0];
+  var pixel = pixels[0]
   if (pixel[3]) {
-    var height = (pixel[0] * 256 * 256 + pixel[1] * 256 + pixel[2]) / 100;
+    var height = (pixel[0] * 256 * 256 + pixel[1] * 256 + pixel[2]) / 100
     if (height <= data.level) {
-      let sinsui = - height + data.level;
-      const c = data.colors;
+      let sinsui = - height + data.level
+      const c = data.colors
       if (sinsui >= 20) {
         pixel[0] = c.m20.r; pixel[1] = c.m20.g; pixel[2] = c.m20.b; pixel[3] = c.m20.a*255
       } else if (sinsui >= 10) {
@@ -44,10 +43,10 @@ function flood(pixels, data) {
         pixel[0] = c.m00.r; pixel[1] = c.m00.g; pixel[2] = c.m00.b; pixel[3] = c.m00.a*255
       }
     } else {
-      pixel[3] = 0;
+      pixel[3] = 0
     }
   }
-  return pixel;
+  return pixel
 }
 //dem10---------------------------------------------------------------------------------
 const elevation10 = new XYZ({
@@ -61,12 +60,12 @@ function Dem10 () {
     operation:flood
   })
 }
-export const flood10Obj = {};
+export const flood10Obj = {}
 for (let i of mapsStr) {
-  flood10Obj[i] = new ImageLaye(new Dem10());
+  flood10Obj[i] = new ImageLaye(new Dem10())
   flood10Obj[i].getSource().on('beforeoperations', function(event) {
-    event.data.level = Number(document.querySelector('#' + i  + " .flood-range10m").value);
-    event.data.colors = store.state.info.colors;
+    event.data.level = Number(document.querySelector('#' + i  + " .flood-range10m").value)
+    event.data.colors = store.state.info.colors
   });
 }
 //dem5---------------------------------------------------------------------------------
@@ -83,18 +82,18 @@ function Dem5 () {
   });
   this.maxResolution = 38.22
 }
-export const flood5Obj = {};
+export const flood5Obj = {}
 for (let i of mapsStr) {
   flood5Obj[i] = new ImageLaye(new Dem5());
   flood5Obj[i].getSource().on('beforeoperations', function(event) {
     console.log(event.data)
-    event.data.level = Number(document.querySelector('#' + i  + " .flood-range5m").value);
-    event.data.colors = store.state.info.colors;
+    event.data.level = Number(document.querySelector('#' + i  + " .flood-range5m").value)
+    event.data.colors = store.state.info.colors
     console.log(event.data)
   });
 }
 
-let floodSumm = '';
+let floodSumm = ''
 
 // シームレス地質図-------------------------------------------------------------------------------
 const sources =new XYZ({
@@ -111,40 +110,35 @@ function seamless () {
     operation:operationFunc()
   })
 }
-export const seamlessObj = {};
+export const seamlessObj = {}
 for (let i of mapsStr) {
   seamlessObj[i] = new ImageLaye(new seamless())
   seamlessObj[i].getSource().on('beforeoperations', function(event) {
-  if (store.state.base.colorArr[i].length===0) {
-
-  }else{
-    // console.log(store.state.base.colorsArr[i])
-    event.data.colorArr = store.state.base.colorArr[i]
-  }
-
-
+    if (store.state.base.colorArr[i].length!==0) {
+      event.data.colorArr = store.state.base.colorArr[i]
+    }
   });
 }
-const seamlessSumm = '';
+const seamlessSumm = ''
 function operationFunc () {
   return function (pixels, data) {
-    var pixel = pixels[0];
+    var pixel = pixels[0]
     if (pixel[3]) {
-      var colorArr = data.colorArr;
+      var colorArr = data.colorArr
       if (colorArr) {
-        var pixel00 = pixel[0] + "/" + pixel[1] + "/" + pixel[2];
+        var pixel00 = pixel[0] + "/" + pixel[1] + "/" + pixel[2]
         if (colorArr.indexOf(pixel00) >= 0) {
           // 存在する
         } else {
-          pixel[3] = 0;
+          pixel[3] = 0
         }
       } else {
-        return pixel;
+        return pixel
       }
     }
-    return pixel;
+    return pixel
   }
-};
+}
 
 // オープンストリートマップ------------------------------------------------------------------------
 function Osm () {
@@ -169,7 +163,7 @@ const stdObj = {};
 for (let i of mapsStr) {
   stdObj[i] = new TileLayer(new Std())
 }
-const stdSumm = '国土地理院作成のタイルです。<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const stdSumm = '国土地理院作成のタイルです。<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 淡色地図------------------------------------------------------------------------------------
 function Pale () {
   this.source = new XYZ({
@@ -183,7 +177,7 @@ const paleObj = {};
 for (let i of mapsStr) {
   paleObj[i] = new TileLayer(new Pale())
 }
-const paleSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const paleSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 白地図--------------------------------------------------------------------------------------
 function Blank () {
   this.source = new XYZ({
@@ -197,7 +191,7 @@ const blankObj = {};
 for (let i of mapsStr) {
   blankObj[i] = new TileLayer(new Blank())
 }
-const blankSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const blankSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 全国最新写真-------------------------------------------------------------------------------
 function Seamlessphoto () {
   this.source = new XYZ({
@@ -211,7 +205,7 @@ const seamlessphotoObj = {};
 for (let i of mapsStr) {
   seamlessphotoObj[i] = new TileLayer(new Seamlessphoto())
 }
-const seamlessphotoSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const seamlessphotoSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 色別標高図---------------------------------------------------------------------------------
 function Relief () {
   this.source = new XYZ({
@@ -225,10 +219,10 @@ const reliefObj = {};
 for (let i of mapsStr) {
   reliefObj[i] = new TileLayer(new Relief())
 }
-const reliefSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const reliefSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 宮崎県航空写真----------------------------------------------------------------------------
 function MiyazakiOrt () {
-  this.extent = transformE([130.66371,31.34280,131.88045,32.87815]);
+  this.extent = transformE([130.66371,31.34280,131.88045,32.87815])
   this.source = new XYZ({
     url: 'https://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -240,10 +234,10 @@ const miyazakiOrtObj = {};
 for (let i of mapsStr) {
   miyazakiOrtObj[i] = new TileLayer(new MiyazakiOrt())
 }
-const miyazakiOrtSumm = '宮崎県県土整備部砂防課が平成25年度に撮影した航空写真をオルソ補正したもの';
+const miyazakiOrtSumm = '宮崎県県土整備部砂防課が平成25年度に撮影した航空写真をオルソ補正したもの'
 // 静岡県航空写真----------------------------------------------------------------------------
 function SizuokaOrt () {
-  this.extent = transformE([138.19778,34.8626474,138.671573,35.213088]);
+  this.extent = transformE([138.19778,34.8626474,138.671573,35.213088])
   this.source = new XYZ({
     url: 'https://tile.geospatial.jp/shizuoka_city/h30_aerophoto/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -255,7 +249,7 @@ const sizuokaOrtObj = {};
 for (let i of mapsStr) {
   sizuokaOrtObj[i] = new TileLayer(new SizuokaOrt())
 }
-const sizuokaOrtSumm = '<a href="https://www.geospatial.jp/ckan/dataset/h30/resource/cb7f8bc4-0ec7-493b-b7fa-f90e5780ac5e" target="_blank">G空間情報センター</a>';
+const sizuokaOrtSumm = '<a href="https://www.geospatial.jp/ckan/dataset/h30/resource/cb7f8bc4-0ec7-493b-b7fa-f90e5780ac5e" target="_blank">G空間情報センター</a>'
 // 室蘭市航空写真----------------------------------------------------------------------------
 function MuroransiOrt () {
   this.extent = transformE([140.888332,42.2961046,141.076206,42.44097007]),
@@ -266,14 +260,14 @@ function MuroransiOrt () {
       maxZoom: 19
     });
 }
-const muroransiOrtObj = {};
+const muroransiOrtObj = {}
 for (let i of mapsStr) {
   muroransiOrtObj[i] = new TileLayer(new MuroransiOrt())
 }
-const muroransiOrtSumm = '<a href="http://www.city.muroran.lg.jp/main/org2260/odlib.php" target="_blank">むろらんオープンデータライブラリ</a>';
+const muroransiOrtSumm = '<a href="http://www.city.muroran.lg.jp/main/org2260/odlib.php" target="_blank">むろらんオープンデータライブラリ</a>'
 // 鹿児島市航空写真----------------------------------------------------------------------------
 function KagosimasiOrt () {
-  this.extent = transformE([130.370675,31.2819,130.732,31.767]);
+  this.extent = transformE([130.370675,31.2819,130.732,31.767])
   this.source = new XYZ({
     url: 'https://mtile.pref.miyazaki.lg.jp/tile/orts/kagoshima/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -285,7 +279,7 @@ const kagosimasiOrtObj = {};
 for (let i of mapsStr) {
   kagosimasiOrtObj[i] = new TileLayer(new KagosimasiOrt())
 }
-const kagosimasiOrtSumm = '<a href="https://www.city.kagoshima.lg.jp/ict/opendata.html" target="_blank">鹿児島市オープンデータ</a>';
+const kagosimasiOrtSumm = '<a href="https://www.city.kagoshima.lg.jp/ict/opendata.html" target="_blank">鹿児島市オープンデータ</a>'
 
 // 2010年の航空写真-------------------------------------------------------------------------------
 function Sp10 () {
@@ -300,7 +294,7 @@ const sp10Obj = {};
 for (let i of mapsStr) {
   sp10Obj[i] = new TileLayer(new Sp10())
 }
-const sp10Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const sp10Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 
 // 87~90年の航空写真-------------------------------------------------------------------------------
 function Sp87 () {
@@ -315,7 +309,7 @@ const sp87Obj = {};
 for (let i of mapsStr) {
   sp87Obj[i] = new TileLayer(new Sp87())
 }
-const sp87Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const sp87Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 
 // 84~86年の航空写真-------------------------------------------------------------------------------
 function Sp84 () {
@@ -330,7 +324,7 @@ const sp84Obj = {};
 for (let i of mapsStr) {
   sp84Obj[i] = new TileLayer(new Sp84())
 }
-const sp84Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const sp84Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 
 // ７9~83年の航空写真-------------------------------------------------------------------------------
 function Sp79 () {
@@ -345,7 +339,7 @@ const sp79Obj = {};
 for (let i of mapsStr) {
   sp79Obj[i] = new TileLayer(new Sp79())
 }
-const sp79Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const sp79Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // ７４~７８年の航空写真-------------------------------------------------------------------------------
 function Sp74 () {
   this.source = new XYZ({
@@ -359,7 +353,7 @@ const sp74Obj = {};
 for (let i of mapsStr) {
   sp74Obj[i] = new TileLayer(new Sp74())
 }
-const sp74Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const sp74Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // ６１~６４年の航空写真-------------------------------------------------------------------------------
 function Sp61 () {
   this.source = new XYZ({
@@ -373,7 +367,7 @@ const sp61Obj = {};
 for (let i of mapsStr) {
   sp61Obj[i] = new TileLayer(new Sp61())
 }
-const sp61Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>';
+const sp61Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 川だけ地形地図---------------------------------------------------------------------------
 function Kawadake () {
   this.source = new XYZ({
@@ -387,7 +381,7 @@ const kawadakeObj = {};
 for (let i of mapsStr) {
   kawadakeObj[i] = new TileLayer(new Kawadake())
 }
-const kawadakeSumm = '<a href="https://www.gridscapes.net/#AllRiversAllLakesTopography" target="_blank">川だけ地形地図</a>';
+const kawadakeSumm = '<a href="https://www.gridscapes.net/#AllRiversAllLakesTopography" target="_blank">川だけ地形地図</a>'
 // 川と流域地図---------------------------------------------------------------------------
 function Ryuuiki () {
   this.source = new XYZ({
@@ -420,7 +414,7 @@ const ecorisSumm = '<a href="http://map.ecoris.info/" target="_blank">エコリ�
   '<div style="width: 300px"><small>第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。</small></div>'
 // 岐阜県CS立体図----------------------------------------------------------------------------
 function GihuCs () {
-  this.extent = transformE([136.257111,35.141011,137.666902,36.482164143934]);
+  this.extent = transformE([136.257111,35.141011,137.666902,36.482164143934])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/gihucs/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -432,10 +426,10 @@ const gihuCsObj = {};
 for (let i of mapsStr) {
   gihuCsObj[i] = new TileLayer(new GihuCs())
 }
-const gihuCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/cs-2019-geotiff" target="_blank">G空間情報センター</a>';
+const gihuCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/cs-2019-geotiff" target="_blank">G空間情報センター</a>'
 // 兵庫県CS立体図----------------------------------------------------------------------------
 function HyougoCs () {
-  this.extent = transformE([134.2669714033038, 34.17797854803047,135.47241581374712, 35.783161768341444]);
+  this.extent = transformE([134.2669714033038, 34.17797854803047,135.47241581374712, 35.783161768341444])
   this.source = new XYZ({
     url: 'https://kenzkenz.xsrv.jp/tile/hyougo/cs/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -450,7 +444,7 @@ for (let i of mapsStr) {
 const hyougoCsSumm = '<a href="https://web.pref.hyogo.lg.jp/kk26/hyogo-geo.html" target="_blank">全国初「全県土分の高精度3次元データ」の公開について</a>';
 // 長野県CS立体図----------------------------------------------------------------------------
 function NaganoCs () {
-  this.extent = transformE([137.34924687267085, 35.181791181300085,138.7683143113627, 37.14523688239089]);
+  this.extent = transformE([137.34924687267085, 35.181791181300085,138.7683143113627, 37.14523688239089])
   this.source = new XYZ({
     url: 'https://tile.geospatial.jp/CS/VER2/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -462,10 +456,10 @@ const naganoCsObj = {};
 for (let i of mapsStr) {
   naganoCsObj[i] = new TileLayer(new NaganoCs())
 }
-const naganoCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/nagano-csmap" target="_blank">G空間情報センター</a>';
+const naganoCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/nagano-csmap" target="_blank">G空間情報センター</a>'
 // 静岡県CS立体図----------------------------------------------------------------------------
 function SizuokaCs () {
-  this.extent = transformE([137.47545,34.59443,139.1504,35.64359]);
+  this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
   this.source = new XYZ({
     url: 'https://mtile.pref.miyazaki.lg.jp/tile/cssizuoka/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -477,7 +471,7 @@ const sizuokaCsObj = {};
 for (let i of mapsStr) {
   sizuokaCsObj[i] = new TileLayer(new SizuokaCs())
 }
-const sizuokaCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/shizuokakencsmap2" target="_blank">G空間情報センター</a>';
+const sizuokaCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/shizuokakencsmap2" target="_blank">G空間情報センター</a>'
 // 日本CS立体図------------------------------------------------------------------------------
 function NihonCs () {
   this.source = new XYZ({
@@ -491,7 +485,7 @@ const nihonCsObj = {};
 for (let i of mapsStr) {
   nihonCsObj[i] = new TileLayer(new NihonCs())
 }
-const nihonCsSumm = '<a href="http://kouapp.main.jp/csmap/japan/setumei.html" target="_blank">日本CS立体図</a>';
+const nihonCsSumm = '<a href="http://kouapp.main.jp/csmap/japan/setumei.html" target="_blank">日本CS立体図</a>'
 // 迅速測図 (関東)----------------------------------------------------------------------------
 function Jinsoku () {
   this.extent = transformE([138.954453,34.86946,140.8793163,36.45969967])
@@ -506,7 +500,7 @@ const jinsokuObj = {};
 for (let i of mapsStr) {
   jinsokuObj[i] = new TileLayer(new Jinsoku())
 }
-const jinsokuSumm = '<a href=\'http://www.finds.jp/tmc/layers.html.ja\' target=\'_blank\'>農研機構</a>';
+const jinsokuSumm = '<a href=\'http://www.finds.jp/tmc/layers.html.ja\' target=\'_blank\'>農研機構</a>'
 // 今昔マップ-----------------------------------------------------------------------------------
 // 福岡・北九州編------------------------------------------------------------------------------
 function Kon_hukuoka01 () {
@@ -523,7 +517,7 @@ const kon_hukuoka01Obj = {};
 for (let i of mapsStr) {
   kon_hukuoka01Obj[i] = new TileLayer(new Kon_hukuoka01())
 }
-const kon_hukuoka01Summ = '';
+const kon_hukuoka01Summ = ''
 // CS立体図10Mここから-----------------------------------------------------------------------
 function Cs10m01 () {
   this.source = new XYZ({
@@ -532,7 +526,7 @@ function Cs10m01 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([128.4,32.5,129.530,34.7]);
+  this.extent = transformE([128.4,32.5,129.530,34.7])
 }
 function Cs10m02 () {
   this.source = new XYZ({
@@ -541,7 +535,7 @@ function Cs10m02 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([129.02,30.2,132.9,34]);
+  this.extent = transformE([129.02,30.2,132.9,34])
 }
 function Cs10m03 () {
   this.source = new XYZ({
@@ -550,7 +544,7 @@ function Cs10m03 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([129.99,33.33,133.7,36.6]);
+  this.extent = transformE([129.99,33.33,133.7,36.6])
 }
 function Cs10m04 () {
   this.source = new XYZ({
@@ -559,7 +553,7 @@ function Cs10m04 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([131.99,32.68,134.98,34.67]);
+  this.extent = transformE([131.99,32.68,134.98,34.67])
 }
 function Cs10m05 () {
   this.source = new XYZ({
@@ -568,7 +562,7 @@ function Cs10m05 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([132.99,34.00,135.48,35.8]);
+  this.extent = transformE([132.99,34.00,135.48,35.8])
 }
 function Cs10m06 () {
   this.source = new XYZ({
@@ -577,7 +571,7 @@ function Cs10m06 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([134.51,33.40,137.02,36.34]);
+  this.extent = transformE([134.51,33.40,137.02,36.34])
 }
 function Cs10m07 () {
   this.source = new XYZ({
@@ -586,7 +580,7 @@ function Cs10m07 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([135.99,34.00,137.90,37.66]);
+  this.extent = transformE([135.99,34.00,137.90,37.66])
 }
 function Cs10m08 () {
   this.source = new XYZ({
@@ -595,7 +589,7 @@ function Cs10m08 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([137.00,38.68,139.97,34.56]);
+  this.extent = transformE([137.00,38.68,139.97,34.56])
 }
 function Cs10m09 () {
   this.source = new XYZ({
@@ -604,7 +598,7 @@ function Cs10m09 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([138.05,38.00,140.99,32.43]);
+  this.extent = transformE([138.05,38.00,140.99,32.43])
 }
 function Cs10m10 () {
   this.source = new XYZ({
@@ -613,7 +607,7 @@ function Cs10m10 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([139.46,41.65,142.12,37.66]);
+  this.extent = transformE([139.46,41.65,142.12,37.66])
 }
 function Cs10m11 () {
   this.source = new XYZ({
@@ -622,7 +616,7 @@ function Cs10m11 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([139.00,43.35,141.19,41.33]);
+  this.extent = transformE([139.00,43.35,141.19,41.33])
 }
 function Cs10m12 () {
   this.source = new XYZ({
@@ -631,7 +625,7 @@ function Cs10m12 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([140.93,45.65,144.05,41.85]);
+  this.extent = transformE([140.93,45.65,144.05,41.85])
 }
 function Cs10m13 () {
   this.source = new XYZ({
@@ -640,7 +634,7 @@ function Cs10m13 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([143.95,44.35,145.95,42.70]);
+  this.extent = transformE([143.95,44.35,145.95,42.70])
 }
 function Cs10m15 () {
   this.source = new XYZ({
@@ -649,9 +643,9 @@ function Cs10m15 () {
     minZoom:1,
     maxZoom:15
   });
-  this.extent = transformE([126.60,27.37,128.82,26.00]);
+  this.extent = transformE([126.60,27.37,128.82,26.00])
 }
-const cs10mObj = {};
+const cs10mObj = {}
 for (let i of mapsStr) {
   cs10mObj[i] = new LayerGroup({
     layers: [
@@ -673,7 +667,7 @@ for (let i of mapsStr) {
   })
 }
 
-const cs10mSumm = '';
+const cs10mSumm = ''
 // CS立体図10Mここまで-----------------------------------------------------------------------
 // 日本版mapwarper５万分の１ここから------------------------------------------------------
 // 5万分の1,20万分の1の共用コンストラクタなど
@@ -710,31 +704,30 @@ function Mapwarper (url,bbox) {
 }
 // 地図上に地区名を表示する。
 function Mw5center () {
-  this.name = 'Mw5center';
+  this.name = 'Mw5center'
   this.source = new VectorSource({
     url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/mw5center.geojson',
     format: new GeoJSON()
   });
-  this.maxResolution = 1222.99;
+  this.maxResolution = 1222.99
   this.style = function(feature) {
     style.getText().setText(feature.get('title') );
-    return style;
+    return style
   }
 }
-export const mw5Obj = {};
+export const mw5Obj = {}
 for (let i of mapsStr) {
-  const layerGroup = [];
-  const length =  mw5.length;
-  // const features = [];
+  const layerGroup = []
+  const length =  mw5.length
   for (let j = 0; j < length; j++) {
-    const id = mw5[j].id;
-    const url = 'https://mapwarper.h-gis.jp/maps/tile/' + id + '/{z}/{x}/{y}.png';
-    const bbox = mw5[j].extent;
-    const layer = new TileLayer(new Mapwarper(url,bbox));
+    const id = mw5[j].id
+    const url = 'https://mapwarper.h-gis.jp/maps/tile/' + id + '/{z}/{x}/{y}.png'
+    const bbox = mw5[j].extent
+    const layer = new TileLayer(new Mapwarper(url,bbox))
     layerGroup.push(layer)
   }
-  const mw5centerLayer = new VectorLayer(new Mw5center());
-  layerGroup.push(mw5centerLayer);
+  const mw5centerLayer = new VectorLayer(new Mw5center())
+  layerGroup.push(mw5centerLayer)
   mw5Obj[i] = new LayerGroup({
     layers: layerGroup
   })
@@ -746,35 +739,34 @@ const mw5Summ = '<a href="https://mapwarper.h-gis.jp/" target="_blank">日本版
 // 日本版mapwarper20万分の１ここから------------------------------------------------------
 // 地区名
 function Mw20center () {
-  this.name = 'Mw20center';
+  this.name = 'Mw20center'
   this.source = new VectorSource({
     url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/mw20center.geojson',
     format: new GeoJSON()
   });
   this.style = function(feature) {
-    style.getText().setText(feature.get('title') );
-    return style;
+    style.getText().setText(feature.get('title') )
+    return style
   }
 }
-export const mw20Obj = {};
+export const mw20Obj = {}
 for (let i of mapsStr) {
-  const layerGroup = [];
-  const length =  mw20.length;
+  const layerGroup = []
+  const length =  mw20.length
   for (let j = 0; j < length; j++) {
-    const id = mw20[j].id;
-    const url = 'https://mapwarper.h-gis.jp/maps/tile/' + id + '/{z}/{x}/{y}.png';
-    const bbox = mw20[j].extent;
-    const layer = new TileLayer(new Mapwarper(url,bbox));
+    const id = mw20[j].id
+    const url = 'https://mapwarper.h-gis.jp/maps/tile/' + id + '/{z}/{x}/{y}.png'
+    const bbox = mw20[j].extent
+    const layer = new TileLayer(new Mapwarper(url,bbox))
     layerGroup.push(layer)
   }
-  const mw20centerLayer = new VectorLayer(new Mw20center());
-  layerGroup.push(mw20centerLayer);
-
+  const mw20centerLayer = new VectorLayer(new Mw20center())
+  layerGroup.push(mw20centerLayer)
   mw20Obj[i] = new LayerGroup({
     layers: layerGroup
   })
 }
-const mw20Summ = '<a href="https://mapwarper.h-gis.jp/" target="_blank">日本版 Map Warper</a><br>';
+const mw20Summ = '<a href="https://mapwarper.h-gis.jp/" target="_blank">日本版 Map Warper</a><br>'
 // 日本版mapwarper20万分の１ここまで------------------------------------------------------
 
 // 	東西蝦夷山川地理取調図-------------------------------------------------------------------------------
@@ -786,17 +778,17 @@ function Ezosansen () {
     maxZoom: 17
   })
 }
-const ezosansenObj = {};
+const ezosansenObj = {}
 for (let i of mapsStr) {
   ezosansenObj[i] = new TileLayer(new Ezosansen())
 }
-const ezosansenSumm = '<a href="https://github.com/koukita/touzaiezo" target="_blank">喜多氏のgithub</a>';
+const ezosansenSumm = '<a href="https://github.com/koukita/touzaiezo" target="_blank">喜多氏のgithub</a>'
 // 	東西蝦夷山川地理取調図ここまで------------------------------------------------------------------------
 
 const SSK = '<a href="https://dl.ndl.go.jp/search/searchResult?featureCode=all&searchWord=%E6%9C%80%E6%96%B0%E8%A9%B3%E5%AF%86%E9%87%91%E5%88%BA%E5%88%86%E7%B8%A3%E5%9C%96&fulltext=1&viewRestricted=0" target="_blank">最新詳密金刺分縣圖</a>です。'
 // 	北海道古地図-------------------------------------------------------------------------------
 function Kotizu01hokkaidou () {
-  this.extent = transformE([139.53735724663997, 41.186004293591395,146.42212376570964, 46.26259923231669]);
+  this.extent = transformE([139.53735724663997, 41.186004293591395,146.42212376570964, 46.26259923231669])
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu4/tile/01hokkaidou0/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -804,7 +796,7 @@ function Kotizu01hokkaidou () {
     maxZoom: 17
   })
 }
-const kotizu01hokkaidouObj = {};
+const kotizu01hokkaidouObj = {}
 for (let i of mapsStr) {
   kotizu01hokkaidouObj[i] = new TileLayer(new Kotizu01hokkaidou())
 }
@@ -812,33 +804,33 @@ const kotizu01hokkaidouSumm = SSK + '<br><a href="https://kenzkenz.github.io/bun
 // 	北海道古地図ここまで------------------------------------------------------------------------
 //  レイヤーをマスクする関数
 export  function mask (dep,layer) {
-  const coords = dep.geometry.coordinates;
+  const coords = dep.geometry.coordinates
   // epsg4326(WGS84)のときだけ実行する。
   if(coords[0][0][0]< 1000) {
     for (let i = 0; i < coords[0].length; i++) {
       coords[0][i] = fromLonLat(coords[0][i])
     }
   }
-  const f = new Feature(new Polygon(coords));
+  const f = new Feature(new Polygon(coords))
   const crop = new Crop({
     feature: f,
     wrapX: true,
     inner: false
   });
-  layer.addFilter(crop);
+  layer.addFilter(crop)
   const mask = new Mask({
     feature: f,
     wrapX: true,
     inner: false,
     fill: new Fill({ color:[255,255,255,0.8] })
   });
-  layer.addFilter(mask);
-  mask.set('active', false);
+  layer.addFilter(mask)
+  mask.set('active', false)
 }
 // 	02青森県古地図-------------------------------------------------------------------------------
 function Kotizu01aomori () {
   this.extent = transformE([139.14337531230578, 40.07947328862201,141.90826803012916, 41.65330584813219]);
-  this.dep = MaskDep.aomori;
+  this.dep = MaskDep.aomori
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu/tile/02aomoriken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -846,7 +838,7 @@ function Kotizu01aomori () {
     maxZoom: 13
   })
 }
-const kotizu01aomoriObj = {};
+const kotizu01aomoriObj = {}
 for (let i of mapsStr) {
   kotizu01aomoriObj[i] = new TileLayer(new Kotizu01aomori())
   const dep = kotizu01aomoriObj[i].values_.dep
@@ -855,8 +847,8 @@ for (let i of mapsStr) {
 const kotizu01aomoriSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunkenzu/image/02aomoriken.jpg" target="_blank">jpg</a>'
 // 	03岩手県古地図-------------------------------------------------------------------------------
 function Kotizu03iwate () {
-  this.extent = transformE([140.4647865251053, 38.60447110081623,142.43317043781053, 40.58197617127430]);
-  this.dep = MaskDep.iwate;
+  this.extent = transformE([140.4647865251053, 38.60447110081623,142.43317043781053, 40.58197617127430])
+  this.dep = MaskDep.iwate
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu3/tile/3iwateken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -864,7 +856,7 @@ function Kotizu03iwate () {
     maxZoom: 13
   })
 }
-const kotizu03iwateObj = {};
+const kotizu03iwateObj = {}
 for (let i of mapsStr) {
   kotizu03iwateObj[i] = new TileLayer(new Kotizu03iwate())
   const dep = kotizu03iwateObj[i].values_.dep
@@ -882,7 +874,7 @@ function Kotizu04miyagi () {
     maxZoom: 13
   })
 }
-const kotizu04miyagiObj = {};
+const kotizu04miyagiObj = {}
 for (let i of mapsStr) {
   kotizu04miyagiObj[i] = new TileLayer(new Kotizu04miyagi())
   const dep = kotizu04miyagiObj[i].values_.dep
@@ -892,7 +884,7 @@ const kotizu04miyagiSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunken
 // 	05秋田県古地図-------------------------------------------------------------------------------
 function Kotizu05akita () {
   this.extent = transformE([139.57672496186024, 38.80927604504396,141.46576302917126, 40.69313501471041])
-  this.dep = MaskDep.akita;
+  this.dep = MaskDep.akita
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu3/tile/5akitaken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -900,7 +892,7 @@ function Kotizu05akita () {
     maxZoom: 13
   })
 }
-const kotizu05akitaObj = {};
+const kotizu05akitaObj = {}
 for (let i of mapsStr) {
   kotizu05akitaObj[i] = new TileLayer(new Kotizu05akita())
   const dep = kotizu05akitaObj[i].values_.dep
@@ -910,7 +902,7 @@ const kotizu05akitaSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunkenz
 // 	06山形県古地図-------------------------------------------------------------------------------
 function Kotizu06yamagata () {
   this.extent = transformE([139.30206674295448, 37.6200337575343,141.1026040665337, 39.26439508091832])
-  this.dep = MaskDep.yamagata;
+  this.dep = MaskDep.yamagata
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu3/tile/6yamagataken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -918,7 +910,7 @@ function Kotizu06yamagata () {
     maxZoom: 13
   })
 }
-const kotizu06yamagataObj = {};
+const kotizu06yamagataObj = {}
 for (let i of mapsStr) {
   kotizu06yamagataObj[i] = new TileLayer(new Kotizu06yamagata())
   const dep = kotizu06yamagataObj[i].values_.dep
@@ -928,7 +920,7 @@ const kotizu06yamagataSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunk
 // 	07福島県古地図-------------------------------------------------------------------------------
 function Kotizu07hukusima () {
   this.extent = transformE([138.9297523319492, 36.715403688409765,141.32538223338815, 38.145118377199196])
-  this.dep = MaskDep.hukusima;
+  this.dep = MaskDep.hukusima
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu3/tile/7hukusimaken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -936,7 +928,7 @@ function Kotizu07hukusima () {
     maxZoom: 13
   })
 }
-const kotizu07hukusimaObj = {};
+const kotizu07hukusimaObj = {}
 for (let i of mapsStr) {
   kotizu07hukusimaObj[i] = new TileLayer(new Kotizu07hukusima())
   const dep = kotizu07hukusimaObj[i].values_.dep
@@ -946,7 +938,7 @@ const kotizu07hukusimaSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunk
 // 08茨城県古地図-------------------------------------------------------------------------------
 function Kotizu08ibaraki () {
   this.extent = transformE([139.58588029093454, 35.584363236024984,141.05682751930664, 37.05225527704674])
-  this.dep = MaskDep.ibaraki;
+  this.dep = MaskDep.ibaraki
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu3/tile/8ibarakiken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -954,7 +946,7 @@ function Kotizu08ibaraki () {
     maxZoom: 13
   })
 }
-const kotizu08ibarakiObj = {};
+const kotizu08ibarakiObj = {}
 for (let i of mapsStr) {
   kotizu08ibarakiObj[i] = new TileLayer(new Kotizu08ibaraki())
   const dep = kotizu08ibarakiObj[i].values_.dep
@@ -964,7 +956,7 @@ const kotizu08ibarakiSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunke
 // 09栃木県古地図-------------------------------------------------------------------------------
 function Kotizu09tochigi () {
   this.extent = transformE([139.16473762415603, 36.034787548044235,140.3640785003479,37.28813719296335])
-  this.dep = MaskDep.tochigi;
+  this.dep = MaskDep.tochigi
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu3/tile/9tochigiken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -972,7 +964,7 @@ function Kotizu09tochigi () {
     maxZoom: 13
   })
 }
-const kotizu09tochigiObj = {};
+const kotizu09tochigiObj = {}
 for (let i of mapsStr) {
   kotizu09tochigiObj[i] = new TileLayer(new Kotizu09tochigi())
   const dep = kotizu09tochigiObj[i].values_.dep
@@ -982,7 +974,7 @@ const kotizu09tochigiSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunke
 // 10群馬県古地図-------------------------------------------------------------------------------
 function Kotizu10gunma () {
   this.extent = transformE([137.94708623489814, 35.728182291196276,140.03754030889286, 37.35366397666763])
-  this.dep = MaskDep.gunma;
+  this.dep = MaskDep.gunma
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu3/tile/10gunmaken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -990,7 +982,7 @@ function Kotizu10gunma () {
     maxZoom: 13
   })
 }
-const kotizu10gunmaObj = {};
+const kotizu10gunmaObj = {}
 for (let i of mapsStr) {
   kotizu10gunmaObj[i] = new TileLayer(new Kotizu10gunma())
   const dep = kotizu10gunmaObj[i].values_.dep
@@ -1000,7 +992,7 @@ const kotizu10gunmaSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunkenz
 // 11埼玉県古地図-------------------------------------------------------------------------------
 function Kotizu11saitama () {
   this.extent = transformE([138.5177649935174, 35.56202325676628,140.11993795683864, 36.48019691910925])
-  this.dep = MaskDep.saitama;
+  this.dep = MaskDep.saitama
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu2/tile/11saitamaken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1008,7 +1000,7 @@ function Kotizu11saitama () {
     maxZoom: 13
   })
 }
-const kotizu11saitamaObj = {};
+const kotizu11saitamaObj = {}
 for (let i of mapsStr) {
   kotizu11saitamaObj[i] = new TileLayer(new Kotizu11saitama())
   const dep = kotizu11saitamaObj[i].values_.dep
@@ -1018,7 +1010,7 @@ const kotizu11saitamaSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunke
 // 12千葉県古地図-------------------------------------------------------------------------------
 function Kotizu12chibaken () {
   this.extent = transformE([139.5767250328089, 34.76869219518032,141.05072411212575, 36.23442834465834])
-  this.dep = MaskDep.chiba;
+  this.dep = MaskDep.chiba
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu/tile/12chibaken/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1026,7 +1018,7 @@ function Kotizu12chibaken () {
     maxZoom: 13
   })
 }
-const kotizu12chibakenObj = {};
+const kotizu12chibakenObj = {}
 for (let i of mapsStr) {
   kotizu12chibakenObj[i] = new TileLayer(new Kotizu12chibaken())
   const dep = kotizu12chibakenObj[i].values_.dep
@@ -1036,7 +1028,7 @@ const kotizu12chibakenSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunk
 // 13東京都古地図-------------------------------------------------------------------------------
 function Kotizu13tokyo () {
   this.extent = transformE([138.82294073937393, 35.30093068425302,140.05279928682307, 36.0421907297518])
-  this.dep = MaskDep.tokyo;
+  this.dep = MaskDep.tokyo
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu/tile/13tokyo/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1044,7 +1036,7 @@ function Kotizu13tokyo () {
     maxZoom: 13
   })
 }
-const kotizu13tokyoObj = {};
+const kotizu13tokyoObj = {}
 for (let i of mapsStr) {
   kotizu13tokyoObj[i] = new TileLayer(new Kotizu13tokyo())
   const dep = kotizu13tokyoObj[i].values_.dep
