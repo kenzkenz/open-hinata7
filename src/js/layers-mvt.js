@@ -977,7 +977,7 @@ function kouziStyleFunction () {
       })
     });
     styles.push(circleStyle);
-    if(zoom>=15) {
+    if(zoom>=14) {
       styles.push(textStyle);
     }
     // console.log(prop)

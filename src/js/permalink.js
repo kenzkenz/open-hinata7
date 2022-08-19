@@ -136,6 +136,7 @@ export function permalinkEventSet () {
                         };
                       store.commit('base/pushDialogsInfo', {mapName: mapName, dialog: infoDialog});
                       const c = urlLayerListArr[i][j].c;
+                      console.log(c)
                       for (let k=0; k<c.values.length;k++) {
                         store.commit('info/update', {name: c.name, mapName: mapName, value: c.values[k], order: k})
                       }
