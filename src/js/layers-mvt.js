@@ -925,28 +925,28 @@ function kasoStyleFunction() {
   }
 }
 //R04公示価格------------------------------------------------------------------------------------------------
-function KouziR04(){
+function KouziR04(mapName){
   this.name = 'kouziR04'
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom:13,
     url: "https://kenzkenz.github.io/kouzi_r4/{z}/{x}/{y}.mvt"
   });
-  this.style = kouziStyleFunction();
+  this.style = kouziStyleFunction(mapName);
 }
 export const kouziR04Obj = {};
 for (let i of mapsStr) {
-  kouziR04Obj[i] = new VectorTileLayer(new KouziR04())
+  kouziR04Obj[i] = new VectorTileLayer(new KouziR04(i))
 }
 export const kouziR04Summ = "<a href='' target='_blank'>国土数値情報　公示価格</a>";
 // --------------------------------------------------
-function kouziStyleFunction () {
+function kouziStyleFunction (mapName) {
   return function(feature, resolution) {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
     const styles = [];
     const color = d3.scaleLinear()
-        .domain([100, store.state.base.zyougen])
+        .domain([100, store.state.info.kouzi[mapName]])
         .range(["blue", "red"]);
     const circleStyle = new Style({
       image: new Circle({

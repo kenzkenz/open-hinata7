@@ -130,6 +130,12 @@ const moduleBase = {
       const result = state.layerLists[payload.mapName].find(el => el.id === payload.id);
       result.component.values = payload.values;
     },
+    getListPart (state, payload) {
+      const result = state.layerLists[payload.mapName].find(el => el.id === payload.id);
+      console.log(result.component.values)
+
+      // result.component.values = payload.values;
+    },
     // 通知-------------------------------------------------------------------------------------
     updateNotification (state, payload) { state.notification = payload },
     //マップ分割フラグ----------------------------------------------------------------------------
@@ -171,6 +177,12 @@ const moduleInfo = {
       map03: 10,
       map04: 10
     },
+    kouzi: {
+      map01: 100000,
+      map02: 100000,
+      map03: 100000,
+      map04: 100000
+    },
     colors: {
       m20: {r: 187,g: 0,b:187,a:122/255 },
       m10: {r: 228,g: 0,b:142,a:135/255 },
@@ -203,8 +215,14 @@ const moduleInfo = {
             variable = 'selected10m'
           }
           break
+        case 'kouzi':
+            variable = 'kouzi'
+          break
       }
       state[variable][payload.mapName] = payload.value
+    },
+    updateKouzi (state,payload) {
+      state.kouzi[payload.mapName] = payload.value
     },
     updateSeaLevel5m (state,payload) {
       state.seaLevel5m[payload.mapName] = payload.value

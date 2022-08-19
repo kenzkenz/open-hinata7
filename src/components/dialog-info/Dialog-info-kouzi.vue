@@ -1,14 +1,15 @@
 <template>
-  <div>
+  <div style="padding: 10px;">
     カラースケール上限値<br>
-    <input type='number' @input="onInput" v-model="s_zyougen" size='5'>
+    <input type='number' @input="onInput" v-model="s_zyougen" style="width: 100px;">円
  </div>
 </template>
 <script>
 import * as MvtLayers from '../../js/layers-mvt'
+import * as permalink from '../../js/permalink'
 export default {
   name: "Dialog-info-seamless",
-  props: ['mapName'],
+  props: ['mapName', 'item'],
   data () {
     return {
       btnSize: 'sm',
@@ -19,10 +20,12 @@ export default {
   computed: {
     s_zyougen: {
       get() {
-        return this.$store.state.base.zyougen
+        return this.$store.state.info.kouzi[this.mapName]
       },
       set(value) {
-        this.$store.commit('base/updateZyougen', value)
+        this.$store.commit('base/updateListPart',{mapName: this.mapName, id:this.item.id, values: [value]});
+        this.$store.commit('info/updateKouzi',{mapName: this.mapName, value: value})
+        permalink.moveEnd()
       }
     },
   },
