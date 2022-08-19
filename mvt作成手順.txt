@@ -246,7 +246,7 @@ $ gzip -d -v -r -S .pbf *
 $ find . -type f -exec mv -v '{}' '{}'.mvt \;
 -------------------------------------------------------------------------------------------
 ポイントを極力表示するオプション-rg 使わない
-$ tippecanoe -Z1 -z14 -pk -f -e tile kouzi.geojson
+$ tippecanoe -Z1 -z15 -pk -f -e tile kouzi.geojson
 
 $ cd tile
 $ gzip -d -v -r -S .pbf *
