@@ -172,8 +172,12 @@ export function popUp(map,layers,features,overlay,evt,content) {
       console.log(prop)
       break
     case 'kouziR04':
-      cont = '公示価格＝' + prop.L01_100.toLocaleString() + '円'
       console.log(prop)
+      cont = prop.L01_024 +'<br>公示価格＝' + Number(prop.L01_100).toLocaleString() + '円'
+      break
+    case 'kouziH19':
+      console.log(prop)
+      cont = prop.L01_019 +'<br>公示価格＝' + Number(prop.L01_006).toLocaleString() + '円'
       break
   }
   content.innerHTML = cont

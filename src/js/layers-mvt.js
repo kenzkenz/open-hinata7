@@ -924,6 +924,22 @@ function kasoStyleFunction() {
     return style;
   }
 }
+//H19公示価格------------------------------------------------------------------------------------------------
+function KouziH19(mapName){
+  this.name = 'kouziH19'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/kouzi_h19/{z}/{x}/{y}.mvt"
+  });
+  this.style = kouziStyleFunction(mapName,19);
+}
+export const kouziH19Obj = {};
+for (let i of mapsStr) {
+  kouziH19Obj[i] = new VectorTileLayer(new KouziH19(i))
+}
+export const kouziH19Summ = "<a href='' target='_blank'>国土数値情報　公示価格</a>";
+
 //R04公示価格------------------------------------------------------------------------------------------------
 function KouziR04(mapName){
   this.name = 'kouziR04'
@@ -940,7 +956,7 @@ for (let i of mapsStr) {
 }
 export const kouziR04Summ = "<a href='' target='_blank'>国土数値情報　公示価格</a>";
 // --------------------------------------------------
-function kouziStyleFunction (mapName) {
+function kouziStyleFunction (mapName,year) {
   return function(feature, resolution) {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
@@ -948,11 +964,20 @@ function kouziStyleFunction (mapName) {
     const color = d3.scaleLinear()
         .domain([100, store.state.info.kouzi[mapName]])
         .range(["blue", "red"]);
+    let color2
+    let text
+    if (year === 19) {
+      color2 = color(prop.L01_006)
+      text = prop.L01_019
+    } else {
+      color2 = color(prop.L01_100)
+      text = prop.L01_024
+    }
     const circleStyle = new Style({
       image: new Circle({
         radius: 8,
         fill: new Fill({
-          color: color(prop.L01_100)
+          color: color2
         }),
         stroke: new Stroke({
           color: "white",
@@ -963,7 +988,7 @@ function kouziStyleFunction (mapName) {
     const textStyle = new Style({
       text: new Text({
         font: "14px sans-serif",
-        text: prop.L01_024,
+        text: text,
         placement:"point",
         offsetY:10,
         fill: new Fill({
