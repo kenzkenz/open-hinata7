@@ -245,12 +245,10 @@ $ cd kumamotoTile
 $ gzip -d -v -r -S .pbf *
 $ find . -type f -exec mv -v '{}' '{}'.mvt \;
 -------------------------------------------------------------------------------------------
-ポイントを極力表示するオプション-rg
-$ tippecanoe -Z1 -z17 -pk -rg -f -o kumamoto17.mbtiles mix2.geojson
+ポイントを極力表示するオプション-rg 使わない
+$ tippecanoe -Z1 -z14 -pk -f -e tile kouzi.geojson
 
-$ mb-util --image_format=pbf kumamoto17.mbtiles kumamotoTile17
-
-$ cd kumamotoTile17
+$ cd tile
 $ gzip -d -v -r -S .pbf *
 $ find . -type f -exec mv -v '{}' '{}'.mvt \;
 -------------------------------------------------------------------------------------------

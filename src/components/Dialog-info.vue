@@ -14,8 +14,10 @@
             <v-flood :item="item" :mapName="mapName" v-else-if="item.component.name === 'flood5m'" />
             <!--海面上昇シミュレーション10m-->
             <v-flood :item="item" :mapName="mapName" v-else-if="item.component.name === 'flood10m'"/>
-
+            <!--シームレス地質図-->
             <v-seamless :item="item" :mapName="mapName" v-else-if="item.component.name === 'seamless'"/>
+
+            <v-kouzi :item="item" :mapName="mapName" v-else-if="item.component.name === 'kouzi'"/>
 
 
         </div>
@@ -25,9 +27,11 @@
 <script>
   import DialogInfoFlood from './dialog-info/Dialog-info-flood'
   import DialogInfoSeamless from "@/components/dialog-info/Dialog-info-seamless";
+  import DialogInfoKouzi from "@/components/dialog-info/Dialog-info-kouzi";
   export default {
     name: "v-dialog-info",
     components: {
+      'v-kouzi': DialogInfoKouzi,
       'v-seamless':DialogInfoSeamless,
       'v-flood': DialogInfoFlood
     },

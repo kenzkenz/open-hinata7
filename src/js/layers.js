@@ -18,6 +18,7 @@ import Crop from 'ol-ext/filter/Crop'
 import Mask from 'ol-ext/filter/Mask'
 import  * as MaskDep from './mask-dep'
 import  * as LayersMvt from './layers-mvt'
+import {kouziR04Obj, kouziR04Summ, kouzR04Obj} from "./layers-mvt";
 const mapsStr = ['map01','map02','map03','map04']
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
@@ -2055,6 +2056,10 @@ const layers =
         { text: 'S60過疎地域', data: { id: "kasoS60", layer: LayersMvt.kasoS60Obj, opacity: 1, summary: LayersMvt.kasoS60Summ } },
         { text: 'H29過疎地域', data: { id: "kasoH29", layer: LayersMvt.kasoH29Obj, opacity: 1, summary: LayersMvt.kasoH29Summ } },
     ]},
+    { text: '公示価格',
+      children: [
+        { text: 'R04公示価格', data: { id: "kouziR04", layer: LayersMvt.kouziR04Obj, opacity: 1, summary: LayersMvt.kouziR04Summ,component: {name: 'kouzi', values:[]} } },
+      ]},
     { text: '都市地域',
       children: [
         // { text: 'H18都市地域', data: { id: "tosiH18", layer: LayersMvt.tosiH18Obj, opacity: 1, summary: LayersMvt.tosiH18Summ } },

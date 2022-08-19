@@ -171,6 +171,10 @@ export function popUp(map,layers,features,overlay,evt,content) {
       }
       console.log(prop)
       break
+    case 'kouziR04':
+      cont = '公示価格＝' + prop.L01_100.toLocaleString() + '円'
+      console.log(prop)
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);

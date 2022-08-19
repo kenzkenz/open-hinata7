@@ -6,6 +6,7 @@ Vue.use(Vuex);
 const moduleBase = {
   namespaced: true,
   state: {
+    zyougen:100000,
     colorArr: {
       map01: [],
       map02: [],
@@ -66,8 +67,11 @@ const moduleBase = {
     }
   },
   mutations: {
+    updateZyougen (state, payload) {
+      console.log(payload)
+      state.zyougen = payload
+    },
     updateColorArr (state, payload) {
-      // state.colorsArr[payload.mapName] = payload.colorsArr
       console.log(payload)
       state.colorArr[payload.mapName] = payload.colorArr
     },

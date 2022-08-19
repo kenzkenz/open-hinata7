@@ -1,3 +1,4 @@
+import store from './store'
 import VectorTileSource from "ol/source/VectorTile";
 import MVT from "ol/format/MVT";
 import VectorTileLayer from "ol/layer/VectorTile";
@@ -922,4 +923,64 @@ function kasoStyleFunction() {
       });
     return style;
   }
+}
+//R04公示価格------------------------------------------------------------------------------------------------
+function KouziR04(){
+  this.name = 'kouziR04'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/kouzi_r4/{z}/{x}/{y}.mvt"
+  });
+  this.style = kouziStyleFunction();
+}
+export const kouziR04Obj = {};
+for (let i of mapsStr) {
+  kouziR04Obj[i] = new VectorTileLayer(new KouziR04())
+}
+export const kouziR04Summ = "<a href='' target='_blank'>国土数値情報　公示価格</a>";
+// --------------------------------------------------
+function kouziStyleFunction () {
+  return function(feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    const color = d3.scaleLinear()
+        .domain([100, store.state.base.zyougen])
+        .range(["blue", "red"]);
+    const circleStyle = new Style({
+      image: new Circle({
+        radius: 8,
+        fill: new Fill({
+          color: color(prop.L01_100)
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 1
+        })
+      })
+    })
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: prop.L01_024,
+        placement:"point",
+        offsetY:10,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(circleStyle);
+    if(zoom>=15) {
+      styles.push(textStyle);
+    }
+    // console.log(prop)
+    return styles;
+  };
 }
