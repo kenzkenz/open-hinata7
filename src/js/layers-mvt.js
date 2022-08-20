@@ -929,7 +929,7 @@ function KouziH19(mapName){
   this.name = 'kouziH19'
   this.source = new VectorTileSource({
     format: new MVT(),
-    maxZoom:13,
+    maxZoom:15,
     url: "https://kenzkenz.github.io/kouzi_h19/{z}/{x}/{y}.mvt"
   });
   this.style = kouziStyleFunction(mapName,19);
@@ -939,16 +939,31 @@ for (let i of mapsStr) {
   kouziH19Obj[i] = new VectorTileLayer(new KouziH19(i))
 }
 export const kouziH19Summ = "<a href='' target='_blank'>国土数値情報　公示価格</a>";
+//H30公示価格------------------------------------------------------------------------------------------------
+function KouziH30(mapName){
+  this.name = 'kouziH30'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/kouzi_h30/{z}/{x}/{y}.mvt"
+  });
+  this.style = kouziStyleFunction(mapName,30);
+}
+export const kouziH30Obj = {};
+for (let i of mapsStr) {
+  kouziH30Obj[i] = new VectorTileLayer(new KouziH30(i))
+}
+export const kouziH30Summ = "<a href='' target='_blank'>国土数値情報　公示価格</a>";
 
 //R04公示価格------------------------------------------------------------------------------------------------
 function KouziR04(mapName){
   this.name = 'kouziR04'
   this.source = new VectorTileSource({
     format: new MVT(),
-    maxZoom:13,
+    maxZoom:15,
     url: "https://kenzkenz.github.io/kouzi_r4/{z}/{x}/{y}.mvt"
   });
-  this.style = kouziStyleFunction(mapName);
+  this.style = kouziStyleFunction(mapName,4);
 }
 export const kouziR04Obj = {};
 for (let i of mapsStr) {
@@ -966,12 +981,19 @@ function kouziStyleFunction (mapName,year) {
         .range(["blue", "red"]);
     let color2
     let text
-    if (year === 19) {
-      color2 = color(prop.L01_006)
-      text = prop.L01_019
-    } else {
-      color2 = color(prop.L01_100)
-      text = prop.L01_024
+    switch(year){
+      case 30:
+        color2 = color(prop.L01_091)
+        text = prop.L01_023
+        break
+      case 19:
+        color2 = color(prop.L01_006)
+        text = prop.L01_019
+        break
+      case 4:
+        color2 = color(prop.L01_100)
+        text = prop.L01_024
+        break
     }
     const circleStyle = new Style({
       image: new Circle({

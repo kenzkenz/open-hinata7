@@ -2059,6 +2059,7 @@ const layers =
     { text: '公示価格',
       children: [
         { text: 'H19公示価格', data: { id: "kouziH19", layer: LayersMvt.kouziH19Obj, opacity: 1, summary: LayersMvt.kouziH19Summ,component: {name: 'kouzi', values:[]} } },
+        { text: 'H30公示価格', data: { id: "kouziH30", layer: LayersMvt.kouziH30Obj, opacity: 1, summary: LayersMvt.kouziH30Summ,component: {name: 'kouzi', values:[]} } },
         { text: 'R04公示価格', data: { id: "kouziR04", layer: LayersMvt.kouziR04Obj, opacity: 1, summary: LayersMvt.kouziR04Summ,component: {name: 'kouzi', values:[]} } },
       ]},
     { text: '都市地域',

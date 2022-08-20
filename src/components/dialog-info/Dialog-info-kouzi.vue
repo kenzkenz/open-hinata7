@@ -31,6 +31,8 @@ export default {
   },
   methods: {
     onInput: function() {
+      MvtLayers.kouziH19Obj[this.mapName].getSource().changed()
+      MvtLayers.kouziH30Obj[this.mapName].getSource().changed()
       MvtLayers.kouziR04Obj[this.mapName].getSource().changed()
     }
   },

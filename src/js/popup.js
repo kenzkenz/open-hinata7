@@ -179,6 +179,10 @@ export function popUp(map,layers,features,overlay,evt,content) {
       console.log(prop)
       cont = prop.L01_019 +'<br>公示価格＝' + Number(prop.L01_006).toLocaleString() + '円'
       break
+    case 'kouziH30':
+      console.log(prop)
+      cont = prop.L01_023 +'<br>公示価格＝' + Number(prop.L01_091).toLocaleString() + '円'
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);
