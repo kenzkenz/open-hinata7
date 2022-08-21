@@ -939,6 +939,22 @@ for (let i of mapsStr) {
   kouziH19Obj[i] = new VectorTileLayer(new KouziH19(i))
 }
 export const kouziH19Summ = "<a href='' target='_blank'>国土数値情報　公示価格</a>";
+//H25公示価格------------------------------------------------------------------------------------------------
+function KouziH25(mapName){
+  this.name = 'kouziH25'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/kouzi_h25/{z}/{x}/{y}.mvt"
+  });
+  this.style = kouziStyleFunction(mapName,25);
+}
+export const kouziH25Obj = {};
+for (let i of mapsStr) {
+  kouziH25Obj[i] = new VectorTileLayer(new KouziH25(i))
+}
+export const kouziH25Summ = "<a href='' target='_blank'>国土数値情報　公示価格</a>";
+
 //H30公示価格------------------------------------------------------------------------------------------------
 function KouziH30(mapName){
   this.name = 'kouziH30'
@@ -986,6 +1002,7 @@ function kouziStyleFunction (mapName,year) {
         color2 = color(prop.L01_091)
         text = prop.L01_023
         break
+      case 25:
       case 19:
         color2 = color(prop.L01_006)
         text = prop.L01_019
