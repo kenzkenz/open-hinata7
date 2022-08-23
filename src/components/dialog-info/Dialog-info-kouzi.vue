@@ -1,7 +1,8 @@
 <template>
   <div style="padding: 10px;">
     カラースケール上限値<br>
-    <input type='number' @input="onInput" v-model="s_zyougen" style="width: 100px;">円
+    <input type='number' @input="onInput" v-model="s_zyougen" style="width: 100px;">円<br><br>
+    出典＝<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-L01-v3_1.html' target='_blank'>国土数値情報地価公示データ</a>
  </div>
 </template>
 <script>
