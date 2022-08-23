@@ -977,7 +977,7 @@ function KouziR04(mapName){
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom:15,
-    url: "https://kenzkenz.github.io/kouzi_r4/{z}/{x}/{y}.mvt"
+    url: "https://kenzkenz.github.io/kouzi_r4_2/{z}/{x}/{y}.mvt"
   });
   this.style = kouziStyleFunction(mapName,4);
 }
