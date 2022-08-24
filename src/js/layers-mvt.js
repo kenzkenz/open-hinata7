@@ -4,6 +4,10 @@ import MVT from "ol/format/MVT";
 import VectorTileLayer from "ol/layer/VectorTile";
 import * as d3 from "d3";
 import {Fill, Stroke, Style, Text, Circle} from "ol/style";
+import {transformExtent} from "ol/proj";
+const transformE = extent => {
+  return transformExtent(extent,'EPSG:4326','EPSG:3857')
+};
 const mapsStr = ['map01','map02','map03','map04'];
 //H28小学校区------------------------------------------------------------------------------------------------
 function SyougakkoukuH28(){
@@ -1047,4 +1051,45 @@ function kouziStyleFunction (mapName,year) {
     // console.log(prop)
     return styles;
   };
+}
+//筆------------------------------------------------------------------------------------------------
+function Hude01(){
+  this.name = 'hude'
+  this.extent = transformE([139.29977955579702, 41.33735893619786,146.05830163520793, 45.998925934593984])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/hude_01/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude01Obj = {};
+for (let i of mapsStr) {
+  hude01Obj[i] = new VectorTileLayer(new Hude01())
+}
+export const hude01Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+//--------------------------------------
+function hudeStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    let rgba = "black"
+    switch (prop.land_type) {
+      case 100://田
+        rgba = "rgba(40,152,53,0.7)";
+        break;
+      case 200://畑
+        rgba = "rgba(239,255,3,0.7)"
+        break;
+    }
+    const style = new Style({
+      fill: new Fill({
+        color: rgba
+      }),
+      stroke: new Stroke({
+        color: "black",
+        width: 1
+      }),
+    });
+    return style;
+  }
 }

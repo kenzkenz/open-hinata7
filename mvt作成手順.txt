@@ -349,6 +349,15 @@ cd senkyokuTile
 gzip -d -v -r -S .pbf *
 find . -type f -exec mv -v '{}' '{}'.mvt \;
 -------------------------------------------------------------------------------------------
+tippecanoe --cluster-distance=10 -r2.5 --coalesce-densest-as-needed -P -Z1 -z15 -pk -S10 -f -e tile 01hokkaidou.geojson
+tippecanoe --cluster-distance=1 -P -Z1 -z15 -pk -f -e tile 01hokkaidou.geojson
+
+mb-util --image_format=pbf h17kokusei.mbtiles h17kokuseiTile
+
+cd h17kokuseiTile
+gzip -d -v -r -S .pbf *
+find . -type f -exec mv -v '{}' '{}'.mvt \;
+-------------------------------------------------------------------------------------------
 tippecanoe -P -Z1 -z15 -pk -S10 -f -o h17kokusei.mbtiles h17kokusei.geojson
 
 mb-util --image_format=pbf h17kokusei.mbtiles h17kokuseiTile

@@ -6,6 +6,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
   const coordinate = evt.coordinate;
   console.log(layers[0].get('name'))
   const prop = features[0].getProperties();
+  console.log(prop)
   switch (layers[0].get('name') ) {
     // 小学校区
     case 'syougakkoukuH28':
@@ -169,20 +170,23 @@ export function popUp(map,layers,features,overlay,evt,content) {
       } else {
         cont = prop.P20_002 + '<br>' + prop.P20_003
       }
-      console.log(prop)
       break
     case 'kouziR04':
-      console.log(prop)
       cont = prop.L01_024 +'<br>公示価格＝' + Number(prop.L01_100).toLocaleString() + '円'
       break
     case 'kouziH25':
     case 'kouziH19':
-      console.log(prop)
       cont = prop.L01_019 +'<br>公示価格＝' + Number(prop.L01_006).toLocaleString() + '円'
       break
     case 'kouziH30':
-      console.log(prop)
       cont = prop.L01_023 +'<br>公示価格＝' + Number(prop.L01_091).toLocaleString() + '円'
+      break
+    case 'hude':
+      if (prop.land_type === 100) {
+        cont = '田'
+      } else {
+        cont = '畑'
+      }
       break
   }
   content.innerHTML = cont
