@@ -2058,6 +2058,15 @@ const layers =
     { text: '農地',
       children: [
         { text: '01北海道', data: { id: "hude01", layer: LayersMvt.hude01Obj, opacity: 1, summary: LayersMvt.hude01Summ } },
+        { text: '東北',
+          children: [
+            { text: '02青森県', data: { id: "hude02", layer: LayersMvt.hude02Obj, opacity: 1, summary: LayersMvt.hude02Summ } },
+            { text: '03岩手県', data: { id: "hude03", layer: LayersMvt.hude03Obj, opacity: 1, summary: LayersMvt.hude03Summ } },
+            { text: '04宮城県', data: { id: "hude04", layer: LayersMvt.hude04Obj, opacity: 1, summary: LayersMvt.hude04Summ } },
+            { text: '05秋田県', data: { id: "hude05", layer: LayersMvt.hude05Obj, opacity: 1, summary: LayersMvt.hude05Summ } },
+            { text: '06山形県', data: { id: "hude06", layer: LayersMvt.hude06Obj, opacity: 1, summary: LayersMvt.hude06Summ } },
+
+          ]}
       ]},
     { text: '公示価格',
       children: [
