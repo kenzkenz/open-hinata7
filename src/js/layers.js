@@ -2057,6 +2057,7 @@ const layers =
     ]},
     { text: '農地',
       children: [
+        { text: '全国農地', data: { id: "hude00", layer: LayersMvt.hude00Obj, opacity: 1, summary: LayersMvt.hude01Summ } },
         { text: '01北海道', data: { id: "hude01", layer: LayersMvt.hude01Obj, opacity: 1, summary: LayersMvt.hude01Summ } },
         { text: '東北',
           children: [
@@ -2065,8 +2066,34 @@ const layers =
             { text: '04宮城県', data: { id: "hude04", layer: LayersMvt.hude04Obj, opacity: 1, summary: LayersMvt.hude04Summ } },
             { text: '05秋田県', data: { id: "hude05", layer: LayersMvt.hude05Obj, opacity: 1, summary: LayersMvt.hude05Summ } },
             { text: '06山形県', data: { id: "hude06", layer: LayersMvt.hude06Obj, opacity: 1, summary: LayersMvt.hude06Summ } },
-
-          ]}
+            { text: '07福島県', data: { id: "hude07", layer: LayersMvt.hude07Obj, opacity: 1, summary: LayersMvt.hude07Summ } },
+          ]},
+        { text: ' 中国',
+          children: [
+            { text: '31鳥取県農地', data: { id: 'hude31', layer: LayersMvt.hude31Obj, opacity: 1, summary: LayersMvt.hude31Summ } },
+            { text: '32島根県農地', data: { id: 'hude32', layer: LayersMvt.hude32Obj, opacity: 1, summary: LayersMvt.hude32Summ } },
+            { text: '33岡山県農地', data: { id: 'hude33', layer: LayersMvt.hude33Obj, opacity: 1, summary: LayersMvt.hude33Summ } },
+            { text: '34広島県農地', data: { id: 'hude34', layer: LayersMvt.hude34Obj, opacity: 1, summary: LayersMvt.hude34Summ } },
+            { text: '35山口県農地', data: { id: 'hude35', layer: LayersMvt.hude35Obj, opacity: 1, summary: LayersMvt.hude35Summ } },
+          ]},
+        { text: '四国',
+          children: [
+            { text: '36徳島県農地', data: { id: 'hude36', layer: LayersMvt.hude36Obj, opacity: 1, summary: LayersMvt.hude36Summ } },
+            { text: '37香川県農地', data: { id: 'hude37', layer: LayersMvt.hude37Obj, opacity: 1, summary: LayersMvt.hude37Summ } },
+            { text: '38愛媛県農地', data: { id: 'hude38', layer: LayersMvt.hude38Obj, opacity: 1, summary: LayersMvt.hude38Summ } },
+            { text: '39高知県農地', data: { id: 'hude39', layer: LayersMvt.hude39Obj, opacity: 1, summary: LayersMvt.hude39Summ } },
+          ]},
+        { text: '九州',
+          children: [
+            { text: '40福岡県', data: { id: "hude40", layer: LayersMvt.hude40Obj, opacity: 1, summary: LayersMvt.hude40Summ } },
+            { text: '41佐賀県', data: { id: "hude41", layer: LayersMvt.hude41Obj, opacity: 1, summary: LayersMvt.hude41Summ } },
+            { text: '42長崎県', data: { id: "hude42", layer: LayersMvt.hude42Obj, opacity: 1, summary: LayersMvt.hude42Summ } },
+            { text: '43熊本県', data: { id: "hude43", layer: LayersMvt.hude43Obj, opacity: 1, summary: LayersMvt.hude43Summ } },
+            { text: '44大分県', data: { id: "hude44", layer: LayersMvt.hude44Obj, opacity: 1, summary: LayersMvt.hude44Summ } },
+            { text: '45宮崎県', data: { id: "hude45", layer: LayersMvt.hude45Obj, opacity: 1, summary: LayersMvt.hude45Summ } },
+            { text: '46鹿児島県', data: { id: "hude46", layer: LayersMvt.hude46Obj, opacity: 1, summary: LayersMvt.hude46Summ } },
+            { text: '47沖縄県', data: { id: "hude47", layer: LayersMvt.hude47Obj, opacity: 1, summary: LayersMvt.hude47Summ } },
+          ]},
       ]},
     { text: '公示価格',
       children: [

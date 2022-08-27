@@ -353,7 +353,7 @@ tippecanoe --cluster-distance=10 -r2.5 --coalesce-densest-as-needed -P -Z1 -z15 
 tippecanoe --cluster-distance=1 -P -Z1 -z15 -pk -f -e tile 01hokkaidou.geojson
 tippecanoe --cluster-distance=2 -P -Z1 -z15 -pk -f -e tile hude.geojson
 
-
+tippecanoe -m7 --coalesce-fraction-as-needed --extend-zooms-if-still-dropping -P -Z1 -z13 -pk -f -e tile hude.geojson
 
 
 mb-util --image_format=pbf h17kokusei.mbtiles h17kokuseiTile

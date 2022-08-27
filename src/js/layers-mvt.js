@@ -5,6 +5,7 @@ import VectorTileLayer from "ol/layer/VectorTile";
 import * as d3 from "d3";
 import {Fill, Stroke, Style, Text, Circle} from "ol/style";
 import {transformExtent} from "ol/proj";
+import LayerGroup from "ol/layer/Group";
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
@@ -1135,7 +1136,7 @@ export const hude05Summ = "<a href='https://download.fude.maff.go.jp/' target='_
 //--------------------------------------------------------
 function Hude06(){
   this.name = 'hude'
-  // this.extent = transformE([139.13934222421105, 37.75557676769412,140.84754665202718, 39.22399178844441])
+  this.extent = transformE([139.02594592303555, 37.71780786572144,140.91672198588856, 39.14842384692383])
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom:15,
@@ -1148,6 +1149,308 @@ for (let i of mapsStr) {
   hude06Obj[i] = new VectorTileLayer(new Hude06())
 }
 export const hude06Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+//--------------------------------------------------------
+function Hude07(){
+  this.name = 'hude'
+  this.extent = transformE([138.9336633682251, 36.79038464710865,141.2795877456665, 38.11274719529956])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_07/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude07Obj = {};
+for (let i of mapsStr) {
+  hude07Obj[i] = new VectorTileLayer(new Hude07())
+}
+export const hude07Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+//--------------------------------------------------------
+function Hude31(){
+  this.name = 'hude'
+  this.extent = transformE([133.04653644561765, 34.97754873651819,134.55668449401853, 35.822754502187806])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_31/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude31Obj = {};
+for (let i of mapsStr) {
+  hude31Obj[i] = new VectorTileLayer(new Hude31())
+}
+export const hude31Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude32(){
+  this.name = 'hude'
+  this.extent = transformE([131.6827940940857, 34.23170940273816,133.6316442489624, 36.458810558660346])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_32/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude32Obj = {};
+for (let i of mapsStr) {
+  hude32Obj[i] = new VectorTileLayer(new Hude32())
+}
+export const hude32Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude33(){
+  this.name = 'hude'
+  this.extent = transformE([133.3229112625122, 34.37735720960234,134.50080871582028, 35.417576199035835])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_33/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude33Obj = {};
+for (let i of mapsStr) {
+  hude33Obj[i] = new VectorTileLayer(new Hude33())
+}
+export const hude33Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude34(){
+  this.name = 'hude'
+  this.extent = transformE([132.03581864329306, 34.05137181766713,133.47375863893242, 35.18277388551303])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_34/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude34Obj = {};
+for (let i of mapsStr) {
+  hude34Obj[i] = new VectorTileLayer(new Hude34())
+}
+export const hude34Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude35(){
+  this.name = 'hude'
+  this.extent = transformE([130.78259931111435, 33.682879373503454,132.2622885364332, 34.84236026182147])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_35/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude35Obj = {};
+for (let i of mapsStr) {
+  hude35Obj[i] = new VectorTileLayer(new Hude35())
+}
+export const hude35Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude36(){
+  this.name = 'hude'
+  this.extent = transformE([133.61486434936523, 33.45580989422106,134.87865686416626, 34.36508341596317])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_36/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude36Obj = {};
+for (let i of mapsStr) {
+  hude36Obj[i] = new VectorTileLayer(new Hude36())
+}
+export const hude36Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude37(){
+  this.name = 'hude'
+  this.extent = transformE([133.43652963638303, 33.861756385783224,134.59404230117798, 34.72464836879196])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_37/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude37Obj = {};
+for (let i of mapsStr) {
+  hude37Obj[i] = new VectorTileLayer(new Hude37())
+}
+export const hude37Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude38(){
+  this.name = 'hude'
+  this.extent = transformE([132.09029674530032, 32.65494909744014,133.70867729187012, 34.45915421670509])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_38/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude38Obj = {};
+for (let i of mapsStr) {
+  hude38Obj[i] = new VectorTileLayer(new Hude38())
+}
+export const hude38Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude39(){
+  this.name = 'hude'
+  this.extent = transformE([132.39072561264035, 32.50431489991003,134.5411491394043, 34.078113953351334])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_39/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude39Obj = {};
+for (let i of mapsStr) {
+  hude39Obj[i] = new VectorTileLayer(new Hude39())
+}
+export const hude39Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude40(){
+  this.name = 'hude'
+  this.extent = transformE([130.057141337313, 32.94396623353168,131.28437361240947, 34.03340278739611])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_40/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude40Obj = {};
+for (let i of mapsStr) {
+  hude40Obj[i] = new VectorTileLayer(new Hude40())
+}
+export const hude40Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude41(){
+  this.name = 'hude'
+  this.extent = transformE([129.82159852981565, 32.87355012041051,130.55144906044004, 33.7152284176957])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_41/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude41Obj = {};
+for (let i of mapsStr) {
+  hude41Obj[i] = new VectorTileLayer(new Hude41())
+}
+export const hude41Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude42(){
+  this.name = 'hude'
+  this.extent = transformE([128.2349128127082, 31.995704237348633,130.49598898341947, 34.89023386619155])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_42/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude42Obj = {};
+for (let i of mapsStr) {
+  hude42Obj[i] = new VectorTileLayer(new Hude42())
+}
+export const hude42Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude43(){
+  this.name = 'hude'
+  this.extent = transformE([129.91195678710938, 32.04104943270438,131.37672185897827, 33.274170666993925])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_43/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude43Obj = {};
+for (let i of mapsStr) {
+  hude43Obj[i] = new VectorTileLayer(new Hude43())
+}
+export const hude43Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude44(){
+  this.name = 'hude'
+  this.extent = transformE([130.76267838478086, 32.71575652411805,132.14372634887692, 33.83879465741656])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_44/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude44Obj = {};
+for (let i of mapsStr) {
+  hude44Obj[i] = new VectorTileLayer(new Hude44())
+}
+export const hude44Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+
+//--------------------------------------------------------
+function Hude45(){
+  this.name = 'hude'
+  this.extent = transformE([130.67389791787602, 31.32789462014621,132.07326770804468, 32.88017318420452])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_45/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude45Obj = {};
+for (let i of mapsStr) {
+  hude45Obj[i] = new VectorTileLayer(new Hude45())
+}
+export const hude45Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+//--------------------------------------------------------
+function Hude46(){
+  this.name = 'hude'
+  this.extent = transformE([127.64123823916296, 26.95180678728839,131.62686781429306, 32.22152765780952])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_46/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude46Obj = {};
+for (let i of mapsStr) {
+  hude46Obj[i] = new VectorTileLayer(new Hude46())
+}
+export const hude46Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+//--------------------------------------------------------
+function Hude47(){
+  this.name = 'hude'
+  this.extent = transformE([121.96815464834543, 23.403999045222932,131.88800437864094, 26.775877456433534])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/hude_47/{z}/{x}/{y}.mvt"
+  });
+  this.style = hudeStyleFunction();
+}
+export  const hude47Obj = {};
+for (let i of mapsStr) {
+  hude47Obj[i] = new VectorTileLayer(new Hude47())
+}
+export const hude47Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
 
 //--------------------------------------
 function hudeStyleFunction() {
@@ -1173,4 +1476,38 @@ function hudeStyleFunction() {
     });
     return style;
   }
+}
+export const hude00Obj = {}
+for (let i of mapsStr) {
+  hude00Obj[i] = new LayerGroup({
+    layers: [
+      hude01Obj[i],
+      hude02Obj[i],
+      hude03Obj[i],
+      hude04Obj[i],
+      hude05Obj[i],
+      hude06Obj[i],
+      hude07Obj[i],
+
+
+
+      hude31Obj[i],
+      hude32Obj[i],
+      hude33Obj[i],
+      hude34Obj[i],
+      hude35Obj[i],
+      hude36Obj[i],
+      hude37Obj[i],
+      hude38Obj[i],
+      hude39Obj[i],
+      hude40Obj[i],
+      hude41Obj[i],
+      hude42Obj[i],
+      hude43Obj[i],
+      hude44Obj[i],
+      hude45Obj[i],
+      hude46Obj[i],
+      hude47Obj[i]
+    ]
+  })
 }
