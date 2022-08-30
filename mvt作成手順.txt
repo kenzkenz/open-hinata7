@@ -323,6 +323,12 @@ cd tile
 gzip -d -v -r -S .pbf *
 find . -type f -exec mv -v '{}' '{}'.mvt \;
 -------------------------------------------------------------------------------------------
+
+tippecanoe -Z1 -z15 -pk -rg -f -e tile sanson.geojson
+tile
+gzip -d -v -r -S .pbf *
+find . -type f -exec mv -v '{}' '{}'.mvt \;
+-------------------------------------------------------------------------------------------
 ポイントを極力表示するオプション-rg
 
 tippecanoe -Z1 -z15 -pk -rg -f -e tyuugokkoukuTile tyuugokkouku.geojson

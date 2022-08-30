@@ -188,6 +188,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
         cont = '畑'
       }
       break
+    case 'sanson':
+      cont = prop.A24_003 + prop.A24_006
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);

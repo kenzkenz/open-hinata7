@@ -1922,3 +1922,38 @@ for (let i of mapsStr) {
     ]
   })
 }
+//--------------------------------------------------------
+function SansonH28(){
+  this.name = 'sanson'
+  // this.extent = transformE([121.96815464834543, 23.403999045222932,131.88800437864094, 26.775877456433534])
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/sanson_h28/{z}/{x}/{y}.mvt"
+  });
+  this.style = sansonStyleFunction();
+}
+export  const sansonH28Obj = {};
+for (let i of mapsStr) {
+  sansonH28Obj[i] = new VectorTileLayer(new SansonH28())
+}
+export const sansonH28Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+//------------------------------------------
+const sansonColor = d3.scaleOrdinal(d3.schemeCategory10);
+function sansonStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    const rgb = sansonColor(prop.A24_002)
+
+    const style = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "black",
+        width: 1
+      }),
+    });
+    return style;
+  }
+}
