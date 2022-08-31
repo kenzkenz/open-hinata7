@@ -1923,9 +1923,40 @@ for (let i of mapsStr) {
   })
 }
 //--------------------------------------------------------
+function SansonS50(){
+  this.name = 'sanson'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/sanson_s50/{z}/{x}/{y}.mvt"
+  });
+  this.style = sansonStyleFunction();
+}
+export  const sansonS50Obj = {};
+for (let i of mapsStr) {
+  sansonS50Obj[i] = new VectorTileLayer(new SansonS50())
+}
+export const sansonS50Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-v3_0.html' target='_blank'>国土数値情報　振興山村データ</a>"
+
+//--------------------------------------------------------
+function SansonS41(){
+  this.name = 'sanson'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/sanson_s41/{z}/{x}/{y}.mvt"
+  });
+  this.style = sansonStyleFunction();
+}
+export  const sansonS41Obj = {};
+for (let i of mapsStr) {
+  sansonS41Obj[i] = new VectorTileLayer(new SansonS41())
+}
+export const sansonS41Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-v3_0.html' target='_blank'>国土数値情報　振興山村データ</a>"
+
+//--------------------------------------------------------
 function SansonH28(){
   this.name = 'sanson'
-  // this.extent = transformE([121.96815464834543, 23.403999045222932,131.88800437864094, 26.775877456433534])
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom:15,
@@ -1937,7 +1968,7 @@ export  const sansonH28Obj = {};
 for (let i of mapsStr) {
   sansonH28Obj[i] = new VectorTileLayer(new SansonH28())
 }
-export const sansonH28Summ = "<a href='https://download.fude.maff.go.jp/' target='_blank'>筆ポリゴンダウンロードページ</a>";
+export const sansonH28Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-v3_0.html' target='_blank'>国土数値情報　振興山村データ</a>"
 //------------------------------------------
 const sansonColor = d3.scaleOrdinal(d3.schemeCategory10);
 function sansonStyleFunction() {

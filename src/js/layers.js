@@ -2055,6 +2055,8 @@ const layers =
       children: [
         { text: '振興山村地域',
           children: [
+            { text: 'S41振興山村地域', data: { id: "sansonS41", layer: LayersMvt.sansonS41Obj, opacity: 1, summary: LayersMvt.sansonS41Summ } },
+            { text: 'S50振興山村地域', data: { id: "sansonS50", layer: LayersMvt.sansonS50Obj, opacity: 1, summary: LayersMvt.sansonS50Summ } },
             { text: 'H28振興山村地域', data: { id: "sansonH28", layer: LayersMvt.sansonH28Obj, opacity: 1, summary: LayersMvt.sansonH28Summ } },
           ]},
 
