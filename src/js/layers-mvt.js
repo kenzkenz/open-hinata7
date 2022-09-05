@@ -2087,7 +2087,9 @@ function suikeiStyleFunction(iryouken) {
     const prop = feature.getProperties();
     let rgb
     const aaa = prop.PTN_2050 / prop.PTN_2020
-    if (aaa > 1 ) {
+    if (aaa > 1.1 ) {
+      rgb = 'red'
+    } else if (aaa > 1 ) {
       rgb = 'rgb(184,38,25)'
     } else if (aaa > 0.7) {
       rgb = 'rgb(89,119,246)'
