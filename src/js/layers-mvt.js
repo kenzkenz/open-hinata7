@@ -2079,7 +2079,7 @@ export  const suikei1kmObj = {};
 for (let i of mapsStr) {
   suikei1kmObj[i] = new VectorTileLayer(new Suikei1km())
 }
-export const suikei1kmObjSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A38-v2_0.html' target='_blank'>国土数値情報　医療圏データ</a>"
+export const suikei1kmObjSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-mesh1000h30.html' target='_blank'>国土数値情報　1kmメッシュ別将来推計人口データ</a>"
 //------------------------------------------
 const suikeiColor = d3.scaleOrdinal(d3.schemeCategory10);
 function suikeiStyleFunction(iryouken) {
