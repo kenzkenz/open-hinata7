@@ -2073,10 +2073,38 @@ function Suikei1km(){
     maxZoom:13,
     url: "https://kenzkenz.github.io/suikei_1km/{z}/{x}/{y}.mvt"
   });
-  this.style = iryoukenStyleFunction(3);
+  this.style = suikeiStyleFunction(3);
 }
 export  const suikei1kmObj = {};
 for (let i of mapsStr) {
   suikei1kmObj[i] = new VectorTileLayer(new Suikei1km())
 }
 export const suikei1kmObjSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A38-v2_0.html' target='_blank'>国土数値情報　医療圏データ</a>"
+//------------------------------------------
+const suikeiColor = d3.scaleOrdinal(d3.schemeCategory10);
+function suikeiStyleFunction(iryouken) {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    let rgb
+    const aaa = prop.PTN_2050 / prop.PTN_2020
+    if (aaa > 1 ) {
+      rgb = 'rgb(184,38,25)'
+    } else if (aaa > 0.7) {
+      rgb = 'rgb(89,119,246)'
+    } else if (aaa > 0.5) {
+      rgb = 'rgb(97,197,250)'
+    } else if (aaa > 0.00000000000001) {
+      rgb = 'rgb(140,252,114)'
+    }
+    const style = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      // stroke: new Stroke({
+      //   color: "black",
+      //   width: 1
+      // }),
+    });
+    return style;
+  }
+}

@@ -2049,6 +2049,7 @@ const layers =
       ]},
     { text: '夜の明かり', data: { id: "japanLight", layer: LayersMvt.japanLightObj, opacity: 1, summary: LayersMvt.japanLightSumm } },
     { text: '河川中心線', data: { id: "suiro", layer: LayersMvt.suiroObj, opacity: 1, summary: LayersMvt.suiroSumm } },
+    { text: '推計人口', data: { id: "suikei1km", layer: LayersMvt.suikei1kmObj, opacity: 1, summary: LayersMvt.suikei1kmObjSumm } },
 
     { text: '各種地域',
 

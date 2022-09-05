@@ -324,7 +324,7 @@ gzip -d -v -r -S .pbf *
 find . -type f -exec mv -v '{}' '{}'.mvt \;
 -------------------------------------------------------------------------------------------
 
-tippecanoe -Z1 -z13 -pk -f -e tile suikei.geojson
+tippecanoe --cluster-distance=1 -Z1 -z13 -pk -f -e tile suikei.geojson
 tile
 gzip -d -v -r -S .pbf *
 find . -type f -exec mv -v '{}' '{}'.mvt \;

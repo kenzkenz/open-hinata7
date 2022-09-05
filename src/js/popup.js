@@ -200,6 +200,10 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'iryouken3zi':
       cont = prop.A38c_001
       break
+    case 'suikei1km':
+      cont = '2020年人口＝' + prop.PTN_2020 +
+             '<br>2050年人口＝' + prop.PTN_2050
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);
