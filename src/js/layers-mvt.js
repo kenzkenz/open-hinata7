@@ -2082,30 +2082,44 @@ for (let i of mapsStr) {
 export const suikei1kmObjSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-mesh1000h30.html' target='_blank'>国土数値情報　1kmメッシュ別将来推計人口データ</a>"
 //------------------------------------------
 const suikeiColor = d3.scaleOrdinal(d3.schemeCategory10);
-function suikeiStyleFunction(iryouken) {
+function suikeiStyleFunction() {
   return function (feature, resolution) {
     const prop = feature.getProperties();
     let rgb
-    const aaa = prop.PTN_2050 / prop.PTN_2020
-    if (aaa > 1.1 ) {
-      rgb = 'red'
-    } else if (aaa > 1 ) {
-      rgb = 'rgb(184,38,25)'
-    } else if (aaa > 0.7) {
-      rgb = 'rgb(89,119,246)'
-    } else if (aaa > 0.5) {
-      rgb = 'rgb(97,197,250)'
-    } else if (aaa > 0.00000000000001) {
-      rgb = 'rgb(140,252,114)'
+    if (prop.PTN_2050) {
+      const aaa = prop.PTN_2050 / prop.PTN_2020
+      if (aaa > 1.1) {
+        rgb = 'red'
+      } else if (aaa > 1) {
+        rgb = 'rgb(184,38,25)'
+      } else if (aaa > 0.7) {
+        rgb = 'rgb(89,119,246)'
+      } else if (aaa > 0.5) {
+        rgb = 'rgb(97,197,250)'
+      } else if (aaa > 0.00000000000001) {
+        rgb = 'rgb(140,252,114)'
+      }
+    } else {
+      switch (prop.text) {
+        case '増加':
+          rgb = 'rgb(184,38,25)'
+          break
+        case '0%以上30%未満減少':
+          rgb = 'rgb(89,119,246)'
+          break
+        case '30%以上50%未満減少':
+          rgb = 'rgb(97,197,250)'
+          break
+        case '50%以上減少':
+          rgb = 'rgb(140,252,114)'
+          break
+      }
     }
+
     const style = new Style({
       fill: new Fill({
         color: rgb
       }),
-      // stroke: new Stroke({
-      //   color: "black",
-      //   width: 1
-      // }),
     });
     return style;
   }
