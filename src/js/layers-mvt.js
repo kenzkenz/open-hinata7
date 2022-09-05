@@ -1988,3 +1988,95 @@ function sansonStyleFunction() {
     return style;
   }
 }
+//--------------------------------------------------------
+function Iryouken1zi(){
+  this.name = 'iryouken1zi'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/iryouken_1zi/{z}/{x}/{y}.mvt"
+  });
+  this.style = iryoukenStyleFunction(1);
+}
+export  const iryouken1ziObj = {};
+for (let i of mapsStr) {
+  iryouken1ziObj[i] = new VectorTileLayer(new Iryouken1zi())
+}
+export const iryouken1ziSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A38-v2_0.html' target='_blank'>国土数値情報　医療圏データ</a>"
+
+//--------------------------------------------------------
+function Iryouken2zi(){
+  this.name = 'iryouken2zi'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/iryouken_2zi/{z}/{x}/{y}.mvt"
+  });
+  this.style = iryoukenStyleFunction(2);
+}
+export  const iryouken2ziObj = {};
+for (let i of mapsStr) {
+  iryouken2ziObj[i] = new VectorTileLayer(new Iryouken2zi())
+}
+export const iryouken2ziSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A38-v2_0.html' target='_blank'>国土数値情報　医療圏データ</a>"
+//--------------------------------------------------------
+function Iryouken3zi(){
+  this.name = 'iryouken3zi'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/iryouken_3zi/{z}/{x}/{y}.mvt"
+  });
+  this.style = iryoukenStyleFunction(3);
+}
+export  const iryouken3ziObj = {};
+for (let i of mapsStr) {
+  iryouken3ziObj[i] = new VectorTileLayer(new Iryouken3zi())
+}
+export const iryouken3ziSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A38-v2_0.html' target='_blank'>国土数値情報　医療圏データ</a>"
+
+//------------------------------------------
+const iryoukenColor = d3.scaleOrdinal(d3.schemeCategory10);
+function iryoukenStyleFunction(iryouken) {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    let rgb
+    switch (iryouken) {
+      case 1:
+        rgb = iryoukenColor(prop.A38a_001)
+        break
+      case 2:
+        rgb = iryoukenColor(prop.A38b_003)
+        break
+      case 3:
+        rgb = iryoukenColor(prop.A38c_001)
+        break
+    }
+
+    const style = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "black",
+        width: 1
+      }),
+    });
+    return style;
+  }
+}
+//--------------------------------------------------------
+function Suikei1km(){
+  this.name = 'suikei1km'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/suikei_1km/{z}/{x}/{y}.mvt"
+  });
+  this.style = iryoukenStyleFunction(3);
+}
+export  const suikei1kmObj = {};
+for (let i of mapsStr) {
+  suikei1kmObj[i] = new VectorTileLayer(new Suikei1km())
+}
+export const suikei1kmObjSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A38-v2_0.html' target='_blank'>国土数値情報　医療圏データ</a>"

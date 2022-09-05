@@ -191,6 +191,15 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'sanson':
       cont = prop.A24_003 + prop.A24_006
       break
+    case 'iryouken1zi':
+      cont = prop.A38a_002
+      break
+    case 'iryouken2zi':
+      cont = prop.A38b_004
+      break
+    case 'iryouken3zi':
+      cont = prop.A38c_001
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);
