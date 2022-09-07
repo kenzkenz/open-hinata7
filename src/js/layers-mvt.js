@@ -1850,10 +1850,12 @@ function hudeStyleFunction() {
     let rgba = "black"
     switch (prop.land_type) {
       case 100://田
-        rgba = "rgba(40,152,53,0.7)";
+        // rgba = "rgba(40,152,53,1)";
+        rgba = "green";
         break;
       case 200://畑
-        rgba = "rgba(239,255,3,0.7)"
+        // rgba = "rgba(239,255,3,1)"
+        rgba = "red"
         break;
     }
     const style = new Style({
@@ -1861,7 +1863,7 @@ function hudeStyleFunction() {
         color: rgba
       }),
       stroke: new Stroke({
-        color: "black",
+        color: rgba,
         width: 1
       }),
     });
@@ -2065,6 +2067,22 @@ function iryoukenStyleFunction(iryouken) {
     return style;
   }
 }
+//--------------------------------------------------------
+function Suikei500m(){
+  this.name = 'suikei1km'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/suikei_500m/{z}/{x}/{y}.mvt"
+  });
+  this.style = suikeiStyleFunction(3);
+}
+export  const suikei500mObj = {};
+for (let i of mapsStr) {
+  suikei500mObj[i] = new VectorTileLayer(new Suikei500m())
+}
+export const suikei500mObjSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-mesh500h30.html' target='_blank'>国土数値情報　500mメッシュ別将来推計人口データ</a>"
+
 //--------------------------------------------------------
 function Suikei1km(){
   this.name = 'suikei1km'

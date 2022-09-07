@@ -201,7 +201,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
       cont = prop.A38c_001
       break
     case 'suikei1km':
-      if (prop.PTN_2020) {
+      if (prop.PTN_2015) {
         cont = '2020年人口＝' + prop.PTN_2020 +
             '<br>2050年人口＝' + prop.PTN_2050 +
             '<br>2050/2020＝' + Math.floor(prop.PTN_2050 / prop.PTN_2020 * 100) + '%'
