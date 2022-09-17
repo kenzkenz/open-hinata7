@@ -317,9 +317,21 @@ gzip -d -v -r -S .pbf *
 find . -type f -exec mv -v '{}' '{}'.mvt \;
 -------------------------------------------------------------------------------------------
 ポイントを極力表示するオプション-rg
+tippecanoe -Z1 -z15 -pk -rg -f -e tile dam.geojson
+
+cd tile
+gzip -d -v -r -S .pbf *
+find . -type f -exec mv -v '{}' '{}'.mvt \;
+-------------------------------------------------------------------------------------------
+ポイントを極力表示するオプション-rg
 tippecanoe -Z1 -z15 -pk -rg -f -e tile merged.geojson
 
 cd tile
+gzip -d -v -r -S .pbf *
+find . -type f -exec mv -v '{}' '{}'.mvt \;
+-------------------------------------------------------------------------------------------
+tippecanoe -rg -Z1 -z13 -pk -e tile city.geojson
+tile
 gzip -d -v -r -S .pbf *
 find . -type f -exec mv -v '{}' '{}'.mvt \;
 -------------------------------------------------------------------------------------------

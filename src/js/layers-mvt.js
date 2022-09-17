@@ -1977,7 +1977,6 @@ function sansonStyleFunction() {
   return function (feature, resolution) {
     const prop = feature.getProperties();
     const rgb = sansonColor(prop.A24_002)
-
     const style = new Style({
       fill: new Fill({
         color: rgb
@@ -2054,7 +2053,6 @@ function iryoukenStyleFunction(iryouken) {
         rgb = iryoukenColor(prop.A38c_001)
         break
     }
-
     const style = new Style({
       fill: new Fill({
         color: rgb
@@ -2133,6 +2131,42 @@ function suikeiStyleFunction() {
           break
       }
     }
+    const style = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+    });
+    return style;
+  }
+}
+//--------------------------------------------------------
+function NougyouH27(){
+  this.name = 'nougyou'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/nougyou_h27/{z}/{x}/{y}.mvt"
+  });
+  this.style = nougyouStyleFunction();
+}
+export  const nougyouH27Obj = {};
+for (let i of mapsStr) {
+  nougyouH27Obj[i] = new VectorTileLayer(new NougyouH27())
+}
+export const nougyouH27Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-mesh1000h30.html' target='_blank'>国土数値情報　1kmメッシュ別将来推計人口データ</a>"
+//------------------------------------------
+function nougyouStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    let rgb
+    switch (prop.LAYER_NO) {
+      case 5:
+        rgb = 'rgb(163,222,192)'
+        break
+      case 6:
+        rgb = 'rgb(166,142,186)'
+        break
+    }
 
     const style = new Style({
       fill: new Fill({
@@ -2140,5 +2174,260 @@ function suikeiStyleFunction() {
       }),
     });
     return style;
+  }
+}
+//H26ダム------------------------------------------------------------------------------------------------
+function DamH26(){
+  this.name = 'damh26'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:15,
+    url: "https://kenzkenz.github.io/dam_h26/{z}/{x}/{y}.mvt"
+  });
+  this.style = damStyleFunction();
+}
+export const damh26Obj = {};
+for (let i of mapsStr) {
+  damh26Obj[i] = new VectorTileLayer(new DamH26(i))
+}
+export const damh26Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W01.html' target='_blank'>国土数値情報　ダムデータ</a>";
+// ----------------------------------------------------------------------------
+function damStyleFunction () {
+  return function(feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    let text = prop.W01_001
+    const circleStyle = new Style({
+      image: new Circle({
+        radius: 6,
+        fill: new Fill({
+          color: 'red'
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 1
+        })
+      })
+    })
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        placement:"point",
+        offsetY:10,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(circleStyle);
+    if(zoom>=11) {
+      styles.push(textStyle);
+    }
+    return styles;
+  };
+}
+//T9市町村------------------------------------------------------------------------------------------------
+function CityT9(){
+  this.name = 'city'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/city_t9/{z}/{x}/{y}.mvt"
+  });
+  this.style = cityStyleFunction();
+}
+export const cityT9Obj = {};
+for (let i of mapsStr) {
+  cityT9Obj[i] = new VectorTileLayer(new CityT9(i))
+}
+export const cityT9Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-v3_1.html' target='_blank'>国土数値情報　行政区域データ</a>";
+//H07市町村------------------------------------------------------------------------------------------------
+function CityH07(){
+  this.name = 'city'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/city_h07/{z}/{x}/{y}.mvt"
+  });
+  this.style = cityStyleFunction();
+}
+export const cityH07Obj = {};
+for (let i of mapsStr) {
+  cityH07Obj[i] = new VectorTileLayer(new CityH07(i))
+}
+export const cityH07Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-v3_1.html' target='_blank'>国土数値情報　行政区域データ</a>";
+
+//R03市町村------------------------------------------------------------------------------------------------
+function CityR03(){
+  this.name = 'city'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/city_r03/{z}/{x}/{y}.mvt"
+  });
+  this.style = cityStyleFunction();
+}
+export const cityR03Obj = {};
+for (let i of mapsStr) {
+  cityR03Obj[i] = new VectorTileLayer(new CityR03(i))
+}
+export const cityR03Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-v3_1.html' target='_blank'>国土数値情報　行政区域データ</a>";
+
+//------------------------------------------
+const cityColor = d3.scaleOrdinal(d3.schemeCategory10);
+function cityStyleFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    const rgb = cityColor(prop.N03_001)
+    const polygonStyle = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "white",
+        width: 1
+      })
+    });
+    const text = prop.N03_004
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        // placement:"point",
+        // offsetY:10,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(polygonStyle);
+    if(zoom>=9) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+//農業集落境界------------------------------------------------------------------------------------------------
+function Kyoukai(){
+  this.name = 'kyoukai'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/kyoukai/{z}/{x}/{y}.mvt"
+  });
+  this.style = kyoukaiStyleFunction();
+}
+export const kyoukaiObj = {};
+for (let i of mapsStr) {
+  kyoukaiObj[i] = new VectorTileLayer(new Kyoukai(i))
+}
+export const kyoukaiSumm = "<a href='https://www.maff.go.jp/j/tokei/census/shuraku_data/2020/ma/index.html' target='_blank'>農業集落境界</a>";
+
+//------------------------------------------
+const kyoukaiColor = d3.scaleOrdinal(d3.schemeCategory10);
+function kyoukaiStyleFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    const rgb = kyoukaiColor(prop.CITY)
+    const polygonStyle = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "white",
+        width: 1
+      })
+    });
+    const text = prop.RCOM_NAME
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        // placement:"point",
+        // offsetY:10,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(polygonStyle);
+    if(zoom>=9) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+//H17湖沼------------------------------------------------------------------------------------------------
+function Kosyouh17(){
+  this.name = 'kosyou'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/kosyou_h17/{z}/{x}/{y}.mvt"
+  });
+  this.style = kosyouStyleFunction();
+}
+export const kosyouH17Obj = {};
+for (let i of mapsStr) {
+  kosyouH17Obj[i] = new VectorTileLayer(new Kosyouh17(i))
+}
+export const kosyouH17Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-W09-v2_2.html' target='_blank'>国土数値情報　湖沼データ</a>";
+//---------------------
+function kosyouStyleFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    const rgb = 'blue'
+    const polygonStyle = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "black",
+        width: 2
+      })
+    });
+    const text = prop.W09_001
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(polygonStyle);
+    if(zoom>=9) {
+      styles.push(textStyle);
+    }
+    return styles;
   }
 }

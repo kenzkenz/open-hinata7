@@ -25,7 +25,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
       }
       break;
     case 'syougakkouku':
-      console.log(prop)
       if(prop.A27_001) {
         cont = '市区町村コード＝' + prop.A27_001 + '<br>' +
                     '設置主体=' + prop.A27_002 + '<br>' +
@@ -39,8 +38,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
       break;
     // 中学校区
     case 'tyuugakkouku' :
-      console.log(prop)
-        console.log(222)
       if(prop.A32_001) {
         cont = '市区町村コード＝' + prop.A32_001 + '<br>' +
                     '設置主体=' + prop.A32_002 + '<br>' +
@@ -53,7 +50,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
       }
       break;
     case 'tyuugakkoukuH25' :
-      console.log(prop)
       if(prop.A32_001) {
         cont = '市区町村コード＝' + prop.A32_001 + '<br>' +
             '設置主体=' + prop.A32_002 + '<br>' +
@@ -65,7 +61,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
       }
        break;
     case 'tyuugakkoukuH28' :
-      console.log(prop)
       if(prop.A32_001) {
         cont = '市区町村コード＝' + prop.A32_001 + '<br>' +
             '設置主体=' + prop.A32_002 + '<br>' +
@@ -79,7 +74,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
       break;
     case 'youtoH23' :
     case 'youtoR01' :
-      console.log(prop)
       cont = '都道府県名＝' + prop.A29_002 + '<br>' +
           '市区町村名=' + prop.A29_003 + '<br>' +
           '用途地域分類＝' + prop.A29_004 + '<br>' +
@@ -88,7 +82,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '容積率＝' + prop.A29_007 + '<br>'
       break;
     case 'tosiH30' :
-      console.log(prop)
       // const layerNo =prop.layer_no
       switch (prop.layer_no) {
         case 1://市街化区域
@@ -105,7 +98,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
           break;
       }
     case 'tosiH18' :
-      console.log(prop)
       switch (prop.A09_003) {
         case '1'://市街化区域
           cont = "市街化区域";
@@ -124,7 +116,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'kasoS45' :
     case 'kasoS60' :
     case 'kasoH29' :
-      console.log(prop)
       switch (prop.A17_009) {
         case '01':
         case 1:
@@ -208,7 +199,25 @@ export function popUp(map,layers,features,overlay,evt,content) {
       } else {
         cont = prop.text
       }
-
+      break
+    case 'nougyou':
+      if (prop.LAYER_NO === 5) {
+        cont = '農業地域 '
+      } else {
+        cont = '農用地区域'
+      }
+        break
+    case 'damh26':
+      cont = 'ダム名＝' + prop.W01_001
+      break
+    case 'city':
+      cont = prop.N03_004
+      break
+    case 'kyoukai':
+      cont = prop.RCOM_NAME
+      break
+    case 'kosyou':
+      cont = prop.W09_001
       break
   }
   content.innerHTML = cont
