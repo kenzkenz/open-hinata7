@@ -219,6 +219,28 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'kosyou':
       cont = prop.W09_001
       break
+    case 'chyouzyuu':
+      cont = prop.A15_001
+      break
+    case 'tatumaki':
+      cont = prop.A30b_005 + prop.A30b_006 + prop.A30b_007 +
+            '<br>' + prop.A30b_002 +
+            '<br>発生日時' + prop.A30b_003
+
+      break
+    case 'mitinoeki':
+      cont = "<a href=" + prop.P35_007 + " target='_blank'>" + prop.P35_006 + "</a>"
+      break
+    case 'tokyoZisin':
+      cont = '地区名＝' + prop.区市町村名 + prop.町丁目名 +
+             '<br>建物倒壊危険度ランク＝' + prop.建物_ラ +
+             '<br>建物倒壊危険度順位＝' + prop.建物_順 +
+             '<br>火災危険度ランク＝' + prop.火災_ラ +
+             '<br>火災危険度順位＝' + prop.火災_順 +
+             '<br>総合危険度ランク＝' + prop.総合_ラ +
+             '<br>総合危険度順位＝' + prop.総合_順 +
+             '<br>災害時活動困難係数＝' + prop.災害_係
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);

@@ -2248,6 +2248,22 @@ for (let i of mapsStr) {
   cityT9Obj[i] = new VectorTileLayer(new CityT9(i))
 }
 export const cityT9Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-v3_1.html' target='_blank'>国土数値情報　行政区域データ</a>";
+//S25市町村------------------------------------------------------------------------------------------------
+function CityS25(){
+  this.name = 'city'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/city_s25/{z}/{x}/{y}.mvt"
+  });
+  this.style = cityStyleFunction();
+}
+export const cityS25Obj = {};
+for (let i of mapsStr) {
+  cityS25Obj[i] = new VectorTileLayer(new CityS25(i))
+}
+export const cityS25Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N03-v3_1.html' target='_blank'>国土数値情報　行政区域データ</a>";
+
 //H07市町村------------------------------------------------------------------------------------------------
 function CityH07(){
   this.name = 'city'
@@ -2426,6 +2442,301 @@ function kosyouStyleFunction() {
     });
     styles.push(polygonStyle);
     if(zoom>=9) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+//H27鳥獣保護区------------------------------------------------------------------------------------------------
+function ChyouzyuuH27(){
+  this.name = 'chyouzyuu'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/chyouzyuu_h27/{z}/{x}/{y}.mvt"
+  });
+  this.style = chyouzyuuStyleFunction();
+}
+export const chyouzyuuH27Obj = {};
+for (let i of mapsStr) {
+  chyouzyuuH27Obj[i] = new VectorTileLayer(new ChyouzyuuH27(i))
+}
+export const chyouzyuuH27Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A15.html' target='_blank'>国土数値情報　鳥獣保護区データ</a>";
+//---------------------
+function chyouzyuuStyleFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    const rgb = 'green'
+    const polygonStyle = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "black",
+        width: 2
+      })
+    });
+    const text = prop.A15_001
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(polygonStyle);
+    if(zoom>=9) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+//H23竜巻------------------------------------------------------------------------------------------------
+function TatumakiH23(){
+  this.name = 'tatumaki'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/tatumaki_h23/{z}/{x}/{y}.mvt"
+  });
+  this.style = tatumakiStyleFunction();
+}
+export const tatumakiH23Obj = {};
+for (let i of mapsStr) {
+  tatumakiH23Obj[i] = new VectorTileLayer(new TatumakiH23(i))
+}
+export const tatumakiH23Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A30b.html' target='_blank'>国土数値情報　竜巻等の突風データ</a>";
+// ----------------------------------------------------------------------------
+function tatumakiStyleFunction () {
+  return function(feature, resolution) {
+    // const zoom = getZoom(resolution);
+    // const prop = feature.getProperties();
+    const styles = [];
+    // let text = prop.W01_001
+    const circleStyle = new Style({
+      image: new Circle({
+        radius: 6,
+        fill: new Fill({
+          color: 'blue'
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 1
+        })
+      })
+    })
+    // const textStyle = new Style({
+    //   text: new Text({
+    //     font: "14px sans-serif",
+    //     text: text,
+    //     placement:"point",
+    //     offsetY:10,
+    //     fill: new Fill({
+    //       color: "black"
+    //     }),
+    //     stroke: new Stroke({
+    //       color: "white",
+    //       width: 3
+    //     }),
+    //     exceedLength:true
+    //   })
+    // });
+    styles.push(circleStyle);
+    // if(zoom>=11) {
+    //   styles.push(textStyle);
+    // }
+    return styles;
+  };
+}
+//H30道の駅------------------------------------------------------------------------------------------------
+function mitinoekiH30(){
+  this.name = 'mitinoeki'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/mitinoeki_h30/{z}/{x}/{y}.mvt"
+  });
+  this.style = mitinoekiStyleFunction();
+}
+export const mitinoekiH30Obj = {};
+for (let i of mapsStr) {
+  mitinoekiH30Obj[i] = new VectorTileLayer(new mitinoekiH30(i))
+}
+export const mitinoekiH30Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P35.html' target='_blank'>国土数値情報　道の駅データ</a>";
+// ----------------------------------------------------------------------------
+function mitinoekiStyleFunction () {
+  return function(feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    let text = prop.P35_006
+    const circleStyle = new Style({
+      image: new Circle({
+        radius: 6,
+        fill: new Fill({
+          color: 'blue'
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 1
+        })
+      })
+    })
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        placement:"point",
+        offsetY:10,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(circleStyle);
+    if(zoom>=11) {
+      styles.push(textStyle);
+    }
+    return styles;
+  };
+}
+//東京地震------------------------------------------------------------------------------------------------
+function TokyoZisin(){
+  this.name = 'tokyoZisin'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/tokyo/{z}/{x}/{y}.mvt"
+  });
+  this.style = tokyoStyleFunction();
+}
+export const tokyoZisinObj = {};
+for (let i of mapsStr) {
+  tokyoZisinObj[i] = new VectorTileLayer(new TokyoZisin(i))
+}
+export const tokyoZisinSumm = "<a href='https://www.toshiseibi.metro.tokyo.lg.jp/bosai/chousa_6/home.htm' target='_blank'>地震に関する地域危険度測定調査</a><br>" +
+    "<img src='https://kenzkenz.xsrv.jp/open-hinata/img/tokyo.jpeg' width='400px'>" +
+    "<br>総合危険度ランクで色を塗っています。"
+//東京地震2------------------------------------------------------------------------------------------------
+function TokyoZisin2(){
+  this.name = 'tokyoZisin'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/tokyo/{z}/{x}/{y}.mvt"
+  });
+  this.style = tokyoStyleFunction2()
+}
+export const tokyoZisin2Obj = {}
+for (let i of mapsStr) {
+  tokyoZisin2Obj[i] = new VectorTileLayer(new TokyoZisin2(i))
+}
+export const tokyoZisin2Summ = "<a href='https://www.toshiseibi.metro.tokyo.lg.jp/bosai/chousa_6/home.htm' target='_blank'>地震に関する地域危険度測定調査</a><br>" +
+   "<br>災害時活動困難係数で色を塗っています。"
+//---------------------
+function tokyoStyleFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution)
+    const prop = feature.getProperties()
+    const styles = []
+    let rgb = ''
+
+    switch (prop.総合_ラ) {
+      case 1:
+        rgb = 'rgb(162,209,229)'
+        break
+      case 2:
+        rgb = 'rgb(125,170,118)'
+        break
+      case 3:
+        rgb = 'rgb(206,135,52)'
+        break
+      case 4:
+        rgb = 'rgb(213,64,43)'
+        break
+      case 5:
+        rgb = 'rgb(79,19,19)'
+        break
+    }
+    const polygonStyle = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "white",
+        width: 0.5
+      })
+    });
+    const text = prop.町丁目名
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(polygonStyle);
+    if(zoom>=13) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+//---------------------
+function tokyoStyleFunction2() {
+  return function (feature, resolution) {
+    const d3Color = d3.interpolateLab("white","red");
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    const rgb = d3.rgb(d3Color(prop.災害_係));
+    const polygonStyle = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "white",
+        width: 0.5
+      })
+    });
+    const text = prop.町丁目名
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(polygonStyle);
+    if(zoom>=13) {
       styles.push(textStyle);
     }
     return styles;

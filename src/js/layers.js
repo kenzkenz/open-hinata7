@@ -501,23 +501,7 @@ for (let i of mapsStr) {
   jinsokuObj[i] = new TileLayer(new Jinsoku())
 }
 const jinsokuSumm = '<a href=\'http://www.finds.jp/tmc/layers.html.ja\' target=\'_blank\'>農研機構</a>'
-// 今昔マップ-----------------------------------------------------------------------------------
-// 福岡・北九州編------------------------------------------------------------------------------
-function Kon_hukuoka01 () {
-  this.source = new XYZ({
-    url: 'https://sv53.wadax.ne.jp/~ktgis-net/kjmapw/kjtilemap/fukuoka/00/{z}/{x}/{-y}.png',
-    crossOrigin: 'Anonymous',
-    minZoom: 1,
-    maxZoom: 16
-  });
-  this.center = [130.6152588501701, 33.720855341479506];
-  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
-}
-const kon_hukuoka01Obj = {};
-for (let i of mapsStr) {
-  kon_hukuoka01Obj[i] = new TileLayer(new Kon_hukuoka01())
-}
-const kon_hukuoka01Summ = ''
+
 // CS立体図10Mここから-----------------------------------------------------------------------
 function Cs10m01 () {
   this.source = new XYZ({
@@ -1921,9 +1905,284 @@ for (let i of mapsStr) {
   hyuugasiHmObj[i] = new TileLayer(new HyuugasiHm())
 }
 const hyuugasiHmSumm = '';
+// 今昔マップ-----------------------------------------------------------------------------------
+// 福岡・北九州編------------------------------------------------------------------------------
+function Kz_fukuoka00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukuoka/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  });
+  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+}
+const kz_fukuoka00Obj = {};
+for (let i of mapsStr) {
+  kz_fukuoka00Obj[i] = new TileLayer(new Kz_fukuoka00())
+}
+function Kz_fukuoka01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukuoka/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  });
+  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+}
+const kz_fukuoka01Obj = {};
+for (let i of mapsStr) {
+  kz_fukuoka01Obj[i] = new TileLayer(new Kz_fukuoka01())
+}
+function Kz_fukuoka02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukuoka/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  });
+  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+}
+const kz_fukuoka02Obj = {};
+for (let i of mapsStr) {
+  kz_fukuoka02Obj[i] = new TileLayer(new Kz_fukuoka02())
+}
+function Kz_fukuoka03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukuoka/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+}
+const kz_fukuoka03Obj = {};
+for (let i of mapsStr) {
+  kz_fukuoka03Obj[i] = new TileLayer(new Kz_fukuoka03())
+}
+function Kz_fukuoka04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukuoka/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+}
+const kz_fukuoka04Obj = {};
+for (let i of mapsStr) {
+  kz_fukuoka04Obj[i] = new TileLayer(new Kz_fukuoka04())
+}
+function Kz_fukuoka05 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukuoka/05/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+}
+const kz_fukuoka05Obj = {};
+for (let i of mapsStr) {
+  kz_fukuoka05Obj[i] = new TileLayer(new Kz_fukuoka05())
+}
+// 宮崎編-------------------------------------------------------------------
+function Kz_miyazaki00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyazaki/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyazaki00Obj = {};
+for (let i of mapsStr) {
+  kz_miyazaki00Obj[i] = new TileLayer(new Kz_miyazaki00())
+}
+const kzSumm = "<a href='https://ktgis.net/kjmapw/tilemapservice.html' target='_blank'>今昔マップ</a>"
+//------------------
+function Kz_miyazaki01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyazaki/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyazaki01Obj = {};
+for (let i of mapsStr) {
+  kz_miyazaki01Obj[i] = new TileLayer(new Kz_miyazaki01())
+}
+//------------------
+function Kz_miyazaki02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyazaki/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyazaki02Obj = {};
+for (let i of mapsStr) {
+  kz_miyazaki02Obj[i] = new TileLayer(new Kz_miyazaki02())
+}
+//------------------
+function Kz_miyazaki03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyazaki/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyazaki03Obj = {};
+for (let i of mapsStr) {
+  kz_miyazaki03Obj[i] = new TileLayer(new Kz_miyazaki03())
+}
+//------------------
+function Kz_miyazaki04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyazaki/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyazaki04Obj = {};
+for (let i of mapsStr) {
+  kz_miyazaki04Obj[i] = new TileLayer(new Kz_miyazaki04())
+}
 
+//------------------
 
+function Kz_miyakonojyou00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyakonojyou/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyakonojyou00Obj = {};
+for (let i of mapsStr) {
+  kz_miyakonojyou00Obj[i] = new TileLayer(new Kz_miyakonojyou00())
+}
+function Kz_miyakonojyou01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyakonojyou/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyakonojyou01Obj = {};
+for (let i of mapsStr) {
+  kz_miyakonojyou01Obj[i] = new TileLayer(new Kz_miyakonojyou01())
+}
+//------------------
+function Kz_miyakonojyou02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyakonojyou/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyakonojyou02Obj = {};
+for (let i of mapsStr) {
+  kz_miyakonojyou02Obj[i] = new TileLayer(new Kz_miyakonojyou02())
+}
+//------------------
+function Kz_miyakonojyou03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyakonojyou/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyakonojyou03Obj = {};
+for (let i of mapsStr) {
+  kz_miyakonojyou03Obj[i] = new TileLayer(new Kz_miyakonojyou03())
+}
+//------------------
+function Kz_miyakonojyou04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/miyakonojyou/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_miyakonojyou04Obj = {};
+for (let i of mapsStr) {
+  kz_miyakonojyou04Obj[i] = new TileLayer(new Kz_miyakonojyou04())
+}
 
+//------------------
+
+function Kz_nobeoka00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nobeoka/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_nobeoka00Obj = {};
+for (let i of mapsStr) {
+  kz_nobeoka00Obj[i] = new TileLayer(new Kz_nobeoka00())
+}
+function Kz_nobeoka01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nobeoka/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_nobeoka01Obj = {};
+for (let i of mapsStr) {
+  kz_nobeoka01Obj[i] = new TileLayer(new Kz_nobeoka01())
+}
+//------------------
+function Kz_nobeoka02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nobeoka/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_nobeoka02Obj = {};
+for (let i of mapsStr) {
+  kz_nobeoka02Obj[i] = new TileLayer(new Kz_nobeoka02())
+}
+//------------------
+function Kz_nobeoka03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nobeoka/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_nobeoka03Obj = {};
+for (let i of mapsStr) {
+  kz_nobeoka03Obj[i] = new TileLayer(new Kz_nobeoka03())
+}
+//------------------
+function Kz_nobeoka04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nobeoka/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+}
+const kz_nobeoka04Obj = {};
+for (let i of mapsStr) {
+  kz_nobeoka04Obj[i] = new TileLayer(new Kz_nobeoka04())
+}
 
 
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
@@ -2046,15 +2305,60 @@ const layers =
                 { text: '47沖縄県古地図(大正14年)', data: { id: 'kotizu47okinawa', layer: kotizu47okinawaObj, opacity: 1, zoom: 9, center: [127.85255774851787, 26.472759103562595], summary: kotizu47okinawaSumm } },
               ]}
           ]},
+        { text: '今昔マップ',
+          children: [
+            { text: '福岡',
+              children: [
+                { text: '福岡1922-1926年', data: { id: 'kzFukuoka00', layer: kz_fukuoka00Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
+                { text: '福岡1936-1938年', data: { id: 'kzFukuoka01', layer: kz_fukuoka01Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
+                { text: '福岡1948-1956年', data: { id: 'kzFukuoka02', layer: kz_fukuoka02Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
+                { text: '福岡1967-1972年', data: { id: 'kzFukuoka03', layer: kz_fukuoka03Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
+                { text: '福岡1982-1986年', data: { id: 'kzFukuoka04', layer: kz_fukuoka04Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
+                { text: '福岡1991-2000年', data: { id: 'kzFukuoka05', layer: kz_fukuoka05Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
+              ]},
+            { text: '宮崎',
+              children: [
+                { text: '宮崎1902年', data: { id: 'kzmiyazaki00', layer: kz_miyazaki00Obj, opacity: 1, zoom: 11, center: [131.37330627280852, 31.91825589366576], summary: kzSumm } },
+                { text: '宮崎1935年', data: { id: 'kzmiyazaki01', layer: kz_miyazaki01Obj, opacity: 1, zoom: 11, center: [131.37330627280852, 31.91825589366576], summary: kzSumm } },
+                { text: '宮崎1962年', data: { id: 'kzmiyazaki02', layer: kz_miyazaki02Obj, opacity: 1, zoom: 11, center: [131.37330627280852, 31.91825589366576], summary: kzSumm } },
+                { text: '宮崎1979年', data: { id: 'kzmiyazaki03', layer: kz_miyazaki03Obj, opacity: 1, zoom: 11, center: [131.37330627280852, 31.91825589366576], summary: kzSumm } },
+                { text: '宮崎1999-2001年', data: { id: 'kzmiyazaki04', layer: kz_miyazaki04Obj, opacity: 1, zoom: 11, center: [131.37330627280852, 31.91825589366576], summary: kzSumm } },
+              ]},
+            { text: '都城',
+              children: [
+                { text: '都城1902年', data: { id: 'kzmiyakonojyou00', layer: kz_miyakonojyou00Obj, opacity: 1, zoom: 11, center: [131.12988620996472, 31.754980652611508], summary: kzSumm } },
+                { text: '都城1932年', data: { id: 'kzmiyakonojyou01', layer: kz_miyakonojyou01Obj, opacity: 1, zoom: 11, center: [131.12988620996472, 31.754980652611508], summary: kzSumm } },
+                { text: '都城1966年', data: { id: 'kzmiyakonojyou02', layer: kz_miyakonojyou02Obj, opacity: 1, zoom: 11, center: [131.12988620996472, 31.754980652611508], summary: kzSumm } },
+                { text: '都城1979-1980年', data: { id: 'kzmiyakonojyou03', layer: kz_miyakonojyou03Obj, opacity: 1, zoom: 11, center: [131.12988620996472, 31.754980652611508], summary: kzSumm } },
+                { text: '都城1998-2001年', data: { id: 'kzmiyakonojyou04', layer: kz_miyakonojyou04Obj, opacity: 1, zoom: 11, center: [131.12988620996472, 31.754980652611508], summary: kzSumm } },
+              ]},
+            { text: '延岡',
+              children: [
+                { text: '延岡1901年', data: { id: 'kznobeoka00', layer: kz_nobeoka00Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
+                { text: '延岡1932-1942年', data: { id: 'kznobeoka01', layer: kz_nobeoka01Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
+                { text: '延岡1965年', data: { id: 'kznobeoka02', layer: kz_nobeoka02Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
+                { text: '延岡1978-1978年', data: { id: 'kznobeoka03', layer: kz_nobeoka03Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
+                { text: '延岡1999-2000年', data: { id: 'kznobeoka04', layer: kz_nobeoka04Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
+              ]}
+          ]}
       ]},
+    { text: '地震危険度測定調査(東京都)',
+      children: [
+        { text: '総合危険度ランク', data: { id: "tokyoZisin", layer: LayersMvt.tokyoZisinObj, opacity: 1, summary: LayersMvt.tokyoZisinSumm } },
+        { text: '災害時活動困難係数', data: { id: "tokyoZisin2", layer: LayersMvt.tokyoZisin2Obj, opacity: 1, summary: LayersMvt.tokyoZisin2Summ } },
+
+      ]},
+    { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
     { text: '夜の明かり', data: { id: "japanLight", layer: LayersMvt.japanLightObj, opacity: 1, summary: LayersMvt.japanLightSumm } },
     { text: '河川中心線', data: { id: "suiro", layer: LayersMvt.suiroObj, opacity: 1, summary: LayersMvt.suiroSumm } },
+    { text: '竜巻', data: { id: "tatumakiH23", layer: LayersMvt.tatumakiH23Obj, opacity: 1, summary: LayersMvt.tatumakiH23Summ } },
     { text: 'ダム', data: { id: "damh26", layer: LayersMvt.damh26Obj, opacity: 1, summary: LayersMvt.damh26Summ } },
     { text: '湖沼', data: { id: "kosyouH17", layer: LayersMvt.kosyouH17Obj, opacity: 1, summary: LayersMvt.kosyouH17Summ } },
     { text: '農業集落境界', data: { id: "kyoukai", layer: LayersMvt.kyoukaiObj, opacity: 1, summary: LayersMvt.kyoukaiSumm } },
     { text: '市町村',
       children: [
         { text: 'T09市町村', data: { id: "cityT9", layer: LayersMvt.cityT9Obj, opacity: 1, summary: LayersMvt.cityT9Summ } },
+        { text: 'S25市町村', data: { id: "cityS25", layer: LayersMvt.cityS25Obj, opacity: 1, summary: LayersMvt.cityS25Summ } },
         { text: 'H07市町村', data: { id: "cityH07", layer: LayersMvt.cityH07Obj, opacity: 1, summary: LayersMvt.cityH07Summ } },
         { text: 'R03市町村', data: { id: "cityR03", layer: LayersMvt.cityR03Obj, opacity: 1, summary: LayersMvt.cityR03Summ } },
       ]},
@@ -2065,6 +2369,7 @@ const layers =
     ]},
     { text: '各種地域',
       children: [
+        { text: '鳥獣保護区', data: { id: "chyouzyuuh27", layer: LayersMvt.chyouzyuuH27Obj, opacity: 1, summary: LayersMvt.chyouzyuuH27Obj } },
         { text: '農業地域', data: { id: "nouhyouh27", layer: LayersMvt.nougyouH27Obj, opacity: 1, summary: LayersMvt.nougyouH27Summ } },
         { text: '医療圏',
           children: [
