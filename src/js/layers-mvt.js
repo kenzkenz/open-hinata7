@@ -2742,3 +2742,36 @@ function tokyoStyleFunction2() {
     return styles;
   }
 }
+
+//--------------------------------------------------------
+function TokuteiH28(){
+  this.name = 'tokutei'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/tokutei_h28/{z}/{x}/{y}.mvt"
+  });
+  this.style = tokuteiStyleFunction();
+}
+export  const tokuteiH28Obj = {};
+for (let i of mapsStr) {
+  tokuteiH28Obj[i] = new VectorTileLayer(new TokuteiH28())
+}
+export const tokuteiSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-v3_0.html' target='_blank'>国土数値情報　振興山村データ</a>"
+const tokuteiColor = d3.scaleOrdinal(d3.schemeCategory10);
+function tokuteiStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    const rgb = tokuteiColor(prop.A25_002)
+    const style = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "black",
+        width: 1
+      }),
+    });
+    return style;
+  }
+}

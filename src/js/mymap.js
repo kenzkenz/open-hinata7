@@ -8,6 +8,7 @@ import { transform, fromLonLat } from 'ol/proj'
 import { ScaleLine } from 'ol/control';
 import Toggle from 'ol-ext/control/Toggle'
 import Target from 'ol-ext/control/Target'
+import Synchronize from 'ol-ext/interaction/Synchronize'
 import Lego from 'ol-ext/filter/Lego'
 import Notification from './notification'
 import * as Layers from './layers'
@@ -60,12 +61,24 @@ export function initMap (vm) {
     // マップをストアに登録
     store.commit('base/setMap', {mapName: maps[i].mapName, map});
 
+
+
     // コントロール追加---------------------------------------------------------------------------
     map.addControl(new Target({composite: 'difference'}));
     map.addControl(new ScaleLine());
     const notification = new Notification();
     map.addControl(notification);
     store.commit('base/setNotifications',{mapName:mapName, control: notification});
+
+    if (i==3) {
+      store.state.base.maps.map01.addInteraction(new Synchronize({maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
+      store.state.base.maps.map02.addInteraction( new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04] }) );
+      store.state.base.maps.map03.addInteraction(new Synchronize({maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
+      store.state.base.maps.map04.addInteraction( new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
+
+    }
+
+
     //現在地取得
     const  success = (pos) =>{
       const lon = pos.coords.longitude;
@@ -348,8 +361,9 @@ export function initMap (vm) {
       const R = 6378137;// 地球の半径(m);
       const x = ( 0.5 + coord[ 0 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
       const y = ( 0.5 - coord[ 1 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
-      // var e = event;
+      const e = event;
       getElev( x, y, z, function( h ) {
+        console.log(777)
         const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
         if (h !=='e') {
           // console.log(h)
@@ -358,6 +372,9 @@ export function initMap (vm) {
           vm.zoom[mapName] = 'zoom=' + zoom
         }
       } );
+
+      // const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
+      // vm.zoom[mapName] = 'zoom=' + zoom
     }
     const win = window.navigator.userAgent.includes('Win')
     map.on('moveend', function (event) {
@@ -379,6 +396,7 @@ export function initMap (vm) {
     //	成功時には標高(単位m)，無効値の場合は'e'を返す
     // ****************
     function getElev( rx, ry, z, then ) {
+      console.log(999)
       const elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/'
       const x = Math.floor( rx )				// タイルX座標
       const y = Math.floor( ry )				// タイルY座標
@@ -402,6 +420,7 @@ export function initMap (vm) {
         then( h );
       }
       img.src = elevServer + z + '/' + y + '/' + x + '.png?res=cm';
+      console.log(888)
     }
 
     // 要素をドラッグする。
@@ -478,7 +497,11 @@ export function initMap (vm) {
       drag.classList.remove("drag");
     }
   }
+
+
 }
+
+
 
 export function synch (vm) {
   vm.synchFlg = !vm.synchFlg;

@@ -241,6 +241,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
              '<br>総合危険度順位＝' + prop.総合_順 +
              '<br>災害時活動困難係数＝' + prop.災害_係
       break
+    case 'tokutei':
+      cont = prop.A25_003 + prop.A25_006
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);
