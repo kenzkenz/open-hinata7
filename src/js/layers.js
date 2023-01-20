@@ -443,7 +443,7 @@ for (let i of mapsStr) {
 }
 const hyougoCsSumm = '<a href="https://web.pref.hyogo.lg.jp/kk26/hyogo-geo.html" target="_blank">全国初「全県土分の高精度3次元データ」の公開について</a>';
 
-// 兵庫県CS立体図50cm----------------------------------------------------------------------------
+// 兵庫県CS立体図50cm ----------------------------------------------------------------------------
 function HyougoCsTest () {
   this.extent = transformE([134.2669714033038, 34.17797854803047,135.47241581374712, 35.783161768341444])
   this.source = new XYZ({
