@@ -443,11 +443,11 @@ for (let i of mapsStr) {
 }
 const hyougoCsSumm = '<a href="https://web.pref.hyogo.lg.jp/kk26/hyogo-geo.html" target="_blank">全国初「全県土分の高精度3次元データ」の公開について</a>';
 
-// 兵庫県CS立体図test----------------------------------------------------------------------------
+// 兵庫県CS立体図50cm----------------------------------------------------------------------------
 function HyougoCsTest () {
   this.extent = transformE([134.2669714033038, 34.17797854803047,135.47241581374712, 35.783161768341444])
   this.source = new XYZ({
-    url: 'https://kenzkenz.xsrv.jp/tile/hyougo/test/{z}/{x}/{-y}.png',
+    url: 'https://kenzkenz.xsrv.jp/tile/hyougo/cs50cm/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 1,
     maxZoom: 19
@@ -2244,7 +2244,7 @@ const layers =
         { text: '全国CS立体図10m', data: { id: 'cs10', layer: cs10mObj, opacity: 1, summary: cs10mSumm } },
         { text: '岐阜県CS立体図', data: { id: 'gcs', layer: gihuCsObj, opacity: 1, zoom:9, center:[137.03491577372932, 35.871742161031975], summary: gihuCsSumm } },
         { text: '兵庫県CS立体図', data: { id: 'hyougocs', layer: hyougoCsObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCsSumm } },
-        { text: '兵庫県CS立体図test', data: { id: 'hyougocstest', layer: hyougoCsTestObj, opacity: 1, zoom:15, center:[134.41071833773412, 35.59099366294734], summary: hyougoCsSummTest } },
+        { text: '兵庫県CS立体図50cm', data: { id: 'hyougocs50cm', layer: hyougoCsTestObj, opacity: 1, zoom:15, center:[134.41071833773412, 35.59099366294734], summary: hyougoCsSummTest } },
 
         { text: '長野県CS立体図', data: { id: 'naganocs', layer: naganoCsObj, opacity: 1, zoom:9, center:[138.14880751631608, 36.19749617538284], summary: naganoCsSumm } },
         { text: '静岡県CS立体図', data: { id: 'sizuokacs', layer: sizuokaCsObj, opacity: 1, zoom:9, center:[138.26385867875933, 35.01475223050842], summary: sizuokaCsSumm } }

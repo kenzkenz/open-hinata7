@@ -362,19 +362,19 @@ export function initMap (vm) {
       const x = ( 0.5 + coord[ 0 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
       const y = ( 0.5 - coord[ 1 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
       const e = event;
-      getElev( x, y, z, function( h ) {
-        console.log(777)
-        const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
-        if (h !=='e') {
-          // console.log(h)
-          vm.zoom[mapName] = 'zoom=' + zoom + '  中心の標高' + h + 'm'
-        } else {
-          vm.zoom[mapName] = 'zoom=' + zoom
-        }
-      } );
+      // getElev( x, y, z, function( h ) {
+      //   console.log(777)
+      //   const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
+      //   if (h !=='e') {
+      //     // console.log(h)
+      //     vm.zoom[mapName] = 'zoom=' + zoom + '  中心の標高' + h + 'm'
+      //   } else {
+      //     vm.zoom[mapName] = 'zoom=' + zoom
+      //   }
+      // } );
 
-      // const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
-      // vm.zoom[mapName] = 'zoom=' + zoom
+      const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
+      vm.zoom[mapName] = 'zoom=' + zoom
     }
     const win = window.navigator.userAgent.includes('Win')
     map.on('moveend', function (event) {
@@ -396,7 +396,6 @@ export function initMap (vm) {
     //	成功時には標高(単位m)，無効値の場合は'e'を返す
     // ****************
     function getElev( rx, ry, z, then ) {
-      console.log(999)
       const elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/'
       const x = Math.floor( rx )				// タイルX座標
       const y = Math.floor( ry )				// タイルY座標
@@ -404,7 +403,9 @@ export function initMap (vm) {
       const j = ( ry - y ) * 256			// タイル内j座標
       const img = new Image();
       img.crossOrigin = 'anonymous';
+      img.alt = "";
       img.onload = function(){
+        console.log(111)
         const canvas = document.createElement( 'canvas' )
         const context = canvas.getContext( '2d' )
         let  h = 'e'
