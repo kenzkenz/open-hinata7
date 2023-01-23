@@ -362,18 +362,18 @@ export function initMap (vm) {
       const x = ( 0.5 + coord[ 0 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
       const y = ( 0.5 - coord[ 1 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
       const e = event;
-      // getElev( x, y, z, function( h ) {
-      //   const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
-      //   if (h !=='e') {
-      //     // console.log(h)
-      //     vm.zoom[mapName] = 'zoom=' + zoom + '  中心の標高' + h + 'm'
-      //   } else {
-      //     vm.zoom[mapName] = 'zoom=' + zoom
-      //   }
-      // } );
+      getElev( x, y, z, function( h ) {
+        const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
+        if (h !=='e') {
+          // console.log(h)
+          vm.zoom[mapName] = 'zoom=' + zoom + '  中心の標高' + h + 'm'
+        } else {
+          vm.zoom[mapName] = 'zoom=' + zoom
+        }
+      } );
 
-      const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
-      vm.zoom[mapName] = 'zoom=' + zoom
+      // const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
+      // vm.zoom[mapName] = 'zoom=' + zoom
     }
     const win = window.navigator.userAgent.includes('Win')
     map.on('moveend', function (event) {
@@ -395,7 +395,8 @@ export function initMap (vm) {
     //	成功時には標高(単位m)，無効値の場合は'e'を返す
     // ****************
     function getElev( rx, ry, z, then ) {
-      const elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/'
+      // const elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/'
+      const elevServer = 'https://tiles.gsj.jp/tiles/elev/mixed/'
       const x = Math.floor( rx )				// タイルX座標
       const y = Math.floor( ry )				// タイルY座標
       const i = ( rx - x ) * 256			// タイル内i座標
