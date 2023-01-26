@@ -355,7 +355,7 @@ export function initMap (vm) {
     //----------------------------------------------------------------------------------------
     const getElevation = (event) =>{
       let z = Math.floor(map.getView().getZoom())
-      if(z>13) z=13;
+      if(z>14) z=14;
       // const coord = event.coordinateこっちにするとマウスの標高を取得する。
       const coord =map.getView().getCenter()
       const R = 6378137;// 地球の半径(m);

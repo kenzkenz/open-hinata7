@@ -459,10 +459,6 @@ for (let i of mapsStr) {
 }
 const hyougoCsSummTest = '';
 
-
-
-
-
 // 長野県CS立体図----------------------------------------------------------------------------
 function NaganoCs () {
   this.extent = transformE([137.34924687267085, 35.181791181300085,138.7683143113627, 37.14523688239089])
@@ -507,6 +503,25 @@ for (let i of mapsStr) {
   nihonCsObj[i] = new TileLayer(new NihonCs())
 }
 const nihonCsSumm = '<a href="http://kouapp.main.jp/csmap/japan/setumei.html" target="_blank">日本CS立体図</a>'
+// 都市圏活断層図------------------------------------------------------------------------------
+function Katudansou () {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/afm/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom:11,
+    maxZoom:16
+  })
+}
+const katudansouObj = {};
+for (let i of mapsStr) {
+  katudansouObj[i] = new TileLayer(new Katudansou())
+}
+const katudansouSumm = '<a href="" target="_blank"></a>'
+
+
+
+
+
 // 迅速測図 (関東)----------------------------------------------------------------------------
 function Jinsoku () {
   this.extent = transformE([138.954453,34.86946,140.8793163,36.45969967])
@@ -2223,7 +2238,7 @@ const layers =
         { text: '宮崎県航空写真', data: { id: 6, layer: miyazakiOrtObj, opacity: 1, zoom:9, center: [131.42386188579064, 31.911063477361182], summary: miyazakiOrtSumm } },
         { text: '静岡県航空写真', data: { id: 7, layer: sizuokaOrtObj, opacity: 1, zoom:12,center:[138.43674074146253, 35.052859245538755], summary: sizuokaOrtSumm } },
         { text: '室蘭市航空写真', data: { id: 'muroransiort', layer: muroransiOrtObj, opacity: 1, zoom:13,center:[140.97759620387416, 42.35223030295967], summary: muroransiOrtSumm } },
-        { text: '鹿児島市航空写真', data: { id: 'kagosimasiort', layer: kagosimasiOrtObj, opacity: 1, zoom:12,center:[130.51208842259823, 31.58146097086727], summary: kagosimasiOrtSumm } }
+        { text: '鹿児島市航空写真', data: { id: 'kagosimasiort', layer: kagosimasiOrtObj, opacity: 1, zoom:12,center:[130.51208842259823, 31.58146097086727], summary: kagosimasiOrtSumm } },
       ]},
     { text: '過去の航空写真',
       children: [
@@ -2245,9 +2260,10 @@ const layers =
         { text: '岐阜県CS立体図', data: { id: 'gcs', layer: gihuCsObj, opacity: 1, zoom:9, center:[137.03491577372932, 35.871742161031975], summary: gihuCsSumm } },
         { text: '兵庫県CS立体図', data: { id: 'hyougocs', layer: hyougoCsObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCsSumm } },
         { text: '兵庫県CS立体図50cm', data: { id: 'hyougocs50cm', layer: hyougoCsTestObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCsSummTest } },
-
         { text: '長野県CS立体図', data: { id: 'naganocs', layer: naganoCsObj, opacity: 1, zoom:9, center:[138.14880751631608, 36.19749617538284], summary: naganoCsSumm } },
-        { text: '静岡県CS立体図', data: { id: 'sizuokacs', layer: sizuokaCsObj, opacity: 1, zoom:9, center:[138.26385867875933, 35.01475223050842], summary: sizuokaCsSumm } }
+        { text: '静岡県CS立体図', data: { id: 'sizuokacs', layer: sizuokaCsObj, opacity: 1, zoom:9, center:[138.26385867875933, 35.01475223050842], summary: sizuokaCsSumm } },
+        { text: '都市圏活断層図', data: { id: 'katudansou', layer: katudansouObj, opacity: 1, summary: katudansouSumm } }
+
       ]},
     { text: '古地図',
       children: [
