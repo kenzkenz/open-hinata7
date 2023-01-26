@@ -508,7 +508,7 @@ function Katudansou () {
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/afm/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom:11,
+    minZoom:1,
     maxZoom:16
   })
 }
@@ -516,11 +516,9 @@ const katudansouObj = {};
 for (let i of mapsStr) {
   katudansouObj[i] = new TileLayer(new Katudansou())
 }
-const katudansouSumm = '<a href="" target="_blank"></a>'
-
-
-
-
+const katudansouSumm = '<a href="https://www.gsi.go.jp/common/000084060.pdf" target="_blank">凡例</a>' +
+    '<br><a href="https://www.gsi.go.jp/bousaichiri/guidebook.html" target="_blank">解説</a>' +
+    '<br><a href="https://www.gsi.go.jp/common/000153506.pdf" target="_blank">利用の手引き</a>'
 
 // 迅速測図 (関東)----------------------------------------------------------------------------
 function Jinsoku () {
