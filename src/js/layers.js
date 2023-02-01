@@ -286,7 +286,7 @@ function Sp10 () {
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/nendophoto2010/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 10,
+    minZoom: 1,
     maxZoom: 17
   })
 }
@@ -301,7 +301,7 @@ function Sp87 () {
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/gazo4/{z}/{x}/{y}.jpg',
     crossOrigin: 'Anonymous',
-    minZoom: 10,
+    minZoom: 1,
     maxZoom: 17
   })
 }
@@ -316,7 +316,7 @@ function Sp84 () {
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/gazo3/{z}/{x}/{y}.jpg',
     crossOrigin: 'Anonymous',
-    minZoom: 10,
+    minZoom: 1,
     maxZoom: 17
   })
 }
@@ -331,7 +331,7 @@ function Sp79 () {
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/gazo2/{z}/{x}/{y}.jpg',
     crossOrigin: 'Anonymous',
-    minZoom: 10,
+    minZoom: 1,
     maxZoom: 17
   })
 }
@@ -345,7 +345,7 @@ function Sp74 () {
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg',
     crossOrigin: 'Anonymous',
-    minZoom: 10,
+    minZoom: 1,
     maxZoom: 17
   })
 }
@@ -359,7 +359,7 @@ function Sp61 () {
   this.source = new XYZ({
     url: 'https://maps.gsi.go.jp/xyz/ort_old10/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 10,
+    minZoom: 1,
     maxZoom: 17
   })
 }
@@ -2217,6 +2217,38 @@ const kz_nobeoka04Obj = {};
 for (let i of mapsStr) {
   kz_nobeoka04Obj[i] = new TileLayer(new Kz_nobeoka04())
 }
+//------------------
+function H23tunami() {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/20110311_tohoku_shinsui/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 7,
+    maxZoom: 16
+  })
+}
+const h23tunamiObj = {};
+for (let i of mapsStr) {
+  h23tunamiObj[i] = new TileLayer(new H23tunami())
+}
+const h23tunamiSumm = '出典：<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a><br>東北地方太平洋沖地震後に撮影した空中写真及び観測された衛星画像に基づき、津波による浸水範囲を判読したものです。実際に浸水のあった地域でも把握できていない部分があります。また、雲等により浸水範囲が十分に判読できていないところもあります。';
+//------------------
+function Zisuberi9() {
+  this.source = new XYZ({
+    url: 'https://jmapweb3v.bosai.go.jp/map/xyz/landslide/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 5,
+    maxZoom: 15
+  })
+}
+const zisuberi9Obj = {};
+for (let i of mapsStr) {
+  zisuberi9Obj[i] = new TileLayer(new Zisuberi9())
+}
+const zisuberi9Summ = '出典：<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a><br>東北地方太平洋沖地震後に撮影した空中写真及び観測された衛星画像に基づき、津波による浸水範囲を判読したものです。実際に浸水のあった地域でも把握できていない部分があります。また、雲等により浸水範囲が十分に判読できていないところもあります。';
+
+
+
+
 
 
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
@@ -2385,13 +2417,6 @@ const layers =
         { text: '災害時活動困難係数', data: { id: "tokyoZisin2", layer: LayersMvt.tokyoZisin2Obj, opacity: 1, summary: LayersMvt.tokyoZisin2Summ } },
 
       ]},
-    { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
-    { text: '夜の明かり', data: { id: "japanLight", layer: LayersMvt.japanLightObj, opacity: 1, summary: LayersMvt.japanLightSumm } },
-    { text: '河川中心線', data: { id: "suiro", layer: LayersMvt.suiroObj, opacity: 1, summary: LayersMvt.suiroSumm } },
-    { text: '竜巻', data: { id: "tatumakiH23", layer: LayersMvt.tatumakiH23Obj, opacity: 1, summary: LayersMvt.tatumakiH23Summ } },
-    { text: 'ダム', data: { id: "damh26", layer: LayersMvt.damh26Obj, opacity: 1, summary: LayersMvt.damh26Summ } },
-    { text: '湖沼', data: { id: "kosyouH17", layer: LayersMvt.kosyouH17Obj, opacity: 1, summary: LayersMvt.kosyouH17Summ } },
-    { text: '農業集落境界', data: { id: "kyoukai", layer: LayersMvt.kyoukaiObj, opacity: 1, summary: LayersMvt.kyoukaiSumm } },
     { text: '市町村',
       children: [
         { text: 'T09市町村', data: { id: "cityT9", layer: LayersMvt.cityT9Obj, opacity: 1, summary: LayersMvt.cityT9Summ } },
@@ -2551,7 +2576,6 @@ const layers =
 
           ]},
       ]},
-
     { text: '海面上昇シミュ',
       children: [
         { text: '海面上昇シミュ5Mdem', data: { id: 'flood5m', layer: flood5Obj, opacity: 1, summary: floodSumm, component: {name: 'flood5m', values:[]}} },
@@ -2563,7 +2587,6 @@ const layers =
         { text: '津波浸水想定', data: { id: 'tunami', layer: tsunamiObj, opacity: 1, summary: tunamiSumm } },
         { text: '浸水継続時間(想定最大規模)', data: { id: 'keizoku', layer: keizokuObj, opacity: 1, summary: keizokuSumm } },
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },
-
         { text: '土砂災害',
           children: [
             { text: '<i class="fa-solid fa-layer-group"></i>土砂災害全て', data: { id: 'dosyasaigai', layer: dosyaSaigaiObj, opacity: 1,summary:dosyaSaigaiSumm} },
@@ -2576,8 +2599,20 @@ const layers =
         { text: '宮崎市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyazakisiHm', layer: miyazakisiHmObj, opacity: 1, zoom: 13, center: [131.42054548436312, 31.907339493919977], summary: miyazakisiHmSumm } },
         { text: '都城市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyakonozyousiHm', layer: miyakonozyousiHmObj, opacity: 1, zoom: 13, center: [131.07797970576192, 31.78882205640913], summary: miyakonozyousiHmSumm } },
         { text: '日向市防災ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'hyuugasiHm', layer: hyuugasiHmObj, opacity: 1, zoom: 13, center: [131.6400086045909, 32.395198966795306], summary: hyuugasiHmSumm } },
-        { text: '避難施設', data: { id: 'hinan', layer: LayersMvt.hinanObj, opacity: 1, summary: LayersMvt.hinanSumm } }
+        { text: '避難施設', data: { id: 'hinan', layer: LayersMvt.hinanObj, opacity: 1, summary: LayersMvt.hinanSumm } },
+        { text: '平成23年東北地方太平洋沖地震　津波浸水範囲', data: { id: 'h23tunami', layer: h23tunamiObj, opacity: 1, summary: h23tunamiSumm} },
+        { text: '地すべり地形分布図', data: { id: 'zisuberi9', layer: zisuberi9Obj, opacity: 1, summary: zisuberi9Summ} }
 
-      ]}
+      ]},
+    { text: 'その他',
+      children: [
+        { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
+        { text: '夜の明かり', data: { id: "japanLight", layer: LayersMvt.japanLightObj, opacity: 1, summary: LayersMvt.japanLightSumm } },
+        { text: '河川中心線', data: { id: "suiro", layer: LayersMvt.suiroObj, opacity: 1, summary: LayersMvt.suiroSumm } },
+        { text: '竜巻', data: { id: "tatumakiH23", layer: LayersMvt.tatumakiH23Obj, opacity: 1, summary: LayersMvt.tatumakiH23Summ } },
+        { text: 'ダム', data: { id: "damh26", layer: LayersMvt.damh26Obj, opacity: 1, summary: LayersMvt.damh26Summ } },
+        { text: '湖沼', data: { id: "kosyouH17", layer: LayersMvt.kosyouH17Obj, opacity: 1, summary: LayersMvt.kosyouH17Summ } },
+        { text: '農業集落境界', data: { id: "kyoukai", layer: LayersMvt.kyoukaiObj, opacity: 1, summary: LayersMvt.kyoukaiSumm } },
+      ]},
   ];
 export const Layers = layers;
