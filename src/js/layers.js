@@ -2245,6 +2245,21 @@ for (let i of mapsStr) {
   zisuberi9Obj[i] = new TileLayer(new Zisuberi9())
 }
 const zisuberi9Summ = '出典：<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>';
+//-土地利用図（1982～1983年）-----------------
+function Totiriyouzi() {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/lum200k/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 14
+  })
+}
+const totiriyouzuObj = {};
+for (let i of mapsStr) {
+  totiriyouzuObj[i] = new TileLayer(new Totiriyouzi())
+}
+const totiriyouzuSumm = '出典：<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>' +
+    '<br><a href="https://cyberjapandata.gsi.go.jp/legend/lum200k_legend.jpg" target="_blank">凡例</a>'
 
 
 
@@ -2613,6 +2628,8 @@ const layers =
         { text: 'ダム', data: { id: "damh26", layer: LayersMvt.damh26Obj, opacity: 1, summary: LayersMvt.damh26Summ } },
         { text: '湖沼', data: { id: "kosyouH17", layer: LayersMvt.kosyouH17Obj, opacity: 1, summary: LayersMvt.kosyouH17Summ } },
         { text: '農業集落境界', data: { id: "kyoukai", layer: LayersMvt.kyoukaiObj, opacity: 1, summary: LayersMvt.kyoukaiSumm } },
+        { text: '土地利用図（1982～1983年）', data: { id: "totiriyouzu", layer: totiriyouzuObj, opacity: 1, summary: totiriyouzuSumm } },
+
       ]},
   ];
 export const Layers = layers;
