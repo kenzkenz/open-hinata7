@@ -563,6 +563,7 @@ function Suiro() {
     format: new MVT(),
     maxZoom: 14,
     url: "https://hfu.github.io/rvrcl-vt/{z}/{x}/{y}.mvt"
+    // url: "https://x.optgeo.org/a/{z}/{x}/{y}.mvt"
   });
 }
 export  const suiroObj = {};
@@ -574,6 +575,7 @@ export const suiroSumm = ""
 function suiroStyleFunction() {
   return function (feature, resolution) {
     const prop = feature.getProperties();
+    // console.log(prop)
     const rivCtg = prop["rivCtg"];
     const type = prop["type"];
     let strokeColor = "dodgerblue";
@@ -591,6 +593,10 @@ function suiroStyleFunction() {
         lineDash = [1];
         break;
       default:
+        // strokeColor = "blue";
+        // strokeWidth = 2;
+        // lineDash = [1];
+        break;
     }
     switch (type) {
       case "人工水路（地下）":
