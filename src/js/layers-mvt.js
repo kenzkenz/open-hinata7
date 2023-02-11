@@ -575,7 +575,7 @@ export const suiroSumm = ""
 function suiroStyleFunction() {
   return function (feature, resolution) {
     const prop = feature.getProperties();
-    // console.log(prop)
+    // console.log(feature)
     const rivCtg = prop["rivCtg"];
     const type = prop["type"];
     let strokeColor = "dodgerblue";
@@ -596,7 +596,7 @@ function suiroStyleFunction() {
         // strokeColor = "blue";
         // strokeWidth = 2;
         // lineDash = [1];
-        break;
+        // break;
     }
     switch (type) {
       case "人工水路（地下）":
@@ -613,6 +613,16 @@ function suiroStyleFunction() {
     }
     if (resolution > 611.50) strokeWidth = 1;
     const style = new Style({
+      // image: new Circle({
+      //   radius: 8,
+      //   fill: new Fill({
+      //     color: "red"
+      //   }),
+      //   stroke: new Stroke({
+      //     color: "white",
+      //     width: 1
+      //   })
+      // }),
       stroke: new Stroke({
         color: strokeColor,
         width: strokeWidth,
