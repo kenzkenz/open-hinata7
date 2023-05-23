@@ -556,6 +556,64 @@ export const didH17Summ = "h17の人口集中地区です。<br>出典＝<a href
   }
 }
 
+function Houmusyou() {
+  this.name = "houmusyo";
+  this.style = houmusyoStyleFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 17,
+    // url: "https://hfu.github.io/rvrcl-vt/{z}/{x}/{y}.mvt"
+    url: "https://x.optgeo.org/a/{z}/{x}/{y}.mvt"
+  });
+}
+export  const houmusyouObj = {};
+for (let i of mapsStr) {
+  houmusyouObj[i] = new VectorTileLayer(new Houmusyou())
+}
+export const houmusyouSumm = ""
+// ------------------------------------
+function houmusyoStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    // console.log(resolution)
+    // const zoom = getZoom(resolution);
+    const type = prop["type"];
+    let text = prop.地番
+    if (resolution > 9.554628) text = "・";
+
+
+
+    const style = new Style({
+      // image: new Circle({
+      //   radius: 8,
+      //   fill: new Fill({
+      //     color: "red"
+      //   }),
+      //   stroke: new Stroke({
+      //     color: "white",
+      //     width: 1
+      //   })
+      // }),
+
+      fill: new Fill({
+        color: "rgba(0,128,0,0.8)"
+      }),
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        // placement:"point",
+        // offsetY:10,
+      }),
+      stroke: new Stroke({
+        color: 'blue',
+        width: 1
+      })
+    });
+    return style;
+  }
+}
+
+
 function Suiro() {
   this.name = "suiro";
   this.style = suiroStyleFunction();
@@ -593,10 +651,10 @@ function suiroStyleFunction() {
         lineDash = [1];
         break;
       default:
-        // strokeColor = "blue";
-        // strokeWidth = 2;
-        // lineDash = [1];
-        // break;
+        strokeColor = "blue";
+        strokeWidth = 2;
+        lineDash = [1];
+        break;
     }
     switch (type) {
       case "人工水路（地下）":
@@ -610,19 +668,10 @@ function suiroStyleFunction() {
         lineDash = [1];
         break;
       default:
+
     }
     if (resolution > 611.50) strokeWidth = 1;
     const style = new Style({
-      // image: new Circle({
-      //   radius: 8,
-      //   fill: new Fill({
-      //     color: "red"
-      //   }),
-      //   stroke: new Stroke({
-      //     color: "white",
-      //     width: 1
-      //   })
-      // }),
       stroke: new Stroke({
         color: strokeColor,
         width: strokeWidth,
@@ -632,6 +681,7 @@ function suiroStyleFunction() {
     return style;
   }
 }
+
 function Hinan() {
   this.name = "hinan";
   this.style = hinanStyleFunction();

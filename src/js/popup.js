@@ -244,6 +244,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'tokutei':
       cont = prop.A25_003 + prop.A25_006
       break
+    case 'houmusyo':
+      cont = prop.大字名 + prop.地番
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);

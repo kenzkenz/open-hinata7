@@ -13,6 +13,7 @@ import Lego from 'ol-ext/filter/Lego'
 import Notification from './notification'
 import * as Layers from './layers'
 import * as PopUp from './popup'
+// import maplibregl from 'maplibre-gl'
 import {defaults as defaultInteractions, DragRotateAndZoom} from 'ol/interaction';
 let maxZndex = 0;
 let legoFilter = null;
@@ -58,6 +59,15 @@ export function initMap (vm) {
       target: mapName,
       view: view01
     });
+
+    // const map = new maplibregl.Map({
+    //   container: 'map01',
+    //   style: 'https://demotiles.maplibre.org/style.json',
+    //   center: [137, 36],
+    //   zoom: 5
+    // })
+
+
     // マップをストアに登録
     store.commit('base/setMap', {mapName: maps[i].mapName, map});
 
@@ -72,12 +82,10 @@ export function initMap (vm) {
 
     if (i==3) {
       store.state.base.maps.map01.addInteraction(new Synchronize({maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
-      store.state.base.maps.map02.addInteraction( new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04] }) );
+      store.state.base.maps.map02.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04] }) );
       store.state.base.maps.map03.addInteraction(new Synchronize({maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
-      store.state.base.maps.map04.addInteraction( new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
-
+      store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
     }
-
 
     //現在地取得
     const  success = (pos) =>{
@@ -137,14 +145,17 @@ export function initMap (vm) {
       if (feature) {
         document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "pointer"
       }
-      //----------------------------------
-      // 特定のラスターでカーソルを変える
+    //   //----------------------------------
+    //   // 特定のラスターでカーソルを変える
       const pixel = (map).getPixelFromCoordinate(evt.coordinate);
-      const layers = [];
-      //マウスがあたった箇所のレイヤーを複数取得する
-      (map).forEachLayerAtPixel(pixel,function(layer){
-        layers.push(layer);
-      });
+       const layers = [];
+      // マウスがあたった箇所のレイヤーを複数取得する
+      try {
+       (map).forEachLayerAtPixel(pixel,function(layer){
+         layers.push(layer);
+       });
+      } catch (error) {}
+
       const tgtLayers = layers.filter(el => el.get('pointer'));
       if (tgtLayers.length>0) {
         // if (map.getView().getZoom() >= 10) {
@@ -405,7 +416,6 @@ export function initMap (vm) {
       img.crossOrigin = 'anonymous';
       img.alt = "";
       img.onload = function(){
-        console.log(111)
         const canvas = document.createElement( 'canvas' )
         const context = canvas.getContext( '2d' )
         let  h = 'e'
@@ -421,7 +431,6 @@ export function initMap (vm) {
         then( h );
       }
       img.src = elevServer + z + '/' + y + '/' + x + '.png?res=cm';
-      console.log(888)
     }
 
     // 要素をドラッグする。

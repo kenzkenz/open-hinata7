@@ -27,7 +27,7 @@
                     />
                 </div>
                 <div class="top-right-div">
-                  <b-button i v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="openDialog(s_dialogs['mainInfoDialog'])"><i class="fa-brands fa-github"></i></b-button>
+                  <b-button i v-if="mapName === 'm  ap01'" class='olbtn' :size="btnSize" @click="openDialog(s_dialogs['mainInfoDialog'])"><i class="fa-brands fa-github"></i></b-button>
                 </div>
                 <v-dialog-layer :mapName=mapName />
                 <v-dialog-info :mapName=mapName />
@@ -550,7 +550,7 @@
     .ol-target-overlay .ol-target:after,
     .ol-target-overlay .ol-target:before
     {	content:"";
-      border: 1px solid #369;
+      border: 1px solid black;
       -webkit-box-shadow: none;	box-shadow: none;
       /*-webkit-box-shadow: 0 0 1px 1px #fff;*/
       /*box-shadow: 0 0 1px 1px #fff;*/
