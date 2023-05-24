@@ -2184,7 +2184,7 @@ function Kz_chukyo2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo2manObj = {};
 for (let i of mapsStr) {
@@ -2197,7 +2197,7 @@ function Kz_chukyo00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo00Obj = {};
 for (let i of mapsStr) {
@@ -2210,7 +2210,7 @@ function Kz_chukyo01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo01Obj = {};
 for (let i of mapsStr) {
@@ -2223,7 +2223,7 @@ function Kz_chukyo02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo02Obj = {};
 for (let i of mapsStr) {
@@ -2236,7 +2236,7 @@ function Kz_chukyo03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo03Obj = {};
 for (let i of mapsStr) {
@@ -2249,7 +2249,7 @@ function Kz_chukyo04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo04Obj = {};
 for (let i of mapsStr) {
@@ -2262,7 +2262,7 @@ function Kz_chukyo05 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo05Obj = {};
 for (let i of mapsStr) {
@@ -2275,7 +2275,7 @@ function Kz_chukyo06 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo06Obj = {};
 for (let i of mapsStr) {
@@ -2288,7 +2288,7 @@ function Kz_chukyo07 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo07Obj = {};
 for (let i of mapsStr) {
@@ -2301,7 +2301,7 @@ function Kz_chukyo08 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo08Obj = {};
 for (let i of mapsStr) {
