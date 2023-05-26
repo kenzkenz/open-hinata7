@@ -2176,7 +2176,7 @@ for (let i of mapsStr) {
   kz_tokyo5007Obj[i] = new TileLayer(new Kz_tokyo5007())
 }
 
-// 中共圏
+// 中京圏
 function Kz_chukyo2man () {
   this.source = new XYZ({
     url: 'https://ktgis.net/kjmapw/kjtilemap/chukyo/2man/{z}/{x}/{-y}.png',
@@ -2308,6 +2308,137 @@ for (let i of mapsStr) {
   kz_chukyo08Obj[i] = new TileLayer(new Kz_chukyo08())
 }
 
+// 京阪神圏
+function Kz_keihansin2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin2manObj = {};
+for (let i of mapsStr) {
+  kz_keihansin2manObj[i] = new TileLayer(new Kz_keihansin2man())
+}
+function Kz_keihansin00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin00Obj = {};
+for (let i of mapsStr) {
+  kz_keihansin00Obj[i] = new TileLayer(new Kz_keihansin00())
+}
+function Kz_keihansin01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin01Obj = {};
+for (let i of mapsStr) {
+  kz_keihansin01Obj[i] = new TileLayer(new Kz_keihansin01())
+}
+function Kz_keihansin02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin02Obj = {};
+for (let i of mapsStr) {
+  kz_keihansin02Obj[i] = new TileLayer(new Kz_keihansin02())
+}
+function Kz_keihansin03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin03Obj = {};
+for (let i of mapsStr) {
+  kz_keihansin03Obj[i] = new TileLayer(new Kz_keihansin03())
+}
+function Kz_keihansin03x () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/03x/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin03xObj = {};
+for (let i of mapsStr) {
+  kz_keihansin03xObj[i] = new TileLayer(new Kz_keihansin03x())
+}
+function Kz_keihansin04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin04Obj = {};
+for (let i of mapsStr) {
+  kz_keihansin04Obj[i] = new TileLayer(new Kz_keihansin04())
+}
+function Kz_keihansin05 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/05/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin05Obj = {};
+for (let i of mapsStr) {
+  kz_keihansin05Obj[i] = new TileLayer(new Kz_keihansin05())
+}
+function Kz_keihansin06 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/06/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin06Obj = {};
+for (let i of mapsStr) {
+  kz_keihansin06Obj[i] = new TileLayer(new Kz_keihansin06())
+}
+function Kz_keihansin07 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/keihansin/07/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+}
+const kz_keihansin07Obj = {};
+for (let i of mapsStr) {
+  kz_keihansin07Obj[i] = new TileLayer(new Kz_keihansin07())
+}
 
 
 
@@ -2636,7 +2767,20 @@ const totiriyouzuSumm = '出典：<br><a href="https://maps.gsi.go.jp/developmen
     '<br><a href="https://cyberjapandata.gsi.go.jp/legend/lum200k_legend.jpg" target="_blank">凡例</a>'
 
 
-
+// 江戸切絵図------------------
+function Edokirie() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/4915/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const edokirieObj = {};
+for (let i of mapsStr) {
+  edokirieObj[i] = new TileLayer(new Edokirie())
+}
+const edokirieSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/maps/4915" target="_blank">日本版 Map Warper</a>';
 
 
 
@@ -2697,6 +2841,7 @@ const layers =
         { text: '<i class="fa-solid fa-layer-group"></i>戦前地形図20万分の１', data: { id: 'mw20', layer: mw20Obj, opacity: 1, summary: mw20Summ } },
         { text: '迅速測図 (関東)', data: { id: 'jinsoku', layer: jinsokuObj, opacity: 1, zoom: 9, center: [139.8089637733657, 35.86926927958841], summary: jinsokuSumm } },
         { text: '東京5000分の1明治17年', data: { id: 'tokyo5000', layer: tokyo5000Obj, opacity: 1, zoom: 14, center: [139.7579477727413, 35.6843002871569], summary: tokyo5000Summ } },
+        { text: '〔江戸切絵図〕. 麻布絵図', data: { id: 'edokirie', layer: edokirieObj, opacity: 1, zoom: 15, center: [139.73059032411857, 35.654628169454355], summary: edokirieSumm } },
 
         { text: '東西蝦夷山川地理取調図', data: { id: 'ezosansen', layer: ezosansenObj, opacity: 1, zoom: 8, center: [142.6944008210318, 43.241646716680606], summary: ezosansenSumm } },
         { text: '大正13,14年古地図',
@@ -2798,7 +2943,19 @@ const layers =
                 { text: '中京圏1976-1980年', data: { id: 'kzchukyo06', layer: kz_chukyo06Obj, opacity: 1, zoom: 11, center: [136.87087367140046, 35.16811021239606], summary: kzSumm } },
                 { text: '中京圏1984-1989年', data: { id: 'kzchukyo07', layer: kz_chukyo07Obj, opacity: 1, zoom: 11, center: [136.87087367140046, 35.16811021239606], summary: kzSumm } },
                 { text: '中京圏1992-1996年', data: { id: 'kzchukyo08', layer: kz_chukyo08Obj, opacity: 1, zoom: 11, center: [136.87087367140046, 35.16811021239606], summary: kzSumm } },
-
+              ]},
+            { text: '京阪神圏',
+              children: [
+                { text: '京阪神圏1892-1910年', data: { id: 'kzkeihansin2man', layer: kz_keihansin2manObj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1922-1923年', data: { id: 'kzkeihansin00', layer: kz_keihansin00Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1927-1935年', data: { id: 'kzkeihansin01', layer: kz_keihansin01Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1947-1950年年', data: { id: 'kzkeihansin02', layer: kz_keihansin02Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1954-1956年', data: { id: 'kzkeihansin03', layer: kz_keihansin03Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1961-1964年', data: { id: 'kzkeihansin03x', layer: kz_keihansin03xObj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1967-1970年', data: { id: 'kzkeihansin04', layer: kz_keihansin04Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1975-1979年', data: { id: 'kzkeihansin05', layer: kz_keihansin05Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1983-1988年', data: { id: 'kzkeihansin06', layer: kz_keihansin06Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1993-1997年', data: { id: 'kzkeihansin07', layer: kz_keihansin07Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
               ]},
             { text: '福岡',
               children: [
