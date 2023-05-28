@@ -2574,6 +2574,61 @@ for (let i of mapsStr) {
   kz_sendai04Obj[i] = new TileLayer(new Kz_sendai04())
 }
 
+// 東北地方太平洋岸
+function Kz_tohoku_pacific_coast00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/tohoku_pacific_coast/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  // this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_tohoku_pacific_coast00Obj = {};
+for (let i of mapsStr) {
+  kz_tohoku_pacific_coast00Obj[i] = new TileLayer(new Kz_tohoku_pacific_coast00())
+}
+function Kz_tohoku_pacific_coast01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/tohoku_pacific_coast/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  // this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_tohoku_pacific_coast01Obj = {};
+for (let i of mapsStr) {
+  kz_tohoku_pacific_coast01Obj[i] = new TileLayer(new Kz_tohoku_pacific_coast01())
+}
+function Kz_tohoku_pacific_coast02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/tohoku_pacific_coast/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  // this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_tohoku_pacific_coast02Obj = {};
+for (let i of mapsStr) {
+  kz_tohoku_pacific_coast02Obj[i] = new TileLayer(new Kz_tohoku_pacific_coast02())
+}
+function Kz_tohoku_pacific_coast03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/tohoku_pacific_coast/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  // this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_tohoku_pacific_coast03Obj = {};
+for (let i of mapsStr) {
+  kz_tohoku_pacific_coast03Obj[i] = new TileLayer(new Kz_tohoku_pacific_coast03())
+}
+
+
 
 // 福岡・北九州編------------------------------------------------------------------------------
 function Kz_fukuoka00 () {
@@ -3117,6 +3172,13 @@ const layers =
                 { text: '仙台1963-1967年', data: { id: 'kzsendai02', layer: kz_sendai02Obj, opacity: 1, zoom: 11, center: [141.00327445963651, 38.25002518101397], summary: kzSumm } },
                 { text: '仙台1977-1978年', data: { id: 'kzsendai03', layer: kz_sendai03Obj, opacity: 1, zoom: 11, center: [141.00327445963651, 38.25002518101397], summary: kzSumm } },
                 { text: '仙台1995-2000年', data: { id: 'kzsendai04', layer: kz_sendai04Obj, opacity: 1, zoom: 11, center: [141.00327445963651, 38.25002518101397], summary: kzSumm } },
+              ]},
+            { text: '東北地方太平洋岸',
+              children: [
+                { text: '東北地方太平洋岸1901-1913年', data: { id: 'kztohoku_pacific_coast00', layer: kz_tohoku_pacific_coast00Obj, opacity: 1, zoom: 8, center: [141.46002531051636, 38.749782624323984], summary: kzSumm } },
+                { text: '東北地方太平洋岸1949-1953年', data: { id: 'kztohoku_pacific_coast01', layer: kz_tohoku_pacific_coast01Obj, opacity: 1, zoom: 8, center: [141.46002531051636, 38.749782624323984], summary: kzSumm } },
+                { text: '東北地方太平洋岸1969-1982年', data: { id: 'kztohoku_pacific_coast02', layer: kz_tohoku_pacific_coast02Obj, opacity: 1, zoom: 8, center: [141.46002531051636, 38.749782624323984], summary: kzSumm } },
+                { text: '東北地方太平洋岸1990-2008年', data: { id: 'kztohoku_pacific_coast03', layer: kz_tohoku_pacific_coast03Obj, opacity: 1, zoom: 8, center: [141.46002531051636, 38.749782624323984], summary: kzSumm } },
               ]},
             { text: '福岡',
               children: [
