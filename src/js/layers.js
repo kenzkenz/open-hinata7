@@ -2440,7 +2440,72 @@ for (let i of mapsStr) {
   kz_keihansin07Obj[i] = new TileLayer(new Kz_keihansin07())
 }
 
-
+// 札幌
+function Kz_sapporo00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sapporo/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+}
+const kz_sapporo00Obj = {};
+for (let i of mapsStr) {
+  kz_sapporo00Obj[i] = new TileLayer(new Kz_sapporo00())
+}
+function Kz_sapporo01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sapporo/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+}
+const kz_sapporo01Obj = {};
+for (let i of mapsStr) {
+  kz_sapporo01Obj[i] = new TileLayer(new Kz_sapporo01())
+}
+function Kz_sapporo02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sapporo/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+}
+const kz_sapporo02Obj = {};
+for (let i of mapsStr) {
+  kz_sapporo02Obj[i] = new TileLayer(new Kz_sapporo02())
+}
+function Kz_sapporo03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sapporo/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+}
+const kz_sapporo03Obj = {};
+for (let i of mapsStr) {
+  kz_sapporo03Obj[i] = new TileLayer(new Kz_sapporo03())
+}
+function Kz_sapporo04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sapporo/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+}
+const kz_sapporo04Obj = {};
+for (let i of mapsStr) {
+  kz_sapporo04Obj[i] = new TileLayer(new Kz_sapporo04())
+}
 
 
 
@@ -2964,7 +3029,7 @@ const layers =
                 { text: '京阪神圏1892-1910年', data: { id: 'kzkeihansin2man', layer: kz_keihansin2manObj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
                 { text: '京阪神圏1922-1923年', data: { id: 'kzkeihansin00', layer: kz_keihansin00Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
                 { text: '京阪神圏1927-1935年', data: { id: 'kzkeihansin01', layer: kz_keihansin01Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
-                { text: '京阪神圏1947-1950年年', data: { id: 'kzkeihansin02', layer: kz_keihansin02Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
+                { text: '京阪神圏1947-1950年', data: { id: 'kzkeihansin02', layer: kz_keihansin02Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
                 { text: '京阪神圏1954-1956年', data: { id: 'kzkeihansin03', layer: kz_keihansin03Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
                 { text: '京阪神圏1961-1964年', data: { id: 'kzkeihansin03x', layer: kz_keihansin03xObj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
                 { text: '京阪神圏1967-1970年', data: { id: 'kzkeihansin04', layer: kz_keihansin04Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
@@ -2972,6 +3037,15 @@ const layers =
                 { text: '京阪神圏1983-1988年', data: { id: 'kzkeihansin06', layer: kz_keihansin06Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
                 { text: '京阪神圏1993-1997年', data: { id: 'kzkeihansin07', layer: kz_keihansin07Obj, opacity: 1, zoom: 11, center: [135.41893422603607, 34.68351530491641], summary: kzSumm } },
               ]},
+            { text: '札幌',
+              children: [
+                { text: '札幌1916年', data: { id: 'kzsapporo00', layer: kz_sapporo00Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
+                { text: '札幌1935年', data: { id: 'kzsapporo01', layer: kz_sapporo01Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
+                { text: '札幌1950-1952年', data: { id: 'kzsapporo02', layer: kz_sapporo02Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
+                { text: '札幌1975-1976年', data: { id: 'kzsapporo03', layer: kz_sapporo03Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
+                { text: '札幌1995-1998年\t', data: { id: 'kzsapporo04', layer: kz_sapporo04Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
+             ]},
+
             { text: '福岡',
               children: [
                 { text: '福岡1922-1926年', data: { id: 'kzFukuoka00', layer: kz_fukuoka00Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
