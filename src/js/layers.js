@@ -2507,7 +2507,72 @@ for (let i of mapsStr) {
   kz_sapporo04Obj[i] = new TileLayer(new Kz_sapporo04())
 }
 
-
+// 仙台
+function Kz_sendai00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sendai/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_sendai00Obj = {};
+for (let i of mapsStr) {
+  kz_sendai00Obj[i] = new TileLayer(new Kz_sendai00())
+}
+function Kz_sendai01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sendai/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_sendai01Obj = {};
+for (let i of mapsStr) {
+  kz_sendai01Obj[i] = new TileLayer(new Kz_sendai01())
+}
+function Kz_sendai02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sendai/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_sendai02Obj = {};
+for (let i of mapsStr) {
+  kz_sendai02Obj[i] = new TileLayer(new Kz_sendai02())
+}
+function Kz_sendai03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sendai/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_sendai03Obj = {};
+for (let i of mapsStr) {
+  kz_sendai03Obj[i] = new TileLayer(new Kz_sendai03())
+}
+function Kz_sendai04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/sendai/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+}
+const kz_sendai04Obj = {};
+for (let i of mapsStr) {
+  kz_sendai04Obj[i] = new TileLayer(new Kz_sendai04())
+}
 
 
 // 福岡・北九州編------------------------------------------------------------------------------
@@ -3043,9 +3108,16 @@ const layers =
                 { text: '札幌1935年', data: { id: 'kzsapporo01', layer: kz_sapporo01Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
                 { text: '札幌1950-1952年', data: { id: 'kzsapporo02', layer: kz_sapporo02Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
                 { text: '札幌1975-1976年', data: { id: 'kzsapporo03', layer: kz_sapporo03Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
-                { text: '札幌1995-1998年\t', data: { id: 'kzsapporo04', layer: kz_sapporo04Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
+                { text: '札幌1995-1998年', data: { id: 'kzsapporo04', layer: kz_sapporo04Obj, opacity: 1, zoom: 11, center: [141.2444177629186, 43.08518009009643], summary: kzSumm } },
              ]},
-
+            { text: '仙台',
+              children: [
+                { text: '仙台1928-1933年', data: { id: 'kzsendai00', layer: kz_sendai00Obj, opacity: 1, zoom: 11, center: [141.00327445963651, 38.25002518101397], summary: kzSumm } },
+                { text: '仙台1946年', data: { id: 'kzsendai01', layer: kz_sendai01Obj, opacity: 1, zoom: 11, center: [141.00327445963651, 38.25002518101397], summary: kzSumm } },
+                { text: '仙台1963-1967年', data: { id: 'kzsendai02', layer: kz_sendai02Obj, opacity: 1, zoom: 11, center: [141.00327445963651, 38.25002518101397], summary: kzSumm } },
+                { text: '仙台1977-1978年', data: { id: 'kzsendai03', layer: kz_sendai03Obj, opacity: 1, zoom: 11, center: [141.00327445963651, 38.25002518101397], summary: kzSumm } },
+                { text: '仙台1995-2000年', data: { id: 'kzsendai04', layer: kz_sendai04Obj, opacity: 1, zoom: 11, center: [141.00327445963651, 38.25002518101397], summary: kzSumm } },
+              ]},
             { text: '福岡',
               children: [
                 { text: '福岡1922-1926年', data: { id: 'kzFukuoka00', layer: kz_fukuoka00Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
