@@ -2763,6 +2763,61 @@ for (let i of mapsStr) {
   kz_kanto03Obj[i] = new TileLayer(new Kz_kanto03())
 }
 
+// 沖縄本島南部
+function Kz_okinawas00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okinawas/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([127.600, 26.43582, 127.891, 25.98594])
+}
+const kz_okinawas00Obj = {};
+for (let i of mapsStr) {
+  kz_okinawas00Obj[i] = new TileLayer(new Kz_okinawas00())
+}
+function Kz_okinawas01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okinawas/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([127.600, 26.43582, 127.891, 25.98594])
+}
+const kz_okinawas01Obj = {};
+for (let i of mapsStr) {
+  kz_okinawas01Obj[i] = new TileLayer(new Kz_okinawas01())
+}
+function Kz_okinawas02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okinawas/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([127.600, 26.43582, 127.891, 25.98594])
+}
+const kz_okinawas02Obj = {};
+for (let i of mapsStr) {
+  kz_okinawas02Obj[i] = new TileLayer(new Kz_okinawas02())
+}
+function Kz_okinawas03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okinawas/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([127.600, 26.43582, 127.891, 25.98594])
+}
+const kz_okinawas03Obj = {};
+for (let i of mapsStr) {
+  kz_okinawas03Obj[i] = new TileLayer(new Kz_okinawas03())
+}
+
+
 
 // 福岡・北九州編------------------------------------------------------------------------------
 function Kz_fukuoka00 () {
@@ -3362,7 +3417,14 @@ const layers =
                 { text: '延岡1965年', data: { id: 'kznobeoka02', layer: kz_nobeoka02Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
                 { text: '延岡1978-1978年', data: { id: 'kznobeoka03', layer: kz_nobeoka03Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
                 { text: '延岡1999-2000年', data: { id: 'kznobeoka04', layer: kz_nobeoka04Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
-              ]}
+              ]},
+            { text: '沖縄本島南部',
+              children: [
+                { text: '沖縄本島南部1919年', data: { id: 'kzokinawas00', layer: kz_okinawas00Obj, opacity: 1, zoom: 11, center: [127.74929221149132, 26.258318419347532], summary: kzSumm } },
+                { text: '沖縄本島南部1973-1975年', data: { id: 'kzokinawas01', layer: kz_okinawas01Obj, opacity: 1, zoom: 11, center: [127.74929221149132, 26.258318419347532], summary: kzSumm } },
+                { text: '沖縄本島南部1992-1994年', data: { id: 'kzokinawas02', layer: kz_okinawas02Obj, opacity: 1, zoom: 11, center: [127.74929221149132, 26.258318419347532], summary: kzSumm } },
+                { text: '沖縄本島南部2005-2008年', data: { id: 'kzokinawas03', layer: kz_okinawas03Obj, opacity: 1, zoom: 11, center: [127.74929221149132, 26.258318419347532], summary: kzSumm } },
+             ]}
           ]}
       ]},
     { text: '地震危険度測定調査(東京都)',
