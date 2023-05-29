@@ -2908,6 +2908,85 @@ const kz_okinawas03Obj = {};
 for (let i of mapsStr) {
   kz_okinawas03Obj[i] = new TileLayer(new Kz_okinawas03())
 }
+// 新潟
+function Kz_niigata2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/niigata/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+}
+const kz_niigata2manObj = {};
+for (let i of mapsStr) {
+  kz_niigata2manObj[i] = new TileLayer(new Kz_niigata2man())
+}
+function Kz_niigata00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/niigata/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+}
+const kz_niigata00Obj = {};
+for (let i of mapsStr) {
+  kz_niigata00Obj[i] = new TileLayer(new Kz_niigata00())
+}
+function Kz_niigata01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/niigata/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+}
+const kz_niigata01Obj = {};
+for (let i of mapsStr) {
+  kz_niigata01Obj[i] = new TileLayer(new Kz_niigata01())
+}
+function Kz_niigata02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/niigata/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+}
+const kz_niigata02Obj = {};
+for (let i of mapsStr) {
+  kz_niigata02Obj[i] = new TileLayer(new Kz_niigata02())
+}
+function Kz_niigata03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/niigata/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+}
+const kz_niigata03Obj = {};
+for (let i of mapsStr) {
+  kz_niigata03Obj[i] = new TileLayer(new Kz_niigata03())
+}
+function Kz_niigata04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/niigata/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+}
+const kz_niigata04Obj = {};
+for (let i of mapsStr) {
+  kz_niigata04Obj[i] = new TileLayer(new Kz_niigata04())
+}
 
 
 
@@ -3534,6 +3613,17 @@ const layers =
                 { text: '関東1972-1982年', data: { id: 'kzkanto02', layer: kz_kanto02Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
                 { text: '関東1988-2008年', data: { id: 'kzkanto03', layer: kz_kanto03Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
               ]},
+
+            { text: '新潟',
+              children: [
+                { text: '新潟1910-1911年', data: { id: 'kzniigata00', layer: kz_niigata00Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
+                { text: '新潟1930-1931年', data: { id: 'kzniigata01', layer: kz_niigata01Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
+                { text: '新潟1966-1968年', data: { id: 'kzniigata02', layer: kz_niigata02Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
+                { text: '新潟1980-1988年', data: { id: 'kzniigata03', layer: kz_niigata03Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
+                { text: '新潟1997-2001年', data: { id: 'kzniigata04', layer: kz_niigata04Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
+              ]},
+
+
             { text: '浜松・豊橋',
               children: [
                 { text: '浜松・豊橋1889-1890年', data: { id: 'kzhamamatsu2man', layer: kz_hamamatsu2manObj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
