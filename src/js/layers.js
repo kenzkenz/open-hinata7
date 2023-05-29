@@ -2628,6 +2628,98 @@ for (let i of mapsStr) {
   kz_tohoku_pacific_coast03Obj[i] = new TileLayer(new Kz_tohoku_pacific_coast03())
 }
 
+// 浜松・豊橋
+function Kz_hamamatsu2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hamamatsu/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+}
+const kz_hamamatsu2manObj = {};
+for (let i of mapsStr) {
+  kz_hamamatsu2manObj[i] = new TileLayer(new Kz_hamamatsu2man())
+}
+function Kz_hamamatsu00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hamamatsu/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+}
+const kz_hamamatsu00Obj = {};
+for (let i of mapsStr) {
+  kz_hamamatsu00Obj[i] = new TileLayer(new Kz_hamamatsu00())
+}
+function Kz_hamamatsu01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hamamatsu/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+}
+const kz_hamamatsu01Obj = {};
+for (let i of mapsStr) {
+  kz_hamamatsu01Obj[i] = new TileLayer(new Kz_hamamatsu01())
+}
+function Kz_hamamatsu02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hamamatsu/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+}
+const kz_hamamatsu02Obj = {};
+for (let i of mapsStr) {
+  kz_hamamatsu02Obj[i] = new TileLayer(new Kz_hamamatsu02())
+}
+function Kz_hamamatsu03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hamamatsu/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+}
+const kz_hamamatsu03Obj = {};
+for (let i of mapsStr) {
+  kz_hamamatsu03Obj[i] = new TileLayer(new Kz_hamamatsu03())
+}
+function Kz_hamamatsu04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hamamatsu/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+}
+const kz_hamamatsu04Obj = {};
+for (let i of mapsStr) {
+  kz_hamamatsu04Obj[i] = new TileLayer(new Kz_hamamatsu04())
+}
+function Kz_hamamatsu05 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hamamatsu/05/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+}
+const kz_hamamatsu05Obj = {};
+for (let i of mapsStr) {
+  kz_hamamatsu05Obj[i] = new TileLayer(new Kz_hamamatsu05())
+}
 
 // 広島
 function Kz_hiroshima2man () {
@@ -2897,6 +2989,72 @@ function Kz_fukuoka05 () {
 const kz_fukuoka05Obj = {};
 for (let i of mapsStr) {
   kz_fukuoka05Obj[i] = new TileLayer(new Kz_fukuoka05())
+}
+// 熊本
+function Kz_kumamoto2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kumamoto/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+}
+const kz_kumamoto2manObj = {};
+for (let i of mapsStr) {
+  kz_kumamoto2manObj[i] = new TileLayer(new Kz_kumamoto2man())
+}
+function Kz_kumamoto00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kumamoto/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+}
+const kz_kumamoto00Obj = {};
+for (let i of mapsStr) {
+  kz_kumamoto00Obj[i] = new TileLayer(new Kz_kumamoto00())
+}
+function Kz_kumamoto01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kumamoto/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+}
+const kz_kumamoto01Obj = {};
+for (let i of mapsStr) {
+  kz_kumamoto01Obj[i] = new TileLayer(new Kz_kumamoto01())
+}
+function Kz_kumamoto02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kumamoto/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+}
+const kz_kumamoto02Obj = {};
+for (let i of mapsStr) {
+  kz_kumamoto02Obj[i] = new TileLayer(new Kz_kumamoto02())
+}
+function Kz_kumamoto03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kumamoto/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+}
+const kz_kumamoto03Obj = {};
+for (let i of mapsStr) {
+  kz_kumamoto03Obj[i] = new TileLayer(new Kz_kumamoto03())
 }
 // 宮崎編-------------------------------------------------------------------
 function Kz_miyazaki00 () {
@@ -3376,6 +3534,16 @@ const layers =
                 { text: '関東1972-1982年', data: { id: 'kzkanto02', layer: kz_kanto02Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
                 { text: '関東1988-2008年', data: { id: 'kzkanto03', layer: kz_kanto03Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
               ]},
+            { text: '浜松・豊橋',
+              children: [
+                { text: '浜松・豊橋1889-1890年', data: { id: 'kzhamamatsu2man', layer: kz_hamamatsu2manObj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
+                { text: '浜松・豊橋1916-1918年', data: { id: 'kzhamamatsu00', layer: kz_hamamatsu00Obj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
+                { text: '浜松・豊橋1938-1950年', data: { id: 'kzhamamatsu01', layer: kz_hamamatsu01Obj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
+                { text: '浜松・豊橋1956-1959年', data: { id: 'kzhamamatsu02', layer: kz_hamamatsu02Obj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
+                { text: '浜松・豊橋1975-1988年', data: { id: 'kzhamamatsu03', layer: kz_hamamatsu03Obj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
+                { text: '浜松・豊橋1988-1995年', data: { id: 'kzhamamatsu04', layer: kz_hamamatsu04Obj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
+                { text: '浜松・豊橋1996-2010年', data: { id: 'kzhamamatsu05', layer: kz_hamamatsu05Obj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
+              ]},
             { text: '広島',
               children: [
                 { text: '広島1894-1899年', data: { id: 'kzhiroshima2man', layer: kz_hiroshima2manObj, opacity: 1, zoom: 10, center: [132.54580130935645, 34.21994336393344], summary: kzSumm } },
@@ -3393,6 +3561,14 @@ const layers =
                 { text: '福岡1967-1972年', data: { id: 'kzFukuoka03', layer: kz_fukuoka03Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
                 { text: '福岡1982-1986年', data: { id: 'kzFukuoka04', layer: kz_fukuoka04Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
                 { text: '福岡1991-2000年', data: { id: 'kzFukuoka05', layer: kz_fukuoka05Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
+              ]},
+            { text: '熊本',
+              children: [
+                { text: '熊本1900-1901年', data: { id: 'kzkumamoto2man', layer: kz_kumamoto2manObj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
+                { text: '熊本1926年', data: { id: 'kzkumamoto00', layer: kz_kumamoto00Obj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
+                { text: '熊本1965-1971年', data: { id: 'kzkumamoto01', layer: kz_kumamoto01Obj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
+                { text: '熊本1983年', data: { id: 'kzkumamoto02', layer: kz_kumamoto02Obj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
+                { text: '熊本1998-2000年', data: { id: 'kzkumamoto03', layer: kz_kumamoto03Obj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
               ]},
             { text: '宮崎',
               children: [
