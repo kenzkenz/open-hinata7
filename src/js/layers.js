@@ -2582,7 +2582,7 @@ function Kz_tohoku_pacific_coast00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
 }
 const kz_tohoku_pacific_coast00Obj = {};
 for (let i of mapsStr) {
@@ -2595,7 +2595,7 @@ function Kz_tohoku_pacific_coast01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
 }
 const kz_tohoku_pacific_coast01Obj = {};
 for (let i of mapsStr) {
@@ -2608,7 +2608,7 @@ function Kz_tohoku_pacific_coast02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
 }
 const kz_tohoku_pacific_coast02Obj = {};
 for (let i of mapsStr) {
@@ -2621,13 +2621,147 @@ function Kz_tohoku_pacific_coast03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
 }
 const kz_tohoku_pacific_coast03Obj = {};
 for (let i of mapsStr) {
   kz_tohoku_pacific_coast03Obj[i] = new TileLayer(new Kz_tohoku_pacific_coast03())
 }
 
+
+// 広島
+function Kz_hiroshima2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hiroshima/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+}
+const kz_hiroshima2manObj = {};
+for (let i of mapsStr) {
+  kz_hiroshima2manObj[i] = new TileLayer(new Kz_hiroshima2man())
+}
+function Kz_hiroshima00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hiroshima/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+}
+const kz_hiroshima00Obj = {};
+for (let i of mapsStr) {
+  kz_hiroshima00Obj[i] = new TileLayer(new Kz_hiroshima00())
+}
+function Kz_hiroshima01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hiroshima/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+}
+const kz_hiroshima01Obj = {};
+for (let i of mapsStr) {
+  kz_hiroshima01Obj[i] = new TileLayer(new Kz_hiroshima01())
+}
+function Kz_hiroshima02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hiroshima/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+}
+const kz_hiroshima02Obj = {};
+for (let i of mapsStr) {
+  kz_hiroshima02Obj[i] = new TileLayer(new Kz_hiroshima02())
+}
+function Kz_hiroshima03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hiroshima/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+}
+const kz_hiroshima03Obj = {};
+for (let i of mapsStr) {
+  kz_hiroshima03Obj[i] = new TileLayer(new Kz_hiroshima03())
+}
+function Kz_hiroshima04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/hiroshima/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+}
+const kz_hiroshima04Obj = {};
+for (let i of mapsStr) {
+  kz_hiroshima04Obj[i] = new TileLayer(new Kz_hiroshima04())
+}
+
+// 関東
+function Kz_kanto00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanto/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
+}
+const kz_kanto00Obj = {};
+for (let i of mapsStr) {
+  kz_kanto00Obj[i] = new TileLayer(new Kz_kanto00())
+}
+function Kz_kanto01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanto/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
+}
+const kz_kanto01Obj = {};
+for (let i of mapsStr) {
+  kz_kanto01Obj[i] = new TileLayer(new Kz_kanto01())
+}
+function Kz_kanto02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanto/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
+}
+const kz_kanto02Obj = {};
+for (let i of mapsStr) {
+  kz_kanto02Obj[i] = new TileLayer(new Kz_kanto02())
+}
+function Kz_kanto03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanto/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
+}
+const kz_kanto03Obj = {};
+for (let i of mapsStr) {
+  kz_kanto03Obj[i] = new TileLayer(new Kz_kanto03())
+}
 
 
 // 福岡・北九州編------------------------------------------------------------------------------
@@ -3179,6 +3313,22 @@ const layers =
                 { text: '東北地方太平洋岸1949-1953年', data: { id: 'kztohoku_pacific_coast01', layer: kz_tohoku_pacific_coast01Obj, opacity: 1, zoom: 8, center: [141.46002531051636, 38.749782624323984], summary: kzSumm } },
                 { text: '東北地方太平洋岸1969-1982年', data: { id: 'kztohoku_pacific_coast02', layer: kz_tohoku_pacific_coast02Obj, opacity: 1, zoom: 8, center: [141.46002531051636, 38.749782624323984], summary: kzSumm } },
                 { text: '東北地方太平洋岸1990-2008年', data: { id: 'kztohoku_pacific_coast03', layer: kz_tohoku_pacific_coast03Obj, opacity: 1, zoom: 8, center: [141.46002531051636, 38.749782624323984], summary: kzSumm } },
+              ]},
+            { text: '関東',
+              children: [
+                { text: '関東1894-1915年', data: { id: 'kzkanto00', layer: kz_kanto00Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
+                { text: '関東1928-1945年', data: { id: 'kzkanto01', layer: kz_kanto01Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
+                { text: '関東1972-1982年', data: { id: 'kzkanto02', layer: kz_kanto02Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
+                { text: '関東1988-2008年', data: { id: 'kzkanto03', layer: kz_kanto03Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
+              ]},
+            { text: '広島',
+              children: [
+                { text: '広島1894-1899年', data: { id: 'kzhiroshima2man', layer: kz_hiroshima2manObj, opacity: 1, zoom: 10, center: [132.54580130935645, 34.21994336393344], summary: kzSumm } },
+                { text: '広島1925-1932年', data: { id: 'kzhiroshima00', layer: kz_hiroshima00Obj, opacity: 1, zoom: 10, center: [132.54580130935645, 34.21994336393344], summary: kzSumm } },
+                { text: '広島1950-1954年', data: { id: 'kzhiroshima01', layer: kz_hiroshima01Obj, opacity: 1, zoom: 10, center: [132.54580130935645, 34.21994336393344], summary: kzSumm } },
+                { text: '広島1967-1969年', data: { id: 'kzhiroshima02', layer: kz_hiroshima02Obj, opacity: 1, zoom: 10, center: [132.54580130935645, 34.21994336393344], summary: kzSumm } },
+                { text: '広島1984-1990年', data: { id: 'kzhiroshima03', layer: kz_hiroshima03Obj, opacity: 1, zoom: 10, center: [132.54580130935645, 34.21994336393344], summary: kzSumm } },
+                { text: '広島1992-2001年', data: { id: 'kzhiroshima04', layer: kz_hiroshima04Obj, opacity: 1, zoom: 10, center: [132.54580130935645, 34.21994336393344], summary: kzSumm } },
               ]},
             { text: '福岡',
               children: [
