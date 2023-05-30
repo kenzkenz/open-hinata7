@@ -2628,6 +2628,74 @@ for (let i of mapsStr) {
   kz_tohoku_pacific_coast03Obj[i] = new TileLayer(new Kz_tohoku_pacific_coast03())
 }
 
+// 姫路
+function Kz_himeji2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/himeji/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  // this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+}
+const kz_himeji2manObj = {};
+for (let i of mapsStr) {
+  kz_himeji2manObj[i] = new TileLayer(new Kz_himeji2man())
+}
+function Kz_himeji00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/himeji/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+}
+const kz_himeji00Obj = {};
+for (let i of mapsStr) {
+  kz_himeji00Obj[i] = new TileLayer(new Kz_himeji00())
+}
+function Kz_himeji01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/himeji/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+}
+const kz_himeji01Obj = {};
+for (let i of mapsStr) {
+  kz_himeji01Obj[i] = new TileLayer(new Kz_himeji01())
+}
+function Kz_himeji02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/himeji/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+}
+const kz_himeji02Obj = {};
+for (let i of mapsStr) {
+  kz_himeji02Obj[i] = new TileLayer(new Kz_himeji02())
+}
+function Kz_himeji03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/himeji/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+}
+const kz_himeji03Obj = {};
+for (let i of mapsStr) {
+  kz_himeji03Obj[i] = new TileLayer(new Kz_himeji03())
+}
+
+
 // 浜松・豊橋
 function Kz_hamamatsu2man () {
   this.source = new XYZ({
@@ -3613,7 +3681,6 @@ const layers =
                 { text: '関東1972-1982年', data: { id: 'kzkanto02', layer: kz_kanto02Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
                 { text: '関東1988-2008年', data: { id: 'kzkanto03', layer: kz_kanto03Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
               ]},
-
             { text: '新潟',
               children: [
                 { text: '新潟1910-1911年', data: { id: 'kzniigata00', layer: kz_niigata00Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
@@ -3622,7 +3689,14 @@ const layers =
                 { text: '新潟1980-1988年', data: { id: 'kzniigata03', layer: kz_niigata03Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
                 { text: '新潟1997-2001年', data: { id: 'kzniigata04', layer: kz_niigata04Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
               ]},
-
+            { text: '姫路',
+              children: [
+                { text: '姫路1903-1910年', data: { id: 'kzhimeji2man', layer: kz_himeji2manObj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
+                { text: '姫路1923年', data: { id: 'kzhimeji00', layer: kz_himeji00Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
+                { text: '姫路1967年', data: { id: 'kzhimeji01', layer: kz_himeji01Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
+                { text: '姫路1981-1985年', data: { id: 'kzhimeji02', layer: kz_himeji02Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
+                { text: '姫路1997-2001年', data: { id: 'kzhimeji03', layer: kz_himeji03Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
+              ]},
 
             { text: '浜松・豊橋',
               children: [
