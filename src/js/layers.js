@@ -2636,7 +2636,7 @@ function Kz_himeji2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  // this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
 }
 const kz_himeji2manObj = {};
 for (let i of mapsStr) {
@@ -2693,6 +2693,73 @@ function Kz_himeji03 () {
 const kz_himeji03Obj = {};
 for (let i of mapsStr) {
   kz_himeji03Obj[i] = new TileLayer(new Kz_himeji03())
+}
+
+// 岡山・福山
+function Kz_okayama2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okayama/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+}
+const kz_okayama2manObj = {};
+for (let i of mapsStr) {
+  kz_okayama2manObj[i] = new TileLayer(new Kz_okayama2man())
+}
+function Kz_okayama00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okayama/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+}
+const kz_okayama00Obj = {};
+for (let i of mapsStr) {
+  kz_okayama00Obj[i] = new TileLayer(new Kz_okayama00())
+}
+function Kz_okayama01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okayama/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+}
+const kz_okayama01Obj = {};
+for (let i of mapsStr) {
+  kz_okayama01Obj[i] = new TileLayer(new Kz_okayama01())
+}
+function Kz_okayama02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okayama/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+}
+const kz_okayama02Obj = {};
+for (let i of mapsStr) {
+  kz_okayama02Obj[i] = new TileLayer(new Kz_okayama02())
+}
+function Kz_okayama03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/okayama/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+}
+const kz_okayama03Obj = {};
+for (let i of mapsStr) {
+  kz_okayama03Obj[i] = new TileLayer(new Kz_okayama03())
 }
 
 
@@ -2921,6 +2988,86 @@ function Kz_kanto03 () {
 const kz_kanto03Obj = {};
 for (let i of mapsStr) {
   kz_kanto03Obj[i] = new TileLayer(new Kz_kanto03())
+}
+
+// 鹿児島
+function Kz_kagoshima5man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kagoshima/5man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+}
+const kz_kagoshima5manObj = {};
+for (let i of mapsStr) {
+  kz_kagoshima5manObj[i] = new TileLayer(new Kz_kagoshima5man())
+}
+function Kz_kagoshima2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kagoshima/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+}
+const kz_kagoshima2manObj = {};
+for (let i of mapsStr) {
+  kz_kagoshima2manObj[i] = new TileLayer(new Kz_kagoshima2man())
+}
+function Kz_kagoshima00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kagoshima/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+}
+const kz_kagoshima00Obj = {};
+for (let i of mapsStr) {
+  kz_kagoshima00Obj[i] = new TileLayer(new Kz_kagoshima00())
+}
+function Kz_kagoshima01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kagoshima/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+}
+const kz_kagoshima01Obj = {};
+for (let i of mapsStr) {
+  kz_kagoshima01Obj[i] = new TileLayer(new Kz_kagoshima01())
+}
+function Kz_kagoshima02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kagoshima/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+}
+const kz_kagoshima02Obj = {};
+for (let i of mapsStr) {
+  kz_kagoshima02Obj[i] = new TileLayer(new Kz_kagoshima02())
+}
+function Kz_kagoshima03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kagoshima/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+}
+const kz_kagoshima03Obj = {};
+for (let i of mapsStr) {
+  kz_kagoshima03Obj[i] = new TileLayer(new Kz_kagoshima03())
 }
 
 // 沖縄本島南部
@@ -3697,7 +3844,14 @@ const layers =
                 { text: '姫路1981-1985年', data: { id: 'kzhimeji02', layer: kz_himeji02Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
                 { text: '姫路1997-2001年', data: { id: 'kzhimeji03', layer: kz_himeji03Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
               ]},
-
+            { text: '岡山・福山',
+              children: [
+                { text: '岡山・福山1895-1898年', data: { id: 'kzokayama2man', layer: kz_okayama2manObj, opacity: 1, zoom: 11, center: [133.49318888290387, 34.52516992131956], summary: kzSumm } },
+                { text: '岡山・福山1925年', data: { id: 'kzokayama00', layer: kz_okayama00Obj, opacity: 1, zoom: 11, center: [133.49318888290387, 34.52516992131956], summary: kzSumm } },
+                { text: '岡山・福山1965-1970年', data: { id: 'kzokayama01', layer: kz_okayama01Obj, opacity: 1, zoom: 11, center: [133.49318888290387, 34.52516992131956], summary: kzSumm } },
+                { text: '岡山・福山1978-1988年', data: { id: 'kzokayama02', layer: kz_okayama02Obj, opacity: 1, zoom: 11, center: [133.49318888290387, 34.52516992131956], summary: kzSumm } },
+                { text: '岡山・福山1990-2000年', data: { id: 'kzokayama03', layer: kz_okayama03Obj, opacity: 1, zoom: 11, center: [133.49318888290387, 34.52516992131956], summary: kzSumm } },
+              ]},
             { text: '浜松・豊橋',
               children: [
                 { text: '浜松・豊橋1889-1890年', data: { id: 'kzhamamatsu2man', layer: kz_hamamatsu2manObj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
@@ -3757,6 +3911,15 @@ const layers =
                 { text: '延岡1965年', data: { id: 'kznobeoka02', layer: kz_nobeoka02Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
                 { text: '延岡1978-1978年', data: { id: 'kznobeoka03', layer: kz_nobeoka03Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
                 { text: '延岡1999-2000年', data: { id: 'kznobeoka04', layer: kz_nobeoka04Obj, opacity: 1, zoom: 11, center: [131.6207503297622, 32.50548751069228], summary: kzSumm } },
+              ]},
+            { text: '鹿児島',
+              children: [
+                { text: '鹿児島1902年', data: { id: 'kzkagoshima5man', layer: kz_kagoshima5manObj, opacity: 1, zoom: 11, center: [130.56285629304983, 31.597604019409147], summary: kzSumm } },
+                { text: '鹿児島1902年', data: { id: 'kzkagoshima2man', layer: kz_kagoshima2manObj, opacity: 1, zoom: 11, center: [130.56285629304983, 31.597604019409147], summary: kzSumm } },
+                { text: '鹿児島1932年', data: { id: 'kzkagoshima00', layer: kz_kagoshima00Obj, opacity: 1, zoom: 11, center: [130.56285629304983, 31.597604019409147], summary: kzSumm } },
+                { text: '鹿児島1966年', data: { id: 'kzkagoshima01', layer: kz_kagoshima01Obj, opacity: 1, zoom: 11, center: [130.56285629304983, 31.597604019409147], summary: kzSumm } },
+                { text: '鹿児島1982-1983年', data: { id: 'kzkagoshima02', layer: kz_kagoshima02Obj, opacity: 1, zoom: 11, center: [130.56285629304983, 31.597604019409147], summary: kzSumm } },
+                { text: '鹿児島1996-2001年', data: { id: 'kzkagoshima03', layer: kz_kagoshima03Obj, opacity: 1, zoom: 11, center: [130.56285629304983, 31.597604019409147], summary: kzSumm } },
               ]},
             { text: '沖縄本島南部',
               children: [
