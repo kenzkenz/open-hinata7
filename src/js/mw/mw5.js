@@ -211,7 +211,15 @@ const mw5 =
       {"id":"5420",
           "title":"『尖山』五万分一地形圖",
           "source_uri":"https://purl.stanford.edu/cs660pz7215",
-          "extent":[149.990789,45.997,150.240789,45.81982]}
+          "extent":[149.990789,45.997,150.240789,45.81982]},
+      {"id":"5410",
+          "title":"『國端崎』五万分一地形圖",
+          "source_uri":"https://purl.stanford.edu/",
+          "extent":[156.252789,51.0,156.506964,50.83333333]},
+      {"id":"5409",
+          "title":"『阿頼度嶋北部』五万分一地形圖",
+          "source_uri":"https://purl.stanford.edu/qz733zh0006",
+          "extent":[155.456474,51.0,155.752789,50.83333333]}
   ]
 //test
 export default mw5
