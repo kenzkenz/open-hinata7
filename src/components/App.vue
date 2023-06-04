@@ -279,7 +279,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        cursor: grab;
+        /*cursor: grab;*/
     }
     #lock{
         position: absolute;
@@ -486,7 +486,7 @@
         /*bottom: 40px;*/
         /*top: auto;*/
         top: calc(100% - 6em);
-        cursor: grab;
+        /*cursor: grab;*/
     }
     .ol-notification {
         width: 150%;
