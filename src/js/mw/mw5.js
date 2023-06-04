@@ -219,7 +219,19 @@ const mw5 =
       {"id":"5409",
           "title":"『阿頼度嶋北部』五万分一地形圖",
           "source_uri":"https://purl.stanford.edu/qz733zh0006",
-          "extent":[155.456474,51.0,155.752789,50.83333333]}
+          "extent":[155.456474,51.0,155.752789,50.83333333]},
+      {"id":"5419",
+          "title":"『名古嶋』五万分一地形圖",
+          "source_uri":"https://purl.stanford.edu/yd727vp9889",
+          "extent":[149.740789,46.16366667,149.990789,45.997]},
+      {"id":"5416",
+          "title":"『劒崎』五万分一地形圖",
+          "source_uri":"https://purl.stanford.edu/gf520xd4249",
+          "extent":[149.990789,46.33033333,150.240789,46.16366667]},
+      {"id":"5422",
+          "title":"『ピリカモヘ崎』五万分一地形圖",
+          "source_uri":"https://purl.stanford.edu/bx924hy4613",
+          "extent":[149.490789,45.997,149.740789,45.8303333]}
   ]
 //test
 export default mw5
