@@ -3203,7 +3203,85 @@ const kz_aomori04Obj = {};
 for (let i of mapsStr) {
   kz_aomori04Obj[i] = new TileLayer(new Kz_aomori04())
 }
-
+// 長野
+function Kz_nagano00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nagano/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+}
+const kz_nagano00Obj = {};
+for (let i of mapsStr) {
+  kz_nagano00Obj[i] = new TileLayer(new Kz_nagano00())
+}
+function Kz_nagano01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nagano/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+}
+const kz_nagano01Obj = {};
+for (let i of mapsStr) {
+  kz_nagano01Obj[i] = new TileLayer(new Kz_nagano01())
+}
+function Kz_nagano02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nagano/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+}
+const kz_nagano02Obj = {};
+for (let i of mapsStr) {
+  kz_nagano02Obj[i] = new TileLayer(new Kz_nagano02())
+}
+function Kz_nagano03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nagano/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+}
+const kz_nagano03Obj = {};
+for (let i of mapsStr) {
+  kz_nagano03Obj[i] = new TileLayer(new Kz_nagano03())
+}
+function Kz_nagano04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nagano/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+}
+const kz_nagano04Obj = {};
+for (let i of mapsStr) {
+  kz_nagano04Obj[i] = new TileLayer(new Kz_nagano04())
+}
+function Kz_nagano05 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/nagano/05/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+}
+const kz_nagano05Obj = {};
+for (let i of mapsStr) {
+  kz_nagano05Obj[i] = new TileLayer(new Kz_nagano05())
+}
 
 // 松山
 function Kz_matsuyama2man () {
@@ -4332,6 +4410,15 @@ const layers =
                 { text: '金沢・富山1968-1969年', data: { id: 'kzkanazawa01', layer: kz_kanazawa01Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
                 { text: '金沢・富山1981-1985年', data: { id: 'kzkanazawa02', layer: kz_kanazawa02Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
                 { text: '金沢・富山11994-2001年', data: { id: 'kzkanazawa03', layer: kz_kanazawa03Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
+              ]},
+            { text: '長野',
+              children: [
+                { text: '長野1912年', data: { id: 'kznagano00', layer: kz_nagano00Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
+                { text: '長野1937年', data: { id: 'kznagano01', layer: kz_nagano01Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
+                { text: '長野1960年', data: { id: 'kznagano02', layer: kz_nagano02Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
+                { text: '長野1972-1973年', data: { id: 'kznagano03', layer: kz_nagano03Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
+                { text: '長野1985年', data: { id: 'kznagano04', layer: kz_nagano04Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
+                { text: '長野2001年', data: { id: 'kznagano05', layer: kz_nagano05Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
               ]},
             { text: '姫路',
               children: [
