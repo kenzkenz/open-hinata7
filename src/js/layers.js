@@ -3203,6 +3203,74 @@ const kz_aomori04Obj = {};
 for (let i of mapsStr) {
   kz_aomori04Obj[i] = new TileLayer(new Kz_aomori04())
 }
+
+// 福島
+function Kz_fukushima00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukushima/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+}
+const kz_fukushima00Obj = {};
+for (let i of mapsStr) {
+  kz_fukushima00Obj[i] = new TileLayer(new Kz_fukushima00())
+}
+function Kz_fukushima01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukushima/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+}
+const kz_fukushima01Obj = {};
+for (let i of mapsStr) {
+  kz_fukushima01Obj[i] = new TileLayer(new Kz_fukushima01())
+}
+function Kz_fukushima02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukushima/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+}
+const kz_fukushima02Obj = {};
+for (let i of mapsStr) {
+  kz_fukushima02Obj[i] = new TileLayer(new Kz_fukushima02())
+}
+function Kz_fukushima03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukushima/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+}
+const kz_fukushima03Obj = {};
+for (let i of mapsStr) {
+  kz_fukushima03Obj[i] = new TileLayer(new Kz_fukushima03())
+}
+function Kz_fukushima04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukushima/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+}
+const kz_fukushima04Obj = {};
+for (let i of mapsStr) {
+  kz_fukushima04Obj[i] = new TileLayer(new Kz_fukushima04())
+}
+
 // 長野
 function Kz_nagano00 () {
   this.source = new XYZ({
@@ -4410,6 +4478,14 @@ const layers =
                 { text: '金沢・富山1968-1969年', data: { id: 'kzkanazawa01', layer: kz_kanazawa01Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
                 { text: '金沢・富山1981-1985年', data: { id: 'kzkanazawa02', layer: kz_kanazawa02Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
                 { text: '金沢・富山11994-2001年', data: { id: 'kzkanazawa03', layer: kz_kanazawa03Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
+              ]},
+            { text: '福島',
+              children: [
+                { text: '福島1908年', data: { id: 'kzfukushima00', layer: kz_fukushima00Obj, opacity: 1, zoom: 10, center: [140.37908740833117, 37.50264624429053], summary: kzSumm } },
+                { text: '福島1931年', data: { id: 'kzfukushima01', layer: kz_fukushima01Obj, opacity: 1, zoom: 10, center: [140.37908740833117, 37.50264624429053], summary: kzSumm } },
+                { text: '福島1972-1973年', data: { id: 'kzfukushima02', layer: kz_fukushima02Obj, opacity: 1, zoom: 10, center: [140.37908740833117, 37.50264624429053], summary: kzSumm } },
+                { text: '福島1983年', data: { id: 'kzfukushima03', layer: kz_fukushima03Obj, opacity: 1, zoom: 10, center: [140.37908740833117, 37.50264624429053], summary: kzSumm } },
+                { text: '福島1996-2000年', data: { id: 'kzfukushima04', layer: kz_fukushima04Obj, opacity: 1, zoom: 10, center: [140.37908740833117, 37.50264624429053], summary: kzSumm } },
               ]},
             { text: '長野',
               children: [
