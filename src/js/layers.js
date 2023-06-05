@@ -3135,6 +3135,74 @@ const kz_matsuyama03Obj = {};
 for (let i of mapsStr) {
   kz_matsuyama03Obj[i] = new TileLayer(new Kz_matsuyama03())
 }
+// 金沢・富山
+function Kz_kanazawa2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanazawa/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+}
+const kz_kanazawa2manObj = {};
+for (let i of mapsStr) {
+  kz_kanazawa2manObj[i] = new TileLayer(new Kz_kanazawa2man())
+}
+function Kz_kanazawa00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanazawa/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+}
+const kz_kanazawa00Obj = {};
+for (let i of mapsStr) {
+  kz_kanazawa00Obj[i] = new TileLayer(new Kz_kanazawa00())
+}
+function Kz_kanazawa01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanazawa/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+}
+const kz_kanazawa01Obj = {};
+for (let i of mapsStr) {
+  kz_kanazawa01Obj[i] = new TileLayer(new Kz_kanazawa01())
+}
+function Kz_kanazawa02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanazawa/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+}
+const kz_kanazawa02Obj = {};
+for (let i of mapsStr) {
+  kz_kanazawa02Obj[i] = new TileLayer(new Kz_kanazawa02())
+}
+function Kz_kanazawa03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/kanazawa/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+}
+const kz_kanazawa03Obj = {};
+for (let i of mapsStr) {
+  kz_kanazawa03Obj[i] = new TileLayer(new Kz_kanazawa03())
+}
+
+
 // 長崎
 function Kz_nagasaki2man () {
   this.source = new XYZ({
@@ -4034,6 +4102,14 @@ const layers =
                 { text: '新潟1966-1968年', data: { id: 'kzniigata02', layer: kz_niigata02Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
                 { text: '新潟1980-1988年', data: { id: 'kzniigata03', layer: kz_niigata03Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
                 { text: '新潟1997-2001年', data: { id: 'kzniigata04', layer: kz_niigata04Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
+              ]},
+            { text: '金沢・富山',
+              children: [
+                { text: '金沢・富山1909-1910年', data: { id: 'kzkanazawa2man', layer: kz_kanazawa2manObj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
+                { text: '金沢・富山1930年', data: { id: 'kzkanazawa00', layer: kz_kanazawa00Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
+                { text: '金沢・富山1968-1969年', data: { id: 'kzkanazawa01', layer: kz_kanazawa01Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
+                { text: '金沢・富山1981-1985年', data: { id: 'kzkanazawa02', layer: kz_kanazawa02Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
+                { text: '金沢・富山11994-2001年', data: { id: 'kzkanazawa03', layer: kz_kanazawa03Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
               ]},
             { text: '姫路',
               children: [
