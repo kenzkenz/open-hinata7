@@ -3069,6 +3069,73 @@ const kz_kagoshima03Obj = {};
 for (let i of mapsStr) {
   kz_kagoshima03Obj[i] = new TileLayer(new Kz_kagoshima03())
 }
+// 高松
+function Kz_takamatsu2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/takamatsu/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+}
+const kz_takamatsu2manObj = {};
+for (let i of mapsStr) {
+  kz_takamatsu2manObj[i] = new TileLayer(new Kz_takamatsu2man())
+}
+function Kz_takamatsu00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/takamatsu/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+}
+const kz_takamatsu00Obj = {};
+for (let i of mapsStr) {
+  kz_takamatsu00Obj[i] = new TileLayer(new Kz_takamatsu00())
+}
+function Kz_takamatsu01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/takamatsu/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+}
+const kz_takamatsu01Obj = {};
+for (let i of mapsStr) {
+  kz_takamatsu01Obj[i] = new TileLayer(new Kz_takamatsu01())
+}
+function Kz_takamatsu02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/takamatsu/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+}
+const kz_takamatsu02Obj = {};
+for (let i of mapsStr) {
+  kz_takamatsu02Obj[i] = new TileLayer(new Kz_takamatsu02())
+}
+function Kz_takamatsu03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/takamatsu/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+}
+const kz_takamatsu03Obj = {};
+for (let i of mapsStr) {
+  kz_takamatsu03Obj[i] = new TileLayer(new Kz_takamatsu03())
+}
+
 
 // 青森
 function Kz_aomori00 () {
@@ -4317,6 +4384,14 @@ const layers =
                 { text: '松山1968年', data: { id: 'kzmatsuyama01', layer: kz_matsuyama01Obj, opacity: 1, zoom: 11, center: [132.75866655164452, 33.836904012099055], summary: kzSumm } },
                 { text: '松山1985年', data: { id: 'kzmatsuyama02', layer: kz_matsuyama02Obj, opacity: 1, zoom: 11, center: [132.75866655164452, 33.836904012099055], summary: kzSumm } },
                 { text: '松山1998-1999年', data: { id: 'kzmatsuyama03', layer: kz_matsuyama03Obj, opacity: 1, zoom: 11, center: [132.75866655164452, 33.836904012099055], summary: kzSumm } },
+              ]},
+            { text: '高松',
+              children: [
+                { text: '高松1896-1910年', data: { id: 'kztakamatsu2man', layer: kz_takamatsu2manObj, opacity: 1, zoom: 11, center: [134.04316691107806, 34.339536089220076], summary: kzSumm } },
+                { text: '高松1928年', data: { id: 'kztakamatsu00', layer: kz_takamatsu00Obj, opacity: 1, zoom: 11, center: [134.04316691107806, 34.339536089220076], summary: kzSumm } },
+                { text: '高松1969年', data: { id: 'kztakamatsu01', layer: kz_takamatsu01Obj, opacity: 1, zoom: 11, center: [134.04316691107806, 34.339536089220076], summary: kzSumm } },
+                { text: '高松1983-1984年', data: { id: 'kztakamatsu02', layer: kz_takamatsu02Obj, opacity: 1, zoom: 11, center: [134.04316691107806, 34.339536089220076], summary: kzSumm } },
+                { text: '高松1990-2000年', data: { id: 'kztakamatsu03', layer: kz_takamatsu03Obj, opacity: 1, zoom: 11, center: [134.04316691107806, 34.339536089220076], summary: kzSumm } },
               ]},
             { text: '福岡',
               children: [
