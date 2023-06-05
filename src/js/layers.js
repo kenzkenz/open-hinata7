@@ -3069,6 +3069,75 @@ const kz_kagoshima03Obj = {};
 for (let i of mapsStr) {
   kz_kagoshima03Obj[i] = new TileLayer(new Kz_kagoshima03())
 }
+
+// 青森
+function Kz_aomori00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/aomori/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+}
+const kz_aomori00Obj = {};
+for (let i of mapsStr) {
+  kz_aomori00Obj[i] = new TileLayer(new Kz_aomori00())
+}
+function Kz_aomori01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/aomori/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+}
+const kz_aomori01Obj = {};
+for (let i of mapsStr) {
+  kz_aomori01Obj[i] = new TileLayer(new Kz_aomori01())
+}
+function Kz_aomori02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/aomori/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+}
+const kz_aomori02Obj = {};
+for (let i of mapsStr) {
+  kz_aomori02Obj[i] = new TileLayer(new Kz_aomori02())
+}
+function Kz_aomori03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/aomori/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+}
+const kz_aomori03Obj = {};
+for (let i of mapsStr) {
+  kz_aomori03Obj[i] = new TileLayer(new Kz_aomori03())
+}
+function Kz_aomori04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/aomori/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+}
+const kz_aomori04Obj = {};
+for (let i of mapsStr) {
+  kz_aomori04Obj[i] = new TileLayer(new Kz_aomori04())
+}
+
+
 // 松山
 function Kz_matsuyama2man () {
   this.source = new XYZ({
@@ -3201,8 +3270,85 @@ const kz_kanazawa03Obj = {};
 for (let i of mapsStr) {
   kz_kanazawa03Obj[i] = new TileLayer(new Kz_kanazawa03())
 }
-
-
+// 和歌山
+function Kz_wakayama2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/wakayama/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+}
+const kz_wakayama2manObj = {};
+for (let i of mapsStr) {
+  kz_wakayama2manObj[i] = new TileLayer(new Kz_wakayama2man())
+}
+function Kz_wakayama00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/wakayama/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+}
+const kz_wakayama00Obj = {};
+for (let i of mapsStr) {
+  kz_wakayama00Obj[i] = new TileLayer(new Kz_wakayama00())
+}
+function Kz_wakayama01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/wakayama/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+}
+const kz_wakayama01Obj = {};
+for (let i of mapsStr) {
+  kz_wakayama01Obj[i] = new TileLayer(new Kz_wakayama01())
+}
+function Kz_wakayama02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/wakayama/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+}
+const kz_wakayama02Obj = {};
+for (let i of mapsStr) {
+  kz_wakayama02Obj[i] = new TileLayer(new Kz_wakayama02())
+}
+function Kz_wakayama03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/wakayama/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+}
+const kz_wakayama03Obj = {};
+for (let i of mapsStr) {
+  kz_wakayama03Obj[i] = new TileLayer(new Kz_wakayama03())
+}
+function Kz_wakayama04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/wakayama/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+}
+const kz_wakayama04Obj = {};
+for (let i of mapsStr) {
+  kz_wakayama04Obj[i] = new TileLayer(new Kz_wakayama04())
+}
 // 長崎
 function Kz_nagasaki2man () {
   this.source = new XYZ({
@@ -4095,6 +4241,15 @@ const layers =
                 { text: '関東1972-1982年', data: { id: 'kzkanto02', layer: kz_kanto02Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
                 { text: '関東1988-2008年', data: { id: 'kzkanto03', layer: kz_kanto03Obj, opacity: 1, zoom: 8, center: [139.51765537261963, 36.07055650766162], summary: kzSumm } },
               ]},
+            { text: '青森',
+              children: [
+                { text: '青森1912年', data: { id: 'kzaomori00', layer: kz_aomori00Obj, opacity: 1, zoom: 11, center: [140.7419488576039, 40.82431593920569], summary: kzSumm } },
+                { text: '青森1939-1955年', data: { id: 'kzaomori01', layer: kz_aomori01Obj, opacity: 1, zoom: 11, center: [140.7419488576039, 40.82431593920569], summary: kzSumm } },
+                { text: '青森1970年', data: { id: 'kzaomori02', layer: kz_aomori02Obj, opacity: 1, zoom: 11, center: [140.7419488576039, 40.82431593920569], summary: kzSumm } },
+                { text: '青森1984-1989年', data: { id: 'kzaomori03', layer: kz_aomori03Obj, opacity: 1, zoom: 11, center: [140.7419488576039, 40.82431593920569], summary: kzSumm } },
+                { text: '青森2003-2011年', data: { id: 'kzaomori04', layer: kz_aomori04Obj, opacity: 1, zoom: 11, center: [140.7419488576039, 40.82431593920569], summary: kzSumm } },
+
+              ]},
             { text: '新潟',
               children: [
                 { text: '新潟1910-1911年', data: { id: 'kzniigata00', layer: kz_niigata00Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
@@ -4118,6 +4273,15 @@ const layers =
                 { text: '姫路1967年', data: { id: 'kzhimeji01', layer: kz_himeji01Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
                 { text: '姫路1981-1985年', data: { id: 'kzhimeji02', layer: kz_himeji02Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
                 { text: '姫路1997-2001年', data: { id: 'kzhimeji03', layer: kz_himeji03Obj, opacity: 1, zoom: 11, center: [134.80640567378435, 34.79037201184045], summary: kzSumm } },
+              ]},
+            { text: '和歌山',
+              children: [
+                { text: '和歌山1908-1912年', data: { id: 'kzwakayama2man', layer: kz_wakayama2manObj, opacity: 1, zoom: 11, center: [135.16754936889745, 34.225669927354005], summary: kzSumm } },
+                { text: '和歌山1934年', data: { id: 'kzwakayama00', layer: kz_wakayama00Obj, opacity: 1, zoom: 11, center: [135.16754936889745, 34.225669927354005], summary: kzSumm } },
+                { text: '和歌山1947年', data: { id: 'kzwakayama01', layer: kz_wakayama01Obj, opacity: 1, zoom: 11, center: [135.16754936889745, 34.225669927354005], summary: kzSumm } },
+                { text: '和歌山1966-1967年', data: { id: 'kzwakayama02', layer: kz_wakayama02Obj, opacity: 1, zoom: 11, center: [135.16754936889745, 34.225669927354005], summary: kzSumm } },
+                { text: '和歌山1984-1985年', data: { id: 'kzwakayama03', layer: kz_wakayama03Obj, opacity: 1, zoom: 11, center: [135.16754936889745, 34.225669927354005], summary: kzSumm } },
+                { text: '和歌山1998-2000年', data: { id: 'kzwakayama04', layer: kz_wakayama04Obj, opacity: 1, zoom: 11, center: [135.16754936889745, 34.225669927354005], summary: kzSumm } },
               ]},
             { text: '岡山・福山',
               children: [
