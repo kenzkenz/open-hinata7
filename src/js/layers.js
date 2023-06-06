@@ -3069,6 +3069,70 @@ const kz_kagoshima03Obj = {};
 for (let i of mapsStr) {
   kz_kagoshima03Obj[i] = new TileLayer(new Kz_kagoshima03())
 }
+// 福井
+function Kz_fukui2man () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukui/2man/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])
+}
+const kz_fukui2manObj = {};
+for (let i of mapsStr) {
+  kz_fukui2manObj[i] = new TileLayer(new Kz_fukui2man())
+}
+function Kz_fukui00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukui/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])}
+const kz_fukui00Obj = {};
+for (let i of mapsStr) {
+  kz_fukui00Obj[i] = new TileLayer(new Kz_fukui00())
+}
+function Kz_fukui01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukui/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])}
+const kz_fukui01Obj = {};
+for (let i of mapsStr) {
+  kz_fukui01Obj[i] = new TileLayer(new Kz_fukui01())
+}
+function Kz_fukui02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukui/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])}
+const kz_fukui02Obj = {};
+for (let i of mapsStr) {
+  kz_fukui02Obj[i] = new TileLayer(new Kz_fukui02())
+}
+function Kz_fukui03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/fukui/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])}
+const kz_fukui03Obj = {};
+for (let i of mapsStr) {
+  kz_fukui03Obj[i] = new TileLayer(new Kz_fukui03())
+}
+
+
 // 高松
 function Kz_takamatsu2man () {
   this.source = new XYZ({
@@ -4470,6 +4534,14 @@ const layers =
                 { text: '新潟1966-1968年', data: { id: 'kzniigata02', layer: kz_niigata02Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
                 { text: '新潟1980-1988年', data: { id: 'kzniigata03', layer: kz_niigata03Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
                 { text: '新潟1997-2001年', data: { id: 'kzniigata04', layer: kz_niigata04Obj, opacity: 1, zoom: 10, center: [138.84812094897046, 37.44922171939612], summary: kzSumm } },
+              ]},
+            { text: '福井',
+              children: [
+                { text: '福井1909年', data: { id: 'kzfukui2man', layer: kz_fukui2manObj, opacity: 1, zoom: 11, center: [136.22173010531614, 36.065132823369055], summary: kzSumm } },
+                { text: '福井1930年', data: { id: 'kzfukui00', layer: kz_fukui00Obj, opacity: 1, zoom: 11, center: [136.22173010531614, 36.065132823369055], summary: kzSumm } },
+                { text: '福井1969-1973年', data: { id: 'kzfukui01', layer: kz_fukui01Obj, opacity: 1, zoom: 11, center: [136.22173010531614, 36.065132823369055], summary: kzSumm } },
+                { text: '福井1988-1990年', data: { id: 'kzfukui02', layer: kz_fukui02Obj, opacity: 1, zoom: 11, center: [136.22173010531614, 36.065132823369055], summary: kzSumm } },
+                { text: '福井1996-2000年', data: { id: 'kzfukui03', layer: kz_fukui03Obj, opacity: 1, zoom: 11, center: [136.22173010531614, 36.065132823369055], summary: kzSumm } },
               ]},
             { text: '金沢・富山',
               children: [
