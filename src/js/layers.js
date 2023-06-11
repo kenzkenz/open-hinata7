@@ -6889,11 +6889,11 @@ const layers =
               ]},
             { text: '高松',
               children: [
-                { text: '高松1896-1910年', data: { id: 'kzmatsuyama2man', layer: kz_matsuyama2manObj, opacity: 1, zoom: 11, center: [132.75866655164452, 33.836904012099055], summary: kzSumm } },
-                { text: '高松1928年', data: { id: 'kzmatsuyama00', layer: kz_matsuyama00Obj, opacity: 1, zoom: 11, center: [132.75866655164452, 33.836904012099055], summary: kzSumm } },
-                { text: '高松1969年', data: { id: 'kzmatsuyama01', layer: kz_matsuyama01Obj, opacity: 1, zoom: 11, center: [132.75866655164452, 33.836904012099055], summary: kzSumm } },
-                { text: '高松1983-1984年', data: { id: 'kzmatsuyama02', layer: kz_matsuyama02Obj, opacity: 1, zoom: 11, center: [132.75866655164452, 33.836904012099055], summary: kzSumm } },
-                { text: '高松1990-2000年', data: { id: 'kzmatsuyama03', layer: kz_matsuyama03Obj, opacity: 1, zoom: 11, center: [132.75866655164452, 33.836904012099055], summary: kzSumm } },
+                { text: '高松1896-1910年', data: { id: 'kztakamatsu2man', layer: kz_takamatsu2manObj, opacity: 1, zoom: 11, center: [134.0459274899792, 34.337209199857014], summary: kzSumm } },
+                { text: '高松1928年', data: { id: 'kztakamatsu00', layer: kz_takamatsu00Obj, opacity: 1, zoom: 11, center: [134.0459274899792, 34.337209199857014], summary: kzSumm } },
+                { text: '高松1969年', data: { id: 'kztakamatsu01', layer: kz_takamatsu01Obj, opacity: 1, zoom: 11, center: [134.0459274899792, 34.337209199857014], summary: kzSumm } },
+                { text: '高松1983-1984年', data: { id: 'kztakamatsu02', layer: kz_takamatsu02Obj, opacity: 1, zoom: 11, center: [134.0459274899792, 34.337209199857014], summary: kzSumm } },
+                { text: '高松1990-2000年', data: { id: 'kztakamatsu03', layer: kz_takamatsu03Obj, opacity: 1, zoom: 11, center: [134.0459274899792, 34.337209199857014], summary: kzSumm } },
               ]},
             { text: '松山',
               children: [
