@@ -4578,6 +4578,73 @@ for (let i of mapsStr) {
   kz_toyo04Obj[i] = new TileLayer(new Kz_toyo04())
 }
 
+// 米沢
+function Kz_yonezawa00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yonezawa/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+}
+const kz_yonezawa00Obj = {};
+for (let i of mapsStr) {
+  kz_yonezawa00Obj[i] = new TileLayer(new Kz_yonezawa00())
+}
+function Kz_yonezawa01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yonezawa/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+}
+const kz_yonezawa01Obj = {};
+for (let i of mapsStr) {
+  kz_yonezawa01Obj[i] = new TileLayer(new Kz_yonezawa01())
+}
+function Kz_yonezawa02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yonezawa/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+}
+const kz_yonezawa02Obj = {};
+for (let i of mapsStr) {
+  kz_yonezawa02Obj[i] = new TileLayer(new Kz_yonezawa02())
+}
+function Kz_yonezawa03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yonezawa/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+}
+const kz_yonezawa03Obj = {};
+for (let i of mapsStr) {
+  kz_yonezawa03Obj[i] = new TileLayer(new Kz_yonezawa03())
+}
+function Kz_yonezawa04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yonezawa/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+}
+const kz_yonezawa04Obj = {};
+for (let i of mapsStr) {
+  kz_yonezawa04Obj[i] = new TileLayer(new Kz_yonezawa04())
+}
+
 // 周南
 function Kz_shunan00 () {
   this.source = new XYZ({
@@ -6495,6 +6562,14 @@ const layers =
                 { text: '山形1970年', data: { id: 'kzyamagata01', layer: kz_yamagata01Obj, opacity: 1, zoom: 11, center: [140.3631197469087, 38.2389662868666], summary: kzSumm } },
                 { text: '山形1980-1989年', data: { id: 'kzyamagata02', layer: kz_yamagata02Obj, opacity: 1, zoom: 11, center: [140.3631197469087, 38.2389662868666], summary: kzSumm } },
                 { text: '山形1999-2001年', data: { id: 'kzyamagata03', layer: kz_yamagata03Obj, opacity: 1, zoom: 11, center: [140.3631197469087, 38.2389662868666], summary: kzSumm } },
+              ]},
+            { text: '米沢',
+              children: [
+                { text: '米沢1908-1910年', data: { id: 'kzyonezawa00', layer: kz_yonezawa00Obj, opacity: 1, zoom: 11, center: [140.1171034214525, 37.92345728139689], summary: kzSumm } },
+                { text: '米沢1952-1953年', data: { id: 'kzyonezawa01', layer: kz_yonezawa01Obj, opacity: 1, zoom: 11, center: [140.1171034214525, 37.92345728139689], summary: kzSumm } },
+                { text: '米沢1970-1973年', data: { id: 'kzyonezawa02', layer: kz_yonezawa02Obj, opacity: 1, zoom: 11, center: [140.1171034214525, 37.92345728139689], summary: kzSumm } },
+                { text: '米沢1984年', data: { id: 'kzyonezawa03', layer: kz_yonezawa03Obj, opacity: 1, zoom: 11, center: [140.1171034214525, 37.92345728139689], summary: kzSumm } },
+                { text: '米沢1999-2001年', data: { id: 'kzyonezawa04', layer: kz_yonezawa04Obj, opacity: 1, zoom: 11, center: [140.1171034214525, 37.92345728139689], summary: kzSumm } },
               ]},
             { text: '庄内',
               children: [
