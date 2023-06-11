@@ -4578,6 +4578,74 @@ for (let i of mapsStr) {
   kz_toyo04Obj[i] = new TileLayer(new Kz_toyo04())
 }
 
+// 伊那
+function Kz_ina00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/ina/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+}
+const kz_ina00Obj = {};
+for (let i of mapsStr) {
+  kz_ina00Obj[i] = new TileLayer(new Kz_ina00())
+}
+function Kz_ina01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/ina/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+}
+const kz_ina01Obj = {};
+for (let i of mapsStr) {
+  kz_ina01Obj[i] = new TileLayer(new Kz_ina01())
+}
+function Kz_ina02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/ina/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+}
+const kz_ina02Obj = {};
+for (let i of mapsStr) {
+  kz_ina02Obj[i] = new TileLayer(new Kz_ina02())
+}
+function Kz_ina03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/ina/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+}
+const kz_ina03Obj = {};
+for (let i of mapsStr) {
+  kz_ina03Obj[i] = new TileLayer(new Kz_ina03())
+}
+function Kz_ina04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/ina/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+}
+const kz_ina04Obj = {};
+for (let i of mapsStr) {
+  kz_ina04Obj[i] = new TileLayer(new Kz_ina04())
+}
+
+
 // 米沢
 function Kz_yonezawa00 () {
   this.source = new XYZ({
@@ -6636,6 +6704,14 @@ const layers =
                 { text: '長野1972-1973年', data: { id: 'kznagano03', layer: kz_nagano03Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
                 { text: '長野1985年', data: { id: 'kznagano04', layer: kz_nagano04Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
                 { text: '長野2001年', data: { id: 'kznagano05', layer: kz_nagano05Obj, opacity: 1, zoom: 11, center: [138.19481328177986, 36.648565593197915], summary: kzSumm } },
+              ]},
+            { text: '伊那',
+              children: [
+                { text: '伊那1911年', data: { id: 'kzina00', layer: kz_ina00Obj, opacity: 1, zoom: 11, center: [137.95593380928037, 35.827167088111324], summary: kzSumm } },
+                { text: '伊那1951-1952年', data: { id: 'kzina01', layer: kz_ina01Obj, opacity: 1, zoom: 11, center: [137.95593380928037, 35.827167088111324], summary: kzSumm } },
+                { text: '伊那1976年', data: { id: 'kzina02', layer: kz_ina02Obj, opacity: 1, zoom: 11, center: [137.95593380928037, 35.827167088111324], summary: kzSumm } },
+                { text: '伊那1987-1990年', data: { id: 'kzina03', layer: kz_ina03Obj, opacity: 1, zoom: 11, center: [137.95593380928037, 35.827167088111324], summary: kzSumm } },
+                { text: '伊那1998-2001年', data: { id: 'kzina04', layer: kz_ina04Obj, opacity: 1, zoom: 11, center: [137.95593380928037, 35.827167088111324], summary: kzSumm } },
               ]},
             { text: '近江',
               children: [
