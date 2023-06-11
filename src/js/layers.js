@@ -4578,6 +4578,73 @@ for (let i of mapsStr) {
   kz_toyo04Obj[i] = new TileLayer(new Kz_toyo04())
 }
 
+// 伊賀
+function Kz_iga00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iga/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+}
+const kz_iga00Obj = {};
+for (let i of mapsStr) {
+  kz_iga00Obj[i] = new TileLayer(new Kz_iga00())
+}
+function Kz_iga01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iga/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+}
+const kz_iga01Obj = {};
+for (let i of mapsStr) {
+  kz_iga01Obj[i] = new TileLayer(new Kz_iga01())
+}
+function Kz_iga02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iga/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+}
+const kz_iga02Obj = {};
+for (let i of mapsStr) {
+  kz_iga02Obj[i] = new TileLayer(new Kz_iga02())
+}
+function Kz_iga03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iga/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+}
+const kz_iga03Obj = {};
+for (let i of mapsStr) {
+  kz_iga03Obj[i] = new TileLayer(new Kz_iga03())
+}
+function Kz_iga04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iga/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+}
+const kz_iga04Obj = {};
+for (let i of mapsStr) {
+  kz_iga04Obj[i] = new TileLayer(new Kz_iga04())
+}
+
 // 伊那
 function Kz_ina00 () {
   this.source = new XYZ({
@@ -6678,6 +6745,14 @@ const layers =
                 { text: '金沢・富山1968-1969年', data: { id: 'kzkanazawa01', layer: kz_kanazawa01Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
                 { text: '金沢・富山1981-1985年', data: { id: 'kzkanazawa02', layer: kz_kanazawa02Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
                 { text: '金沢・富山11994-2001年', data: { id: 'kzkanazawa03', layer: kz_kanazawa03Obj, opacity: 1, zoom: 10, center: [136.9176975451396, 36.66758882945422], summary: kzSumm } },
+              ]},
+            { text: '伊賀',
+              children: [
+                { text: '伊賀1892年', data: { id: 'kziga00', layer: kz_iga00Obj, opacity: 1, zoom: 11, center: [136.14220318388942, 34.74985604583132], summary: kzSumm } },
+                { text: '伊賀1937年', data: { id: 'kziga01', layer: kz_iga01Obj, opacity: 1, zoom: 11, center: [136.14220318388942, 34.74985604583132], summary: kzSumm } },
+                { text: '伊賀1968年', data: { id: 'kziga02', layer: kz_iga02Obj, opacity: 1, zoom: 11, center: [136.14220318388942, 34.74985604583132], summary: kzSumm } },
+                { text: '伊賀1980-1986年', data: { id: 'kziga03', layer: kz_iga03Obj, opacity: 1, zoom: 11, center: [136.14220318388942, 34.74985604583132], summary: kzSumm } },
+                { text: '伊賀1996-2001年', data: { id: 'kziga04', layer: kz_iga04Obj, opacity: 1, zoom: 11, center: [136.14220318388942, 34.74985604583132], summary: kzSumm } },
               ]},
             { text: '福島',
               children: [
