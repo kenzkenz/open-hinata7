@@ -4578,6 +4578,288 @@ for (let i of mapsStr) {
   kz_toyo04Obj[i] = new TileLayer(new Kz_toyo04())
 }
 
+// 周南
+function Kz_shunan00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/shunan/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+}
+const kz_shunan00Obj = {};
+for (let i of mapsStr) {
+  kz_shunan00Obj[i] = new TileLayer(new Kz_shunan00())
+}
+function Kz_shunan01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/shunan/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+}
+const kz_shunan01Obj = {};
+for (let i of mapsStr) {
+  kz_shunan01Obj[i] = new TileLayer(new Kz_shunan01())
+}
+function Kz_shunan02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/shunan/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+}
+const kz_shunan02Obj = {};
+for (let i of mapsStr) {
+  kz_shunan02Obj[i] = new TileLayer(new Kz_shunan02())
+}
+function Kz_shunan03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/shunan/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+}
+const kz_shunan03Obj = {};
+for (let i of mapsStr) {
+  kz_shunan03Obj[i] = new TileLayer(new Kz_shunan03())
+}
+function Kz_shunan04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/shunan/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+}
+const kz_shunan04Obj = {};
+for (let i of mapsStr) {
+  kz_shunan04Obj[i] = new TileLayer(new Kz_shunan04())
+}
+
+
+// 大牟田・島原
+function Kz_omuta00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/omuta/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+}
+const kz_omuta00Obj = {};
+for (let i of mapsStr) {
+  kz_omuta00Obj[i] = new TileLayer(new Kz_omuta00())
+}
+function Kz_omuta01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/omuta/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+}
+const kz_omuta01Obj = {};
+for (let i of mapsStr) {
+  kz_omuta01Obj[i] = new TileLayer(new Kz_omuta01())
+}
+function Kz_omuta02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/omuta/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+}
+const kz_omuta02Obj = {};
+for (let i of mapsStr) {
+  kz_omuta02Obj[i] = new TileLayer(new Kz_omuta02())
+}
+function Kz_omuta03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/omuta/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+}
+const kz_omuta03Obj = {};
+for (let i of mapsStr) {
+  kz_omuta03Obj[i] = new TileLayer(new Kz_omuta03())
+}
+function Kz_omuta04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/omuta/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+}
+const kz_omuta04Obj = {};
+for (let i of mapsStr) {
+  kz_omuta04Obj[i] = new TileLayer(new Kz_omuta04())
+}
+function Kz_omuta05 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/omuta/05/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+}
+const kz_omuta05Obj = {};
+for (let i of mapsStr) {
+  kz_omuta05Obj[i] = new TileLayer(new Kz_omuta05())
+}
+
+// 八代
+function Kz_yatsushiro00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yatsushiro/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+}
+const kz_yatsushiro00Obj = {};
+for (let i of mapsStr) {
+  kz_yatsushiro00Obj[i] = new TileLayer(new Kz_yatsushiro00())
+}
+function Kz_yatsushiro01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yatsushiro/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+}
+const kz_yatsushiro01Obj = {};
+for (let i of mapsStr) {
+  kz_yatsushiro01Obj[i] = new TileLayer(new Kz_yatsushiro01())
+}
+function Kz_yatsushiro02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yatsushiro/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+}
+const kz_yatsushiro02Obj = {};
+for (let i of mapsStr) {
+  kz_yatsushiro02Obj[i] = new TileLayer(new Kz_yatsushiro02())
+}
+function Kz_yatsushiro03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yatsushiro/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+}
+const kz_yatsushiro03Obj = {};
+for (let i of mapsStr) {
+  kz_yatsushiro03Obj[i] = new TileLayer(new Kz_yatsushiro03())
+}
+function Kz_yatsushiro04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/yatsushiro/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+}
+const kz_yatsushiro04Obj = {};
+for (let i of mapsStr) {
+  kz_yatsushiro04Obj[i] = new TileLayer(new Kz_yatsushiro04())
+}
+
+// 岩手県南
+function Kz_iwatekennan00 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iwatekennan/00/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+}
+const kz_iwatekennan00Obj = {};
+for (let i of mapsStr) {
+  kz_iwatekennan00Obj[i] = new TileLayer(new Kz_iwatekennan00())
+}
+function Kz_iwatekennan01 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iwatekennan/01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+}
+const kz_iwatekennan01Obj = {};
+for (let i of mapsStr) {
+  kz_iwatekennan01Obj[i] = new TileLayer(new Kz_iwatekennan01())
+}
+function Kz_iwatekennan02 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iwatekennan/02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+}
+const kz_iwatekennan02Obj = {};
+for (let i of mapsStr) {
+  kz_iwatekennan02Obj[i] = new TileLayer(new Kz_iwatekennan02())
+}
+function Kz_iwatekennan03 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iwatekennan/03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+}
+const kz_iwatekennan03Obj = {};
+for (let i of mapsStr) {
+  kz_iwatekennan03Obj[i] = new TileLayer(new Kz_iwatekennan03())
+}
+function Kz_iwatekennan04 () {
+  this.source = new XYZ({
+    url: 'https://ktgis.net/kjmapw/kjtilemap/iwatekennan/04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 16
+  })
+  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+}
+const kz_iwatekennan04Obj = {};
+for (let i of mapsStr) {
+  kz_iwatekennan04Obj[i] = new TileLayer(new Kz_iwatekennan04())
+}
+
 // 室蘭
 function Kz_muroran00 () {
   this.source = new XYZ({
@@ -6182,6 +6464,14 @@ const layers =
                 { text: '秋田1985-1990年', data: { id: 'kzakita02', layer: kz_akita02Obj, opacity: 1, zoom: 11, center: [140.10354627117513, 39.71990630390653], summary: kzSumm } },
                 { text: '秋田2006-2007年', data: { id: 'kzakita03', layer: kz_akita03Obj, opacity: 1, zoom: 11, center: [140.10354627117513, 39.71990630390653], summary: kzSumm } },
               ]},
+            { text: '岩手県南',
+              children: [
+                { text: '岩手県南1913年', data: { id: 'kziwatekennan00', layer: kz_iwatekennan00Obj, opacity: 1, zoom: 11, center: [141.1219922752688, 39.17107785432805], summary: kzSumm } },
+                { text: '岩手県南1951年', data: { id: 'kziwatekennan01', layer: kz_iwatekennan01Obj, opacity: 1, zoom: 11, center: [141.1219922752688, 39.17107785432805], summary: kzSumm } },
+                { text: '岩手県南1968年', data: { id: 'kziwatekennan02', layer: kz_iwatekennan02Obj, opacity: 1, zoom: 11, center: [141.1219922752688, 39.17107785432805], summary: kzSumm } },
+                { text: '岩手県南1985-1986年', data: { id: 'kziwatekennan03', layer: kz_iwatekennan03Obj, opacity: 1, zoom: 11, center: [141.1219922752688, 39.17107785432805], summary: kzSumm } },
+                { text: '岩手県南1996-2001年', data: { id: 'kziwatekennan04', layer: kz_iwatekennan04Obj, opacity: 1, zoom: 11, center: [141.1219922752688, 39.17107785432805], summary: kzSumm } },
+              ]},
             { text: '盛岡',
               children: [
                 { text: '盛岡1811-1912年', data: { id: 'kzmorioka00', layer: kz_morioka00Obj, opacity: 1, zoom: 11, center: [141.15443789282295, 39.70194827035462], summary: kzSumm } },
@@ -6383,6 +6673,14 @@ const layers =
                 { text: '山口1983-1989年', data: { id: 'kzyamaguchi03', layer: kz_yamaguchi03Obj, opacity: 1, zoom: 10, center: [131.37495955650908, 34.085590462873924], summary: kzSumm } },
                 { text: '山口2000-2001年', data: { id: 'kzyamaguchi04', layer: kz_yamaguchi04Obj, opacity: 1, zoom: 10, center: [131.37495955650908, 34.085590462873924], summary: kzSumm } },
               ]},
+            { text: '周南',
+              children: [
+                { text: '周南1899年', data: { id: 'kzshunan00', layer: kz_shunan00Obj, opacity: 1, zoom: 11, center: [131.80668535471008, 34.05436864050681], summary: kzSumm } },
+                { text: '周南1949年', data: { id: 'kzshunan01', layer: kz_shunan01Obj, opacity: 1, zoom: 11, center: [131.80668535471008, 34.05436864050681], summary: kzSumm } },
+                { text: '周南1968-1969年', data: { id: 'kzshunan02', layer: kz_shunan02Obj, opacity: 1, zoom: 11, center: [131.80668535471008, 34.05436864050681], summary: kzSumm } },
+                { text: '周南1985年', data: { id: 'kzshunan03', layer: kz_shunan03Obj, opacity: 1, zoom: 11, center: [131.80668535471008, 34.05436864050681], summary: kzSumm } },
+                { text: '周南1994-2001年', data: { id: 'kzshunan04', layer: kz_shunan04Obj, opacity: 1, zoom: 11, center: [131.80668535471008, 34.05436864050681], summary: kzSumm } },
+              ]},
             { text: '福岡',
               children: [
                 { text: '福岡1922-1926年', data: { id: 'kzFukuoka00', layer: kz_fukuoka00Obj, opacity: 1, zoom: 11, center: [130.6152588501701, 33.720855341479506], summary: kzSumm } },
@@ -6418,6 +6716,15 @@ const layers =
                 { text: '佐世保1985-1987年', data: { id: 'kzsasebo02', layer: kz_sasebo02Obj, opacity: 1, zoom: 11, center: [129.71448980425342, 33.17954620312899], summary: kzSumm } },
                 { text: '佐世保1997-1998年', data: { id: 'kzsasebo03', layer: kz_sasebo03Obj, opacity: 1, zoom: 11, center: [129.71448980425342, 33.17954620312899], summary: kzSumm } },
               ]},
+            { text: '大牟田・島原',
+              children: [
+                { text: '大牟田・島原1910年', data: { id: 'kzomuta00', layer: kz_omuta00Obj, opacity: 1, zoom: 11, center: [130.37218702133083, 32.922246652336185], summary: kzSumm } },
+                { text: '大牟田・島原1941-1942年', data: { id: 'kzomuta01', layer: kz_omuta01Obj, opacity: 1, zoom: 11, center: [130.37218702133083, 32.922246652336185], summary: kzSumm } },
+                { text: '大牟田・島原1970年', data: { id: 'kzomuta02', layer: kz_omuta02Obj, opacity: 1, zoom: 11, center: [130.37218702133083, 32.922246652336185], summary: kzSumm } },
+                { text: '大牟田・島原1983-1987年', data: { id: 'kzomuta03', layer: kz_omuta03Obj, opacity: 1, zoom: 11, center: [130.37218702133083, 32.922246652336185], summary: kzSumm } },
+                { text: '大牟田・島原1993-1994年', data: { id: 'kzomuta04', layer: kz_omuta04Obj, opacity: 1, zoom: 11, center: [130.37218702133083, 32.922246652336185], summary: kzSumm } },
+                { text: '大牟田・島原1999-2000年', data: { id: 'kzomuta05', layer: kz_omuta05Obj, opacity: 1, zoom: 11, center: [130.37218702133083, 32.922246652336185], summary: kzSumm } },
+              ]},
             { text: '熊本',
               children: [
                 { text: '熊本1900-1901年', data: { id: 'kzkumamoto2man', layer: kz_kumamoto2manObj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
@@ -6425,6 +6732,14 @@ const layers =
                 { text: '熊本1965-1971年', data: { id: 'kzkumamoto01', layer: kz_kumamoto01Obj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
                 { text: '熊本1983年', data: { id: 'kzkumamoto02', layer: kz_kumamoto02Obj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
                 { text: '熊本1998-2000年', data: { id: 'kzkumamoto03', layer: kz_kumamoto03Obj, opacity: 1, zoom: 11, center: [130.70023856926852, 32.80315778633198], summary: kzSumm } },
+              ]},
+            { text: '八代',
+              children: [
+                { text: '八代1913年', data: { id: 'kzyatsushiro00', layer: kz_yatsushiro00Obj, opacity: 1, zoom: 11, center: [130.60193145213196, 32.50735507614503], summary: kzSumm } },
+                { text: '八代1951年', data: { id: 'kzyatsushiro01', layer: kz_yatsushiro01Obj, opacity: 1, zoom: 11, center: [130.60193145213196, 32.50735507614503], summary: kzSumm } },
+                { text: '八代1968年', data: { id: 'kzyatsushiro02', layer: kz_yatsushiro02Obj, opacity: 1, zoom: 11, center: [130.60193145213196, 32.50735507614503], summary: kzSumm } },
+                { text: '八代1983-1986年', data: { id: 'kzyatsushiro03', layer: kz_yatsushiro03Obj, opacity: 1, zoom: 11, center: [130.60193145213196, 32.50735507614503], summary: kzSumm } },
+                { text: '八代1997-2000年', data: { id: 'kzyatsushiro04', layer: kz_yatsushiro04Obj, opacity: 1, zoom: 11, center: [130.60193145213196, 32.50735507614503], summary: kzSumm } },
               ]},
             { text: '大分',
               children: [
