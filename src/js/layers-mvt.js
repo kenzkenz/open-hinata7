@@ -1,6 +1,8 @@
 import store from './store'
 import VectorTileSource from "ol/source/VectorTile";
 import MVT from "ol/format/MVT";
+import GeoJSON from "ol/format/GeoJSON";
+import {createXYZ} from "ol/tilegrid";
 import VectorTileLayer from "ol/layer/VectorTile";
 import * as d3 from "d3";
 import {Fill, Stroke, Style, Text, Circle} from "ol/style";
@@ -2839,5 +2841,175 @@ function tokuteiStyleFunction() {
       }),
     });
     return style;
+  }
+}
+
+
+//--------------------------------------------------------
+
+var codeList_sizen = new Array(//図式コード,"色"]
+    [10101,"#d9cbae"],
+    [1010101,"#d9cbae"],
+    [11201,"#d9cbae"],
+    [11202,"#d9cbae"],
+    [11203,"#d9cbae"],
+    [11204,"#d9cbae"],
+    [10202,"#9466ab"],
+    [10204,"#9466ab"],
+    [2010201,"#9466ab"],
+    [10205,"#cc99ff"],
+    [10206,"#cc99ff"],
+    [10301,"#ffaa00"],
+    [10302,"#ffaa00"],
+    [10303,"#ffaa00"],
+    [10304,"#ffaa00"],
+    [10308,"#ffaa00"],
+    [10314,"#ffaa00"],
+    [10305,"#ffaa00"],
+    [10508,"#ffaa00"],
+    [2010101,"#ffaa00"],
+    [10306,"#ffaa00"],
+    [10307,"#ffaa00"],
+    [10310,"#ffaa00"],
+    [10312,"#ffaa00"],
+    [10401,"#99804d"],
+    [10402,"#99804d"],
+    [10403,"#99804d"],
+    [10404,"#99804d"],
+    [10406,"#99804d"],
+    [10407,"#99804d"],
+    [3010101,"#99804d"],
+    [10501,"#cacc60"],
+    [10502,"#cacc60"],
+    [3020101,"#cacc60"],
+    [10503,"#ffff33"],
+    [3040101,"#ffff33"],
+    [10506,"#fbe09d"],
+    [10507,"#fbe09d"],
+    [10801,"#fbe09d"],
+    [10504,"#ffff99"],
+    [10505,"#ffff99"],
+    [10512,"#ffff99"],
+    [3050101,"#ffff99"],
+    [10601,"#a3cc7e"],
+    [2010301,"#a3cc7e"],
+    [10701,"#bbff99"],
+    [3030101,"#bbff99"],
+    [10702,"#bbff99"],
+    [10705,"#bbff99"],
+    [10703,"#00d1a4"],
+    [10804,"#00d1a4"],
+    [3030201,"#00d1a4"],
+    [10704,"#6699ff"],
+    [3040201,"#6699ff"],
+    [3040202,"#6699ff"],
+    [3040301,"#1f9999"],
+    [10802,"#9f9fc4"],
+    [10803,"#9f9fc4"],
+    [10807,"#9f9fc4"],
+    [10808,"#9f9fc4"],
+    [10805,"#e5ffff"],
+    [10806,"#e5ffff"],
+    [10901,"#e5ffff"],
+    [10903,"#e5ffff"],
+    [5010201,"#e5ffff"],
+    [10904,"#779999"],
+    [5010301,"#779999"],
+    [11001,"#85c4d1"],
+    [11003,"#85c4d1"],
+    [11009,"#85c4d1"],
+    [11011,"#85c4d1"],
+    [4010301,"#85c4d1"],
+    [11002,"#8ad8b6"],
+    [11004,"#ef8888"],
+    [11006,"#ef8888"],
+    [11007,"#ef8888"],
+    [11014,"#ef8888"],
+    [4010201,"#ff4f4f"],
+    [11005,"#ff4f4f"],
+    [11008,"#c37aff"],
+    [4010101,"#c37aff"],
+    [11010,"#ffe8e8"],
+    [999999,"#144dfa"],
+    [101,"#e6e600"],
+    [102,"#00e2e6"],
+    [103,"#2ae600"],
+    [104,"#e60400"],
+    [105,"#5e5ce6"],
+    [9999,"#ff00ff"]
+);
+
+function Zinkoutikei(name,minzoom,maxzoom,maxResolution){
+  this.name = 'zinkoutikei'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      maxResolution:maxResolution,
+      minZoom:minzoom,
+      maxZoom:maxzoom
+    }),
+    url: "https://cyberjapandata.gsi.go.jp/xyz/experimental_landformclassification2/{z}/{x}/{y}.geojson"
+  });
+  this.style = zinkoutikeiStyleFunction(name);
+}
+const zinkoutikeiObj1 = new VectorTileLayer(new Zinkoutikei('zinkoutikei1',1,13,10))
+const zinkoutikeiObj2 = new VectorTileLayer(new Zinkoutikei('zinkoutikei2',1,14,2))
+export const zinkoutikeiObj = {}
+for (let i of mapsStr) {
+  zinkoutikeiObj[i] = new LayerGroup({
+    layers: [
+      zinkoutikeiObj1,
+      zinkoutikeiObj2
+    ]
+  })
+}
+// for (let i of mapsStr) {
+//   zinkoutikeiObj[i].values_['zinkoutikei'] = true
+// }
+
+export const zinkoutikeiSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-v3_0.html' target='_blank'>国土数値情報　振興山村データ</a>"
+function zinkoutikeiStyleFunction(name) {
+  if(name==="zinkoutikei1") {
+    return function (feature, resolution) {
+      var zoom = getZoom(resolution);
+      // console.log(zoom);
+      // console.log(resolution);
+      //if (resolution < 9.56) return;//9.56
+      if (zoom > 13) return;
+      var code = Number(feature.getProperties()["code"]);
+      var fillColor = 'rgba(0,0,0,0.1)';
+      for (var i = 0; i < codeList_sizen.length; i++) {
+        if (codeList_sizen[i][0] == code) {
+          fillColor = codeList_sizen[i][1];
+          break;
+        }
+      }
+      return [new Style({
+        fill: new Fill({
+          color: fillColor
+        })
+      })];
+    }
+  }else{
+    return function (feature, resolution) {
+      var zoom = getZoom(resolution);
+      // console.log(zoom);
+      // console.log(resolution);
+      //if (resolution >= 9.56) return;//9.56
+      if (zoom < 14) return;
+      var code = Number(feature.getProperties()["code"]);
+      var fillColor = 'rgba(0,0,0,0.1)';
+      for (var i = 0; i < codeList_sizen.length; i++) {
+        if (codeList_sizen[i][0] == code) {
+          fillColor = codeList_sizen[i][1];
+          break;
+        }
+      }
+      return [new Style({
+        fill: new Fill({
+          color: fillColor
+        })
+      })];
+    }
   }
 }

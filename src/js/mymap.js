@@ -265,7 +265,6 @@ export function initMap (vm) {
         map.on('singleclick', function (evt) {
             const layers0 = map.getLayers().getArray();
             const seamlessLayer = layers0.find(el => el.get('name') === 'seamless');
-            console.log(seamlessLayer)
             if (seamlessLayer) PopUp.popupSeamless(overlay[i],evt,content)
         })
 //--------------------------------------------------------------------------------
@@ -388,11 +387,7 @@ export function initMap (vm) {
         }
         const win = window.navigator.userAgent.includes('Win')
         map.on('moveend', function (event) {
-            // if (win) {
             getElevation(event)
-            // } else {
-            //   vm.zoom[mapName] = 'zoom=' + String(Math.floor(map.getView().getZoom() * 100) / 100)
-            // }
         });
         map.on("pointermove",function(event){
             // if (win)
