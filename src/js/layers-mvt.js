@@ -3013,7 +3013,7 @@ function zinkoutikeiStyleFunction(name) {
     }
   }
 }
-// 自然災害伝承碑
+// 自然災害伝承碑-----------------------------------------------------
 function Densyou(){
   this.name = 'densyou'
   this.source = new VectorTileSource({
@@ -3024,7 +3024,7 @@ function Densyou(){
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/disaster_lore_all/{z}/{x}/{y}.geojson"
   });
-  this.style = densyouStyleFunction(name);
+  this.style = densyouStyleFunction();
 }
 export const densyouObj = {};
 for (let i of mapsStr) {
@@ -3032,32 +3032,91 @@ for (let i of mapsStr) {
 }
 function densyouStyleFunction() {
   return function (feature, resolution) {
+    const zoom = getZoom(resolution);
     const prop = feature.getProperties();
-    const geoType = feature.getGeometry().getType();
-    let text = ''
-    // console.log(prop["id"])
-    const style = new Style({
-          image: new Circle({
-            radius: 8,
-            fill: new Fill({
-              color: "black"
-            }),
-            stroke: new Stroke({
-              color: "white",
-              width: 1
-            })
-          }),
-          text: new Text({
-            font: "8px sans-serif",
-            text: text,
-            offsetY: 10,
-            stroke: new Stroke({
-              color: "white",
-              width: 3
-            })
+    const text = prop.LoreName
+    const styles = [];
+    const fillStyle = new Style({
+      image: new Circle({
+        radius: 8,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 1
+        })
+      })
+    });
+    const textStyle = new Style({
+        text: new Text({
+          font: "8px sans-serif",
+          text: text,
+          offsetY: 10,
+          stroke: new Stroke({
+            color: "white",
+            width: 3
           })
-        });
-
-    return style;
+        })
+      });
+    styles.push(fillStyle);
+    if(zoom>=13) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+// 指定緊急避難場所-----------------------------------------------------
+//使っていない
+function Hinanzyo(){
+  this.name = 'hinanzyo'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:7,
+      maxZoom:7
+    }),
+    url: "https://cyberjapandata.gsi.go.jp/xyz/disaster_lore_all/{z}/{x}/{y}.geojson"
+  });
+  this.style = hinanzyoStyleFunction();
+}
+export const hinanzyoObj = {};
+for (let i of mapsStr) {
+  hinanzyoObj[i] = new VectorTileLayer(new Hinanzyo())
+}
+function hinanzyoStyleFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const text = prop.name
+    const styles = [];
+    const fillStyle = new Style({
+      image: new Circle({
+        radius: 8,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 1
+        })
+      })
+    });
+    const textStyle = new Style({
+      text: new Text({
+        font: "8px sans-serif",
+        text: text,
+        offsetY: 10,
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        })
+      })
+    });
+    styles.push(fillStyle);
+    if(zoom>=13) {
+      styles.push(textStyle);
+    }
+    return styles;
   }
 }
