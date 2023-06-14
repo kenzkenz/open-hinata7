@@ -7396,7 +7396,7 @@ const layers =
       ]},
     { text: 'その他',
       children: [
-        { text: '自然災害伝承碑', data: { id: "densyou", layer: LayersMvt.densyouObj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
+        { text: '自然災害伝承碑', data: { id: "densyou", layer: LayersMvt.densyouObj, opacity: 1, summary: stdSumm } },
 
         { text: '人工地形', data: { id: "zinkoutikei", layer: LayersMvt.zinkoutikeiObj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
         { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
