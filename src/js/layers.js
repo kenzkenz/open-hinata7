@@ -907,7 +907,7 @@ const mw20Summ = '<a href="https://mapwarper.h-gis.jp/" target="_blank">日本�
 // 	東西蝦夷山川地理取調図-------------------------------------------------------------------------------
 function Ezosansen () {
   this.source = new XYZ({
-    url: 'https://koukita.github.io/touzaiezo/tile/{z}/{x}/{y}.jpg',
+    url: 'https://kenzkenz2.xsrv.jp/hokkaidou/touzai/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 1,
     maxZoom: 17
@@ -918,6 +918,20 @@ for (let i of mapsStr) {
   ezosansenObj[i] = new TileLayer(new Ezosansen())
 }
 const ezosansenSumm = '<a href="https://github.com/koukita/touzaiezo" target="_blank">喜多氏のgithub</a>'
+
+function Ezosansen2 () {
+  this.source = new XYZ({
+    url: 'https://koukita.github.io/touzaiezo/tile/{z}/{x}/{y}.jpg',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 17
+  })
+}
+const ezosansen2Obj = {}
+for (let i of mapsStr) {
+  ezosansen2Obj[i] = new TileLayer(new Ezosansen2())
+}
+const ezosansenSumm2 = '<a href="https://github.com/koukita/touzaiezo" target="_blank">喜多氏のgithub</a>'
 // 	東西蝦夷山川地理取調図ここまで------------------------------------------------------------------------
 
 const SSK = '<a href="https://dl.ndl.go.jp/search/searchResult?featureCode=all&searchWord=%E6%9C%80%E6%96%B0%E8%A9%B3%E5%AF%86%E9%87%91%E5%88%BA%E5%88%86%E7%B8%A3%E5%9C%96&fulltext=1&viewRestricted=0" target="_blank">最新詳密金刺分縣圖</a>です。'
@@ -6412,6 +6426,146 @@ const meijitokyoSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/maps/41
 
 
 
+
+
+// 東京市火災動態地図------------------
+function Tokyokasai1() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5449/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj1 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj1[i] = new TileLayer(new Tokyokasai1())
+}
+// 上野
+function Tokyokasai2() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5444/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj2 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj2[i] = new TileLayer(new Tokyokasai2())
+}
+// 四谷
+function Tokyokasai3() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5442/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj3 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj3[i] = new TileLayer(new Tokyokasai3())
+}
+// 新橋
+function Tokyokasai4() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5448/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj4 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj4[i] = new TileLayer(new Tokyokasai4())
+}
+// 三田
+function Tokyokasai5() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5447/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj5 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj5[i] = new TileLayer(new Tokyokasai5())
+}
+// 向島
+function Tokyokasai6() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5445/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj6 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj6[i] = new TileLayer(new Tokyokasai6())
+}
+// 早稲田
+function Tokyokasai7() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5443/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj7 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj7[i] = new TileLayer(new Tokyokasai7())
+}
+// 深川
+function Tokyokasai8() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5446/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj8 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj8[i] = new TileLayer(new Tokyokasai8())
+}
+// 日本橋
+function Tokyokasai9() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/5441/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const tokyokasaiObj9 = {};
+for (let i of mapsStr) {
+  tokyokasaiObj9[i] = new TileLayer(new Tokyokasai9())
+}
+
+const tokyokasaiObj = {};
+for (let i of mapsStr) {
+  tokyokasaiObj[i] = new LayerGroup({
+    layers: [
+      tokyokasaiObj1[i],
+      tokyokasaiObj2[i],
+      tokyokasaiObj3[i],
+      tokyokasaiObj4[i],
+      tokyokasaiObj5[i],
+      tokyokasaiObj6[i],
+      tokyokasaiObj7[i],
+      tokyokasaiObj8[i],
+      tokyokasaiObj9[i],
+    ]
+  })
+}
+const tokyokasaiSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/" target="_blank">日本版MapWarper</a>';
+
+
+
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
 const layers =
   [
@@ -6472,6 +6626,7 @@ const layers =
         { text: '〔江戸切絵図〕. 麻布絵図', data: { id: 'edokirie', layer: edokirieObj, opacity: 1, zoom: 15, center: [139.73059032411857, 35.654628169454355], summary: edokirieSumm } },
         { text: '明治東京全図明治9年', data: { id: 'meijitokyo', layer: meijitokyoObj, opacity: 1, zoom: 13, center: [139.7613472707328, 35.674408991579426], summary: meijitokyoSumm } },
         { text: '東西蝦夷山川地理取調図', data: { id: 'ezosansen', layer: ezosansenObj, opacity: 1, zoom: 8, center: [142.6944008210318, 43.241646716680606], summary: ezosansenSumm } },
+        { text: '東西蝦夷山川地理取調図2', data: { id: 'ezosansen2', layer: ezosansen2Obj, opacity: 1, zoom: 8, center: [142.6944008210318, 43.241646716680606], summary: ezosansenSumm2 } },
         { text: '大正13,14年古地図',
           children: [
             { text: '<i class="fa-solid fa-layer-group"></i>大正古地図全て', data: { id: 'kotizu00', layer: kotizu00Obj, opacity: 1, summary: kotizu00Summ } },
@@ -6545,6 +6700,7 @@ const layers =
                 { text: '47沖縄県古地図(大正14年)', data: { id: 'kotizu47okinawa', layer: kotizu47okinawaObj, opacity: 1, zoom: 9, center: [127.85255774851787, 26.472759103562595], summary: kotizu47okinawaSumm } },
               ]}
           ]},
+        { text: '東京市火災動態地図大正12年', data: { id: 'tokyokasai', layer: tokyokasaiObj, opacity: 1, zoom: 13, center: [139.77487921714783, 35.688761948611315], summary: tokyokasaiSumm } },
         { text: '今昔マップ',
           children: [
             { text: '首都圏',
@@ -6810,10 +6966,6 @@ const layers =
                 { text: '浜松・豊橋1988-1995年', data: { id: 'kzhamamatsu04', layer: kz_hamamatsu04Obj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
                 { text: '浜松・豊橋1996-2010年', data: { id: 'kzhamamatsu05', layer: kz_hamamatsu05Obj, opacity: 1, zoom: 10, center: [137.6465650860257, 34.767069376904644], summary: kzSumm } },
               ]},
-
-
-
-
             { text: '伊賀',
               children: [
                 { text: '伊賀1892年', data: { id: 'kziga00', layer: kz_iga00Obj, opacity: 1, zoom: 11, center: [136.14220318388942, 34.74985604583132], summary: kzSumm } },
