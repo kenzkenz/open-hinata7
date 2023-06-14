@@ -354,6 +354,16 @@ export function popUp(map,layers,features,overlay,evt,content) {
              '成り立ち=' + naritachi + '<hr>' +
              'リスク=' + risk
       break
+    case 'densyou':
+      cont = '<div width="1400">碑名=' + prop.LoreName + '<hr>' +
+          '災害名=' + prop.DisasterName + '<hr>' +
+          '災害種別=' + prop.DisasterKind + '<hr>' +
+          '所在地=' + prop.Address + '<hr>' +
+          '建立年=' + prop.LoreYear + '<hr>' +
+          '伝承内容=' + prop.DisasterInfo + '<hr>' +
+          '<img height="200" src="' + prop.Image + ' "></div>'
+
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);
