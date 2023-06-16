@@ -3083,6 +3083,23 @@ export const hinanzyo01Obj = {};
 for (let i of mapsStr) {
   hinanzyo01Obj[i] = new VectorTileLayer(new Hinanzyo01())
 }
+//崖崩れ、土石流及び地滑り
+function Hinanzyo02(){
+  this.name = 'hinanzyo02'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:1,
+      maxZoom:10
+    }),
+    url: "https://cyberjapandata.gsi.go.jp/xyz/skhb02/{z}/{x}/{y}.geojson"
+  });
+  this.style = hinanzyoStyleFunction('magenta');
+}
+export const hinanzyo02Obj = {};
+for (let i of mapsStr) {
+  hinanzyo02Obj[i] = new VectorTileLayer(new Hinanzyo02())
+}
 //地震
 function Hinanzyo04(){
   this.name = 'hinanzyo04'
