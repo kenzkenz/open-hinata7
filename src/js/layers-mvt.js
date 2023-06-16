@@ -3083,6 +3083,23 @@ export const hinanzyo01Obj = {};
 for (let i of mapsStr) {
   hinanzyo01Obj[i] = new VectorTileLayer(new Hinanzyo01())
 }
+//地震
+function Hinanzyo04(){
+  this.name = 'hinanzyo04'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:1,
+      maxZoom:10
+    }),
+    url: "https://cyberjapandata.gsi.go.jp/xyz/skhb04/{z}/{x}/{y}.geojson"
+  });
+  this.style = hinanzyoStyleFunction('brown');
+}
+export const hinanzyo04Obj = {};
+for (let i of mapsStr) {
+  hinanzyo04Obj[i] = new VectorTileLayer(new Hinanzyo04())
+}
 //津波
 function Hinanzyo05(){
   this.name = 'hinanzyo05'

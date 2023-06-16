@@ -364,6 +364,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '<img height="200" src="' + prop.Image + ' ">'
       break
     case 'hinanzyo01':
+    case 'hinanzyo04':
     case 'hinanzyo05':
       cont = '名称=' + prop.name + '<hr>' +
           '所在地=' + prop.address
