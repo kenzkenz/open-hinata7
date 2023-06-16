@@ -355,14 +355,17 @@ export function popUp(map,layers,features,overlay,evt,content) {
              'リスク=' + risk
       break
     case 'densyou':
-      cont = '<div width="1400">碑名=' + prop.LoreName + '<hr>' +
+      cont = '碑名=' + prop.LoreName + '<hr>' +
           '災害名=' + prop.DisasterName + '<hr>' +
           '災害種別=' + prop.DisasterKind + '<hr>' +
           '所在地=' + prop.Address + '<hr>' +
           '建立年=' + prop.LoreYear + '<hr>' +
           '伝承内容=' + prop.DisasterInfo + '<hr>' +
-          '<img height="200" src="' + prop.Image + ' "></div>'
-
+          '<img height="200" src="' + prop.Image + ' ">'
+      break
+    case 'hinanzyo05':
+      cont = '碑名=' + prop.name + '<hr>' +
+          '所在地=' + prop.address
       break
   }
   content.innerHTML = cont

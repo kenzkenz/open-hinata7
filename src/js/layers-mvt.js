@@ -3067,22 +3067,22 @@ function densyouStyleFunction() {
   }
 }
 // 指定緊急避難場所-----------------------------------------------------
-//使っていない
-function Hinanzyo(){
-  this.name = 'hinanzyo'
+//津波
+function Hinanzyo05(){
+  this.name = 'hinanzyo05'
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:7,
-      maxZoom:7
+      minZoom:1,
+      maxZoom:10
     }),
-    url: "https://cyberjapandata.gsi.go.jp/xyz/disaster_lore_all/{z}/{x}/{y}.geojson"
+    url: "https://cyberjapandata.gsi.go.jp/xyz/skhb05/{z}/{x}/{y}.geojson"
   });
   this.style = hinanzyoStyleFunction();
 }
-export const hinanzyoObj = {};
+export const hinanzyo05Obj = {};
 for (let i of mapsStr) {
-  hinanzyoObj[i] = new VectorTileLayer(new Hinanzyo())
+  hinanzyo05Obj[i] = new VectorTileLayer(new Hinanzyo05())
 }
 function hinanzyoStyleFunction() {
   return function (feature, resolution) {
@@ -3094,7 +3094,7 @@ function hinanzyoStyleFunction() {
       image: new Circle({
         radius: 8,
         fill: new Fill({
-          color: "black"
+          color: "red"
         }),
         stroke: new Stroke({
           color: "white",
