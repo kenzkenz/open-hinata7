@@ -363,8 +363,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '伝承内容=' + prop.DisasterInfo + '<hr>' +
           '<img height="200" src="' + prop.Image + ' ">'
       break
+    case 'hinanzyo01':
     case 'hinanzyo05':
-      cont = '碑名=' + prop.name + '<hr>' +
+      cont = '名称=' + prop.name + '<hr>' +
           '所在地=' + prop.address
       break
   }

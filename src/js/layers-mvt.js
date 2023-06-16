@@ -3066,6 +3066,23 @@ function densyouStyleFunction() {
   }
 }
 // 指定緊急避難場所-----------------------------------------------------
+//洪水
+function Hinanzyo01(){
+  this.name = 'hinanzyo01'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:1,
+      maxZoom:10
+    }),
+    url: "https://cyberjapandata.gsi.go.jp/xyz/skhb01/{z}/{x}/{y}.geojson"
+  });
+  this.style = hinanzyoStyleFunction('blue');
+}
+export const hinanzyo01Obj = {};
+for (let i of mapsStr) {
+  hinanzyo01Obj[i] = new VectorTileLayer(new Hinanzyo01())
+}
 //津波
 function Hinanzyo05(){
   this.name = 'hinanzyo05'
