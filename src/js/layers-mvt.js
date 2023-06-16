@@ -2939,12 +2939,11 @@ var codeList_sizen = new Array(//図式コード,"色"]
     [9999,"#ff00ff"]
 );
 
-function Zinkoutikei(name,minzoom,maxzoom,maxResolution){
+function Zinkoutikei(name,minzoom,maxzoom){
   this.name = 'zinkoutikei'
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      maxResolution:maxResolution,
       minZoom:minzoom,
       maxZoom:maxzoom
     }),
@@ -2952,8 +2951,8 @@ function Zinkoutikei(name,minzoom,maxzoom,maxResolution){
   });
   this.style = zinkoutikeiStyleFunction(name);
 }
-const zinkoutikeiObj1 = new VectorTileLayer(new Zinkoutikei('zinkoutikei1',1,13,10))
-const zinkoutikeiObj2 = new VectorTileLayer(new Zinkoutikei('zinkoutikei2',1,14,2))
+const zinkoutikeiObj1 = new VectorTileLayer(new Zinkoutikei('zinkoutikei1',1,13))
+const zinkoutikeiObj2 = new VectorTileLayer(new Zinkoutikei('zinkoutikei2',1,14))
 export const zinkoutikeiObj = {}
 for (let i of mapsStr) {
   zinkoutikeiObj[i] = new LayerGroup({
@@ -3078,13 +3077,13 @@ function Hinanzyo05(){
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb05/{z}/{x}/{y}.geojson"
   });
-  this.style = hinanzyoStyleFunction();
+  this.style = hinanzyoStyleFunction('steelblue');
 }
 export const hinanzyo05Obj = {};
 for (let i of mapsStr) {
   hinanzyo05Obj[i] = new VectorTileLayer(new Hinanzyo05())
 }
-function hinanzyoStyleFunction() {
+function hinanzyoStyleFunction(color) {
   return function (feature, resolution) {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
@@ -3094,7 +3093,7 @@ function hinanzyoStyleFunction() {
       image: new Circle({
         radius: 8,
         fill: new Fill({
-          color: "red"
+          color: color
         }),
         stroke: new Stroke({
           color: "white",
