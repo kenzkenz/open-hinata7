@@ -166,6 +166,7 @@ export function initMap (vm) {
         // シングルクリック------------------------------------------------------------------------------------
         // 洪水,津波,継続用-----------------------------------------------------------------
         map.on('singleclick', function (evt) {
+            store.commit('base/popUpContReset')
             //処理を早くするため抜ける。
             const layers0 = map.getLayers().getArray();
             const hazardLayers = layers0.filter(el => el.get('pointer'));
@@ -182,47 +183,100 @@ export function initMap (vm) {
             })
             layersObj.forEach(object =>{
                 console.log(object.layer.get('name'))
+                const getColor0 =  (event,server,popup) =>{
+                    const z = 17
+                    const coord = event.coordinate
+                    const R = 6378137;// 地球の半径(m);
+                    const x = ( 0.5 + coord[ 0 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
+                    const y = ( 0.5 - coord[ 1 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
+                    const e = event;
+                    // const server = 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/'
+                    getColor( x, y, z, server,  async function( rgb ) {
+                        popup(rgb)
+                        const coordinate = evt.coordinate;
+                        const cont = store.state.base.popUpCont
+                        content.innerHTML = cont
+                        if (cont.includes('undefined') || cont==='') {
+                            overlay[i].setPosition(undefined)
+                        } else {
+                            overlay[i].setPosition(coordinate);
+                        }
+                    } );
+                }
                 switch (object.layer.get('name')){
+                    // case 'tunami':
                     case 'shinsuishin':
-                        PopUp.popUpShinsuishin(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/',PopUp.popUpShinsuishin)
                         break;
                     case 'tunami':
-                        PopUp.popUpTunami(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/04_tsunami_newlegend_data/',PopUp.popUpTunami)
                         break;
                     case 'keizoku':
-                        PopUp.popUpKeizoku(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_keizoku_kuni_data/',PopUp.popUpKeizoku)
                         break;
                     case 'takasio':
-                        PopUp.popUpTakasio(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/03_hightide_l2_shinsuishin_data/',PopUp.popUpTakasio)
                         break;
                     case 'dosya':
-                        PopUp.popUpDosya(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukeikaikuiki/',PopUp.popUpDosya)
                         break;
                     case 'doseki':
-                        PopUp.popUpDoseki(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukikenkeiryu/',PopUp.popUpDoseki)
                         break;
                     case 'kyuukeisya':
-                        PopUp.popUpKyuukeisyai(object.rgba)
+                        // PopUp.popUpKyuukeisyai(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_kyukeisyachihoukai/',PopUp.popUpKyuukeisyai)
                         break;
                     case 'zisuberi':
-                        PopUp.popUpZisuberi(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_jisuberikikenkasyo/',PopUp.popUpZisuberi)
                         break;
                     case 'nadare':
-                        PopUp.popUpNadare(object.rgba)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_nadarekikenkasyo/',PopUp.popUpNadare)
                         break;
                     default:
                 }
             });
-            const coordinate = evt.coordinate;
-            const cont = store.state.base.popUpCont
-            content.innerHTML = cont
-            if (cont.includes('undefined') || cont==='') {
-                overlay[i].setPosition(undefined)
-            } else {
-                overlay[i].setPosition(coordinate);
-            }
-            store.commit('base/popUpContReset')
+            // const coordinate = evt.coordinate;
+            // const cont = store.state.base.popUpCont
+            // content.innerHTML = cont
+            // if (cont.includes('undefined') || cont==='') {
+            //     overlay[i].setPosition(undefined)
+            // } else {
+            //     overlay[i].setPosition(coordinate);
+            // }
+            // store.commit('base/popUpContReset')
         })
+
+         function getColor( rx, ry, z, server,then ) {
+            // const elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/'
+            // const elevServer = 'https://tiles.gsj.jp/tiles/elev/mixed/'
+            // const server = 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/'
+            const x = Math.floor( rx )				// タイルX座標
+            const y = Math.floor( ry )				// タイルY座標
+            const i = ( rx - x ) * 256			// タイル内i座標
+            const j = ( ry - y ) * 256			// タイル内j座標
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.alt = "";
+            img.onload = function(){
+                const canvas = document.createElement( 'canvas' )
+                const context = canvas.getContext( '2d' )
+                let  h = 'e'
+                canvas.width = 1;
+                canvas.height = 1;
+                context.drawImage( img, i, j, 1, 1, 0, 0, 1, 1 );
+                const rgb = context.getImageData( 0, 0, 1, 1 ).data;
+                console.log(rgb)
+                then( rgb );
+            }
+            // img.src = elevServer + z + '/' + y + '/' + x + '.png';
+            img.src = server + z + '/' + x + '/' + y + '.png';
+        }
+
+
+
+
+
         // 大正古地図用-----------------------------------------------------------------
         map.on('singleclick', function (evt) {
             //少しでも処理を早めるために古地図レイヤーがなかったら抜ける。
@@ -418,6 +472,7 @@ export function initMap (vm) {
                 canvas.height = 1;
                 context.drawImage( img, i, j, 1, 1, 0, 0, 1, 1 );
                 const data = context.getImageData( 0, 0, 1, 1 ).data;
+                // console.log(data)
                 if ( data[ 3 ] === 255 ) {
                     h = data[ 0 ] * 256 * 256 + data[ 1 ] * 256 + data[ 2 ];
                     h = ( h < 8323072 ) ? h : h - 16777216;
