@@ -3134,6 +3134,24 @@ export const hinanzyo05Obj = {};
 for (let i of mapsStr) {
   hinanzyo05Obj[i] = new VectorTileLayer(new Hinanzyo05())
 }
+//大規模な火事
+function Hinanzyo06(){
+  this.name = 'hinanzyo06'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:1,
+      maxZoom:10
+    }),
+    url: "https://cyberjapandata.gsi.go.jp/xyz/skhb06/{z}/{x}/{y}.geojson"
+  });
+  this.style = hinanzyoStyleFunction('red');
+}
+export const hinanzyo06Obj = {};
+for (let i of mapsStr) {
+  hinanzyo06Obj[i] = new VectorTileLayer(new Hinanzyo06())
+}
+//--------------------------
 function hinanzyoStyleFunction(color) {
   return function (feature, resolution) {
     const zoom = getZoom(resolution);

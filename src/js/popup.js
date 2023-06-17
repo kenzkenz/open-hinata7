@@ -367,6 +367,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'hinanzyo02':
     case 'hinanzyo04':
     case 'hinanzyo05':
+    case 'hinanzyo06':
       cont = '名称=' + prop.name + '<hr>' +
           '所在地=' + prop.address
       break

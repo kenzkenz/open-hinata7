@@ -7395,6 +7395,7 @@ const layers =
         { text: '指定緊急避難場所(崖崩れ、土石流及び地滑り)', data: { id: 'hinan02', layer: LayersMvt.hinanzyo02Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(地震)', data: { id: 'hinan04', layer: LayersMvt.hinanzyo04Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(津波)', data: { id: 'hinan05', layer: LayersMvt.hinanzyo05Obj, opacity: 1, summary: stdSumm } },
+        { text: '指定緊急避難場所(大規模な火事)', data: { id: 'hinan06', layer: LayersMvt.hinanzyo06Obj, opacity: 1, summary: stdSumm } },
 
         { text: '平成23年東北地方太平洋沖地震　津波浸水範囲', data: { id: 'h23tunami', layer: h23tunamiObj, opacity: 1, summary: h23tunamiSumm} },
         { text: '地すべり地形分布図', data: { id: 'zisuberi9', layer: zisuberi9Obj, opacity: 1, summary: zisuberi9Summ} }
