@@ -191,7 +191,7 @@ export function initMap (vm) {
                     const y = ( 0.5 - coord[ 1 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
                     const e = event;
                     // const server = 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/'
-                    getColor( x, y, z, server,  async function( rgb ) {
+                    getColor( x, y, z, server,   function( rgb ) {
                         popup(rgb)
                         const coordinate = evt.coordinate;
                         const cont = store.state.base.popUpCont
