@@ -221,6 +221,19 @@ for (let i of mapsStr) {
   reliefObj[i] = new TileLayer(new Relief())
 }
 const reliefSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
+// 陰影起伏図---------------------------------------------------------------------------------
+function Inei () {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 16
+  })
+}
+const ineiObj = {};
+for (let i of mapsStr) {
+  ineiObj[i] = new TileLayer(new Inei())
+}
 // 宮崎県航空写真----------------------------------------------------------------------------
 function MiyazakiOrt () {
   this.extent = transformE([130.66371,31.34280,131.88045,32.87815])
@@ -6575,7 +6588,8 @@ const layers =
         { text: '標準地図', data: { id: 1, layer: stdObj, opacity: 1, summary: stdSumm } },
         { text: '淡色地図', data: { id: 2, layer: paleObj, opacity: 1, summary: paleSumm } },
         { text: '白地図', data: { id: 3, layer: blankObj, opacity: 1, summary: blankSumm } },
-        { text: '色別標高図', data: { id: 4, layer: reliefObj, opacity: 1, summary: reliefSumm } }
+        { text: '色別標高図', data: { id: 4, layer: reliefObj, opacity: 1, summary: reliefSumm } },
+        { text: '陰影起伏図', data: { id: 'inei', layer: ineiObj, opacity: 1, summary: stdSumm } },
       ]},
     { text: '航空写真',
       children: [
