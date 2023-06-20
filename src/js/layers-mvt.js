@@ -2939,6 +2939,42 @@ var codeList_sizen = new Array(//図式コード,"色"]
     [9999,"#ff00ff"]
 );
 
+function Sizentikei(name,minzoom,maxzoom,url){
+  this.name = 'sizentikei'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:minzoom,
+      maxZoom:maxzoom
+    }),
+    // url: "https://cyberjapandata.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"
+    // url:"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"
+    // https://maps.gsi.go.jp/xyz/experimental_landformclassification3/
+    url:url
+  });
+  this.style = zinkoutikeiStyleFunction(name);
+}
+// export const sizentiketikeiObj = {}
+// for (let i of mapsStr) {
+//   sizentiketikeiObj[i] = new VectorTileLayer(new Sizentikei())
+// }
+
+const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('zinkoutikei1',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
+const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('zinkoutikei2',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
+export const sizentiketikeiObj = {}
+for (let i of mapsStr) {
+  sizentiketikeiObj[i] = new LayerGroup({
+    layers: [
+      sizentikeiObj1,
+      sizentikeiObj2
+    ]
+  })
+}
+
+
+
+export const sizentikeiSumm = "<a href='https://github.com/gsi-cyberjapan/experimental_landformclassification' target='_blank'>国土地理院ベクトルタイル提供実験（地形分類）</a>"
+
 function Zinkoutikei(name,minzoom,maxzoom){
   this.name = 'zinkoutikei'
   this.source = new VectorTileSource({
@@ -2976,10 +3012,13 @@ function zinkoutikeiStyleFunction(name) {
       //if (resolution < 9.56) return;//9.56
       if (zoom > 13) return;
       var code = Number(feature.getProperties()["code"]);
+      console.log(code)
       var fillColor = 'rgba(0,0,0,0.1)';
       for (var i = 0; i < codeList_sizen.length; i++) {
+
         if (codeList_sizen[i][0] == code) {
           fillColor = codeList_sizen[i][1];
+          // fillColor = 'red'
           break;
         }
       }
@@ -2995,7 +3034,7 @@ function zinkoutikeiStyleFunction(name) {
       // console.log(zoom);
       // console.log(resolution);
       //if (resolution >= 9.56) return;//9.56
-      if (zoom < 14) return;
+      // if (zoom < 14) return;
       var code = Number(feature.getProperties()["code"]);
       var fillColor = 'rgba(0,0,0,0.1)';
       for (var i = 0; i < codeList_sizen.length; i++) {

@@ -246,9 +246,14 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'houmusyo':
       cont = prop.大字名 + prop.地番
       break
+    case 'sizentikei':
     case 'zinkoutikei':
       const codeList_sizen2 = new Array(//2次元配列 [図式コード,"地形分類名","成因など","リスク"]
-          [999999,"地図を拡大すると表示されます。","",""],
+          [1,"地図を拡大すると表示されます。","",""],
+          [5,"地図を拡大すると表示されます。","",""],
+          [3,"地図を拡大すると表示されます。","",""],
+          [21,"地図を拡大すると表示されます。","",""],
+          [51,"地図を拡大すると表示されます。","",""],
           [100,"数値地図25000(土地条件)","地図を拡大すると表示されます。",""],
           [101,"数値地図25000(土地条件)","地図を拡大すると表示されます。",""],
           [102,"治水地形分類図(更新版)","地図を拡大すると表示されます。",""],
@@ -340,6 +345,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           [9999,"拡大すると地形分類が表示されます。","",""]
       );
       var code = prop.code
+        console.log(code)
       var landFormName="",naritachi="",risk="";
       var list = codeList_sizen2;
       for(var i=0;i<list.length;i++){

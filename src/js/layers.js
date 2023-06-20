@@ -18,7 +18,7 @@ import Crop from 'ol-ext/filter/Crop'
 import Mask from 'ol-ext/filter/Mask'
 import  * as MaskDep from './mask-dep'
 import  * as LayersMvt from './layers-mvt'
-import {hinanzyo05Obj, houmusyouObj, houmusyouSumm} from "./layers-mvt";
+import {houmusyouObj, houmusyouSumm, sizentikeiSumm} from "./layers-mvt";
 const mapsStr = ['map01','map02','map03','map04']
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
@@ -221,6 +221,21 @@ for (let i of mapsStr) {
   reliefObj[i] = new TileLayer(new Relief())
 }
 const reliefSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
+// 治水地形分類図 更新版（2007年以降）---------------------------------------------------------------------------------
+function Tisui2007 () {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/lcmfc2/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 16
+  })
+}
+const tisui2007Obj = {};
+for (let i of mapsStr) {
+  tisui2007Obj[i] = new TileLayer(new Tisui2007())
+}
+const tisui2007Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>' +
+    '<br><a href="https://cyberjapandata.gsi.go.jp/legend/lcmfc2_legend.jpg" target="_blank">凡例</a>'
 // 陰影起伏図---------------------------------------------------------------------------------
 function Inei () {
   this.source = new XYZ({
@@ -6590,6 +6605,9 @@ const layers =
         { text: '白地図', data: { id: 3, layer: blankObj, opacity: 1, summary: blankSumm } },
         { text: '色別標高図', data: { id: 4, layer: reliefObj, opacity: 1, summary: reliefSumm } },
         { text: '陰影起伏図', data: { id: 'inei', layer: ineiObj, opacity: 1, summary: stdSumm } },
+        { text: '治水地形分類図 更新版（2007年以降）', data: { id: 'tisui2007', layer: tisui2007Obj, opacity: 1, summary: tisui2007Summ } },
+        { text: '地形分類（自然地形）', data: { id: 'sizen', layer: LayersMvt.sizentiketikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
+
       ]},
     { text: '航空写真',
       children: [
@@ -6626,10 +6644,8 @@ const layers =
         { text: '福島県CS立体図', data: { id: 'fukushimacs', layer: fukushimaCsObj, opacity: 1, zoom:9, center:[140.6180906295776, 37.49835474973223], summary: fukushimaCsSumm } },
         { text: '愛媛県CS立体図', data: { id: 'ehimeocs', layer: ehimeCsObj, opacity: 1, zoom:9, center:[132.77042984962463, 33.49503407703915], summary: ehimeCsSumm } },
         { text: '高知県CS立体図', data: { id: 'kochiocs', layer: kochiCsObj, opacity: 1, zoom:9, center:[133.00989747047424, 33.4075764357881], summary: kochiCsSumm } },
-
         { text: '熊本県・大分県CS立体図', data: { id: 'kumamotocs', layer: kumamotoCsObj, opacity: 1, zoom:9, center:[131.08264176666347, 32.86696607176184], summary: kumamotoCsSumm } },
         { text: '都市圏活断層図', data: { id: 'katudansou', layer: katudansouObj, opacity: 1, summary: katudansouSumm } }
-
       ]},
     { text: '古地図',
       children: [
