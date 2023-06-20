@@ -6606,8 +6606,8 @@ const layers =
         { text: '色別標高図', data: { id: 4, layer: reliefObj, opacity: 1, summary: reliefSumm } },
         { text: '陰影起伏図', data: { id: 'inei', layer: ineiObj, opacity: 1, summary: stdSumm } },
         { text: '治水地形分類図 更新版（2007年以降）', data: { id: 'tisui2007', layer: tisui2007Obj, opacity: 1, summary: tisui2007Summ } },
-        { text: '地形分類（自然地形）', data: { id: 'sizen', layer: LayersMvt.sizentiketikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
-
+        { text: '地形分類（自然地形）', data: { id: 'sizen0', layer: LayersMvt.sizentiketikei0Obj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
+        { text: '地形分類（自然地形『詳細版』）', data: { id: 'sizen', layer: LayersMvt.sizentiketikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
       ]},
     { text: '航空写真',
       children: [

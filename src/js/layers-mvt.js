@@ -2844,11 +2844,12 @@ function tokuteiStyleFunction() {
   }
 }
 
-
 //--------------------------------------------------------
 
 var codeList_sizen = new Array(//図式コード,"色"]
     [10101,"#d9cbae"],
+    [1010101,"#d9cbae"],
+    [11201,"#d9cbae"],			    [10101,"#d9cbae"],
     [1010101,"#d9cbae"],
     [11201,"#d9cbae"],
     [11202,"#d9cbae"],
@@ -2936,9 +2937,144 @@ var codeList_sizen = new Array(//図式コード,"色"]
     [103,"#2ae600"],
     [104,"#e60400"],
     [105,"#5e5ce6"],
+
+    [11,"#998b79"],
+    [12,"#664d55"],
+    [13,"#7580D2"],
+    [21,"#C9FF05"],
+    [31,"#FF0116"],
+    [32,"#FF5101"],
+    [33,"#C975B0"],
+    [34,"#FFBBFC"],
+    [41,"#ffb31a"],
+    [51,"#C7FFF7"],
+    [61,"#FFEA01"],
+    [71,"#1201FF"],
+
+    [1,"#998c7a"],
+    [3,"#FF0116"],
+    [4,"#ffb31a"],
+    [5,"#C7FFF7"],
+    [6,"#FFEA01"],
+    [7,"#1201FF"],
+
+    ["","#85B6E7"],
+    [9999, "#ff00ff"]
+        [11202,"#d9cbae"],
+    [11203,"#d9cbae"],
+    [11204,"#d9cbae"],
+    [10202,"#9466ab"],
+    [10204,"#9466ab"],
+    [2010201,"#9466ab"],
+    [10205,"#cc99ff"],
+    [10206,"#cc99ff"],
+    [10301,"#ffaa00"],
+    [10302,"#ffaa00"],
+    [10303,"#ffaa00"],
+    [10304,"#ffaa00"],
+    [10308,"#ffaa00"],
+    [10314,"#ffaa00"],
+    [10305,"#ffaa00"],
+    [10508,"#ffaa00"],
+    [2010101,"#ffaa00"],
+    [10306,"#ffaa00"],
+    [10307,"#ffaa00"],
+    [10310,"#ffaa00"],
+    [10312,"#ffaa00"],
+    [10401,"#99804d"],
+    [10402,"#99804d"],
+    [10403,"#99804d"],
+    [10404,"#99804d"],
+    [10406,"#99804d"],
+    [10407,"#99804d"],
+    [3010101,"#99804d"],
+    [10501,"#cacc60"],
+    [10502,"#cacc60"],
+    [3020101,"#cacc60"],
+    [10503,"#ffff33"],
+    [3040101,"#ffff33"],
+    [10506,"#fbe09d"],
+    [10507,"#fbe09d"],
+    [10801,"#fbe09d"],
+    [10504,"#ffff99"],
+    [10505,"#ffff99"],
+    [10512,"#ffff99"],
+    [3050101,"#ffff99"],
+    [10601,"#a3cc7e"],
+    [2010301,"#a3cc7e"],
+    [10701,"#bbff99"],
+    [3030101,"#bbff99"],
+    [10702,"#bbff99"],
+    [10705,"#bbff99"],
+    [10703,"#00d1a4"],
+    [10804,"#00d1a4"],
+    [3030201,"#00d1a4"],
+    [10704,"#6699ff"],
+    [3040201,"#6699ff"],
+    [3040202,"#6699ff"],
+    [3040301,"#1f9999"],
+    [10802,"#9f9fc4"],
+    [10803,"#9f9fc4"],
+    [10807,"#9f9fc4"],
+    [10808,"#9f9fc4"],
+    [10805,"#e5ffff"],
+    [10806,"#e5ffff"],
+    [10901,"#e5ffff"],
+    [10903,"#e5ffff"],
+    [5010201,"#e5ffff"],
+    [10904,"#779999"],
+    [5010301,"#779999"],
+    [11001,"#85c4d1"],
+    [11003,"#85c4d1"],
+    [11009,"#85c4d1"],
+    [11011,"#85c4d1"],
+    [4010301,"#85c4d1"],
+    [11002,"#8ad8b6"],
+    [11004,"#ef8888"],
+    [11006,"#ef8888"],
+    [11007,"#ef8888"],
+    [11014,"#ef8888"],
+    [4010201,"#ff4f4f"],
+    [11005,"#ff4f4f"],
+    [11008,"#c37aff"],
+    [4010101,"#c37aff"],
+    [11010,"#ffe8e8"],
+    [999999,"#144dfa"],
+    [101,"#e6e600"],
+    [102,"#00e2e6"],
+    [103,"#2ae600"],
+    [104,"#e60400"],
+    [105,"#5e5ce6"],
     [9999,"#ff00ff"]
 );
+// 簡易版
+function Sizentikei0(name,minzoom,maxzoom,url){
+  this.name = 'sizentikei0'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:minzoom,
+      maxZoom:maxzoom
+    }),
+    url:url
+  });
+  this.style = zinkoutikeiStyleFunction(name);
+}
+const sizentikei0Obj1 = new VectorTileLayer(new Sizentikei0('sizentikei1',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
+// 14にすれば詳細版を表示する。
+const sizentikei0Obj2 = new VectorTileLayer(new Sizentikei0('sizentikei2',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
+export const sizentiketikei0Obj = {}
+for (let i of mapsStr) {
+  sizentiketikei0Obj[i] = new LayerGroup({
+    layers: [
+      // sizentikei0Obj1,
+      sizentikei0Obj2
+    ]
+  })
+}
+// export const sizentikeiSumm = "<a href='https://github.com/gsi-cyberjapan/experimental_landformclassification' target='_blank'>国土地理院ベクトルタイル提供実験（地形分類）</a>"
 
+// 詳細版
 function Sizentikei(name,minzoom,maxzoom,url){
   this.name = 'sizentikei'
   this.source = new VectorTileSource({
@@ -2951,10 +3087,6 @@ function Sizentikei(name,minzoom,maxzoom,url){
   });
   this.style = zinkoutikeiStyleFunction(name);
 }
-// export const sizentiketikeiObj = {}
-// for (let i of mapsStr) {
-//   sizentiketikeiObj[i] = new VectorTileLayer(new Sizentikei())
-// }
 const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('zinkoutikei1',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
 const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('zinkoutikei2',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
 export const sizentiketikeiObj = {}
@@ -2991,24 +3123,19 @@ for (let i of mapsStr) {
     ]
   })
 }
-// for (let i of mapsStr) {
-//   zinkoutikeiObj[i].values_['zinkoutikei'] = true
-// }
-
 export const zinkoutikeiSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-v3_0.html' target='_blank'>国土数値情報　振興山村データ</a>"
+//--------------------------------------------
 function zinkoutikeiStyleFunction(name) {
-  if(name==="zinkoutikei1") {
+  if(name==="zinkoutikei1" || name==="sizentikei2") {
     return function (feature, resolution) {
       var zoom = getZoom(resolution);
-      // console.log(zoom);
-      // console.log(resolution);
-      //if (resolution < 9.56) return;//9.56
-      if (zoom > 13) return;
+      if (name==="zinkoutikei1") {
+        if (zoom > 13) return;
+      }
       var code = Number(feature.getProperties()["code"]);
-      console.log(code)
+      // console.log(code)
       var fillColor = 'rgba(0,0,0,0.1)';
       for (var i = 0; i < codeList_sizen.length; i++) {
-
         if (codeList_sizen[i][0] == code) {
           fillColor = codeList_sizen[i][1];
           // fillColor = 'red'
@@ -3021,13 +3148,13 @@ function zinkoutikeiStyleFunction(name) {
         })
       })];
     }
-  }else{
+  } else {
     return function (feature, resolution) {
       var zoom = getZoom(resolution);
       // console.log(zoom);
       // console.log(resolution);
       //if (resolution >= 9.56) return;//9.56
-      // if (zoom < 14) return;
+      if (zoom < 14) return;
       var code = Number(feature.getProperties()["code"]);
       var fillColor = 'rgba(0,0,0,0.1)';
       for (var i = 0; i < codeList_sizen.length; i++) {
