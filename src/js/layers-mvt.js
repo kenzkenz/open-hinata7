@@ -2947,9 +2947,6 @@ function Sizentikei(name,minzoom,maxzoom,url){
       minZoom:minzoom,
       maxZoom:maxzoom
     }),
-    // url: "https://cyberjapandata.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"
-    // url:"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"
-    // https://maps.gsi.go.jp/xyz/experimental_landformclassification3/
     url:url
   });
   this.style = zinkoutikeiStyleFunction(name);
@@ -2958,7 +2955,6 @@ function Sizentikei(name,minzoom,maxzoom,url){
 // for (let i of mapsStr) {
 //   sizentiketikeiObj[i] = new VectorTileLayer(new Sizentikei())
 // }
-
 const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('zinkoutikei1',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
 const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('zinkoutikei2',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
 export const sizentiketikeiObj = {}
@@ -2970,9 +2966,6 @@ for (let i of mapsStr) {
     ]
   })
 }
-
-
-
 export const sizentikeiSumm = "<a href='https://github.com/gsi-cyberjapan/experimental_landformclassification' target='_blank'>国土地理院ベクトルタイル提供実験（地形分類）</a>"
 
 function Zinkoutikei(name,minzoom,maxzoom){
