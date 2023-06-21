@@ -440,7 +440,8 @@
       border: 1px solid #cccccc;
       bottom: 12px;
       left: -50px;
-      min-width: 400px;
+      /*min-width: 400px;*/
+      /*width:200px;*/
     }
     .ol-popup:after, .ol-popup:before {
       top: 100%;
