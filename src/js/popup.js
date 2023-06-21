@@ -418,9 +418,9 @@ export function popupSeamless(overlay,evt,content) {
   }) .then(function (response) {
     console.log(response.data)
     const cont =
-        '形成時代 = ' + response.data["formationAge_ja"] +
+        '<div style=width:300px>形成時代 = ' + response.data["formationAge_ja"] +
         '<hr>グループ = '+ response.data["group_ja"] +
-        '<hr>岩相 = ' + response.data["lithology_ja"]
+        '<hr>岩相 = ' + response.data["lithology_ja"] + '</div>'
     content.innerHTML = cont
     if (response.data.symbol) {
       overlay.setPosition(coordinate)
@@ -435,7 +435,7 @@ export function popUpShinsuishin(rgba) {
     const g = rgba[1]
     const b = rgba[2]
     let cont
-    if(r===255 && g===255 && b===179) {
+    if(r===255 && g===255 && b===179 || r===248 && g===225 && b===166) {
       cont = "<div style=width:300px>洪水浸水深　0.5m未満</div>"
     }else if(r===247 && g===245 && b===169) {
       cont = "<div style=width:300px>洪水浸水深　0.5m未満</div>"
