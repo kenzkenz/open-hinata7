@@ -6608,6 +6608,7 @@ const layers =
         { text: '治水地形分類図 更新版（2007年以降）', data: { id: 'tisui2007', layer: tisui2007Obj, opacity: 1, summary: tisui2007Summ } },
         { text: '地形分類（自然地形）', data: { id: 'sizen0', layer: LayersMvt.sizentiketikei0Obj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
         { text: '地形分類（自然地形『詳細版』）', data: { id: 'sizen', layer: LayersMvt.sizentiketikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
+        { text: '地形分類（人工地形）', data: { id: "zinkoutikei", layer: LayersMvt.zinkoutikeiObj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
       ]},
     { text: '航空写真',
       children: [
@@ -7433,7 +7434,6 @@ const layers =
       ]},
     { text: 'その他',
       children: [
-        { text: '人工地形', data: { id: "zinkoutikei", layer: LayersMvt.zinkoutikeiObj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
         { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
         { text: '夜の明かり', data: { id: "japanLight", layer: LayersMvt.japanLightObj, opacity: 1, summary: LayersMvt.japanLightSumm } },
         { text: '河川中心線', data: { id: "suiro", layer: LayersMvt.suiroObj, opacity: 1, summary: LayersMvt.suiroSumm } },

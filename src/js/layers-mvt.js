@@ -3108,9 +3108,11 @@ function Zinkoutikei(name,minzoom,maxzoom){
       minZoom:minzoom,
       maxZoom:maxzoom
     }),
-    url: "https://cyberjapandata.gsi.go.jp/xyz/experimental_landformclassification2/{z}/{x}/{y}.geojson"
+    // url: "https://cyberjapandata.gsi.go.jp/xyz/experimental_landformclassification2/{z}/{x}/{y}.geojson"
+    url: "https://maps.gsi.go.jp/xyz/experimental_landformclassification2/{z}/{x}/{y}.geojson",
   });
   this.style = zinkoutikeiStyleFunction(name);
+  this.useInterimTilesOnError = false
 }
 const zinkoutikeiObj1 = new VectorTileLayer(new Zinkoutikei('zinkoutikei1',1,13))
 const zinkoutikeiObj2 = new VectorTileLayer(new Zinkoutikei('zinkoutikei2',1,14))
