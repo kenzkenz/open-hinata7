@@ -395,6 +395,11 @@ export function popUp(map,layers,features,overlay,evt,content) {
       cont = '名称=' + prop.name + '<hr>' +
           '所在地=' + prop.address
       break
+    case 'gun':
+      cont = '国=' + prop.KUNI + '<hr>' +
+          '郡=' + prop.GUN + '<hr>' +
+          '県=' + prop.PREF
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);

@@ -198,6 +198,7 @@ function SekaiLight () {
     url: "https://kenzkenz.github.io/sekai-light/{z}/{x}/{y}.mvt"
   });
   this.style = japanLightStyleFunction();
+  // this.useInterimTilesOnError = false
 }
 export  const japanLightObj = {};
 for (let i of mapsStr) {
@@ -226,7 +227,7 @@ function japanLightStyleFunction () {
     const prop = feature.getProperties();
     const text = prop["light"];
     let light100
-    if(zoom>7) {//うーんzoomが一つずれるけど、どこで間違えている？？とりあえずこれで問題なく動く
+    if(zoom>=8) {
       const lightNum = Number(prop["light"]);
       light100 = lightNum / 255;
     }else{
@@ -234,7 +235,7 @@ function japanLightStyleFunction () {
     }
     const rgb = d3.rgb(d3Color(light100));
     let rgba;
-    if(zoom>7) {
+    if(zoom>=8) {
       if (light100 === 1) {
         rgba = "rgba(255,165,0,0.8)";
       } else {
@@ -3355,3 +3356,60 @@ function hinanzyoStyleFunction(color) {
     return styles;
   }
 }
+//郡------------------------------------------------------------------------------------------------
+function Gun(){
+  this.name = 'gun'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/gun/{z}/{x}/{y}.mvt"
+  });
+  this.style = gunStyleFunction();
+}
+export  const gunObj = {};
+for (let i of mapsStr) {
+  gunObj[i] = new VectorTileLayer(new Gun())
+}
+export const gunSumm = "<a href='https://booth.pm/ja/items/3053727' target='_blank'>郡地図研究会</a>";
+// ----------------------------------------------------------------------
+function gunStyleFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const styles = [];
+    const rgb = cityColor(prop.PREF)
+    const polygonStyle = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "white",
+        width: 1
+      })
+    });
+    const text = prop.KUNI + prop.GUN
+    const textStyle = new Style({
+      text: new Text({
+        font: "14px sans-serif",
+        text: text,
+        // placement:"point",
+        // offsetY:10,
+        fill: new Fill({
+          color: "black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        exceedLength:true
+      })
+    });
+    styles.push(polygonStyle);
+    if(zoom>=9) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+
+
