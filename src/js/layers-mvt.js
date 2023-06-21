@@ -3058,22 +3058,13 @@ function Sizentikei0(name,minzoom,maxzoom,url){
     }),
     url:url
   });
-  this.style = zinkoutikeiStyleFunction(name);
+  this.style = sizentikeiStyleFunction(name);
+  this.useInterimTilesOnError = false
 }
-const sizentikei0Obj1 = new VectorTileLayer(new Sizentikei0('sizentikei1',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
-// 14にすれば詳細版を表示する。
-const sizentikei0Obj2 = new VectorTileLayer(new Sizentikei0('sizentikei2',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
-export const sizentiketikei0Obj = {}
+export  const sizentikei0Obj = {};
 for (let i of mapsStr) {
-  sizentiketikei0Obj[i] = new LayerGroup({
-    layers: [
-      // sizentikei0Obj1,
-      sizentikei0Obj2
-    ]
-  })
+  sizentikei0Obj[i] = new VectorTileLayer(new Sizentikei0('sizentikei2',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
 }
-// export const sizentikeiSumm = "<a href='https://github.com/gsi-cyberjapan/experimental_landformclassification' target='_blank'>国土地理院ベクトルタイル提供実験（地形分類）</a>"
-
 // 詳細版
 function Sizentikei(name,minzoom,maxzoom,url){
   this.name = 'sizentikei'
@@ -3085,13 +3076,14 @@ function Sizentikei(name,minzoom,maxzoom,url){
     }),
     url:url
   });
-  this.style = zinkoutikeiStyleFunction(name);
+  this.style = sizentikeiStyleFunction(name);
+  this.useInterimTilesOnError = false
 }
-const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('zinkoutikei1',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
-const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('zinkoutikei2',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
-export const sizentiketikeiObj = {}
+const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('sizentikei3',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
+const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('sizentikei4',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
+export const sizentikeiObj = {}
 for (let i of mapsStr) {
-  sizentiketikeiObj[i] = new LayerGroup({
+  sizentikeiObj[i] = new LayerGroup({
     layers: [
       sizentikeiObj1,
       sizentikeiObj2
@@ -3099,8 +3091,8 @@ for (let i of mapsStr) {
   })
 }
 export const sizentikeiSumm = "<a href='https://github.com/gsi-cyberjapan/experimental_landformclassification' target='_blank'>国土地理院ベクトルタイル提供実験（地形分類）</a>"
-
-function Zinkoutikei(name,minzoom,maxzoom){
+//---------------------------------------------
+function Zinkoutikei(minzoom,maxzoom){
   this.name = 'zinkoutikei'
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
@@ -3108,30 +3100,22 @@ function Zinkoutikei(name,minzoom,maxzoom){
       minZoom:minzoom,
       maxZoom:maxzoom
     }),
-    // url: "https://cyberjapandata.gsi.go.jp/xyz/experimental_landformclassification2/{z}/{x}/{y}.geojson"
     url: "https://maps.gsi.go.jp/xyz/experimental_landformclassification2/{z}/{x}/{y}.geojson",
   });
-  this.style = zinkoutikeiStyleFunction(name);
+  this.style = zinkoutikeiStyleFunction();
   this.useInterimTilesOnError = false
 }
-const zinkoutikeiObj1 = new VectorTileLayer(new Zinkoutikei('zinkoutikei1',1,13))
-const zinkoutikeiObj2 = new VectorTileLayer(new Zinkoutikei('zinkoutikei2',1,14))
-export const zinkoutikeiObj = {}
+export  const zinkoutikeiObj = {};
 for (let i of mapsStr) {
-  zinkoutikeiObj[i] = new LayerGroup({
-    layers: [
-      zinkoutikeiObj1,
-      zinkoutikeiObj2
-    ]
-  })
+  zinkoutikeiObj[i] = new VectorTileLayer(new Zinkoutikei(1,14))
 }
 export const zinkoutikeiSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A24-v3_0.html' target='_blank'>国土数値情報　振興山村データ</a>"
 //--------------------------------------------
-function zinkoutikeiStyleFunction(name) {
-  if(name==="zinkoutikei1" || name==="sizentikei2") {
+function sizentikeiStyleFunction(name) {
+  if(name==="sizentikei3" || name==="sizentikei2") {
     return function (feature, resolution) {
       var zoom = getZoom(resolution);
-      if (name==="zinkoutikei1") {
+      if (name==="sizentikei3") {
         if (zoom > 13) return;
       }
       var code = Number(feature.getProperties()["code"]);
@@ -3140,7 +3124,6 @@ function zinkoutikeiStyleFunction(name) {
       for (var i = 0; i < codeList_sizen.length; i++) {
         if (codeList_sizen[i][0] == code) {
           fillColor = codeList_sizen[i][1];
-          // fillColor = 'red'
           break;
         }
       }
@@ -3172,6 +3155,29 @@ function zinkoutikeiStyleFunction(name) {
       })];
     }
   }
+}
+//---------------------------------------------------
+function zinkoutikeiStyleFunction() {
+    return function (feature, resolution) {
+      var zoom = getZoom(resolution);
+      // console.log(zoom);
+      // console.log(resolution);
+      //if (resolution >= 9.56) return;//9.56
+      // if (zoom < 14) return;
+      var code = Number(feature.getProperties()["code"]);
+      var fillColor = 'rgba(0,0,0,0.1)';
+      for (var i = 0; i < codeList_sizen.length; i++) {
+        if (codeList_sizen[i][0] == code) {
+          fillColor = codeList_sizen[i][1];
+          break;
+        }
+      }
+      return [new Style({
+        fill: new Fill({
+          color: fillColor
+        })
+      })];
+    }
 }
 // 自然災害伝承碑-----------------------------------------------------
 function Densyou(){
