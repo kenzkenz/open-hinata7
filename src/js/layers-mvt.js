@@ -3362,7 +3362,7 @@ function Gun(){
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom:13,
-    url: "https://kenzkenz.github.io/gun/{z}/{x}/{y}.mvt"
+    url: "https://kenzkenz.github.io/gun2/{z}/{x}/{y}.mvt"
   });
   this.style = gunStyleFunction();
 }
