@@ -395,8 +395,10 @@ export function popUp(map,layers,features,overlay,evt,content) {
       cont = '<div style=width:200px>名称=' + prop.name + '<hr>' +
           '所在地=' + prop.address + '</div>'
       break
+    case 'gunbakumatu':
+    case 'gunkuni':
     case 'gun':
-      cont = '<div style=width:200px>国=' + prop.KUNI + '<hr>' +
+      cont = '<div style=width:100px>国=' + prop.KUNI + '<hr>' +
           '郡=' + prop.GUN + '<hr>' +
           '県=' + prop.PREF + '</div>'
       break

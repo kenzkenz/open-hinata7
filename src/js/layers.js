@@ -140,12 +140,10 @@ function operationFunc () {
     return pixel
   }
 }
-
 // オープンストリートマップ------------------------------------------------------------------------
 function Osm () {
   this.source = new OSM()
 }
-
 const osmObj = {};
 for (let i of mapsStr) {
   osmObj[i] = new TileLayer(new Osm())
@@ -6591,6 +6589,20 @@ for (let i of mapsStr) {
   })
 }
 const tokyokasaiSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/" target="_blank">日本版MapWarper</a>';
+// OpenTopoMap------------------------------------------------------------------------------------
+function Otm () {
+  this.source = new XYZ({
+    url: 'https://c.tile.opentopomap.org/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 17
+  })
+}
+const otmObj = {};
+for (let i of mapsStr) {
+  otmObj[i] = new TileLayer(new Otm())
+}
+const otmSumm = '<a href="https://wiki.openstreetmap.org/wiki/JA:OpenTopoMap" target="_blank">OpenTopoMap</a>'
 
 
 
@@ -7231,15 +7243,11 @@ const layers =
              ]}
           ]}
       ]},
-    { text: '地震危険度測定調査(東京都)',
+    { text: '市町村、郡',
       children: [
-        { text: '総合危険度ランク', data: { id: "tokyoZisin", layer: LayersMvt.tokyoZisinObj, opacity: 1, summary: LayersMvt.tokyoZisinSumm } },
-        { text: '災害時活動困難係数', data: { id: "tokyoZisin2", layer: LayersMvt.tokyoZisin2Obj, opacity: 1, summary: LayersMvt.tokyoZisin2Summ } },
-
-      ]},
-    { text: '市町村',
-      children: [
-        { text: '明治中期の郡', data: { id: "gun", layer: LayersMvt.gunObj, opacity: 1, summary: LayersMvt.gunSumm } },
+        // { text: '幕末の郡(国で色分け)', data: { id: "gunbakumatu", layer: LayersMvt.gunbakumatuObj, opacity: 1, summary: LayersMvt.gunSumm } },
+        { text: '明治中期の郡(県で色分け)', data: { id: "gun", layer: LayersMvt.gunObj, opacity: 1, summary: LayersMvt.gunSumm } },
+        { text: '明治中期の郡(国で色分け)', data: { id: "gunkuni", layer: LayersMvt.gunkuniObj, opacity: 1, summary: LayersMvt.gunSumm } },
         { text: 'T09市町村', data: { id: "cityT9", layer: LayersMvt.cityT9Obj, opacity: 1, summary: LayersMvt.cityT9Summ } },
         { text: 'S25市町村', data: { id: "cityS25", layer: LayersMvt.cityS25Obj, opacity: 1, summary: LayersMvt.cityS25Summ } },
         { text: 'H07市町村', data: { id: "cityH07", layer: LayersMvt.cityH07Obj, opacity: 1, summary: LayersMvt.cityH07Summ } },
@@ -7394,7 +7402,6 @@ const layers =
             { text: 'S45人口集中地区', data: { id: "didS45", layer: LayersMvt.didS45Obj, opacity: 1, summary: LayersMvt.didS45Summ } },
             { text: 'S40人口集中地区', data: { id: "didS40", layer: LayersMvt.didS40Obj, opacity: 1, summary: LayersMvt.didS40Summ } },
             { text: 'S35人口集中地区', data: { id: "didS35", layer: LayersMvt.didS35Obj, opacity: 1, summary: LayersMvt.didS35Summ } },
-
           ]},
       ]},
     { text: '海面上昇シミュ',
@@ -7429,8 +7436,12 @@ const layers =
         { text: '指定緊急避難場所(津波)', data: { id: 'hinan05', layer: LayersMvt.hinanzyo05Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(大規模な火事)', data: { id: 'hinan06', layer: LayersMvt.hinanzyo06Obj, opacity: 1, summary: stdSumm } },
         { text: '平成23年東北地方太平洋沖地震　津波浸水範囲', data: { id: 'h23tunami', layer: h23tunamiObj, opacity: 1, summary: h23tunamiSumm} },
-        { text: '地すべり地形分布図', data: { id: 'zisuberi9', layer: zisuberi9Obj, opacity: 1, summary: zisuberi9Summ} }
-
+        { text: '地すべり地形分布図', data: { id: 'zisuberi9', layer: zisuberi9Obj, opacity: 1, summary: zisuberi9Summ} },
+        { text: '地震危険度測定調査(東京都)',
+          children: [
+            { text: '総合危険度ランク', data: { id: "tokyoZisin", layer: LayersMvt.tokyoZisinObj, opacity: 1, summary: LayersMvt.tokyoZisinSumm } },
+            { text: '災害時活動困難係数', data: { id: "tokyoZisin2", layer: LayersMvt.tokyoZisin2Obj, opacity: 1, summary: LayersMvt.tokyoZisin2Summ } },
+          ]},
       ]},
     { text: 'その他',
       children: [
@@ -7443,7 +7454,7 @@ const layers =
         { text: '農業集落境界', data: { id: "kyoukai", layer: LayersMvt.kyoukaiObj, opacity: 1, summary: LayersMvt.kyoukaiSumm } },
         { text: '土地利用図（1982～1983年）', data: { id: "totiriyouzu", layer: totiriyouzuObj, opacity: 1, summary: totiriyouzuSumm } },
         { text: '法務省地図', data: { id: "houmusyou", layer: houmusyouObj, opacity: 1, summary: houmusyouSumm } },
-
+        { text: 'OpenTopoMap', data: { id: "otm", layer: otmObj, opacity: 1, summary: otmSumm } },
       ]},
   ];
 export const Layers = layers;

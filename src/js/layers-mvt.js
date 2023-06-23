@@ -3364,20 +3364,48 @@ function Gun(){
     maxZoom:13,
     url: "https://kenzkenz.github.io/gun2/{z}/{x}/{y}.mvt"
   });
-  this.style = gunStyleFunction();
+  this.style = gunStyleFunction('PREF');
 }
 export  const gunObj = {};
 for (let i of mapsStr) {
   gunObj[i] = new VectorTileLayer(new Gun())
 }
-export const gunSumm = "<a href='https://booth.pm/ja/items/3053727' target='_blank'>郡地図研究会</a>";
+export const gunSumm = "郡地図ver1.1.3で作成しました。<br><a href='https://booth.pm/ja/items/3053727' target='_blank'>郡地図研究会</a>";
 // ----------------------------------------------------------------------
-function gunStyleFunction() {
+function Gunkuni(){
+  this.name = 'gunkuni'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/gun2/{z}/{x}/{y}.mvt"
+  });
+  this.style = gunStyleFunction('KUNI');
+}
+export  const gunkuniObj = {};
+for (let i of mapsStr) {
+  gunkuniObj[i] = new VectorTileLayer(new Gunkuni())
+}
+//-----------------------------------------------------------------------
+function Gunbakumatu(){
+  this.name = 'gunbakumatu'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom:13,
+    url: "https://kenzkenz.github.io/gun0/{z}/{x}/{y}.mvt"
+  });
+  this.style = gunStyleFunction('KUNI');
+}
+export  const gunbakumatuObj = {};
+for (let i of mapsStr) {
+  gunbakumatuObj[i] = new VectorTileLayer(new Gunbakumatu())
+}
+//-------------------------------------------------------------------------
+function gunStyleFunction(irowake) {
   return function (feature, resolution) {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
     const styles = [];
-    const rgb = cityColor(prop.PREF)
+    const rgb = cityColor(prop[irowake])
     const polygonStyle = new Style({
       fill: new Fill({
         color: rgb
