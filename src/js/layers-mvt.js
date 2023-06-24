@@ -8,6 +8,8 @@ import * as d3 from "d3";
 import {Fill, Stroke, Style, Text, Circle} from "ol/style";
 import {transformExtent} from "ol/proj";
 import LayerGroup from "ol/layer/Group";
+import XYZ from "ol/source/XYZ";
+import TileLayer from "ol/layer/Tile";
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
@@ -3445,16 +3447,38 @@ function Kansui(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:15,
+      minZoom:1,
       maxZoom:15
     }),
     url: "https://disaportal.gsi.go.jp/data/vector/10_kansui/{z}/{x}/{y}.geojson"
   });
-  this.style = hinanzyoStyleFunction('blue');
+  this.style = hinanzyoStyleFunction('orange');
   this.useInterimTilesOnError = false
 }
 export const kansuiObj = {};
 for (let i of mapsStr) {
   kansuiObj[i] = new VectorTileLayer(new Kansui())
 }
+function Kansui0 () {
+  this.source = new XYZ({
+    url:  "https://disaportal.gsi.go.jp/data/raster/10_kansui/{z}/{x}/{y}.png",
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 15
+  })
+  this.useInterimTilesOnError = false
+}
+export const kansui0Obj = {};
+for (let i of mapsStr) {
+  kansui0Obj[i] = new TileLayer(new Kansui0())
+}
+export const kansui00Obj = {};
+for (let i of mapsStr) {
+  kansui00Obj[i] = new LayerGroup({
+    layers: [
+      kansui0Obj[i],
+      kansuiObj[i],
 
+    ]
+  })
+}
