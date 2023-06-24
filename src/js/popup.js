@@ -402,6 +402,13 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '郡=' + prop.GUN + '<hr>' +
           '県=' + prop.PREF + '</div>'
       break
+    case 'kansui':
+      const str = prop.description;
+      const pattern = new RegExp( '(?<= href=).*?(?=target)' );
+      console.log(str.match(pattern)[0])
+      cont = '<div style=width:200px>' + prop.name + '<hr>' +
+          '<a href=' + str.match(pattern)[0] + ' target="_blank">箇所表</a></div>'
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);
@@ -535,6 +542,8 @@ export function popUpDosya(rgba) {
   let cont
   if(r===229 && g===200 && b===49) {
     cont = "<div style=width:300px>土砂災害の危険性：土石流警戒区域(指定前)（山腹が崩壊して生じた土石等又は渓流の土石等が水と一体となって流下する自然現象）</div>"
+  }else if(r===229 && g===200 && b===50) {
+    cont = "<div style=width:300px>土砂災害の危険性：土石流警戒区域(指定前)（山腹が崩壊して生じた土石等又は渓流の土石等が水と一体となって流下する自然現象)</div>"
   }else if(r===230 && g===200 && b===49) {
     cont = "<div style=width:300px>土砂災害の危険性：土石流警戒区域(指定前)（山腹が崩壊して生じた土石等又は渓流の土石等が水と一体となって流下する自然現象)</div>"
   }else if(r===230 && g===200 && b===50) {

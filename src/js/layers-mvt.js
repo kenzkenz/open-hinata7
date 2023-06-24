@@ -3439,5 +3439,22 @@ function gunStyleFunction(irowake) {
     return styles;
   }
 }
-
+//道路冠水想定箇所
+function Kansui(){
+  this.name = 'kansui'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:15,
+      maxZoom:15
+    }),
+    url: "https://disaportal.gsi.go.jp/data/vector/10_kansui/{z}/{x}/{y}.geojson"
+  });
+  this.style = hinanzyoStyleFunction('blue');
+  this.useInterimTilesOnError = false
+}
+export const kansuiObj = {};
+for (let i of mapsStr) {
+  kansuiObj[i] = new VectorTileLayer(new Kansui())
+}
 

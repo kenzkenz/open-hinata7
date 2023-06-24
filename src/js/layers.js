@@ -7430,6 +7430,7 @@ const layers =
         { text: '都城市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyakonozyousiHm', layer: miyakonozyousiHmObj, opacity: 1, zoom: 13, center: [131.07797970576192, 31.78882205640913], summary: miyakonozyousiHmSumm } },
         { text: '日向市防災ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'hyuugasiHm', layer: hyuugasiHmObj, opacity: 1, zoom: 13, center: [131.6400086045909, 32.395198966795306], summary: hyuugasiHmSumm } },
         // { text: '避難施設', data: { id: 'hinan', layer: LayersMvt.hinanObj, opacity: 1, summary: LayersMvt.hinanSumm } },
+        { text: '道路冠水想定箇所', data: { id: 'kansui', layer: LayersMvt.kansuiObj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(洪水)', data: { id: 'hinan01', layer: LayersMvt.hinanzyo01Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(崖崩れ、土石流及び地滑り)', data: { id: 'hinan02', layer: LayersMvt.hinanzyo02Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(地震)', data: { id: 'hinan04', layer: LayersMvt.hinanzyo04Obj, opacity: 1, summary: stdSumm } },
