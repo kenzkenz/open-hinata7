@@ -75,6 +75,9 @@
         });
       },
       toPng(){
+        const map = this.$store.state.base.maps['map01']
+        const target = map.getControls().array_[3]
+        map.removeControl(target)
         const type = 'image/png';
         const canvas = document.querySelector("canvas");
         const dataurl = canvas.toDataURL(type);
@@ -85,6 +88,7 @@
         }
         const blob = new Blob([buffer.buffer],{type:type});
         document.getElementById('toPng').href = window.URL.createObjectURL(blob);
+        map.addControl(target)
        }
     },
     mounted () {

@@ -13,7 +13,6 @@ import Lego from 'ol-ext/filter/Lego'
 import Notification from './notification'
 import * as Layers from './layers'
 import * as PopUp from './popup'
-// import maplibregl from 'maplibre-gl'
 import {defaults as defaultInteractions, DragRotateAndZoom} from 'ol/interaction';
 let maxZndex = 0;
 let legoFilter = null;
@@ -59,34 +58,25 @@ export function initMap (vm) {
             target: mapName,
             view: view01
         });
-
-        // const map = new maplibregl.Map({
-        //   container: 'map01',
-        //   style: 'https://demotiles.maplibre.org/style.json',
-        //   center: [137, 36],
-        //   zoom: 5
-        // })
-
-
         // マップをストアに登録
         store.commit('base/setMap', {mapName: maps[i].mapName, map});
 
 
 
         // コントロール追加---------------------------------------------------------------------------
-        map.addControl(new Target({composite: 'difference'}));
+        const centerTarget = new Target({composite: 'difference'})
+        map.addControl(centerTarget);
+        // map.removeControl(centerTarget)
         map.addControl(new ScaleLine());
         const notification = new Notification();
         map.addControl(notification);
         store.commit('base/setNotifications',{mapName:mapName, control: notification});
-
-        // if (i==3) {
-        //     store.state.base.maps.map01.addInteraction(new Synchronize({maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
-        //     store.state.base.maps.map02.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04] }) );
-        //     store.state.base.maps.map03.addInteraction(new Synchronize({maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
-        //     store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
-        // }
-
+        if (i==3) {
+            store.state.base.maps.map01.addInteraction(new Synchronize({maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
+            store.state.base.maps.map02.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04] }) );
+            store.state.base.maps.map03.addInteraction(new Synchronize({maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
+            store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
+        }
         //現在地取得
         const  success = (pos) =>{
             const lon = pos.coords.longitude;
@@ -282,14 +272,8 @@ export function initMap (vm) {
                 console.log(rgb)
                 then( rgb );
             }
-            // img.src = elevServer + z + '/' + y + '/' + x + '.png';
             img.src = server + z + '/' + x + '/' + y + '.png';
         }
-
-
-
-
-
         // 大正古地図用-----------------------------------------------------------------
         map.on('singleclick', function (evt) {
             //少しでも処理を早めるために古地図レイヤーがなかったら抜ける。
@@ -567,6 +551,7 @@ export function initMap (vm) {
         }
     }
 }
+
 export function synch (vm) {
     vm.synchFlg = !vm.synchFlg;
     let map01View = store.state.base.maps.map01.getView();
@@ -581,10 +566,19 @@ export function synch (vm) {
         store.state.base.maps.map02.setView(viewArr[0]);
         store.state.base.maps.map03.setView(viewArr[1]);
         store.state.base.maps.map04.setView(viewArr[2]);
+        console.log(store.state.base.maps.map01.interactions)
+        store.state.base.maps.map01.removeInteraction(store.state.base.maps.map01.getInteractions().array_[10])
+        store.state.base.maps.map02.removeInteraction(store.state.base.maps.map02.getInteractions().array_[10])
+        store.state.base.maps.map03.removeInteraction(store.state.base.maps.map03.getInteractions().array_[10])
+        store.state.base.maps.map04.removeInteraction(store.state.base.maps.map04.getInteractions().array_[10])
     } else {
         store.state.base.maps.map02.setView(map01View);
         store.state.base.maps.map03.setView(map01View);
         store.state.base.maps.map04.setView(map01View)
+        store.state.base.maps.map01.addInteraction(new Synchronize({maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
+        store.state.base.maps.map02.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04] }) );
+        store.state.base.maps.map03.addInteraction(new Synchronize({maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
+        store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
     }
 }
 
