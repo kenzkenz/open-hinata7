@@ -385,7 +385,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '所在地=' + prop.Address + '<hr>' +
           '建立年=' + prop.LoreYear + '<hr>' +
           '伝承内容=' + prop.DisasterInfo + '<hr>' +
-          '<img height="200" src="' + prop.Image + ' "></div>'
+          '<a href="' + prop.Image + '" target="_blank"><img height="200" src="' + prop.Image + '"></a></div>'
       break
     case 'hinanzyo01':
     case 'hinanzyo02':
