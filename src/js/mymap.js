@@ -166,6 +166,19 @@ export function initMap (vm) {
         // シングルクリック------------------------------------------------------------------------------------
         // 洪水,津波,継続用-----------------------------------------------------------------
         map.on('singleclick', function (evt) {
+            // 普通のフィーチャー用
+            const pixel0 = (map).getPixelFromCoordinate(evt.coordinate);
+            const features = [];
+            const layers = [];
+            (map).forEachFeatureAtPixel(pixel0,function(feature,layer){
+                features.push(feature);
+                layers.push(layer);
+            });
+            if(features.length){
+                PopUp.popUp(map,layers,features,overlay[i],evt,content)
+                return
+            }
+            //------------------------------------------------------
             store.commit('base/popUpContReset')
             //処理を早くするため抜ける。
             const layers0 = map.getLayers().getArray();
@@ -323,23 +336,18 @@ export function initMap (vm) {
         })
 //--------------------------------------------------------------------------------
 // ポップアップ用
-        map.on('singleclick', function (evt) {
-
-            // const layers0 = map.getLayers().getArray();
-            // const hazardLayers = layers0.filter(el => el.get('pointer'));
-            // if (hazardLayers.length>0) return
-
-            const pixel = (map).getPixelFromCoordinate(evt.coordinate);
-            const features = [];
-            const layers = [];
-            (map).forEachFeatureAtPixel(pixel,function(feature,layer){
-                features.push(feature);
-                layers.push(layer);
-            });
-            if(features.length){
-                PopUp.popUp(map,layers,features,overlay[i],evt,content)
-            }
-        })
+//         map.on('singleclick', function (evt) {
+//             const pixel = (map).getPixelFromCoordinate(evt.coordinate);
+//             const features = [];
+//             const layers = [];
+//             (map).forEachFeatureAtPixel(pixel,function(feature,layer){
+//                 features.push(feature);
+//                 layers.push(layer);
+//             });
+//             if(features.length){
+//                 PopUp.popUp(map,layers,features,overlay[i],evt,content)
+//             }
+//         })
         //------------------------------------------------------------------------------------------------------
         // 旧版地形図用
         map.on('singleclick', function (evt) {
@@ -558,12 +566,7 @@ export function initMap (vm) {
             drag.classList.remove("drag");
         }
     }
-
-
 }
-
-
-
 export function synch (vm) {
     vm.synchFlg = !vm.synchFlg;
     let map01View = store.state.base.maps.map01.getView();
