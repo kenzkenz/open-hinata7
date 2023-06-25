@@ -337,6 +337,21 @@ for (let i of mapsStr) {
   nerimaOrtObj[i] = new TileLayer(new NerimaOrt())
 }
 const nerimaOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Nerima_ortho" target="_blank">Nerima ortho</a>'
+// 深谷市航空写真----------------------------------------------------------------------------
+function FukayaOrt () {
+  this.extent = transformE([139.16936,36.09796,139.343577,36.25483689])
+  this.source = new XYZ({
+    url: 'http://nyampire.conohawing.com/ortho-fukaya-shi/{z}/{x}/{-y}.png',
+    // crossOrigin: 'Anonymous',
+    minZoom: 12,
+    maxZoom: 19
+  });
+}
+const fukayaOrtObj = {};
+for (let i of mapsStr) {
+  fukayaOrtObj[i] = new TileLayer(new FukayaOrt())
+}
+const fukayaOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Fukaya_ortho" target="_blank">Fukaya ortho</a>'
 
 // 厚木市航空写真----------------------------------------------------------------------------
 function AtugiOrt () {
@@ -6692,7 +6707,7 @@ const layers =
         { text: '室蘭市航空写真', data: { id: 'muroransiort', layer: muroransiOrtObj, opacity: 1, zoom:13,center:[140.97759620387416, 42.35223030295967], summary: muroransiOrtSumm } },
         { text: '糸魚川市航空写真', data: { id: 'itoiOrt', layer: itoiOrtObj, opacity: 1, zoom:12,center:[137.862,37.039501], summary: itoiOrtSumm } },
         { text: '練馬区航空写真', data: { id: 'nerimaOrt', layer: nerimaOrtObj, opacity: 1, zoom:13,center:[139.6202217042446, 35.746911721247685], summary: nerimaOrtSumm } },
-
+        { text: '深谷市航空写真', data: { id: 'fukayaOrt', layer: fukayaOrtObj, opacity: 1, zoom:13,center:[139.26120936870575, 36.18044647223677], summary: fukayaOrtSumm } },
         { text: '厚木市航空写真', data: { id: 'atugiOrt', layer: atugiOrtObj, opacity: 1, zoom:12,center:[139.30477798325904, 35.45374856324422], summary: atugiOrtSumm } },
         { text: '富田林市航空写真', data: { id: 'tondaOrt', layer: tondaOrtObj, opacity: 1, zoom:13,center:[135.60006642031433, 34.50010582072453], summary: tondaOrtSumm } },
         { text: '鹿児島市航空写真', data: { id: 'kagosimasiort', layer: kagosimasiOrtObj, opacity: 1, zoom:12,center:[130.51208842259823, 31.58146097086727], summary: kagosimasiOrtSumm } },
