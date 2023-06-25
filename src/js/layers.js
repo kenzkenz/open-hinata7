@@ -6496,8 +6496,22 @@ for (let i of mapsStr) {
 const totiriyouzuSumm = '出典：<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>' +
     '<br><a href="https://cyberjapandata.gsi.go.jp/legend/lum200k_legend.jpg" target="_blank">凡例</a>'
 
+// Shinsen zoho Kyo oezu.---------------------------------------------------------------
+function Kyo() {
+  this.source = new XYZ({
+    url: 'https://mapwarper.h-gis.jp/maps/tile/2463/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  })
+}
+const kyoObj = {};
+for (let i of mapsStr) {
+  kyoObj[i] = new TileLayer(new Kyo())
+}
+const kyoSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/maps/2463" target="_blank">日本版 Map Warper</a><br>1739年作成';
 
-// 江戸切絵図------------------
+// 江戸切絵図---------------------------------------------------------------
 function Edokirie() {
   this.source = new XYZ({
     url: 'https://mapwarper.h-gis.jp/maps/tile/4915/{z}/{x}/{y}.png',
@@ -6512,7 +6526,7 @@ for (let i of mapsStr) {
 }
 const edokirieSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/maps/4915" target="_blank">日本版 Map Warper</a>';
 
-// 明治東京全図------------------
+// 明治東京全図---------------------------------------------------------------
 function Meijitoukyo() {
   this.source = new XYZ({
     url: 'https://mapwarper.h-gis.jp/maps/tile/4152/{z}/{x}/{y}.png',
@@ -6749,6 +6763,8 @@ const layers =
         { text: '迅速測図 (関東)', data: { id: 'jinsoku', layer: jinsokuObj, opacity: 1, zoom: 9, center: [139.8089637733657, 35.86926927958841], summary: jinsokuSumm } },
         { text: '東京5000分の1明治17年', data: { id: 'tokyo5000', layer: tokyo5000Obj, opacity: 1, zoom: 14, center: [139.7579477727413, 35.6843002871569], summary: tokyo5000Summ } },
         { text: '〔江戸切絵図〕. 麻布絵図', data: { id: 'edokirie', layer: edokirieObj, opacity: 1, zoom: 15, center: [139.73059032411857, 35.654628169454355], summary: edokirieSumm } },
+        { text: 'Shinsen zoho Kyo oezu.', data: { id: 'kyo', layer: kyoObj, opacity: 1, zoom: 13, center: [135.75815091851297, 35.007713081235536], summary: kyoSumm } },
+
         { text: '明治東京全図明治9年', data: { id: 'meijitokyo', layer: meijitokyoObj, opacity: 1, zoom: 13, center: [139.7613472707328, 35.674408991579426], summary: meijitokyoSumm } },
         { text: '東西蝦夷山川地理取調図', data: { id: 'ezosansen', layer: ezosansenObj, opacity: 1, zoom: 8, center: [142.6944008210318, 43.241646716680606], summary: ezosansenSumm } },
         { text: '東西蝦夷山川地理取調図2', data: { id: 'ezosansen2', layer: ezosansen2Obj, opacity: 1, zoom: 8, center: [142.6944008210318, 43.241646716680606], summary: ezosansenSumm2 } },
