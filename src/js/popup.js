@@ -214,7 +214,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
       cont = '<div style=width:100px>' + prop.N03_004 + '</div>'
       break
     case 'kyoukai':
-      cont = '<div style=width:150px>' + prop.RCOM_NAME + '</div>'
+      cont = '<div style=width:100px>' + prop.RCOM_NAME + '</div>'
       break
     case 'kosyou':
       cont = '<div style=width:150px>' + prop.W09_001 + '</div>'

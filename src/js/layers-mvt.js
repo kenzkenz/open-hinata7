@@ -2413,6 +2413,7 @@ function Kyoukai(){
   this.name = 'kyoukai'
   this.source = new VectorTileSource({
     format: new MVT(),
+    minZoom:1,
     maxZoom:13,
     url: "https://kenzkenz.github.io/kyoukai/{z}/{x}/{y}.mvt"
   });

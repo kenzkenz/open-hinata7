@@ -7360,6 +7360,7 @@ const layers =
       children: [
         { text: '鳥獣保護区', data: { id: "chyouzyuuh27", layer: LayersMvt.chyouzyuuH27Obj, opacity: 1, summary: LayersMvt.chyouzyuuH27Obj } },
         { text: '農業地域', data: { id: "nouhyouh27", layer: LayersMvt.nougyouH27Obj, opacity: 1, summary: LayersMvt.nougyouH27Summ } },
+        { text: '農業集落境界', data: { id: "kyoukai", layer: LayersMvt.kyoukaiObj, opacity: 1, summary: LayersMvt.kyoukaiSumm } },
         { text: '医療圏',
           children: [
             { text: '一時医療圏', data: { id: "iryouken1zi", layer: LayersMvt.iryouken1ziObj, opacity: 1, summary: LayersMvt.iryouken1ziSumm } },
@@ -7550,7 +7551,6 @@ const layers =
         { text: '竜巻', data: { id: "tatumakiH23", layer: LayersMvt.tatumakiH23Obj, opacity: 1, summary: LayersMvt.tatumakiH23Summ } },
         { text: 'ダム', data: { id: "damh26", layer: LayersMvt.damh26Obj, opacity: 1, summary: LayersMvt.damh26Summ } },
         { text: '湖沼', data: { id: "kosyouH17", layer: LayersMvt.kosyouH17Obj, opacity: 1, summary: LayersMvt.kosyouH17Summ } },
-        { text: '農業集落境界', data: { id: "kyoukai", layer: LayersMvt.kyoukaiObj, opacity: 1, summary: LayersMvt.kyoukaiSumm } },
         { text: '土地利用図（1982～1983年）', data: { id: "totiriyouzu", layer: totiriyouzuObj, opacity: 1, summary: totiriyouzuSumm } },
         { text: '法務省地図', data: { id: "houmusyou", layer: houmusyouObj, opacity: 1, summary: houmusyouSumm } },
         { text: 'OpenTopoMap', data: { id: "otm", layer: otmObj, opacity: 1, summary: otmSumm } },
