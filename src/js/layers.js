@@ -307,6 +307,21 @@ for (let i of mapsStr) {
   tondaOrtObj[i] = new TileLayer(new TondaOrt())
 }
 const tondaOrtSumm = '<a href="https://www.city.tondabayashi.lg.jp/map2/download/download.html" target="_blank">公開データの利用について（地図等）</a>'
+// 糸魚川市航空写真----------------------------------------------------------------------------
+function ItoiOrt () {
+  this.extent = transformE([137.5733, 37.11702,138.1806, 36.79012])
+  this.source = new XYZ({
+    url: 'https://nyampire.conohawing.com/ortho-itoigawa-shi/{z}/{x}/{-y}.png',
+    // crossOrigin: 'Anonymous',
+    minZoom: 12,
+    maxZoom: 19
+  });
+}
+const itoiOrtObj = {};
+for (let i of mapsStr) {
+  itoiOrtObj[i] = new TileLayer(new ItoiOrt())
+}
+const itoiOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Itoigawa_ortho" target="_blank">Itoigawa ortho</a>'
 
 // 鹿児島市航空写真----------------------------------------------------------------------------
 function KagosimasiOrt () {
@@ -6644,8 +6659,8 @@ const layers =
         { text: '宮崎県航空写真', data: { id: 6, layer: miyazakiOrtObj, opacity: 1, zoom:9, center: [131.42386188579064, 31.911063477361182], summary: miyazakiOrtSumm } },
         { text: '静岡県航空写真', data: { id: 7, layer: sizuokaOrtObj, opacity: 1, zoom:12,center:[138.43674074146253, 35.052859245538755], summary: sizuokaOrtSumm } },
         { text: '室蘭市航空写真', data: { id: 'muroransiort', layer: muroransiOrtObj, opacity: 1, zoom:13,center:[140.97759620387416, 42.35223030295967], summary: muroransiOrtSumm } },
+        { text: '糸魚川市航空写真', data: { id: 'itoiOrt', layer: itoiOrtObj, opacity: 1, zoom:12,center:[137.862,37.039501], summary: itoiOrtSumm } },
         { text: '富田林市航空写真', data: { id: 'tondaOrt', layer: tondaOrtObj, opacity: 1, zoom:13,center:[135.60006642031433, 34.50010582072453], summary: tondaOrtSumm } },
-
         { text: '鹿児島市航空写真', data: { id: 'kagosimasiort', layer: kagosimasiOrtObj, opacity: 1, zoom:12,center:[130.51208842259823, 31.58146097086727], summary: kagosimasiOrtSumm } },
       ]},
     { text: '過去の航空写真',
