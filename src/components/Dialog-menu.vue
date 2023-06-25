@@ -78,7 +78,7 @@
         const map = this.$store.state.base.maps['map01']
         const targetArr = []
         const targets = map.getControls().array_
-        const targetsMap = targets.map(function( value ) {
+        const targetsMap = targets.map(value => {
           return value
         });
         targetsMap.forEach(target => {

@@ -292,6 +292,22 @@ for (let i of mapsStr) {
   muroransiOrtObj[i] = new TileLayer(new MuroransiOrt())
 }
 const muroransiOrtSumm = '<a href="http://www.city.muroran.lg.jp/main/org2260/odlib.php" target="_blank">むろらんオープンデータライブラリ</a>'
+// 富田林市航空写真----------------------------------------------------------------------------
+function TondaOrt () {
+  this.extent = transformE([135.5529, 34.53991,135.6433, 34.43539])
+  this.source = new XYZ({
+    url: 'https://www.city.tondabayashi.lg.jp/map2/tile/1010/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 12,
+    maxZoom: 19
+  });
+}
+const tondaOrtObj = {};
+for (let i of mapsStr) {
+  tondaOrtObj[i] = new TileLayer(new TondaOrt())
+}
+const tondaOrtSumm = '<a href="https://www.city.tondabayashi.lg.jp/map2/download/download.html" target="_blank">公開データの利用について（地図等）</a>'
+
 // 鹿児島市航空写真----------------------------------------------------------------------------
 function KagosimasiOrt () {
   this.extent = transformE([130.370675,31.2819,130.732,31.767])
@@ -6628,6 +6644,8 @@ const layers =
         { text: '宮崎県航空写真', data: { id: 6, layer: miyazakiOrtObj, opacity: 1, zoom:9, center: [131.42386188579064, 31.911063477361182], summary: miyazakiOrtSumm } },
         { text: '静岡県航空写真', data: { id: 7, layer: sizuokaOrtObj, opacity: 1, zoom:12,center:[138.43674074146253, 35.052859245538755], summary: sizuokaOrtSumm } },
         { text: '室蘭市航空写真', data: { id: 'muroransiort', layer: muroransiOrtObj, opacity: 1, zoom:13,center:[140.97759620387416, 42.35223030295967], summary: muroransiOrtSumm } },
+        { text: '富田林市航空写真', data: { id: 'tondaOrt', layer: tondaOrtObj, opacity: 1, zoom:13,center:[135.60006642031433, 34.50010582072453], summary: tondaOrtSumm } },
+
         { text: '鹿児島市航空写真', data: { id: 'kagosimasiort', layer: kagosimasiOrtObj, opacity: 1, zoom:12,center:[130.51208842259823, 31.58146097086727], summary: kagosimasiOrtSumm } },
       ]},
     { text: '過去の航空写真',
@@ -7426,7 +7444,7 @@ const layers =
          ]},
         { text: '自然災害伝承碑', data: { id: "densyou", layer: LayersMvt.densyouObj, opacity: 1, summary: stdSumm } },
         { text: '大規模盛土造成地', data: { id: 'morido', layer: moridoObj, opacity: 1, summary: moridoSumm } },
-　　  // { text: '避難施設', data: { id: 'hinan', layer: LayersMvt.hinanObj, opacity: 1, summary: LayersMvt.hinanSumm } },
+        // { text: '避難施設', data: { id: 'hinan', layer: LayersMvt.hinanObj, opacity: 1, summary: LayersMvt.hinanSumm } },
         { text: '道路冠水想定箇所', data: { id: 'kansui', layer: LayersMvt.kansui00Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(洪水)', data: { id: 'hinan01', layer: LayersMvt.hinanzyo01Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(崖崩れ、土石流及び地滑り)', data: { id: 'hinan02', layer: LayersMvt.hinanzyo02Obj, opacity: 1, summary: stdSumm } },
