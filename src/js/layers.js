@@ -322,6 +322,22 @@ for (let i of mapsStr) {
   itoiOrtObj[i] = new TileLayer(new ItoiOrt())
 }
 const itoiOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Itoigawa_ortho" target="_blank">Itoigawa ortho</a>'
+// 練馬区航空写真----------------------------------------------------------------------------
+function NerimaOrt () {
+  this.extent = transformE([139.55791,35.708959,139.684391,35.78395978])
+  this.source = new XYZ({
+    url: 'http://nyampire.conohawing.com/ortho-nerima-ku/{z}/{x}/{y}.png',
+    // crossOrigin: 'Anonymous',
+    minZoom: 10,
+    maxZoom: 19
+  });
+}
+const nerimaOrtObj = {};
+for (let i of mapsStr) {
+  nerimaOrtObj[i] = new TileLayer(new NerimaOrt())
+}
+const nerimaOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Nerima_ortho" target="_blank">Nerima ortho</a>'
+
 // 厚木市航空写真----------------------------------------------------------------------------
 function AtugiOrt () {
   this.extent = transformE([139.2161,35.3932,139.384260,35.529670])
@@ -336,7 +352,7 @@ const atugiOrtObj = {};
 for (let i of mapsStr) {
   atugiOrtObj[i] = new TileLayer(new AtugiOrt())
 }
-const atugiOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Atsugi_ortho" target="_blank">Itoigawa ortho</a>'
+const atugiOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Atsugi_ortho" target="_blank">Atsugi ortho</a>'
 
 // 鹿児島市航空写真----------------------------------------------------------------------------
 function KagosimasiOrt () {
@@ -6675,8 +6691,9 @@ const layers =
         { text: '静岡県航空写真', data: { id: 7, layer: sizuokaOrtObj, opacity: 1, zoom:12,center:[138.43674074146253, 35.052859245538755], summary: sizuokaOrtSumm } },
         { text: '室蘭市航空写真', data: { id: 'muroransiort', layer: muroransiOrtObj, opacity: 1, zoom:13,center:[140.97759620387416, 42.35223030295967], summary: muroransiOrtSumm } },
         { text: '糸魚川市航空写真', data: { id: 'itoiOrt', layer: itoiOrtObj, opacity: 1, zoom:12,center:[137.862,37.039501], summary: itoiOrtSumm } },
-        { text: '厚木市航空写真', data: { id: 'atugiOrt', layer: atugiOrtObj, opacity: 1, zoom:12,center:[139.30477798325904, 35.45374856324422], summary: atugiOrtSumm } },
+        { text: '練馬区航空写真', data: { id: 'nerimaOrt', layer: nerimaOrtObj, opacity: 1, zoom:13,center:[139.6202217042446, 35.746911721247685], summary: nerimaOrtSumm } },
 
+        { text: '厚木市航空写真', data: { id: 'atugiOrt', layer: atugiOrtObj, opacity: 1, zoom:12,center:[139.30477798325904, 35.45374856324422], summary: atugiOrtSumm } },
         { text: '富田林市航空写真', data: { id: 'tondaOrt', layer: tondaOrtObj, opacity: 1, zoom:13,center:[135.60006642031433, 34.50010582072453], summary: tondaOrtSumm } },
         { text: '鹿児島市航空写真', data: { id: 'kagosimasiort', layer: kagosimasiOrtObj, opacity: 1, zoom:12,center:[130.51208842259823, 31.58146097086727], summary: kagosimasiOrtSumm } },
       ]},
