@@ -3479,7 +3479,96 @@ for (let i of mapsStr) {
     layers: [
       kansui0Obj[i],
       kansuiObj[i],
-
+    ]
+  })
+}
+function Rosen() {
+  this.name = "rosen";
+  this.style = rosenStyleFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 13,
+    url: "https://kenzkenz.github.io/rosen/{z}/{x}/{y}.mvt"
+  });
+}
+export const rosenObj = {};
+for (let i of mapsStr) {
+  rosenObj[i] = new VectorTileLayer(new Rosen())
+}
+export const rosenSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N05-v2_0.html' target='_blank'>国土数値情報　鉄道データ</a>"
+// ------------------------------------
+function rosenStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    // console.log(feature)
+    const genzon = prop["N05_005e"];
+    const haisi = prop.haisi
+    const name = prop["N05_002"];
+    let strokeColor;
+    let strokeWidth;
+    if (genzon === '9999') {
+      strokeColor = "mediumblue";
+      strokeWidth = 4;
+    } else {
+      // strokeColor = "red";
+      // strokeWidth = 4;
+    }
+    const style = new Style({
+      stroke: new Stroke({
+        color: strokeColor,
+        width: strokeWidth,
+      })
+    });
+    return style;
+  }
+}
+function Rosenhaisi() {
+  this.name = "rosen";
+  this.style = rosenhaisiStyleFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 13,
+    url: "https://kenzkenz.github.io/rosen/{z}/{x}/{y}.mvt"
+  });
+}
+export  const rosenhaisiObj = {};
+for (let i of mapsStr) {
+  rosenhaisiObj[i] = new VectorTileLayer(new Rosenhaisi())
+}
+// export const rosenSumm = ""
+// ------------------------------------
+function rosenhaisiStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    // console.log(feature)
+    const genzon = prop["N05_005e"];
+    const haisi = prop.haisi
+    const name = prop["N05_002"];
+    let strokeColor;
+    let strokeWidth;
+    if (haisi===1) {
+      strokeColor = "red";
+      strokeWidth = 4;
+    } else if (genzon === '9999'){
+    } else {
+      strokeColor = "red";
+      strokeWidth = 4;
+    }
+    const style = new Style({
+      stroke: new Stroke({
+        color: strokeColor,
+        width: strokeWidth,
+      })
+    });
+    return style;
+  }
+}
+export const rosen0Obj = {};
+for (let i of mapsStr) {
+  rosen0Obj[i] = new LayerGroup({
+    layers: [
+      rosenhaisiObj[i],
+      rosenObj[i],
     ]
   })
 }
