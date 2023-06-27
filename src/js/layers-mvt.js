@@ -3548,11 +3548,11 @@ function rosenhaisiStyleFunction() {
     let strokeWidth;
     if (haisi===1) {
       strokeColor = "red";
-      strokeWidth = 4;
-    } else if (genzon === '9999'){
+      strokeWidth = 5;
+    } else if (genzon === '9999') {
     } else {
       strokeColor = "red";
-      strokeWidth = 4;
+      strokeWidth = 5;
     }
     const style = new Style({
       stroke: new Stroke({

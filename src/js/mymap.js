@@ -335,6 +335,21 @@ export function initMap (vm) {
         //------------------------------------------------------------------------------------------------------
         // 旧版地形図用
         map.on('singleclick', function (evt) {
+
+            // 普通のフィーチャー用
+            const pixel00 = (evt.map).getPixelFromCoordinate(evt.coordinate);
+            const features = [];
+            const layers00 = [];
+            (evt.map).forEachFeatureAtPixel(pixel00,function(feature,layer){
+                features.push(feature);
+                layers00.push(layer);
+            });
+            if(features.length){
+                PopUp.popUp(evt.map,layers00,features,overlay[i],evt,content)
+                return
+            }
+            //------------------------------------------------------
+
             console.log(transform(evt.coordinate, "EPSG:3857", "EPSG:4326"));
             const map = evt.map;
             //  洪水浸水想定と重ねるときは動作させない

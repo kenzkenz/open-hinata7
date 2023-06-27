@@ -410,19 +410,10 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '<a href=' + str.match(pattern)[0] + ' target="_blank">箇所表</a></div>'
       break
     case 'rosen':
-      const genzon = prop["N05_005e"];
-      if (prop.haisi===1) {
-        cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
-            '路線名=' + prop.N05_002 + '<hr>' +
-            '廃止年=' + prop.N05_005e + '</div>'
-      } else if (genzon === '9999') {
+
         cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
             '路線名=' + prop.N05_002 + '</div>'
-      } else {
-        cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
-            '路線名=' + prop.N05_002 + '<hr>' +
-            '廃止年=' + prop.N05_005e + '</div>'
-      }
+
       break
   }
   content.innerHTML = cont
