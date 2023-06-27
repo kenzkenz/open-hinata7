@@ -931,6 +931,7 @@ const style = new Style({
 });
 // タイル
 function Mapwarper (url,bbox) {
+  this.useInterimTilesOnError = false
   this.source = new XYZ({
     url: url,
     crossOrigin: 'Anonymous',
@@ -942,6 +943,7 @@ function Mapwarper (url,bbox) {
 }
 // 地図上に地区名を表示する。
 function Mw5center () {
+  this.useInterimTilesOnError = false
   this.name = 'Mw5center'
   this.source = new VectorSource({
     url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/mw5center.geojson',
@@ -969,6 +971,9 @@ for (let i of mapsStr) {
   mw5Obj[i] = new LayerGroup({
     layers: layerGroup
   })
+}
+for (let i of mapsStr) {
+  mw5Obj[i].values_['mw'] = true
 }
 const mw5Summ = '<a href="https://mapwarper.h-gis.jp/" target="_blank">日本版 Map Warper</a><br>' +
   '<a href="https://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41" target="_blank">スタンフォード大学</a>';

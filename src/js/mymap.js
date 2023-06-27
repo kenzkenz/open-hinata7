@@ -112,14 +112,15 @@ export function initMap (vm) {
         if (mapName === 'map01') map.addControl(currentPosition);
         // コントロール追加ここまで----------------------------------------------------------------------
 
-        // イベント追加----------------------------------------------------------------
-        map.on("pointermove",function(evt) {
-
-
-        })
+        // イベント追加---------------------------------------------------------------
 
         // フィーチャーにマウスがあたったとき
         map.on("pointermove",function(evt){
+            //少しでも処理を早めるためにMw5レイヤーがあったら抜ける。-----------
+            const layers00 = evt.map.getLayers().getArray();
+            let mw5 = layers00.find(el => el.get('mw'));
+            if (mw5) return //ここで抜ける
+            //----------------------------------------------------------
             document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "default"
             const map = evt.map;
             // const option = {
@@ -337,17 +338,17 @@ export function initMap (vm) {
         map.on('singleclick', function (evt) {
 
             // 普通のフィーチャー用
-            const pixel00 = (evt.map).getPixelFromCoordinate(evt.coordinate);
-            const features = [];
-            const layers00 = [];
-            (evt.map).forEachFeatureAtPixel(pixel00,function(feature,layer){
-                features.push(feature);
-                layers00.push(layer);
-            });
-            if(features.length){
-                PopUp.popUp(evt.map,layers00,features,overlay[i],evt,content)
-                return
-            }
+            // const pixel00 = (evt.map).getPixelFromCoordinate(evt.coordinate);
+            // const features = [];
+            // const layers00 = [];
+            // (evt.map).forEachFeatureAtPixel(pixel00,function(feature,layer){
+            //     features.push(feature);
+            //     layers00.push(layer);
+            // });
+            // if(features.length){
+            //     PopUp.popUp(evt.map,layers00,features,overlay[i],evt,content)
+            //     return
+            // }
             //------------------------------------------------------
 
             console.log(transform(evt.coordinate, "EPSG:3857", "EPSG:4326"));
@@ -373,11 +374,27 @@ export function initMap (vm) {
                 if(uri.includes('stanford')) {
                     if (confirm('スタンフォード大学のサイトを表示しますか？')) {
                         window.open(uri, '_blank');
+                        return;
                     }
                 } else {
                     notification.show('「' +title + '」の地図はスタンフォード大学にありません。',5000)
+                    return;
                 }
                 // return
+
+                //------------------------------------------------------
+            }
+            // 普通のフィーチャー用
+            const pixel00 = (evt.map).getPixelFromCoordinate(evt.coordinate);
+            const features = [];
+            const layers00 = [];
+            (evt.map).forEachFeatureAtPixel(pixel00,function(feature,layer){
+                features.push(feature);
+                layers00.push(layer);
+            });
+            if(features.length){
+                PopUp.popUp(evt.map,layers00,features,overlay[i],evt,content)
+                return
             }
             const layers = map.getLayers().getArray();
             const result5 = layers.find(el => el === Layers.mw5Obj[mapName]);
