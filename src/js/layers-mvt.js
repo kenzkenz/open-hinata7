@@ -3508,7 +3508,7 @@ function rosenStyleFunction() {
     let strokeWidth;
     if (genzon === '9999') {
       strokeColor = "mediumblue";
-      strokeWidth = 4;
+      strokeWidth = 8;
     } else {
       // strokeColor = "red";
       // strokeWidth = 4;
@@ -3548,11 +3548,11 @@ function rosenhaisiStyleFunction() {
     let strokeWidth;
     if (haisi===1) {
       strokeColor = "red";
-      strokeWidth = 5;
+      strokeWidth = 8;
     } else if (genzon === '9999') {
     } else {
       strokeColor = "red";
-      strokeWidth = 5;
+      strokeWidth = 8;
     }
     const style = new Style({
       stroke: new Stroke({

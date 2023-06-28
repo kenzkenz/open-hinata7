@@ -2,7 +2,15 @@
     <div class="dialog-div" :style="this.dialog.style" @mousedown="dialogMouseDown">
         <div class="drag-handle" v-my-drag-handle></div>
             <div>
-                <div class="close-btn-div" @click="closeBtn"><i class="fa-solid fa-xmark hover close-btn"></i></div>
+              <div id="reset-btn" v-if="reset === 1" class="reset-btn-div" @click="resetBtn"><i class="fa-sharp fa-solid fa-trash-arrow-up"></i></div>
+              <div class="close-btn-div" @click="closeBtn"><i class="fa-solid fa-xmark hover close-btn"></i></div>
+              <b-popover
+                         content="座標を残してリセットします。"
+                         target="reset-btn"
+                         triggers="hover"
+                         placement="bottomleft"
+                         boundary="viewport"
+              />
                 <slot></slot>
             </div>
     </div>
@@ -11,8 +19,18 @@
 <script>
   export default {
     name: 'Dialog',
-    props: ['dialog'],
+    props: ['dialog','reset'],
+    // data () {
+    //   return {
+    //     toolTip: true,
+    //   }
+    // },
     methods: {
+      resetBtn () {
+        const url = decodeURIComponent(window.location.href).split("?")[0];
+        history.pushState(null, null,url);
+        window.location.reload(true);
+      },
       closeBtn () {
         this.dialog.style.display = 'none'
       },
@@ -53,6 +71,15 @@
         cursor: grab;
         /*width: 50px;*/
     }
+    .reset-btn-div{
+      position: absolute;
+      top: 0;
+      right: 30px;
+      cursor: pointer;
+      color: #fff;
+      z-index: 2;
+      font-size:1.4em;
+    }
     .close-btn-div{
         position: absolute;
         top: 0;
@@ -60,9 +87,7 @@
         cursor: pointer;
         color: #fff;
         z-index: 2;
-    }
-    .close-btn-div{
-      font-size:1.5em;
+        font-size:1.5em;
     }
     .hover:hover{
         color: blue;
