@@ -35,7 +35,7 @@
                   <span class="lock-open" style="display: none"><i class="fa-solid fa-lock-open hover fa-lg"></i></span>
             </div>
         </transition>
-        <b-popover v-if='toolTip'
+        <b-popover
                  content="画面同期を変更します。"
                  target="lock"
                  triggers="hover"
