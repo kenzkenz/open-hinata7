@@ -3572,3 +3572,91 @@ for (let i of mapsStr) {
     ]
   })
 }
+//----------------------
+function Bus() {
+  this.name = "bus";
+  this.style = busStyleFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 13,
+    url: "https://kenzkenz.github.io/bus/{z}/{x}/{y}.mvt"
+  });
+}
+export const busSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N07-v2_0.html' target='_blank'>国土数値情報　バスデータ</a>"
+export  const busObj = {};
+for (let i of mapsStr) {
+  busObj[i] = new VectorTileLayer(new Bus())
+}
+// ------------------------------------
+function busStyleFunction() {
+  return function (feature, resolution) {
+    const style = new Style({
+      stroke: new Stroke({
+        color: 'blue',
+        width: 6,
+      })
+    });
+    return style;
+  }
+}
+//----------------------
+function Bustei() {
+  this.name = "bustei";
+  this.style = busteiStyleFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 13,
+    url: "https://kenzkenz.github.io/bustei/{z}/{x}/{y}.mvt"
+  });
+  this.useInterimTilesOnError = false
+}
+export  const busteiObj = {};
+for (let i of mapsStr) {
+  busteiObj[i] = new VectorTileLayer(new Bustei())
+}
+//--------------------------
+function busteiStyleFunction(color) {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const text = prop.name
+    const styles = [];
+    const fillStyle = new Style({
+      image: new Circle({
+        radius: 8,
+        fill: new Fill({
+          color: color
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 1
+        })
+      })
+    });
+    const textStyle = new Style({
+      text: new Text({
+        font: "8px sans-serif",
+        text: text,
+        offsetY: 10,
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        })
+      })
+    });
+    styles.push(fillStyle);
+    if(zoom>=13) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+export const bus0Obj = {};
+for (let i of mapsStr) {
+  bus0Obj[i] = new LayerGroup({
+    layers: [
+        busObj[i],
+      busteiObj[i],
+    ]
+  })
+}

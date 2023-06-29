@@ -410,10 +410,17 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '<a href=' + str.match(pattern)[0] + ' target="_blank">箇所表</a></div>'
       break
     case 'rosen':
-
         cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
             '路線名=' + prop.N05_002 + '</div>'
-
+      break
+    case 'bus':
+      cont = '<div style=width:200px>事業者名=' + prop.N07_001 + '<hr>' +
+          '備考=' + prop.N07_002 + '</div>'
+      break
+    case 'bustei':
+      cont = '<div style=width:200px>事業者名=' + prop.P11_002 + '<hr>' +
+          'バス停名=' + prop.P11_001 + '<hr>' +
+          'バス系統=' + prop.P11_003_01 + '</div>'
       break
   }
   content.innerHTML = cont
