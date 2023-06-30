@@ -3563,12 +3563,64 @@ function rosenhaisiStyleFunction() {
     return style;
   }
 }
+
+function Eki() {
+  this.name = "eki";
+  this.style = ekiStyleFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 13,
+    url: "https://kenzkenz.github.io/eki/{z}/{x}/{y}.mvt"
+  });
+}
+//--------------------------
+function ekiStyleFunction(color) {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const text = prop.N05_011
+    const styles = [];
+    const fillStyle = new Style({
+      image: new Circle({
+        radius: 8,
+        fill: new Fill({
+          color: color
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 1
+        })
+      })
+    });
+    const textStyle = new Style({
+      text: new Text({
+        font: "8px sans-serif",
+        text: text,
+        offsetY: 10,
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        })
+      })
+    });
+    styles.push(fillStyle);
+    if(zoom>=13) {
+      styles.push(textStyle);
+    }
+    return styles;
+  }
+}
+export  const ekiObj = {};
+for (let i of mapsStr) {
+  ekiObj[i] = new VectorTileLayer(new Eki())
+}
 export const rosen0Obj = {};
 for (let i of mapsStr) {
   rosen0Obj[i] = new LayerGroup({
     layers: [
       rosenhaisiObj[i],
       rosenObj[i],
+      ekiObj[i]
     ]
   })
 }
@@ -3619,7 +3671,7 @@ function busteiStyleFunction(color) {
   return function (feature, resolution) {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
-    const text = prop.name
+    const text = prop.P11_001
     const styles = [];
     const fillStyle = new Style({
       image: new Circle({
@@ -3645,7 +3697,7 @@ function busteiStyleFunction(color) {
       })
     });
     styles.push(fillStyle);
-    if(zoom>=13) {
+    if(zoom>=15) {
       styles.push(textStyle);
     }
     return styles;

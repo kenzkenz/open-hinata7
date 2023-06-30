@@ -413,6 +413,12 @@ export function popUp(map,layers,features,overlay,evt,content) {
         cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
             '路線名=' + prop.N05_002 + '</div>'
       break
+    case 'eki':
+      cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
+          '路線名=' + prop.N05_002 + '<hr>' +
+          '駅名=' + prop.N05_011 +
+          '</div>'
+      break
     case 'bus':
       cont = '<div style=width:200px>事業者名=' + prop.N07_001 + '<hr>' +
           '備考=' + prop.N07_002 + '</div>'
