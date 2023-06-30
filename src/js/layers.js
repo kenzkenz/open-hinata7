@@ -7579,6 +7579,7 @@ const layers =
         { text: '大規模盛土造成地', data: { id: 'morido', layer: moridoObj, opacity: 1, summary: moridoSumm } },
         // { text: '避難施設', data: { id: 'hinan', layer: LayersMvt.hinanObj, opacity: 1, summary: LayersMvt.hinanSumm } },
         { text: '道路冠水想定箇所', data: { id: 'kansui', layer: LayersMvt.kansui00Obj, opacity: 1, summary: stdSumm } },
+        { text: '事前通行規制区間', data: { id: 'kiseikukan', layer: LayersMvt.kiseikukan00Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(洪水)', data: { id: 'hinan01', layer: LayersMvt.hinanzyo01Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(崖崩れ、土石流及び地滑り)', data: { id: 'hinan02', layer: LayersMvt.hinanzyo02Obj, opacity: 1, summary: stdSumm } },
         { text: '指定緊急避難場所(地震)', data: { id: 'hinan04', layer: LayersMvt.hinanzyo04Obj, opacity: 1, summary: stdSumm } },

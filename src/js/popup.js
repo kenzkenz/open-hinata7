@@ -409,6 +409,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
       cont = '<div style=width:200px>' + prop.name + '<hr>' +
           '<a href=' + str.match(pattern)[0] + ' target="_blank">箇所表</a></div>'
       break
+    case 'kiseikukan':
+      cont = '<div style=width:200px>' + prop.A1 + prop.A2 + '</div>'
+      break
     case 'rosen':
         cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
             '路線名=' + prop.N05_002 + '</div>'

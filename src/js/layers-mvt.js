@@ -3442,6 +3442,58 @@ function gunStyleFunction(irowake) {
     return styles;
   }
 }
+//事前通行規制区間
+function Kiseikukan(){
+  this.name = 'kiseikukan'
+  this.source = new VectorTileSource({
+    format: new GeoJSON({defaultProjection:'EPSG:4326'}),
+    tileGrid: new createXYZ({
+      minZoom:1,
+      maxZoom:15
+    }),
+    url: "https://disaportaldata.gsi.go.jp/vector/10_jizentuukoukiseikukan/{z}/{x}/{y}.geojson"
+  });
+  this.style = kiseiStyleFunction();
+  this.useInterimTilesOnError = false
+}
+export const kiseikukanObj = {};
+for (let i of mapsStr) {
+  kiseikukanObj[i] = new VectorTileLayer(new Kiseikukan())
+}
+function kiseiStyleFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const style = new Style({
+      stroke: new Stroke({
+        color: 'red',
+        width: zoom>9 ? 6 :2,
+      })
+    });
+    return style;
+  }
+}
+function Kiseikukan0 () {
+  this.source = new XYZ({
+    url:  "https://disaportal.gsi.go.jp/data/raster/10_jizentuukoukiseikukan/{z}/{x}/{y}.png",
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 15
+  })
+  this.useInterimTilesOnError = false
+}
+export const kiseikukan0Obj = {};
+for (let i of mapsStr) {
+  kiseikukan0Obj[i] = new TileLayer(new Kiseikukan0())
+}
+export const kiseikukan00Obj = {};
+for (let i of mapsStr) {
+  kiseikukan00Obj[i] = new LayerGroup({
+    layers: [
+      kiseikukan0Obj[i],
+      kiseikukanObj[i],
+    ]
+  })
+}
 //道路冠水想定箇所
 function Kansui(){
   this.name = 'kansui'
@@ -3544,7 +3596,6 @@ function rosenhaisiStyleFunction() {
     return style;
   }
 }
-
 function Eki() {
   this.name = "eki";
   this.style = ekiStyleFunction('blue',true);
