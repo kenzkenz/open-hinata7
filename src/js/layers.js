@@ -2036,6 +2036,38 @@ for (let i of mapsStr) {
   takasioObj[i] = new TileLayer(new Takasio())
 }
 const takasioSumm =  '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br><img src="https://kenzkenz.xsrv.jp/open-hinata/img/tsunami_newlegend.png">';
+//ため池-------------------------------------------------------------------------------------------------
+function Tameike () {
+  this.name = 'tameike'
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/data/raster/07_tameike/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 17
+  })
+}
+const tameikeObj = {};
+for (let i of mapsStr) {
+  tameikeObj[i] = new TileLayer(new Tameike())
+}
+const tameikeSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
+//家屋倒壊等氾濫想定区域（氾濫流）-------------------------------------------------------------------------------------------------
+function Toukai () {
+  this.name = 'toukai'
+  // this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_kaokutoukai_hanran_data/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 17
+  })
+}
+const toukaiObj = {};
+for (let i of mapsStr) {
+  toukaiObj[i] = new TileLayer(new Toukai())
+}
+const toukaiSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
 
 // 土砂災害警戒区域（土石流-------------------------------------------------------------------------------
 function Dosya () {
@@ -6713,22 +6745,7 @@ for (let i of mapsStr) {
   otmObj[i] = new TileLayer(new Otm())
 }
 const otmSumm = '<a href="https://wiki.openstreetmap.org/wiki/JA:OpenTopoMap" target="_blank">OpenTopoMap</a>'
-//ため池-------------------------------------------------------------------------------------------------
-function Tameike () {
-  this.name = 'tameike'
-  this.pointer = true
-  this.source = new XYZ({
-    url: 'https://disaportal.gsi.go.jp/data/raster/07_tameike/{z}/{x}/{y}.png',
-    crossOrigin: 'Anonymous',
-    minZoom: 1,
-    maxZoom: 17
-  })
-}
-const tameikeObj = {};
-for (let i of mapsStr) {
-  tameikeObj[i] = new TileLayer(new Tameike())
-}
-const tameikeSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
+
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
 const layers =
   [
@@ -7543,11 +7560,12 @@ const layers =
       ]},
     { text: 'ハザードマップ',
       children: [
-        { text: '洪水浸水想定', data: { id: 'shinsuishin', layer: shinsuishinObj, opacity: 1, summary: shinsuishinSumm } },
+        { text: '洪水浸水想定（想定最大規模）', data: { id: 'shinsuishin', layer: shinsuishinObj, opacity: 1, summary: shinsuishinSumm } },
         { text: '津波浸水想定', data: { id: 'tunami', layer: tsunamiObj, opacity: 1, summary: tunamiSumm } },
         { text: '浸水継続時間(想定最大規模)', data: { id: 'keizoku', layer: keizokuObj, opacity: 1, summary: keizokuSumm } },
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },
         { text: 'ため池決壊による浸水想定区域', data: { id: 'tameike', layer: tameikeObj, opacity: 1, summary: tameikeSumm } },
+        { text: '家屋倒壊等氾濫想定区域（氾濫流）', data: { id: 'toukai', layer: toukaiObj, opacity: 1, summary: toukaiSumm } },
         { text: '土砂災害',
           children: [
             { text: '<i class="fa-solid fa-layer-group"></i>土砂災害全て', data: { id: 'dosyasaigai', layer: dosyaSaigaiObj, opacity: 1,summary:dosyaSaigaiSumm} },
