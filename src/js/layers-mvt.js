@@ -3500,18 +3500,13 @@ export const rosenSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/Ksj
 function rosenStyleFunction() {
   return function (feature, resolution) {
     const prop = feature.getProperties();
-    // console.log(feature)
+    const zoom = getZoom(resolution);
     const genzon = prop["N05_005e"];
-    const haisi = prop.haisi
-    const name = prop["N05_002"];
     let strokeColor;
     let strokeWidth;
     if (genzon === '9999') {
       strokeColor = "mediumblue";
-      strokeWidth = 8;
-    } else {
-      // strokeColor = "red";
-      // strokeWidth = 4;
+      strokeWidth = zoom>9 ? 6 :2
     }
     const style = new Style({
       stroke: new Stroke({
@@ -3539,25 +3534,11 @@ for (let i of mapsStr) {
 // ------------------------------------
 function rosenhaisiStyleFunction() {
   return function (feature, resolution) {
-    const prop = feature.getProperties();
-    // console.log(feature)
-    const genzon = prop["N05_005e"];
-    const haisi = prop.haisi
-    const name = prop["N05_002"];
-    let strokeColor;
-    let strokeWidth;
-    if (haisi===1) {
-      strokeColor = "red";
-      strokeWidth = 8;
-    } else if (genzon === '9999') {
-    } else {
-      strokeColor = "red";
-      strokeWidth = 8;
-    }
+    const zoom = getZoom(resolution);
     const style = new Style({
       stroke: new Stroke({
-        color: strokeColor,
-        width: strokeWidth,
+        color: 'red',
+        width: zoom>9 ? 6 :2,
       })
     });
     return style;
@@ -3662,10 +3643,11 @@ for (let i of mapsStr) {
 // ------------------------------------
 function busStyleFunction() {
   return function (feature, resolution) {
+    const zoom = getZoom(resolution);
     const style = new Style({
       stroke: new Stroke({
         color: 'blue',
-        width: 6,
+        width: zoom>9 ? 6 :2,
       })
     });
     return style;
