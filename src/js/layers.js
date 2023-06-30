@@ -2067,7 +2067,7 @@ const toukaiObj = {};
 for (let i of mapsStr) {
   toukaiObj[i] = new TileLayer(new Toukai())
 }
-const toukaiSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
+const toukaiSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br>洪水時に家屋が流出・倒壊等のおそれがある範囲です。';
 
 // 土砂災害警戒区域（土石流-------------------------------------------------------------------------------
 function Dosya () {
