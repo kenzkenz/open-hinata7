@@ -6713,7 +6713,7 @@ for (let i of mapsStr) {
   otmObj[i] = new TileLayer(new Otm())
 }
 const otmSumm = '<a href="https://wiki.openstreetmap.org/wiki/JA:OpenTopoMap" target="_blank">OpenTopoMap</a>'
-
+//-------------------------------------------------------------------------------------------------
 
 
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
