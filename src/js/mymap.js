@@ -237,6 +237,9 @@ export function initMap (vm) {
                     case 'nadare':
                         getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_nadarekikenkasyo/',PopUp.popUpNadare)
                         break;
+                    case 'tameike':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/data/raster/07_tameike/',PopUp.popUpTameike)
+                        break;
                     default:
                 }
             });

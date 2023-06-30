@@ -622,3 +622,14 @@ export function popUpNadare(rgba) {
   }
   store.commit('base/popUpContUpdate',cont)
 }
+//----------------------------------------------------------------------------------------
+export function popUpTameike(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===0 && g===0 && b===255) {
+    cont = "<div style=width:300px>ため池決壊によって浸水が想定される区域</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}

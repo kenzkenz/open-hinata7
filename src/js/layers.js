@@ -6713,9 +6713,21 @@ for (let i of mapsStr) {
   otmObj[i] = new TileLayer(new Otm())
 }
 const otmSumm = '<a href="https://wiki.openstreetmap.org/wiki/JA:OpenTopoMap" target="_blank">OpenTopoMap</a>'
-//-------------------------------------------------------------------------------------------------
-
-
+//ため池-------------------------------------------------------------------------------------------------
+function Tameike () {
+  this.name = 'tameike'
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/data/raster/07_tameike/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 17
+  })
+}
+const tameikeObj = {};
+for (let i of mapsStr) {
+  tameikeObj[i] = new TileLayer(new Tameike())
+}
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
 const layers =
   [
@@ -7534,6 +7546,7 @@ const layers =
         { text: '津波浸水想定', data: { id: 'tunami', layer: tsunamiObj, opacity: 1, summary: tunamiSumm } },
         { text: '浸水継続時間(想定最大規模)', data: { id: 'keizoku', layer: keizokuObj, opacity: 1, summary: keizokuSumm } },
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },
+        { text: 'ため池決壊による浸水想定区域', data: { id: 'tameike', layer: tameikeObj, opacity: 1, summary: nadareSumm } },
         { text: '土砂災害',
           children: [
             { text: '<i class="fa-solid fa-layer-group"></i>土砂災害全て', data: { id: 'dosyasaigai', layer: dosyaSaigaiObj, opacity: 1,summary:dosyaSaigaiSumm} },
@@ -7542,7 +7555,7 @@ const layers =
             { text: '急傾斜地崩壊危険箇所', data: { id: 'kyuukeisya', layer: kyuukeisyaObj, opacity: 1, summary: kyuukeisyaSumm } },
             { text: '地すべり危険箇所', data: { id: 'zisuberi', layer: zisuberiObj, opacity: 1, summary: zisuberiSumm } },
             { text: '雪崩危険箇所', data: { id: 'nadare', layer: nadareObj, opacity: 1, summary: nadareSumm } },
-         ]},
+          ]},
         { text: '自然災害伝承碑', data: { id: "densyou", layer: LayersMvt.densyouObj, opacity: 1, summary: stdSumm } },
         { text: '大規模盛土造成地', data: { id: 'morido', layer: moridoObj, opacity: 1, summary: moridoSumm } },
         // { text: '避難施設', data: { id: 'hinan', layer: LayersMvt.hinanObj, opacity: 1, summary: LayersMvt.hinanSumm } },
