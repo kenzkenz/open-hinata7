@@ -650,6 +650,29 @@ export function popUpEkizyouka13(rgba) {
   store.commit('base/popUpContUpdate',cont)
 }
 //----------------------------------------------------------------------------------------
+export function popUpEkizyouka27(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化指数＝25〜 激しい</div>"
+  }else if(r===255 && g===200 && b===0) {
+    cont = "<div style=width:200px>液状化指数＝20〜25 激しい</div>"
+  }else if(r===255 && g===255 && b===0) {
+    cont = "<div style=width:200px>液状化指数＝15〜20</div>"
+  }else if(r===105 && g===255 && b===127) {
+    cont = "<div style=width:200px>液状化指数＝10〜15 中程度</div>"
+  }else if(r===0 && g===219 && b===32) {
+    cont = "<div style=width:200px>液状化指数＝5〜10 程度は小さい</div>"
+  }else if(r===114 && g===246 && b===255) {
+    cont = "<div style=width:200px>液状化指数＝0〜5 ほとんどなし</div>"
+  }else if(r===197 && g===197 && b===197) {
+    cont = "<div style=width:200px>液状化指数＝なし</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
 export function popUpEkizyouka40(rgba) {
   const r = rgba[0]
   const g = rgba[1]

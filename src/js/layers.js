@@ -2197,6 +2197,21 @@ const ekizyouka13Obj = {};
 for (let i of mapsStr) {
   ekizyouka13Obj[i] = new TileLayer(new Ekizyouka13())
 }
+// 液状化危険度分布図（大阪府）-------------------------------------------------------------------------------
+function Ekizyouka27 () {
+  this.name = 'ekizyouka27'
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/27_osaka/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 15
+  })
+}
+const ekizyouka27Obj = {};
+for (let i of mapsStr) {
+  ekizyouka27Obj[i] = new TileLayer(new Ekizyouka27())
+}
 // 液状化危険度分布図（福岡県）-------------------------------------------------------------------------------
 function Ekizyouka40 () {
   this.name = 'ekizyouka40'
@@ -7608,6 +7623,7 @@ const layers =
         { text: '液状化危険度分布図',
           children: [
             { text: '液状化危険度分布図（東京都）', data: { id: 'ekizyouka13', layer: ekizyouka13Obj, opacity: 1, summary: ekizyoukaSumm } },
+            { text: '液状化危険度分布図（大阪府）', data: { id: 'ekizyouka27', layer: ekizyouka27Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（福岡県）', data: { id: 'ekizyouka40', layer: ekizyouka40Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（宮崎県）', data: { id: 'ekizyouka', layer: ekizyouka45Obj, opacity: 1, summary: ekizyoukaSumm } },
           ]},

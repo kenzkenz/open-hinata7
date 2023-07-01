@@ -60,9 +60,6 @@ export function initMap (vm) {
         });
         // マップをストアに登録
         store.commit('base/setMap', {mapName: maps[i].mapName, map});
-
-
-
         // コントロール追加---------------------------------------------------------------------------
         const centerTarget = new Target({composite: 'difference'})
         map.addControl(centerTarget);
@@ -195,6 +192,7 @@ export function initMap (vm) {
                     const y = ( 0.5 - coord[ 1 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
                     const e = event;
                     // const server = 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/'
+                    document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "wait"
                     getColor( x, y, z, server,   function( rgb ) {
                         popup(rgb)
                         const coordinate = evt.coordinate;
@@ -205,6 +203,7 @@ export function initMap (vm) {
                         } else {
                             overlay[i].setPosition(coordinate);
                         }
+                        document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "default"
                     } );
                 }
                 switch (object.layer.get('name')){
@@ -242,6 +241,9 @@ export function initMap (vm) {
                         break;
                     case 'ekizyouka13':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/13_tokyo/',PopUp.popUpEkizyouka13,15)
+                        break;
+                    case 'ekizyouka27':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/27_osaka/',PopUp.popUpEkizyouka27,15)
                         break;
                     case 'ekizyouka40':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/40_fukuoka/',PopUp.popUpEkizyouka40,15)
