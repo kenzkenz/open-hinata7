@@ -18,7 +18,7 @@ import Crop from 'ol-ext/filter/Crop'
 import Mask from 'ol-ext/filter/Mask'
 import  * as MaskDep from './mask-dep'
 import  * as LayersMvt from './layers-mvt'
-import {houmusyouObj, houmusyouSumm} from "./layers-mvt";
+import {houmusyouObj, houmusyouSumm, kiseikukan0Obj, kiseikukanObj} from "./layers-mvt";
 const mapsStr = ['map01','map02','map03','map04']
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
@@ -2182,6 +2182,21 @@ for (let i of mapsStr) {
   moridoObj[i] = new TileLayer(new Morido())
 }
 const moridoSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br><img width="300" src="https://kenzkenz.xsrv.jp/open-hinata/img/dosha_kiken.png">';
+// 液状化危険度分布図（福岡県）-------------------------------------------------------------------------------
+function Ekizyouka40 () {
+  this.name = 'ekizyouka40'
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/40_fukuoka/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 15
+  })
+}
+const ekizyouka40Obj = {};
+for (let i of mapsStr) {
+  ekizyouka40Obj[i] = new TileLayer(new Ekizyouka40())
+}
 // 液状化危険度分布図（宮崎県）-------------------------------------------------------------------------------
 function Ekizyouka45 () {
   this.name = 'ekizyouka45'
@@ -2197,6 +2212,14 @@ const ekizyouka45Obj = {};
 for (let i of mapsStr) {
   ekizyouka45Obj[i] = new TileLayer(new Ekizyouka45())
 }
+// const ekizyouka00Obj = {};
+// for (let i of mapsStr) {
+//   ekizyouka00Obj[i] = new LayerGroup({
+//     layers: [
+//       ekizyouka45Obj[i],
+//     ]
+//   })
+// }
 const ekizyoukaSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
 // 宮崎市ハザードマップ-------------------------------------------------------------------------------
 function MiyazakisiHm () {
@@ -7567,7 +7590,11 @@ const layers =
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },
         { text: 'ため池決壊による浸水想定区域', data: { id: 'tameike', layer: tameikeObj, opacity: 1, summary: tameikeSumm } },
         { text: '家屋倒壊等氾濫想定区域（氾濫流）', data: { id: 'toukai', layer: toukaiObj, opacity: 1, summary: toukaiSumm } },
-        { text: '液状化危険度分布図（宮崎県）', data: { id: 'ekizyouka', layer: ekizyouka45Obj, opacity: 1, summary: ekizyoukaSumm } },
+        { text: '液状化危険度分布図',
+          children: [
+            { text: '液状化危険度分布図（福岡県）', data: { id: 'ekizyouka40', layer: ekizyouka40Obj, opacity: 1, summary: ekizyoukaSumm } },
+            { text: '液状化危険度分布図（宮崎県）', data: { id: 'ekizyouka', layer: ekizyouka45Obj, opacity: 1, summary: ekizyoukaSumm } },
+          ]},
         { text: '土砂災害',
           children: [
             { text: '<i class="fa-solid fa-layer-group"></i>土砂災害全て', data: { id: 'dosyasaigai', layer: dosyaSaigaiObj, opacity: 1,summary:dosyaSaigaiSumm} },
