@@ -637,6 +637,19 @@ export function popUpTameike(rgba) {
   store.commit('base/popUpContUpdate',cont)
 }
 //----------------------------------------------------------------------------------------
+export function popUpEkizyouka13(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化指数＝5</div>"
+  }else if(r===1 && g===1 && b===255) {
+    cont = "<div style=width:200px>液状化指数＝0から5</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
 export function popUpEkizyouka40(rgba) {
   const r = rgba[0]
   const g = rgba[1]
