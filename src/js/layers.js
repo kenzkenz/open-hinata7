@@ -2068,7 +2068,6 @@ for (let i of mapsStr) {
   toukaiObj[i] = new TileLayer(new Toukai())
 }
 const toukaiSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br>洪水時に家屋が流出・倒壊等のおそれがある範囲です。';
-
 // 土砂災害警戒区域（土石流-------------------------------------------------------------------------------
 function Dosya () {
   this.name = 'dosya'
@@ -2167,7 +2166,6 @@ for (let i of mapsStr) {
   dosyaSaigaiObj[i].values_['pointer'] = true
 }
 const dosyaSaigaiSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
-
 // 大規模盛土造成地-------------------------------------------------------------------------------
 function Morido () {
   this.name = 'morido'
@@ -2184,6 +2182,22 @@ for (let i of mapsStr) {
   moridoObj[i] = new TileLayer(new Morido())
 }
 const moridoSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br><img width="300" src="https://kenzkenz.xsrv.jp/open-hinata/img/dosha_kiken.png">';
+// 液状化危険度分布図（宮崎県）-------------------------------------------------------------------------------
+function Ekizyouka45 () {
+  this.name = 'ekizyouka45'
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/45_miyazaki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 17
+  })
+}
+const ekizyouka45Obj = {};
+for (let i of mapsStr) {
+  ekizyouka45Obj[i] = new TileLayer(new Ekizyouka45())
+}
+const ekizyoukaSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
 
 
 
@@ -6423,9 +6437,7 @@ const kz_miyakonojyou04Obj = {};
 for (let i of mapsStr) {
   kz_miyakonojyou04Obj[i] = new TileLayer(new Kz_miyakonojyou04())
 }
-
 //------------------
-
 function Kz_nobeoka00 () {
   this.source = new XYZ({
     url: 'https://ktgis.net/kjmapw/kjtilemap/nobeoka/00/{z}/{x}/{-y}.png',
@@ -6532,7 +6544,6 @@ for (let i of mapsStr) {
 }
 const totiriyouzuSumm = '出典：<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">国土地理院</a>' +
     '<br><a href="https://cyberjapandata.gsi.go.jp/legend/lum200k_legend.jpg" target="_blank">凡例</a>'
-
 // Shinsen zoho Kyo oezu.---------------------------------------------------------------
 function Kyo() {
   this.source = new XYZ({
@@ -6547,7 +6558,6 @@ for (let i of mapsStr) {
   kyoObj[i] = new TileLayer(new Kyo())
 }
 const kyoSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/maps/2463" target="_blank">日本版 Map Warper</a><br>1739年作成';
-
 // 江戸切絵図---------------------------------------------------------------
 function Edokirie() {
   this.source = new XYZ({
@@ -6562,7 +6572,6 @@ for (let i of mapsStr) {
   edokirieObj[i] = new TileLayer(new Edokirie())
 }
 const edokirieSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/maps/4915" target="_blank">日本版 Map Warper</a>';
-
 // 明治東京全図---------------------------------------------------------------
 function Meijitoukyo() {
   this.source = new XYZ({
@@ -6592,10 +6601,6 @@ for (let i of mapsStr) {
   obiObj[i] = new TileLayer(new Obi())
 }
 const obiSumm = '承応年間飫肥城下図';
-
-
-
-
 // 東京市火災動態地図------------------
 function Tokyokasai1() {
   this.source = new XYZ({
@@ -7566,6 +7571,7 @@ const layers =
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },
         { text: 'ため池決壊による浸水想定区域', data: { id: 'tameike', layer: tameikeObj, opacity: 1, summary: tameikeSumm } },
         { text: '家屋倒壊等氾濫想定区域（氾濫流）', data: { id: 'toukai', layer: toukaiObj, opacity: 1, summary: toukaiSumm } },
+        { text: '液状化危険度分布図（宮崎県）', data: { id: 'ekizyouka', layer: ekizyouka45Obj, opacity: 1, summary: ekizyoukaSumm } },
         { text: '土砂災害',
           children: [
             { text: '<i class="fa-solid fa-layer-group"></i>土砂災害全て', data: { id: 'dosyasaigai', layer: dosyaSaigaiObj, opacity: 1,summary:dosyaSaigaiSumm} },

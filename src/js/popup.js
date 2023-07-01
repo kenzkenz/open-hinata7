@@ -636,3 +636,20 @@ export function popUpTameike(rgba) {
   }
   store.commit('base/popUpContUpdate',cont)
 }
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka45(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:300px>液状化可能性＝大</div>"
+  }else if(r===255 && g===255 && b===0) {
+    cont = "<div style=width:300px>液状化可能性＝中</div>"
+  }else if(r===46 && g===255 && b===56) {
+    cont = "<div style=width:300px>液状化可能性＝小</div>"
+  }else if(r===209 && g===209 && b===209) {
+    cont = "<div style=width:300px>液状化可能性＝なし</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}

@@ -187,8 +187,8 @@ export function initMap (vm) {
             })
             layersObj.forEach(object =>{
                 console.log(object.layer.get('name'))
-                const getColor0 =  (event,server,popup) =>{
-                    const z = 17
+                const getColor0 =  (event,server,popup,zoom) =>{
+                    const z = zoom
                     const coord = event.coordinate
                     const R = 6378137;// 地球の半径(m);
                     const x = ( 0.5 + coord[ 0 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
@@ -210,35 +210,38 @@ export function initMap (vm) {
                 switch (object.layer.get('name')){
                     // case 'tunami':
                     case 'shinsuishin':
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/',PopUp.popUpShinsuishin)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/',PopUp.popUpShinsuishin,17)
                         break;
                     case 'tunami':
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/04_tsunami_newlegend_data/',PopUp.popUpTunami)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/04_tsunami_newlegend_data/',PopUp.popUpTunami,17)
                         break;
                     case 'keizoku':
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_keizoku_kuni_data/',PopUp.popUpKeizoku)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_keizoku_kuni_data/',PopUp.popUpKeizoku,17)
                         break;
                     case 'takasio':
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/03_hightide_l2_shinsuishin_data/',PopUp.popUpTakasio)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/03_hightide_l2_shinsuishin_data/',PopUp.popUpTakasio,17)
                         break;
                     case 'dosya':
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukeikaikuiki/',PopUp.popUpDosya)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukeikaikuiki/',PopUp.popUpDosya,17)
                         break;
                     case 'doseki':
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukikenkeiryu/',PopUp.popUpDoseki)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukikenkeiryu/',PopUp.popUpDoseki,17)
                         break;
                     case 'kyuukeisya':
                         // PopUp.popUpKyuukeisyai(object.rgba)
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_kyukeisyachihoukai/',PopUp.popUpKyuukeisyai)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_kyukeisyachihoukai/',PopUp.popUpKyuukeisyai,17)
                         break;
                     case 'zisuberi':
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_jisuberikikenkasyo/',PopUp.popUpZisuberi)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_jisuberikikenkasyo/',PopUp.popUpZisuberi,17)
                         break;
                     case 'nadare':
-                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_nadarekikenkasyo/',PopUp.popUpNadare)
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/05_nadarekikenkasyo/',PopUp.popUpNadare,17)
                         break;
                     case 'tameike':
-                        getColor0(evt,'https://disaportal.gsi.go.jp/data/raster/07_tameike/',PopUp.popUpTameike)
+                        getColor0(evt,'https://disaportal.gsi.go.jp/data/raster/07_tameike/',PopUp.popUpTameike,17)
+                        break;
+                    case 'ekizyouka45':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/45_miyazaki/',PopUp.popUpEkizyouka45,15)
                         break;
                     default:
                 }
