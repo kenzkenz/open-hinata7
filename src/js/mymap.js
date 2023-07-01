@@ -248,8 +248,26 @@ export function initMap (vm) {
                     case 'ekizyouka40':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/40_fukuoka/',PopUp.popUpEkizyouka40,15)
                         break;
+                    case 'ekizyouka41':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/41_saga/',PopUp.popUpEkizyouka41,15)
+                        break;
+                    case 'ekizyouka42':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/42_nagasaki/',PopUp.popUpEkizyouka42,15)
+                        break;
+                    case 'ekizyouka43':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/43_kumamoto/',PopUp.popUpEkizyouka43,15)
+                        break;
+                    case 'ekizyouka44':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/44_oita/',PopUp.popUpEkizyouka44,15)
+                        break;
                     case 'ekizyouka45':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/45_miyazaki/',PopUp.popUpEkizyouka45,15)
+                        break;
+                    case 'ekizyouka46':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/46_kagoshima/',PopUp.popUpEkizyouka46,15)
+                        break;
+                    case 'ekizyouka47':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/47_okinawa/',PopUp.popUpEkizyouka47,15)
                         break;
                     default:
                 }
