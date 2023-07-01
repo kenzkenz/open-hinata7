@@ -2190,7 +2190,7 @@ function Ekizyouka45 () {
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/45_miyazaki/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 1,
-    maxZoom: 17
+    maxZoom: 15
   })
 }
 const ekizyouka45Obj = {};
@@ -2198,10 +2198,6 @@ for (let i of mapsStr) {
   ekizyouka45Obj[i] = new TileLayer(new Ekizyouka45())
 }
 const ekizyoukaSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
-
-
-
-
 // 宮崎市ハザードマップ-------------------------------------------------------------------------------
 function MiyazakisiHm () {
   this.source = new XYZ({
