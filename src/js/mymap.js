@@ -242,8 +242,23 @@ export function initMap (vm) {
                     case 'ekizyouka13':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/13_tokyo/',PopUp.popUpEkizyouka13,15)
                         break;
+                    case 'ekizyouka25':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/25_shiga/',PopUp.popUpEkizyouka25,15)
+                        break;
+                    case 'ekizyouka26':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/26_kyoto/',PopUp.popUpEkizyouka26,15)
+                        break;
                     case 'ekizyouka27':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/27_osaka/',PopUp.popUpEkizyouka27,15)
+                        break;
+                    case 'ekizyouka28':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/28_hyogo/',PopUp.popUpEkizyouka28,15)
+                        break;
+                    case 'ekizyouka29':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/29_nara/',PopUp.popUpEkizyouka29,15)
+                        break;
+                    case 'ekizyouka30':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/30_wakayama/',PopUp.popUpEkizyouka30,15)
                         break;
                     case 'ekizyouka31':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/31_tottori/',PopUp.popUpEkizyouka31,15)
