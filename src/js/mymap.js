@@ -245,6 +245,21 @@ export function initMap (vm) {
                     case 'ekizyouka27':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/27_osaka/',PopUp.popUpEkizyouka27,15)
                         break;
+                    case 'ekizyouka31':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/31_tottori/',PopUp.popUpEkizyouka31,15)
+                        break;
+                    case 'ekizyouka32':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/32_shimane/',PopUp.popUpEkizyouka32,15)
+                        break;
+                    case 'ekizyouka33':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/33_okayama/',PopUp.popUpEkizyouka33,15)
+                        break;
+                    case 'ekizyouka34':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/34_hiroshima/',PopUp.popUpEkizyouka34,15)
+                        break;
+                    case 'ekizyouka35':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/35_yamaguchi/',PopUp.popUpEkizyouka35,15)
+                        break;
                     case 'ekizyouka36':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/36_tokushima/',PopUp.popUpEkizyouka36,15)
                         break;
