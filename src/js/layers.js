@@ -2185,6 +2185,7 @@ const moridoSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/hazardm
 // 液状化危険度分布図（東京都）-------------------------------------------------------------------------------
 function Ekizyouka13 () {
   this.name = 'ekizyouka13'
+  this.extent = transformE([139.1580, 35.88181,139.9529, 35.42777])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/13_tokyo/{z}/{x}/{y}.png',
@@ -2200,6 +2201,7 @@ for (let i of mapsStr) {
 // 液状化危険度分布図（大阪府）-------------------------------------------------------------------------------
 function Ekizyouka27 () {
   this.name = 'ekizyouka27'
+  this.extent = transformE([134.9522, 35.1019,135.9050, 34.20368])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/27_osaka/{z}/{x}/{y}.png',
@@ -2215,6 +2217,7 @@ for (let i of mapsStr) {
 // 液状化危険度分布図（福岡県）-------------------------------------------------------------------------------
 function Ekizyouka40 () {
   this.name = 'ekizyouka40'
+  this.extent = transformE([129.7837, 34.09346, 131.2663, 32.93019])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/40_fukuoka/{z}/{x}/{y}.png',
@@ -2227,9 +2230,10 @@ const ekizyouka40Obj = {};
 for (let i of mapsStr) {
   ekizyouka40Obj[i] = new TileLayer(new Ekizyouka40())
 }
-// 液状化危険度分布図（長崎県）-------------------------------------------------------------------------------
+// 液状化危険度分布図（佐賀県）-------------------------------------------------------------------------------
 function Ekizyouka41 () {
   this.name = 'ekizyouka41'
+  this.extent = transformE([129.5852, 33.6536, 130.6883, 32.90807])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/41_saga/{z}/{x}/{y}.png',
@@ -2245,6 +2249,7 @@ for (let i of mapsStr) {
 // 液状化危険度分布図（長崎県）-------------------------------------------------------------------------------
 function Ekizyouka42 () {
   this.name = 'ekizyouka42'
+  this.extent = transformE([129.5427, 33.1727, 130.4444, 32.55078])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/42_nagasaki/{z}/{x}/{y}.png',
@@ -2260,6 +2265,7 @@ for (let i of mapsStr) {
 // 液状化危険度分布図（熊本県）-------------------------------------------------------------------------------
 function Ekizyouka43 () {
   this.name = 'ekizyouka43'
+  this.extent = transformE([129.9055, 33.12824, 131.1854, 32.00339])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/43_kumamoto/{z}/{x}/{y}.png',
@@ -2275,6 +2281,7 @@ for (let i of mapsStr) {
 // 液状化危険度分布図（大分県）-------------------------------------------------------------------------------
 function Ekizyouka44 () {
   this.name = 'ekizyouka44'
+  this.extent = transformE([130.7373, 33.76245, 132.1325, 32.5524])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/44_oita/{z}/{x}/{y}.png',
@@ -2290,6 +2297,7 @@ for (let i of mapsStr) {
 // 液状化危険度分布図（宮崎県）-------------------------------------------------------------------------------
 function Ekizyouka45 () {
   this.name = 'ekizyouka45'
+  this.extent = transformE([130.6439, 32.91034, 131.9101, 31.26415])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/45_miyazaki/{z}/{x}/{y}.png',
@@ -2305,6 +2313,7 @@ for (let i of mapsStr) {
 // 液状化危険度分布図（鹿児島県）-------------------------------------------------------------------------------
 function Ekizyouka46 () {
   this.name = 'ekizyouka46'
+  this.extent = transformE([129.8308, 32.41219, 131.3349, 29.82761])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/46_kagoshima/{z}/{x}/{y}.png',
@@ -2320,6 +2329,7 @@ for (let i of mapsStr) {
 // 液状化危険度分布図（沖縄県）-------------------------------------------------------------------------------
 function Ekizyouka47 () {
   this.name = 'ekizyouka47'
+  this.extent = transformE([122.5435, 27.5248, 132.9212, 22.7673])
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/47_okinawa/{z}/{x}/{y}.png',
