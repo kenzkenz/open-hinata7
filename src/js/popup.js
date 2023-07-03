@@ -650,6 +650,25 @@ export function popUpEkizyouka13(rgba) {
   store.commit('base/popUpContUpdate',cont)
 }
 //----------------------------------------------------------------------------------------
+export function popUpEkizyouka20(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化危険度＝高い</div>"
+  }else if(r===255 && g===251 && b===0) {
+    cont = "<div style=width:200px>液状化危険度＝やや高い</div>"
+  }else if(r===46 && g===255 && b===56) {
+    cont = "<div style=width:200px>液状化危険度＝低い</div>"
+  }else if(r===12 && g===0 && b===255) {
+    cont = "<div style=width:200px>液状化危険度＝極めて低い</div>"
+  }else if(r===255 && g===255 && b===255) {
+    cont = "<div style=width:200px>なし</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
 export function popUpEkizyouka21(rgba) {
   const r = rgba[0]
   const g = rgba[1]
