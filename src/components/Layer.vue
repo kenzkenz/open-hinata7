@@ -3,7 +3,8 @@
     <v-draggable element="ul" :options="{handle:'.handle-div',animation: 200}" v-model="s_layerList">
         <li v-for="item in s_layerList" :key="item.id">
             <div class="list-div">
-              <div class="handle-div" ><i class="fa-solid fa-bars hover-white handle-icon "></i></div>
+<!--              <div class="handle-div" ><i class="fa-solid fa-bars hover-white handle-icon "></i></div>-->
+              <div class="handle-div" ><i class="fa-solid fa-up-down fa-lg hover-white handle-icon"></i></div>
               <label for="layer-check">
                 <div class="check-div" >
   <!--                <b-form-checkbox-->
@@ -178,7 +179,7 @@
         cursor: grab;
     }
     .handle-icon{
-        margin: 10px 5px 0 5px;
+        margin: 10px 5px 0 8px;
     }
     .list-div{
         position: relative;
