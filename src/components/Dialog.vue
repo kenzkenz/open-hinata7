@@ -8,7 +8,7 @@
                          content="座標を残してリセットします。"
                          target="reset-btn"
                          triggers="hover"
-                         placement="bottomleft"
+                         placement="bottomright"
                          boundary="viewport"
               />
                 <slot></slot>
