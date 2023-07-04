@@ -4,7 +4,7 @@
         <li v-for="item in s_layerList" :key="item.id">
             <div class="list-div">
 <!--              <div class="handle-div" ><i class="fa-solid fa-bars hover-white handle-icon "></i></div>-->
-              <div class="handle-div" ><i class="fa-solid fa-up-down fa-lg hover-white handle-icon"></i></div>
+              <div class="handle-div" ><i class="fa-solid fa-up-down fa-lg handle-icon"></i></div>
               <label for="layer-check">
                 <div class="check-div" >
   <!--                <b-form-checkbox-->
@@ -175,6 +175,7 @@
         position: absolute;
         width: 25px;
         height: 100%;
+        color: #fff;
         background-color: rgba(0,60,136,0.5);
         cursor: grab;
     }
