@@ -239,6 +239,15 @@ export function initMap (vm) {
                     case 'tameike':
                         getColor0(evt,'https://disaportal.gsi.go.jp/data/raster/07_tameike/',PopUp.popUpTameike,17)
                         break;
+                    case 'ekizyouka09':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/09_tochigi/',PopUp.popUpEkizyouka09,15)
+                        break;
+                    case 'ekizyouka10':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/10_gumma/',PopUp.popUpEkizyouka10,15)
+                        break;
+                    case 'ekizyouka12':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/12_chiba/',PopUp.popUpEkizyouka12,15)
+                        break;
                     case 'ekizyouka13':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/13_tokyo/',PopUp.popUpEkizyouka13,15)
                         break;

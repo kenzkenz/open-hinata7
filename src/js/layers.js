@@ -2182,6 +2182,55 @@ for (let i of mapsStr) {
   moridoObj[i] = new TileLayer(new Morido())
 }
 const moridoSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br><img width="300" src="https://kenzkenz.xsrv.jp/open-hinata/img/dosha_kiken.png">';
+
+// 液状化危険度分布図（栃木県）-------------------------------------------------------------------------------
+function Ekizyouka09 () {
+  this.name = 'ekizyouka09'
+  this.extent = transformE([139.2317, 37.1670, 140.3415, 36.1207])
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/09_tochigi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 15
+  })
+}
+const ekizyouka09Obj = {};
+for (let i of mapsStr) {
+  ekizyouka09Obj[i] = new TileLayer(new Ekizyouka09())
+}
+// 液状化危険度分布図（群馬県）-------------------------------------------------------------------------------
+function Ekizyouka10 () {
+  this.name = 'ekizyouka10'
+  this.extent = transformE([138.1963, 37.0633, 139.7744, 35.8628])
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/10_gumma/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 15
+  })
+}
+const ekizyouka10Obj = {};
+for (let i of mapsStr) {
+  ekizyouka10Obj[i] = new TileLayer(new Ekizyouka10())
+}
+// 液状化危険度分布図（千葉県）-------------------------------------------------------------------------------
+function Ekizyouka12 () {
+  this.name = 'ekizyouka12'
+  this.extent = transformE([139.5378, 36.1762, 140.9576, 34.7437])
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/12_chiba/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 15
+  })
+}
+const ekizyouka12Obj = {};
+for (let i of mapsStr) {
+  ekizyouka12Obj[i] = new TileLayer(new Ekizyouka12())
+}
 // 液状化危険度分布図（東京都）-------------------------------------------------------------------------------
 function Ekizyouka13 () {
   this.name = 'ekizyouka13'
@@ -8106,9 +8155,13 @@ const layers =
         { text: '家屋倒壊等氾濫想定区域（氾濫流）', data: { id: 'toukai', layer: toukaiObj, opacity: 1, summary: toukaiSumm } },
         { text: '液状化危険度分布図',
           children: [
+              //新潟と埼玉は作っていない。
+            { text: '液状化危険度分布図（栃木県）', data: { id: 'ekizyouka09', layer: ekizyouka09Obj, opacity: 1, summary: ekizyoukaSumm } },
+
+            { text: '液状化危険度分布図（群馬県）', data: { id: 'ekizyouka10', layer: ekizyouka10Obj, opacity: 1, summary: ekizyoukaSumm } },
+            { text: '液状化危険度分布図（千葉県）', data: { id: 'ekizyouka12', layer: ekizyouka12Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（東京都）', data: { id: 'ekizyouka13', layer: ekizyouka13Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（神奈川県）', data: { id: 'ekizyouka14', layer: ekizyouka14Obj, opacity: 1, summary: ekizyoukaSumm } },
-
             { text: '液状化危険度分布図（富山県）', data: { id: 'ekizyouka16', layer: ekizyouka16Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（石川県）', data: { id: 'ekizyouka17', layer: ekizyouka17Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（福井県）', data: { id: 'ekizyouka18', layer: ekizyouka18Obj, opacity: 1, summary: ekizyoukaSumm } },
