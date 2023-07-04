@@ -24,34 +24,26 @@ export function permalinkEventSet () {
       summary: Layers.Layers[1].children[1].data.summary,
       component: ''
     },
-    // value: {
-    //   id: 1,
-    //   title: '標準地図',
-    //   layer: Layers.Layers[1].children[0].data.layer,
-    //   opacity: 1,
-    //   summary: Layers.Layers[1].children[0].data.summary,
-    //   component: ''
-    // },
     mapName: 'map02'
   });
   store.commit('base/unshiftLayerList', {
     value: {
-      id: 4,
-      title: '色別標高図',
-      layer: Layers.Layers[1].children[3].data.layer,
+      id: 2,
+      title: '淡色地図',
+      layer: Layers.Layers[1].children[1].data.layer,
       opacity: 1,
-      summary: Layers.Layers[1].children[3].data.summary,
+      summary: Layers.Layers[1].children[1].data.summary,
       component: ''
     },
     mapName: 'map03'
   });
   store.commit('base/unshiftLayerList', {
     value: {
-      id: 'zenkokusaisin',
-      title: '全国最新写真',
-      layer: Layers.Layers[2].children[0].data.layer,
+      id: 2,
+      title: '淡色地図',
+      layer: Layers.Layers[1].children[1].data.layer,
       opacity: 1,
-      summary: Layers.Layers[2].children[0].data.summary,
+      summary: Layers.Layers[1].children[1].data.summary,
       component: ''
     },
     mapName: 'map04'

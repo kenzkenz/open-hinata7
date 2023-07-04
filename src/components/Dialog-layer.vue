@@ -1,5 +1,5 @@
 <template>
-    <v-dialog :dialog="s_dialogs[mapName]" :reset="1">
+    <v-dialog :dialog="s_dialogs[mapName]" :reset="1" :mapName="mapName">
         <div class="content-div" :style="contentSize[mapName]">
             <div class="first-content-div">
                 <v-layer :mapName="mapName"/>

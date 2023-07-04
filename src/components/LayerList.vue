@@ -58,7 +58,7 @@
             this.$store.commit('base/pushDialogsInfo', {mapName: this.mapName, dialog: infoDialog});
           }
         }
-        node.unselect()// セレクト状態を解除。解除しないと続けて押せない。
+        node.unselect()
       }
     }
   }

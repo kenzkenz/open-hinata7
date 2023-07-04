@@ -784,30 +784,15 @@ export function opacityChange (item) {
 }
 
 export function checkLayer (item, layerList, name) {
-    const result = layerList.filter((el) => el.id === item.id);
-    console.log(item.id,item.check)
-    console.log(layerList)
     store.commit('base/updateList', {value: layerList, mapName: name});
-
-    console.log(store.getters['base/layerLists'])
-
-
-    // 削除するレイヤーの透過度を１に戻す。再度追加するときのために
-    // item.layer.setOpacity(0);
-
-
-    const map = store.state.base.maps[name];
     try {
         if (item.check===false) {
-            // map.removeLayer(item.layer)
             item.layer.setVisible(false)
         }else{
-            // map.addLayer(item.layer)
             item.layer.setVisible(true)
         }
     } catch( e ) {
     }
-
 }
 
 export function removeLayer (item, layerList, name) {
