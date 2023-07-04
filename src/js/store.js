@@ -53,8 +53,15 @@ const moduleBase = {
       for (let layerList of layerListArr) {
         const layerList2 = [];
         for (let layer of layerList) {
+          let check
+          if (layer.check === undefined) {
+            check = true
+          } else {
+            check = layer.check
+          }
           layerList2.push({
             id:layer.id,
+            ck:check,
             o:layer.opacity,
             c:layer.component
           })
@@ -68,11 +75,9 @@ const moduleBase = {
   },
   mutations: {
     updateZyougen (state, payload) {
-      console.log(payload)
       state.zyougen = payload
     },
     updateColorArr (state, payload) {
-      console.log(payload)
       state.colorArr[payload.mapName] = payload.colorArr
     },
     //------------------------------------------------------------------------------------

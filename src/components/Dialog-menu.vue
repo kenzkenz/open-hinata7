@@ -49,7 +49,9 @@
     methods: {
       // リセット------------------------------------------------------------------------------------
       reset01() {
-        const url = window.location.href.split("#")[0];
+        let url = window.location.href.split("#")[0];
+        // url = url + "?"
+        console.log(url)
         history.pushState(null, null,url);
         window.location.reload(true);
       },

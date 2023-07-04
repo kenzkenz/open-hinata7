@@ -759,10 +759,14 @@ export function watchLayer (map, thisName, newLayerList,oldLayerList) {
         layer['myZindex'] = myZindex++;
         map.removeLayer(layer);
         map.addLayer(layer);
+        if (newLayerList[0][i].check === undefined) {
+            newLayerList[0][i].check = true
+            layer.setVisible(true)
+        } else {
+            layer.setVisible(newLayerList[0][i].check)
+        }
         layer.setOpacity(newLayerList[0][i].opacity)
-        // console.log(newLayerList[0][i])
         // 新規追加したレイヤーだけにズームとセンターを設定する。
-        // console.log(oldLayerList.length,newLayerList.length)
         if(!store.state.base.firstFlg) {
             if (newLayerList[0][0].zoom) {
                 map.getView().setZoom(newLayerList[0][0].zoom)
@@ -777,6 +781,33 @@ export function watchLayer (map, thisName, newLayerList,oldLayerList) {
 
 export function opacityChange (item) {
     item.layer.setOpacity(item.opacity);
+}
+
+export function checkLayer (item, layerList, name) {
+    const result = layerList.filter((el) => el.id === item.id);
+    console.log(item.id,item.check)
+    console.log(layerList)
+    store.commit('base/updateList', {value: layerList, mapName: name});
+
+    console.log(store.getters['base/layerLists'])
+
+
+    // 削除するレイヤーの透過度を１に戻す。再度追加するときのために
+    // item.layer.setOpacity(0);
+
+
+    const map = store.state.base.maps[name];
+    try {
+        if (item.check===false) {
+            // map.removeLayer(item.layer)
+            item.layer.setVisible(false)
+        }else{
+            // map.addLayer(item.layer)
+            item.layer.setVisible(true)
+        }
+    } catch( e ) {
+    }
+
 }
 
 export function removeLayer (item, layerList, name) {

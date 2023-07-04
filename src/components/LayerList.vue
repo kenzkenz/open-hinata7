@@ -25,6 +25,7 @@
           this.$store.commit('base/unshiftLayerList', {
             value: {
               id: node.data.id,
+              check: node.data.check,
               title: node.text,
               layer: node.data.layer,
               opacity: node.data.opacity,
@@ -43,6 +44,7 @@
             const infoDialog =
               {
                 id: node.data.id,
+                check: true,
                 title: node.text,
                 summary: node.data.summary,
                 component: node.data.component,

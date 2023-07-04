@@ -3,13 +3,26 @@
     <v-draggable element="ul" :options="{handle:'.handle-div',animation: 200}" v-model="s_layerList">
         <li v-for="item in s_layerList" :key="item.id">
             <div class="list-div">
-                <div class="handle-div" ><i class="fa-solid fa-bars hover-white handle-icon "></i></div>
-                <div class="item-div">
-                    <span v-html="item.title"></span>
+              <div class="handle-div" ><i class="fa-solid fa-bars hover-white handle-icon "></i></div>
+              <label for="layer-check">
+                <div class="check-div" >
+  <!--                <b-form-checkbox-->
+  <!--                    v-model="item.check"-->
+  <!--                    @change="checkLayer(item)"-->
+  <!--                    checked="checked"-->
+  <!--                >-->
+  <!--                  {{ item.check }}-->
+  <!--                </b-form-checkbox>-->
+                  <input id='layer-check' type="checkbox" checked v-model="item.check" @change="checkLayer(item)">
                 </div>
+              </label>
+
+              <div class="item-div">
+                    <span v-html="item.title"></span>
+              </div>
                 <div class="range-div"><input type="range" min="0" max="1" step="0.01" class="range" v-model.number="item.opacity" @input="opacityChange(item)" /></div>
                 <div class="info-div" @click="infoOpen(arguments[0],item)"><i class="fa-solid fa-circle-info hover"></i></div>
-                <div class="close-div" @click="removeLayer(item)"><i class="fa-solid fa-xmark fa-lg hover"></i></div>
+                <div class="close-div" @click="removeLayer(item)"><i class="fa-sharp fa-solid fa-trash-arrow-up hover"></i></div>
             </div>
         </li>
         <vue-snotify></vue-snotify>
@@ -38,6 +51,11 @@
         MyMap.opacityChange(item);
         permalink.moveEnd()
       },
+      checkLayer (item) {
+        MyMap.checkLayer(item, this.s_layerList, this.mapName);
+        permalink.moveEnd()
+      },
+
       removeLayer (item) {
         MyMap.removeLayer(item, this.s_layerList, this.mapName)
       },
@@ -138,8 +156,23 @@
         -ms-user-select: none;
         user-select: none;
     }
+    .check-div{
+      position: absolute;
+      padding-top: 0px;
+      padding-left: 5px;
+      left: 25px;
+      height: 100%;
+      cursor: pointer;
+    }
+    #layer-check{
+      cursor: pointer;
+    }
+    .check-icon{
+      margin: 10px 5px 0 5px;
+    }
     .handle-div{
         position: absolute;
+        width: 25px;
         height: 100%;
         background-color: rgba(0,60,136,0.5);
         cursor: grab;
@@ -153,19 +186,19 @@
     }
     .item-div{
         position: absolute;
-        left: 45px;
+        left: 66px;
         top: 3px;
     }
     .range-div{
         position: absolute;
         top:16px;
-        left:30px;
-        width:calc(100% - 60px);
+        left:50px;
+        width:calc(100% - 70px);
     }
     .info-div{
         position: absolute;
         top:2px;
-        left:28px;
+        left:50px;
         width:15px;
         cursor: pointer;
         color:rgba(0,60,136,0.5);

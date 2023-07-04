@@ -105,6 +105,8 @@ export function permalinkEventSet () {
                     store.commit('base/unshiftLayerList', {
                       value: {
                         id: node.data.id,
+                        check: urlLayerListArr[i][j].ck,
+                        // check: false,
                         title: node.text,
                         layer: node.data.layer,
                         opacity: urlLayerListArr[i][j].o,
@@ -124,6 +126,7 @@ export function permalinkEventSet () {
                       const infoDialog =
                         {
                           id: node.data.id,
+                          check: node.data.check,
                           title: node.text,
                           summary: node.data.summary,
                           component: node.data.component,
@@ -168,6 +171,7 @@ export function moveEnd () {
   parameter += '&L=' + store.getters['base/layerLists'];
   // console.log(store.getters['base/layerLists'])
   // parameterだけエンコードする。起動時にwindow.location.hashでハッシュ値を取得するため
+  // console.log(parameter)
   parameter = encodeURIComponent(parameter);
   const state = {
     zoom: zoom,
