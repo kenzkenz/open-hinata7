@@ -38,6 +38,7 @@
         if (result.length>0) {
           store.commit('base/updateList', {value: result, mapName: this.mapName});
         } else {
+          store.commit('base/updateList', {value: result, mapName: this.mapName});
           store.commit('base/unshiftLayerList', {
             value: {
               id: 2,
