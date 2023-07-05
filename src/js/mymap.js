@@ -239,6 +239,27 @@ export function initMap (vm) {
                     case 'tameike':
                         getColor0(evt,'https://disaportal.gsi.go.jp/data/raster/07_tameike/',PopUp.popUpTameike,17)
                         break;
+                    case 'ekizyouka01':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/01_hokkai/',PopUp.popUpEkizyouka01,15)
+                        break;
+                    case 'ekizyouka02':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/02_aomori/',PopUp.popUpEkizyouka02,15)
+                        break;
+                    case 'ekizyouka03':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/03_iwate/',PopUp.popUpEkizyouka03,15)
+                        break;
+                    case 'ekizyouka04':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/04_miyagi/',PopUp.popUpEkizyouka04,15)
+                        break;
+                    case 'ekizyouka05':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/05_akita/',PopUp.popUpEkizyouka05,15)
+                        break;
+                    case 'ekizyouka06':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/06_yamagata/',PopUp.popUpEkizyouka06,15)
+                        break;
+                    case 'ekizyouka07':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/07_fukushima/',PopUp.popUpEkizyouka07,15)
+                        break;
                     case 'ekizyouka08':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/08_ibaraki/',PopUp.popUpEkizyouka08,15)
                         break;

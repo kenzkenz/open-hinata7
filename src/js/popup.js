@@ -636,6 +636,134 @@ export function popUpTameike(rgba) {
   }
   store.commit('base/popUpContUpdate',cont)
 }
+
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka01(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===255) {
+    cont = "<div style=width:200px>液状化発生確率20%〜</div>"
+  }else if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化発生確率10%〜20%</div>"
+  }else if(r===255 && g===145 && b===0) {
+    cont = "<div style=width:200px>液状化発生確率1%〜10%</div>"
+  }else if(r===255 && g===209 && b===0) {
+    cont = "<div style=width:200px>液状化発生確率0.1%〜1%</div>"
+  }else if(r===243 && g===255 && b===0) {
+    cont = "<div style=width:200px>液状化発生確率0.1%未満</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka02(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化指数＝15〜</div>"
+  }else if(r===255 && g===255 && b===0) {
+    cont = "<div style=width:200px>液状化指数＝5〜15</div>"
+  }else if(r===50 && g===232 && b===43) {
+    cont = "<div style=width:200px>液状化指数＝0〜5</div>"
+  }else if(r===12 && b===225) {
+    cont = "<div style=width:200px>液状化指数＝0</div>"
+  }else if(r===255 && g===255 && b===255) {
+    cont = "<div style=width:200px>液状化の可能性が極めて小さい</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka03(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化可能性大</div>"
+  }else if(r===247 && g===255 && b===0) {
+    cont = "<div style=width:200px>液状化可能性中</div>"
+  }else if(r===46 && g===255 && b===56) {
+    cont = "<div style=width:200px>液状化可能性無</div>"
+  }else if(r===198 && g===255 && b===249) {
+    cont = "<div style=width:200px>判定対象外</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka04(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化の危険性が極めて高い</div>"
+  }else if(r===255 && g===200 && b===0) {
+    cont = "<div style=width:200px>液状化の危険性が高い</div>"
+  }else if(r===203 && g===255 && b===165) {
+    cont = "<div style=width:200px>液状化の危険性がやや高い</div>"
+  }else if(r===3 && g===227 && b===0) {
+    cont = "<div style=width:200px>液状化の危険性は低い</div>"
+  }else if(r===213 && g===213 && b===213) {
+    cont = "<div style=width:200px>液状化の危険性はかなり低い</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka05(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化危険度＝極めて高い</div>"
+  }else if(r===247 && g===255 && b===0) {
+    cont = "<div style=width:200px>液状化危険度＝高い</div>"
+  }else if(r===55 && g===255 && b===0) {
+    cont = "<div style=width:200px>液状化危険度＝低い</div>"
+  }else if(r===179 && g===255 && b===250) {
+    cont = "<div style=width:200px>液状化危険度＝極めて低い</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka06(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===176 && g===0 && b===0) {
+    cont = "<div style=width:200px>液状化の危険度あり（大）</div>"
+  }else if(r===225 && g===51 && b===24) {
+    cont = "<div style=width:200px>液状化の危険度あり（中）</div>"
+  }else if(r===226 && g===159 && b===87) {
+    cont = "<div style=width:200px>液状化の危険度あり（小）</div>"
+  }else if(r===255 && g===242 && b===47) {
+    cont = "<div style=width:200px>液状化の危険度低</div>"
+  }else if(r===211 && g===211 && b===211) {
+    cont = "<div style=width:200px>液状化の危険度不明</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka07(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===255 && g===0 && b===4) {
+    cont = "<div style=width:200px>液状化危険度は極めて高い</div>"
+  }else if(r===255 && g===145 && b===67) {
+    cont = "<div style=width:200px>液状化危険度は高い</div>"
+  }else if(r===255 && g===255 && b===103) {
+    cont = "<div style=width:200px>液状化危険度は低い</div>"
+  }else if(r===255 && g===255 && b===255) {
+    cont = "<div style=width:200px>液状化危険度はかなり低い</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
 //----------------------------------------------------------------------------------------
 export function popUpEkizyouka08(rgba) {
   const r = rgba[0]

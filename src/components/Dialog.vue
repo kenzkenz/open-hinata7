@@ -1,3 +1,4 @@
+<script src="../js/layers.js"></script>
 <template>
     <div class="dialog-div" :style="this.dialog.style" @mousedown="dialogMouseDown">
         <div class="drag-handle" v-my-drag-handle></div>
@@ -29,29 +30,24 @@
     // },
     methods: {
       resetBtn () {
-        const map = this.$store.state.base.maps[this.mapName];
+        const map = store.state.base.maps[this.mapName];
         const result = this.s_layerList.filter((el) => el.id === 2);
         const removeResult = this.s_layerList.filter((el) => el.id !== 2);
         removeResult.forEach((value) =>{
           map.removeLayer(value.layer)
         })
-        if (result.length>0) {
-          store.commit('base/updateList', {value: result, mapName: this.mapName});
-        } else {
-          // store.commit('base/updateList', {value: [], mapName: this.mapName});
-          store.commit('base/updateList', {
-            value: [{
-              id: 2,
-              check: true,
-              title: '淡色地図',
-              layer: Layers.Layers[1].children[1].data.layer[this.mapName],
-              opacity: 1,
-              summary: Layers.Layers[1].children[1].data.summary,
-              component: ''
-            }],
-            mapName: this.mapName
-          });
-        }
+        store.commit('base/updateList', {
+          value: [{
+            id: 2,
+            check: true,
+            title: '淡色地図',
+            layer: Layers.Layers[1].children[1].data.layer[this.mapName],
+            opacity: 1,
+            summary: Layers.Layers[1].children[1].data.summary,
+            component: ''
+          }],
+          mapName: this.mapName
+        })
 
         // const url = decodeURIComponent(window.location.href).split("?")[0];
         // history.pushState(null, null,url);
@@ -62,17 +58,17 @@
         this.dialog.style.display = 'none'
       },
       dialogMouseDown () {
-        this.$store.commit('base/incrDialogMaxZindex');
-        this.dialog.style["z-index"] = this.$store.state.base.dialogMaxZindex
+        store.commit('base/incrDialogMaxZindex');
+        this.dialog.style["z-index"] = store.state.base.dialogMaxZindex
       }
     },
     computed: {
       s_layerList: {
-        get () { return this.$store.getters['base/layerList'](this.mapName) },
-        set (value) { this.$store.commit('base/updateList', {value: value, mapName: this.mapName}) }
+        get () { return store.getters['base/layerList'](this.mapName) },
+        set (value) { store.commit('base/updateList', {value: value, mapName: this.mapName}) }
       },
       s_flg: function () {
-        const result = this.$store.state.base.dialogArr.find(el => el.name === this.dialog.name);
+        const result = store.state.base.dialogArr.find(el => el.name === this.dialog.name);
         return result.flg
       }
     }
