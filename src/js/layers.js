@@ -2191,7 +2191,7 @@ function Ekizyouka01 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/01_hokkai/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2207,7 +2207,7 @@ function Ekizyouka02 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/02_aomori/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2223,7 +2223,7 @@ function Ekizyouka03 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/03_iwate/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2239,7 +2239,7 @@ function Ekizyouka04 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/04_miyagi/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2255,7 +2255,7 @@ function Ekizyouka05 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/05_akita/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2271,7 +2271,7 @@ function Ekizyouka06 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/06_yamagata/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2287,7 +2287,7 @@ function Ekizyouka07 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/07_fukushima/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2303,7 +2303,7 @@ function Ekizyouka08 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/08_ibaraki/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2319,7 +2319,7 @@ function Ekizyouka09 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/09_tochigi/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2335,7 +2335,7 @@ function Ekizyouka10 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/10_gumma/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2351,7 +2351,7 @@ function Ekizyouka12 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/12_chiba/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2367,7 +2367,7 @@ function Ekizyouka13 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/13_tokyo/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2383,7 +2383,7 @@ function Ekizyouka14 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/14_kanagawa/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2399,7 +2399,7 @@ function Ekizyouka16 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/16_toyama/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2415,7 +2415,7 @@ function Ekizyouka17 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/17_ishikawa/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2431,7 +2431,7 @@ function Ekizyouka18 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/18_fukui/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2447,7 +2447,7 @@ function Ekizyouka19 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/19_yamanashi/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2463,7 +2463,7 @@ function Ekizyouka20 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/20_nagano/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2479,7 +2479,7 @@ function Ekizyouka21 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/21_gifu/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2495,7 +2495,7 @@ function Ekizyouka22 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/22_shizuoka/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2511,7 +2511,7 @@ function Ekizyouka23 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/23_aichi/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2527,7 +2527,7 @@ function Ekizyouka24 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/24_mie/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2543,7 +2543,7 @@ function Ekizyouka25 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/25_shiga/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2559,7 +2559,7 @@ function Ekizyouka26 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/26_kyoto/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2575,7 +2575,7 @@ function Ekizyouka27 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/27_osaka/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2591,7 +2591,7 @@ function Ekizyouka28 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/28_hyogo/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2607,7 +2607,7 @@ function Ekizyouka29 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/29_nara/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2623,7 +2623,7 @@ function Ekizyouka30 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/30_wakayama/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2639,7 +2639,7 @@ function Ekizyouka31 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/31_tottori/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2655,7 +2655,7 @@ function Ekizyouka32 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/32_shimane/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2671,7 +2671,7 @@ function Ekizyouka33 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/33_okayama/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2687,7 +2687,7 @@ function Ekizyouka34 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/34_hiroshima/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2703,7 +2703,7 @@ function Ekizyouka35 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/35_yamaguchi/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2719,7 +2719,7 @@ function Ekizyouka36 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/36_tokushima/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2735,7 +2735,7 @@ function Ekizyouka37 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/37_kagawa/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2751,7 +2751,7 @@ function Ekizyouka38 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/38_ehime/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2767,7 +2767,7 @@ function Ekizyouka39 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/39_kochi/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2783,7 +2783,7 @@ function Ekizyouka40 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/40_fukuoka/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2799,7 +2799,7 @@ function Ekizyouka41 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/41_saga/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2815,7 +2815,7 @@ function Ekizyouka42 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/42_nagasaki/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2831,7 +2831,7 @@ function Ekizyouka43 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/43_kumamoto/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2847,7 +2847,7 @@ function Ekizyouka44 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/44_oita/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2863,7 +2863,7 @@ function Ekizyouka45 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/45_miyazaki/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2879,7 +2879,7 @@ function Ekizyouka46 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/46_kagoshima/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
@@ -2895,7 +2895,7 @@ function Ekizyouka47 () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/47_okinawa/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 5,
     maxZoom: 15
   })
 }
