@@ -210,6 +210,7 @@
         top:13px;
         right:0;
         width:15px;
+        color:rgba(0,60,136,0.5);
         cursor: pointer;
     }
     .hover:hover{
