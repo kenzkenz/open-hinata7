@@ -44,7 +44,7 @@
             const infoDialog =
               {
                 id: node.data.id,
-                check: true,
+                check: node.data.check,
                 title: node.text,
                 summary: node.data.summary,
                 component: node.data.component,

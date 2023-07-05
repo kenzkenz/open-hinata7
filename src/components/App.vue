@@ -10,7 +10,7 @@
                 <div class="top-left-div">
                     <b-button v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="openDialog(s_dialogs['menuDialog'])" style="margin-right:5px;"><i class="fa-solid fa-bars"></i></b-button>
                     <b-button id='split-map-btn' v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="splitMap" style="margin-right:5px;"><i class="fa-solid fa-table-columns"></i></b-button>
-                    <b-button class='olbtn' :size="btnSize" @click="openDialog(s_dialogs[mapName])">背景</b-button>
+                    <b-button class='olbtn-red' :size="btnSize" @click="openDialog(s_dialogs[mapName])">背景</b-button>
                   <b-popover   content="画面を分割します。"
                                target="split-map-btn"
                                triggers="hover"
@@ -295,9 +295,18 @@
     .olbtn{
         background-color: rgba(0,60,136,0.5);
     }
-    .btn-secondary:hover{
-        background-color: rgba(0,60,136,0.7);
+    .olbtn:hover{
+      background-color: rgba(0,60,136,0.7);
     }
+    .olbtn-red{
+      background-color: rgba(255,0,0,0.7);
+    }
+    .olbtn-red:hover{
+      background-color: rgba(255,0,0,1.0);
+    }
+    /*.btn-secondary:hover{*/
+    /*    background-color: rgba(0,60,136,0.7);*/
+    /*}*/
     .v-enter-active, .v-leave-active {
         transition: opacity 3s;
     }

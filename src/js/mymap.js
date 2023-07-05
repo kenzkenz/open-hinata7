@@ -239,6 +239,9 @@ export function initMap (vm) {
                     case 'tameike':
                         getColor0(evt,'https://disaportal.gsi.go.jp/data/raster/07_tameike/',PopUp.popUpTameike,17)
                         break;
+                    case 'ekizyouka08':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/08_ibaraki/',PopUp.popUpEkizyouka08,15)
+                        break;
                     case 'ekizyouka09':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/09_tochigi/',PopUp.popUpEkizyouka09,15)
                         break;
