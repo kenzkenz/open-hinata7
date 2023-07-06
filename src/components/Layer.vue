@@ -56,7 +56,6 @@
         MyMap.checkLayer(item, this.s_layerList, this.mapName);
         permalink.moveEnd()
       },
-
       removeLayer (item) {
         MyMap.removeLayer(item, this.s_layerList, this.mapName)
       },
