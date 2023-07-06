@@ -24,9 +24,9 @@ const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
 function flood(pixels, data) {
-  var pixel = pixels[0]
+  const pixel = pixels[0]
   if (pixel[3]) {
-    var height = (pixel[0] * 256 * 256 + pixel[1] * 256 + pixel[2]) / 100
+    const height = (pixel[0] * 256 * 256 + pixel[1] * 256 + pixel[2]) / 100
     if (height <= data.level) {
       let sinsui = - height + data.level
       const c = data.colors

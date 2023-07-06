@@ -744,10 +744,10 @@ export function synch (vm) {
         store.state.base.maps.map02.setView(map01View);
         store.state.base.maps.map03.setView(map01View);
         store.state.base.maps.map04.setView(map01View)
-        store.state.base.maps.map01.addInteraction(new Synchronize({maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
-        store.state.base.maps.map02.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04] }) );
-        store.state.base.maps.map03.addInteraction(new Synchronize({maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
-        store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
+        store.state.base.maps.map01.addInteraction(new Synchronize({ maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
+        store.state.base.maps.map02.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04]}));
+        store.state.base.maps.map03.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
+        store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03]}));
     }
 }
 
