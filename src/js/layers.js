@@ -2903,14 +2903,64 @@ const ekizyouka47Obj = {};
 for (let i of mapsStr) {
   ekizyouka47Obj[i] = new TileLayer(new Ekizyouka47())
 }
-// const ekizyouka00Obj = {};
-// for (let i of mapsStr) {
-//   ekizyouka00Obj[i] = new LayerGroup({
-//     layers: [
-//       ekizyouka45Obj[i],
-//     ]
-//   })
-// }
+const ekizyouka00Obj = {};
+for (let i of mapsStr) {
+  ekizyouka00Obj[i] = new LayerGroup({
+    layers: [
+      ekizyouka01Obj[i],
+      ekizyouka02Obj[i],
+      ekizyouka03Obj[i],
+      ekizyouka04Obj[i],
+      ekizyouka05Obj[i],
+      ekizyouka06Obj[i],
+      ekizyouka07Obj[i],
+      ekizyouka08Obj[i],
+      ekizyouka09Obj[i],
+      ekizyouka10Obj[i],
+      // ekizyouka11Obj[i],
+      ekizyouka12Obj[i],
+      ekizyouka13Obj[i],
+      ekizyouka14Obj[i],
+      // ekizyouka15Obj[i],
+      ekizyouka16Obj[i],
+      ekizyouka17Obj[i],
+      ekizyouka18Obj[i],
+      ekizyouka19Obj[i],
+      ekizyouka20Obj[i],
+      ekizyouka21Obj[i],
+      ekizyouka22Obj[i],
+      ekizyouka23Obj[i],
+      ekizyouka24Obj[i],
+      ekizyouka25Obj[i],
+      ekizyouka26Obj[i],
+      ekizyouka27Obj[i],
+      ekizyouka28Obj[i],
+      ekizyouka29Obj[i],
+      ekizyouka30Obj[i],
+      ekizyouka31Obj[i],
+      ekizyouka32Obj[i],
+      ekizyouka33Obj[i],
+      ekizyouka34Obj[i],
+      ekizyouka35Obj[i],
+      ekizyouka36Obj[i],
+      ekizyouka37Obj[i],
+      ekizyouka38Obj[i],
+      ekizyouka39Obj[i],
+      ekizyouka40Obj[i],
+      ekizyouka41Obj[i],
+      ekizyouka42Obj[i],
+      ekizyouka43Obj[i],
+      ekizyouka44Obj[i],
+      ekizyouka45Obj[i],
+      ekizyouka46Obj[i],
+      ekizyouka47Obj[i],
+    ]
+  })
+}
+for (let i of mapsStr) {
+  ekizyouka00Obj[i].values_['name'] = 'ekizyouka'
+  ekizyouka00Obj[i].values_['pointer'] = true
+}
 const ekizyoukaSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
 // 宮崎市ハザードマップ-------------------------------------------------------------------------------
 function MiyazakisiHm () {
@@ -8284,6 +8334,7 @@ const layers =
         { text: '液状化危険度分布図',
           children: [
               //新潟と埼玉は作っていない。
+            { text: '<i class="fa-solid fa-layer-group"></i>液状化危険度分布図（全国）', data: { id: 'ekizyouka00', layer: ekizyouka00Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（北海道）', data: { id: 'ekizyouka01', layer: ekizyouka01Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（青森県）', data: { id: 'ekizyouka02', layer: ekizyouka02Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（岩手県）', data: { id: 'ekizyouka03', layer: ekizyouka03Obj, opacity: 1, summary: ekizyoukaSumm } },
