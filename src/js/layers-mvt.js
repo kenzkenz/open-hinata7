@@ -3195,6 +3195,7 @@ function Densyou(){
     url: "https://cyberjapandata.gsi.go.jp/xyz/disaster_lore_all/{z}/{x}/{y}.geojson"
   });
   this.style = densyouStyleFunction();
+  this.useInterimTilesOnError = false
 }
 export const densyouObj = {};
 for (let i of mapsStr) {
@@ -3220,7 +3221,7 @@ function densyouStyleFunction() {
     });
     const textStyle = new Style({
         text: new Text({
-          font: "8px sans-serif",
+          font: "12px sans-serif",
           text: text,
           offsetY: 10,
           stroke: new Stroke({
