@@ -3230,11 +3230,9 @@ function densyouStyleFunction() {
           })
         })
       });
-    styles.push(fillStyle);
-    if(zoom>=13) {
-      styles.push(textStyle);
-    }
-    return styles;
+    if(zoom>=7) styles.push(fillStyle)
+    if(zoom>=13) styles.push(textStyle)
+    return styles
   }
 }
 // 指定緊急避難場所-----------------------------------------------------
