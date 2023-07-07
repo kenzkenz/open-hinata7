@@ -5,6 +5,8 @@ export function popUp(map,layers,features,overlay,evt,content) {
   let cont
   const coordinate = evt.coordinate;
   console.log(layers[0].get('name'))
+  console.log(coordinate)
+  console.log(features[0])
   const prop = features[0].getProperties();
   console.log(prop)
   switch (layers[0].get('name') ) {
@@ -379,13 +381,19 @@ export function popUp(map,layers,features,overlay,evt,content) {
              'リスク=' + risk + '</div>'
       break
     case 'densyou':
+      console.log(prop.geometry.extent_[0])
+      const lonLat = transform([prop.geometry.extent_[0],prop.geometry.extent_[1]], "EPSG:3857", "EPSG:4326")
+      const lon = lonLat[0]
+      const lat = lonLat[1]
       cont = '<div style=width:400px>碑名=' + prop.LoreName + '<hr>' +
           '災害名=' + prop.DisasterName + '<hr>' +
           '災害種別=' + prop.DisasterKind + '<hr>' +
           '所在地=' + prop.Address + '<hr>' +
           '建立年=' + prop.LoreYear + '<hr>' +
           '伝承内容=' + prop.DisasterInfo + '<hr>' +
-          '<a href="' + prop.Image + '" target="_blank"><img height="200" src="' + prop.Image + '"></a></div>'
+          '<a href="' + prop.Image + '" target="_blank"><img height="200" src="' + prop.Image + '"></a>' +
+          '<br><a href="https://www.google.com/maps?q=' + lat + ',' + lon + '" target="_blank">GoogleMapsで開く</a>' +
+          '</div>'
       break
     case 'hinanzyo01':
     case 'hinanzyo02':

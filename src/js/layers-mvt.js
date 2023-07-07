@@ -3196,6 +3196,7 @@ function Densyou(){
   });
   this.style = densyouStyleFunction();
   this.useInterimTilesOnError = false
+  this.renderMode = 'vector'
 }
 export const densyouObj = {};
 for (let i of mapsStr) {
@@ -3230,7 +3231,7 @@ function densyouStyleFunction() {
           })
         })
       });
-    if(zoom>=7) styles.push(fillStyle)
+    if(zoom>=6) styles.push(fillStyle)
     if(zoom>=13) styles.push(textStyle)
     return styles
   }
