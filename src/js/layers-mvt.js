@@ -3189,7 +3189,7 @@ function Densyou(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:7,
+      minZoom:1,
       maxZoom:7
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/disaster_lore_all/{z}/{x}/{y}.geojson"
