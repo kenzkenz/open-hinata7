@@ -3250,7 +3250,7 @@ function Hinanzyo01(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:1,
+      minZoom:10,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb01/{z}/{x}/{y}.geojson"
@@ -3269,7 +3269,7 @@ function Hinanzyo02(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:1,
+      minZoom:10,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb02/{z}/{x}/{y}.geojson"
@@ -3286,7 +3286,7 @@ function Hinanzyo04(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:1,
+      minZoom:10,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb04/{z}/{x}/{y}.geojson"
@@ -3303,7 +3303,7 @@ function Hinanzyo05(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:1,
+      minZoom:10,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb05/{z}/{x}/{y}.geojson"
@@ -3320,7 +3320,7 @@ function Hinanzyo06(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:1,
+      minZoom:10,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb06/{z}/{x}/{y}.geojson"
@@ -3367,7 +3367,7 @@ function hinanzyoStyleFunction(color) {
         })
       })
     });
-    if(zoom>=12) styles.push(fillStyle);
+    styles.push(fillStyle);
     if(zoom>=14) styles.push(textStyle);
     return styles;
   }
