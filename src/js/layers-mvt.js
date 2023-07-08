@@ -3248,7 +3248,9 @@ function Hinanzyo01(){
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb01/{z}/{x}/{y}.geojson"
   });
-  this.style = hinanzyoStyleFunction('blue');
+  this.style = hinanzyoStyleFunction('blue')
+  this.useInterimTilesOnError = false
+  this.renderMode = 'vector'
 }
 export const hinanzyo01Obj = {};
 for (let i of mapsStr) {
@@ -3352,10 +3354,8 @@ function hinanzyoStyleFunction(color) {
         })
       })
     });
-    styles.push(fillStyle);
-    if(zoom>=13) {
-      styles.push(textStyle);
-    }
+    if(zoom>=12) styles.push(fillStyle);
+    if(zoom>=14) styles.push(textStyle);
     return styles;
   }
 }
