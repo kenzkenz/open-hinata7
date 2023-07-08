@@ -3740,16 +3740,22 @@ function busteiStyleFunction(color) {
     const text = prop.P11_001
     const styles = [];
     const fillStyle = new Style({
-      image: new Circle({
-        radius: 8,
-        fill: new Fill({
-          color: color
-        }),
-        stroke: new Stroke({
-          color: "white",
-          width: 1
-        })
+      image: new Icon({
+        anchor: [0.5, 1],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        src: 'https://kenzkenz.xsrv.jp/open-hinata/img/blackpinmini.png',
       })
+      // image: new Circle({
+      //   radius: 8,
+      //   fill: new Fill({
+      //     color: color
+      //   }),
+      //   stroke: new Stroke({
+      //     color: "white",
+      //     width: 1
+      //   })
+      // })
     });
     const textStyle = new Style({
       text: new Text({
