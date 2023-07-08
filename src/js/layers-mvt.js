@@ -10,6 +10,7 @@ import {transformExtent} from "ol/proj";
 import LayerGroup from "ol/layer/Group";
 import XYZ from "ol/source/XYZ";
 import TileLayer from "ol/layer/Tile";
+import Icon from 'ol/style/Icon.js';
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
@@ -3189,7 +3190,7 @@ function Densyou(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:1,
+      minZoom:7,
       maxZoom:7
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/disaster_lore_all/{z}/{x}/{y}.geojson"
@@ -3209,16 +3210,22 @@ function densyouStyleFunction() {
     const text = prop.LoreName
     const styles = [];
     const fillStyle = new Style({
-      image: new Circle({
-        radius: 8,
-        fill: new Fill({
-          color: "black"
-        }),
-        stroke: new Stroke({
-          color: "white",
-          width: 1
-        })
+      image: new Icon({
+        anchor: [0.5, 1],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        src: 'https://kenzkenz.xsrv.jp/open-hinata/img/blackpinmini.png',
       })
+      // image: new Circle({
+      //   radius: 8,
+      //   fill: new Fill({
+      //     color: "black"
+      //   }),
+      //   stroke: new Stroke({
+      //     color: "white",
+      //     width: 1
+      //   })
+      // })
     });
     const textStyle = new Style({
         text: new Text({
@@ -3231,7 +3238,7 @@ function densyouStyleFunction() {
           })
         })
       });
-    if(zoom>=6) styles.push(fillStyle)
+    styles.push(fillStyle)
     if(zoom>=13) styles.push(textStyle)
     return styles
   }
@@ -3332,16 +3339,22 @@ function hinanzyoStyleFunction(color) {
     const text = prop.name
     const styles = [];
     const fillStyle = new Style({
-      image: new Circle({
-        radius: 8,
-        fill: new Fill({
-          color: color
-        }),
-        stroke: new Stroke({
-          color: "white",
-          width: 1
-        })
+      image: new Icon({
+        anchor: [0.5, 1],
+        anchorXUnits: 'fraction',
+        anchorYUnits: 'fraction',
+        src: 'https://kenzkenz.xsrv.jp/open-hinata/img/bluepinmini.png',
       })
+      // image: new Circle({
+      //   radius: 8,
+      //   fill: new Fill({
+      //     color: color
+      //   }),
+      //   stroke: new Stroke({
+      //     color: "white",
+      //     width: 1
+      //   })
+      // })
     });
     const textStyle = new Style({
       text: new Text({
