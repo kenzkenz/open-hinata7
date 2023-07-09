@@ -3209,12 +3209,12 @@ function densyouStyleFunction() {
     const prop = feature.getProperties();
     const text = prop.LoreName
     const styles = [];
-    const fillStyle = new Style({
+    const iconStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: 'https://kenzkenz.xsrv.jp/open-hinata/img/blackpinmini.png',
+        src: require('@/assets/icon/blackpinmini.png'),
       })
       // image: new Circle({
       //   radius: 8,
@@ -3238,7 +3238,7 @@ function densyouStyleFunction() {
           })
         })
       });
-    styles.push(fillStyle)
+    styles.push(iconStyle)
     if(zoom>=13) styles.push(textStyle)
     return styles
   }
@@ -3343,7 +3343,7 @@ function hinanzyoStyleFunction(color) {
         anchor: [0.5, 1],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: 'https://kenzkenz.xsrv.jp/open-hinata/img/bluepinmini.png',
+        src: require('@/assets/icon/bluepinmini.png'),
       })
       // image: new Circle({
       //   radius: 8,
@@ -3744,7 +3744,7 @@ function busteiStyleFunction(color) {
         anchor: [0.5, 1],
         anchorXUnits: 'fraction',
         anchorYUnits: 'fraction',
-        src: 'https://kenzkenz.xsrv.jp/open-hinata/img/blackpinmini.png',
+        src: require('@/assets/icon/blackpinmini.png'),
       })
       // image: new Circle({
       //   radius: 8,
