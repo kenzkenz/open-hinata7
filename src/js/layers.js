@@ -8342,8 +8342,7 @@ const layers =
     { text: 'ハザードマップ',
       children: [
         { text: '洪水浸水想定（想定最大規模）', data: { id: 'shinsuishin', layer: shinsuishinObj, opacity: 1, summary: shinsuishinSumm } },
-        { text: '洪水浸水想定（計画大規模）', data: { id: 'shinsuishinK', layer: shinsuishinKObj, opacity: 1, summary: shinsuishinKSumm } },
-
+        { text: '洪水浸水想定（計画規模）', data: { id: 'shinsuishinK', layer: shinsuishinKObj, opacity: 1, summary: shinsuishinKSumm } },
         { text: '津波浸水想定', data: { id: 'tunami', layer: tsunamiObj, opacity: 1, summary: tunamiSumm } },
         { text: '浸水継続時間(想定最大規模)', data: { id: 'keizoku', layer: keizokuObj, opacity: 1, summary: keizokuSumm } },
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },
