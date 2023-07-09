@@ -1971,14 +1971,14 @@ for (let i of mapsStr) {
   kotizu00Obj[i].values_['dep'] = true
 }
 const kotizu00Summ = SSK
-// 洪水浸水想定-------------------------------------------------------------------------------
+// 洪水浸水想定（想定最大規模）-------------------------------------------------------------------------------
 function Shinsuishin () {
   this.name = 'shinsuishin'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -1987,6 +1987,22 @@ for (let i of mapsStr) {
   shinsuishinObj[i] = new TileLayer(new Shinsuishin())
 }
 const shinsuishinSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br> <img src="https://kenzkenz.xsrv.jp/open-hinata/img/shinsui_legend2-1.png">';
+// 洪水浸水想定（計画規模）-------------------------------------------------------------------------------
+function ShinsuishinK () {
+  this.name = 'shinsuishinK'
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l1_shinsuishin_newlegend_kuni_data/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 2,
+    maxZoom: 17
+  })
+}
+const shinsuishinKObj = {};
+for (let i of mapsStr) {
+  shinsuishinKObj[i] = new TileLayer(new ShinsuishinK())
+}
+const shinsuishinKSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br> <img src="https://kenzkenz.xsrv.jp/open-hinata/img/shinsui_legend2-1.png">';
 // 津波浸水想定-------------------------------------------------------------------------------
 function Tsunami () {
   this.name = 'tunami'
@@ -1995,7 +2011,7 @@ function Tsunami () {
     url: 'https://disaportaldata.gsi.go.jp/raster/04_tsunami_newlegend_data/{z}/{x}/{y}.png',
     // url: 'https://disaportaldata.gsi.go.jp/raster/04_tsunami_oldlegend/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -2011,7 +2027,7 @@ function Keizoku () {
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_keizoku_kuni_data/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -2027,7 +2043,7 @@ function Takasio () {
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/03_hightide_l2_shinsuishin_data/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -2043,7 +2059,7 @@ function Tameike () {
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/data/raster/07_tameike/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -2075,7 +2091,7 @@ function Dosya () {
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukeikaikuiki/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -2091,7 +2107,7 @@ function Doseki () {
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukikenkeiryu/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -2123,7 +2139,7 @@ function Zisuberi () {
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_jisuberikikenkasyo/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -2139,7 +2155,7 @@ function Nadare () {
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_nadarekikenkasyo/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 17
   })
 }
@@ -8326,6 +8342,8 @@ const layers =
     { text: 'ハザードマップ',
       children: [
         { text: '洪水浸水想定（想定最大規模）', data: { id: 'shinsuishin', layer: shinsuishinObj, opacity: 1, summary: shinsuishinSumm } },
+        { text: '洪水浸水想定（計画大規模）', data: { id: 'shinsuishinK', layer: shinsuishinKObj, opacity: 1, summary: shinsuishinKSumm } },
+
         { text: '津波浸水想定', data: { id: 'tunami', layer: tsunamiObj, opacity: 1, summary: tunamiSumm } },
         { text: '浸水継続時間(想定最大規模)', data: { id: 'keizoku', layer: keizokuObj, opacity: 1, summary: keizokuSumm } },
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },

@@ -211,6 +211,9 @@ export function initMap (vm) {
                     case 'shinsuishin':
                         getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/',PopUp.popUpShinsuishin,17)
                         break;
+                    case 'shinsuishinK':
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/01_flood_l1_shinsuishin_newlegend_kuni_data/',PopUp.popUpShinsuishin,17)
+                        break;
                     case 'tunami':
                         getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/04_tsunami_newlegend_data/',PopUp.popUpTunami,17)
                         break;
