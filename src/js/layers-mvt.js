@@ -3218,7 +3218,7 @@ function densyouStyleFunction() {
       image: new Icon({
         anchor: [0.5, 1],
         src: require('@/assets/icon/whitepin.png'),
-        color: "blue"
+        color: "black"
       })
       // image: new Circle({
       //   radius: 8,
@@ -3254,7 +3254,7 @@ function Hinanzyo01(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:10,
+      minZoom:1,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb01/{z}/{x}/{y}.geojson"
@@ -3273,7 +3273,7 @@ function Hinanzyo02(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:10,
+      minZoom:1,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb02/{z}/{x}/{y}.geojson"
@@ -3290,7 +3290,7 @@ function Hinanzyo04(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:10,
+      minZoom:1,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb04/{z}/{x}/{y}.geojson"
@@ -3307,7 +3307,7 @@ function Hinanzyo05(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:10,
+      minZoom:1,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb05/{z}/{x}/{y}.geojson"
@@ -3324,7 +3324,7 @@ function Hinanzyo06(){
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
     tileGrid: new createXYZ({
-      minZoom:10,
+      minZoom:1,
       maxZoom:10
     }),
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb06/{z}/{x}/{y}.geojson"
@@ -3345,7 +3345,8 @@ function hinanzyoStyleFunction(color) {
     const fillStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
-        src: require('@/assets/icon/bluepinmini.png'),
+        src: require('@/assets/icon/whitepin.png'),
+        color: color
       })
       // image: new Circle({
       //   radius: 8,
@@ -3369,7 +3370,7 @@ function hinanzyoStyleFunction(color) {
         })
       })
     });
-    styles.push(fillStyle);
+    if(zoom>=10) styles.push(fillStyle);
     if(zoom>=14) styles.push(textStyle);
     return styles;
   }

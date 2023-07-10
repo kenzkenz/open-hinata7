@@ -400,8 +400,28 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'hinanzyo04':
     case 'hinanzyo05':
     case 'hinanzyo06':
+      let cont1 = ''
+      const array = [
+          {disaster:'disaster1', cont:'洪水　'},
+          {disaster:'disaster2', cont: '崖崩れ、土石流及び地滑り　'},
+          {disaster:'disaster3', cont:'高潮　'},
+          {disaster:'disaster4', cont:'地震　'},
+          {disaster:'disaster5', cont:'津波　'},
+          {disaster:'disaster6', cont:'大規模な火事　'},
+          {disaster:'disaster7', cont:'内水氾濫　'},
+          {disaster:'disaster8', cont:'火山現象　'}
+      ]
+      Object.entries(array).forEach(
+          entries => {
+            if (prop[entries[1].disaster] === 1) {
+              cont1 += entries[1].cont
+            }
+          }
+      );
+      console.log(cont1)
       cont = '<div style=width:200px>名称=' + prop.name + '<hr>' +
-          '所在地=' + prop.address + '</div>'
+          '所在地=' + prop.address + '<hr>' +
+          '対応している災害の種別＝<br>' + cont1 + '</div>'
       break
     case 'gunbakumatu':
     case 'gunkuni':
