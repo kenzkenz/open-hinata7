@@ -1090,6 +1090,11 @@ function kouziStyleFunction (mapName,year) {
         break
     }
     const circleStyle = new Style({
+      // image: new Icon({
+      //   anchor: [0.5, 1],
+      //   src: require('@/assets/icon/whitepin.png'),
+      //   color: color2
+      // })
       image: new Circle({
         radius: 8,
         fill: new Fill({
@@ -3212,9 +3217,8 @@ function densyouStyleFunction() {
     const iconStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'fraction',
-        src: require('@/assets/icon/blackpinmini.png'),
+        src: require('@/assets/icon/whitepin.png'),
+        color: "blue"
       })
       // image: new Circle({
       //   radius: 8,
@@ -3341,8 +3345,6 @@ function hinanzyoStyleFunction(color) {
     const fillStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'fraction',
         src: require('@/assets/icon/bluepinmini.png'),
       })
       // image: new Circle({
@@ -3742,8 +3744,6 @@ function busteiStyleFunction(color) {
     const fillStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
-        anchorXUnits: 'fraction',
-        anchorYUnits: 'fraction',
         src: require('@/assets/icon/blackpinmini.png'),
       })
       // image: new Circle({
