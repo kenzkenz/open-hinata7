@@ -7526,7 +7526,19 @@ for (let i of mapsStr) {
   otmObj[i] = new TileLayer(new Otm())
 }
 const otmSumm = '<a href="https://wiki.openstreetmap.org/wiki/JA:OpenTopoMap" target="_blank">OpenTopoMap</a>'
-
+// 浸水推定図------------------------------------------------------------------------------------
+function Sinsuisitei () {
+  this.source = new XYZ({
+    url: 'https://maps.gsi.go.jp/xyz/20230629rain_0711shinsui/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 2,
+    maxZoom: 18
+  })
+}
+const sinsuisuiteiObj = {};
+for (let i of mapsStr) {
+  sinsuisuiteiObj[i] = new TileLayer(new Sinsuisitei())
+}
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
 const layers =
   [
@@ -8348,6 +8360,9 @@ const layers =
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },
         { text: 'ため池決壊による浸水想定区域', data: { id: 'tameike', layer: tameikeObj, opacity: 1, summary: tameikeSumm } },
         { text: '家屋倒壊等氾濫想定区域（氾濫流）', data: { id: 'toukai', layer: toukaiObj, opacity: 1, summary: toukaiSumm } },
+
+        { text: '筑後川浸水推定図2023/7/11', data: { id: 'sinsuisuitei', layer: sinsuisuiteiObj, center:[130.61658037551376, 33.34398451546858], zoom:13, opacity: 1, summary: stdSumm } },
+
         { text: '液状化危険度分布図',
           children: [
               //新潟と埼玉は作っていない。

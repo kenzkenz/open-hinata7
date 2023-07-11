@@ -3279,6 +3279,7 @@ function Hinanzyo02(){
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb02/{z}/{x}/{y}.geojson"
   });
   this.style = hinanzyoStyleFunction('magenta');
+  this.useInterimTilesOnError = false
 }
 export const hinanzyo02Obj = {};
 for (let i of mapsStr) {
@@ -3296,6 +3297,7 @@ function Hinanzyo04(){
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb04/{z}/{x}/{y}.geojson"
   });
   this.style = hinanzyoStyleFunction('brown');
+  this.useInterimTilesOnError = false
 }
 export const hinanzyo04Obj = {};
 for (let i of mapsStr) {
@@ -3313,6 +3315,7 @@ function Hinanzyo05(){
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb05/{z}/{x}/{y}.geojson"
   });
   this.style = hinanzyoStyleFunction('steelblue');
+  this.useInterimTilesOnError = false
 }
 export const hinanzyo05Obj = {};
 for (let i of mapsStr) {
@@ -3330,6 +3333,7 @@ function Hinanzyo06(){
     url: "https://cyberjapandata.gsi.go.jp/xyz/skhb06/{z}/{x}/{y}.geojson"
   });
   this.style = hinanzyoStyleFunction('red');
+  this.useInterimTilesOnError = false
 }
 export const hinanzyo06Obj = {};
 for (let i of mapsStr) {
