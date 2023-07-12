@@ -385,7 +385,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
       const lonLat = transform([prop.geometry.extent_[0],prop.geometry.extent_[1]], "EPSG:3857", "EPSG:4326")
       const lon = lonLat[0]
       const lat = lonLat[1]
-      cont = '<div style=width:400px>碑名=' + prop.LoreName + '<hr>' +
+      cont = '<div style="width:400px;font-size:small">碑名=' + prop.LoreName + '<hr>' +
           '災害名=' + prop.DisasterName + '<hr>' +
           '災害種別=' + prop.DisasterKind + '<hr>' +
           '所在地=' + prop.Address + '<hr>' +
@@ -393,6 +393,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '伝承内容=' + prop.DisasterInfo + '<hr>' +
           '<a href="' + prop.Image + '" target="_blank"><img height="200" src="' + prop.Image + '"></a>' +
           '<br><a href="https://www.google.com/maps?q=' + lat + ',' + lon + '" target="_blank">GoogleMapsで開く</a>' +
+          // '<button value="' + prop.Image + '" onclick="MyMap.fileDl()">eeeeee</button>'
           '</div>'
       break
     case 'hinanzyo01':
