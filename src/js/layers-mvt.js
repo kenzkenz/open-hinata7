@@ -2657,16 +2657,18 @@ function mitinoekiStyleFunction () {
     const prop = feature.getProperties();
     const styles = [];
     let text = prop.P35_006
-    const circleStyle = new Style({
-      image: new Circle({
-        radius: 6,
-        fill: new Fill({
-          color: 'blue'
-        }),
-        stroke: new Stroke({
-          color: "white",
-          width: 1
-        })
+    const iconStyle = new Style({
+      image: new Icon({
+        anchor: [0.5, 0.7],
+        src: require('@/assets/icon/car.png'),
+        color: "blue",
+      })
+    })
+    const iconStyle2 = new Style({
+      image: new Icon({
+        anchor: [0.5, 0.7],
+        src: require('@/assets/icon/car2.png'),
+        color: "blue",
       })
     })
     const textStyle = new Style({
@@ -2685,7 +2687,11 @@ function mitinoekiStyleFunction () {
         exceedLength:true
       })
     });
-    styles.push(circleStyle);
+    if(zoom<=9) {
+      styles.push(iconStyle);
+    }else{
+      styles.push(iconStyle2);
+    }
     if(zoom>=11) {
       styles.push(textStyle);
     }
