@@ -171,6 +171,7 @@ function Pale () {
     minZoom: 2,
     maxZoom: 18
   })
+  this.useInterimTilesOnError = false
 }
 const paleObj = {};
 for (let i of mapsStr) {
