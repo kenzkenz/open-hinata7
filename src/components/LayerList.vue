@@ -1,9 +1,13 @@
 選択可能なレイヤーを全て表示するツリーのvueファイル。
 <template>
+  <div>
+    <input type="text" placeholder="抽出します..." v-model="treeFilter0" class="filter-field">
     <tree
+        :filter="treeFilter0"
         :data="treeData"
         :options="treeOptions"
         @node:selected="onNodeSelected"/>
+  </div>
 </template>
 
 <script>
@@ -17,8 +21,13 @@
     },
     data () {
       return {
+        treeFilter0: '',
         treeData: Layers.Layers,
-        treeOptions: {} // 今の所なにも設定していない
+        treeOptions: {
+          filter: {
+            emptyText: '見つかりませんでした。'
+          }
+        }
       }
     },
     methods: {
@@ -78,5 +87,9 @@
     .tree-anchor{
         margin-left: 0;
         padding: 0;
+    }
+    .filter-field{
+      margin: 5px;
+      width: 97%;
     }
 </style>
