@@ -1,6 +1,9 @@
 選択可能なレイヤーを全て表示するツリーのvueファイル。
 <template>
-    <tree :data="treeData" :options="treeOptions" @node:selected="onNodeSelected"/>
+    <tree
+        :data="treeData"
+        :options="treeOptions"
+        @node:selected="onNodeSelected"/>
 </template>
 
 <script>

@@ -3656,16 +3656,18 @@ function ekiStyleFunction(color,genzonEki) {
     const text = prop.N05_011
     const genzon = prop["N05_005e"];
     const styles = [];
-    const fillStyle = new Style({
-      image: new Circle({
-        radius: 8,
-        fill: new Fill({
-          color: color
-        }),
-        stroke: new Stroke({
-          color: "white",
-          width: 1
+    const iconStyle = new Style({
+        image: new Icon({
+          anchor: [0.5, 0.7],
+          src: require('@/assets/icon/eki.png'),
+          color: color,
         })
+    });
+    const iconStyle2 = new Style({
+      image: new Icon({
+        anchor: [0.5, 0.7],
+        src: require('@/assets/icon/eki2.png'),
+        color: color,
       })
     });
     const textStyle = new Style({
@@ -3679,8 +3681,12 @@ function ekiStyleFunction(color,genzonEki) {
         })
       })
     });
-    styles.push(fillStyle);
-    if(zoom>=13) {
+    if(zoom>=14) {
+      styles.push(iconStyle);
+    }else{
+      styles.push(iconStyle2);
+    }
+    if(zoom>=14) {
       styles.push(textStyle);
     }
     if (genzonEki) {
