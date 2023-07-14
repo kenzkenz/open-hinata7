@@ -147,6 +147,12 @@ function Osm () {
 const osmObj = {};
 for (let i of mapsStr) {
   osmObj[i] = new TileLayer(new Osm())
+  osmObj[i].on("precompose", function(evt){
+    evt.context.globalCompositeOperation = 'multiply';
+  });
+  osmObj[i].on("postcompose", function(evt){
+    evt.context.globalCompositeOperation = "source-over";
+  });
 }
 const osmSumm = 'OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。<a href=\'https://openstreetmap.jp\' target=\'_blank\'>OpenStreetMap</a>';
 // 標準地図------------------------------------------------------------------------------------
@@ -977,6 +983,12 @@ for (let i of mapsStr) {
     const url = 'https://mapwarper.h-gis.jp/maps/tile/' + id + '/{z}/{x}/{y}.png'
     const bbox = mw5[j].extent
     const layer = new TileLayer(new Mapwarper(url,bbox))
+    // layer.on("precompose", function(evt){
+    //   evt.context.globalCompositeOperation = 'multiply';
+    // });
+    // layer.on("postcompose", function(evt){
+    //   evt.context.globalCompositeOperation = "source-over";
+    // });
     layerGroup.push(layer)
   }
   const mw5centerLayer = new VectorLayer(new Mw5center())
@@ -7537,6 +7549,12 @@ function Otm () {
 const otmObj = {};
 for (let i of mapsStr) {
   otmObj[i] = new TileLayer(new Otm())
+  otmObj[i].on("precompose", function(evt){
+    evt.context.globalCompositeOperation = 'multiply';
+  });
+  otmObj[i].on("postcompose", function(evt){
+    evt.context.globalCompositeOperation = "source-over";
+  });
 }
 const otmSumm = '<a href="https://wiki.openstreetmap.org/wiki/JA:OpenTopoMap" target="_blank">OpenTopoMap</a>'
 // 浸水推定図------------------------------------------------------------------------------------
