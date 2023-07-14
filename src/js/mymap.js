@@ -177,6 +177,7 @@ export function initMap (vm) {
             const layersObj = [];
             //マウスがあたった箇所のレイヤーを複数取得する
             (map).forEachLayerAtPixel(pixel,function(layer, rgba){
+                console.log(layer.get('name'))
                 layersObj.push({
                     layer,
                     rgba

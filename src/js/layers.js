@@ -489,6 +489,7 @@ for (let i of mapsStr) {
 const kawadakeSumm = '<a href="https://www.gridscapes.net/#AllRiversAllLakesTopography" target="_blank">川だけ地形地図</a>'
 // 川と流域地図---------------------------------------------------------------------------
 function Ryuuiki () {
+  this.name = 'kawadake'
   this.source = new XYZ({
     url: 'https://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png',
     // crossOrigin: 'Anonymous',
