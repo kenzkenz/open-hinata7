@@ -161,6 +161,12 @@ function Std () {
 const stdObj = {};
 for (let i of mapsStr) {
   stdObj[i] = new TileLayer(new Std())
+  stdObj[i].on("precompose", function(evt){
+    evt.context.globalCompositeOperation = 'multiply';
+  });
+  stdObj[i].on("postcompose", function(evt){
+    evt.context.globalCompositeOperation = "source-over";
+  });
 }
 const stdSumm = '国土地理院作成のタイルです。<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 淡色地図------------------------------------------------------------------------------------
@@ -176,6 +182,12 @@ function Pale () {
 const paleObj = {};
 for (let i of mapsStr) {
   paleObj[i] = new TileLayer(new Pale())
+  paleObj[i].on("precompose", function(evt){
+    evt.context.globalCompositeOperation = 'multiply';
+  });
+  paleObj[i].on("postcompose", function(evt){
+    evt.context.globalCompositeOperation = "source-over";
+  });
 }
 const paleSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 白地図--------------------------------------------------------------------------------------
