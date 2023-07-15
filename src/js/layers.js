@@ -147,12 +147,12 @@ function Osm () {
 const osmObj = {};
 for (let i of mapsStr) {
   osmObj[i] = new TileLayer(new Osm())
-  osmObj[i].on("precompose", function(evt){
-    evt.context.globalCompositeOperation = 'multiply';
-  });
-  osmObj[i].on("postcompose", function(evt){
-    evt.context.globalCompositeOperation = "source-over";
-  });
+  // osmObj[i].on("precompose", function(evt){
+  //   evt.context.globalCompositeOperation = 'multiply';
+  // });
+  // osmObj[i].on("postcompose", function(evt){
+  //   evt.context.globalCompositeOperation = "source-over";
+  // });
 }
 const osmSumm = 'OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。<a href=\'https://openstreetmap.jp\' target=\'_blank\'>OpenStreetMap</a>';
 // 標準地図------------------------------------------------------------------------------------
@@ -167,12 +167,12 @@ function Std () {
 const stdObj = {};
 for (let i of mapsStr) {
   stdObj[i] = new TileLayer(new Std())
-  stdObj[i].on("precompose", function(evt){
-    evt.context.globalCompositeOperation = 'multiply';
-  });
-  stdObj[i].on("postcompose", function(evt){
-    evt.context.globalCompositeOperation = "source-over";
-  });
+  // stdObj[i].on("precompose", function(evt){
+  //   evt.context.globalCompositeOperation = 'multiply';
+  // });
+  // stdObj[i].on("postcompose", function(evt){
+  //   evt.context.globalCompositeOperation = "source-over";
+  // });
 }
 const stdSumm = '国土地理院作成のタイルです。<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 淡色地図------------------------------------------------------------------------------------
@@ -188,12 +188,12 @@ function Pale () {
 const paleObj = {};
 for (let i of mapsStr) {
   paleObj[i] = new TileLayer(new Pale())
-  paleObj[i].on("precompose", function(evt){
-    evt.context.globalCompositeOperation = 'multiply';
-  });
-  paleObj[i].on("postcompose", function(evt){
-    evt.context.globalCompositeOperation = "source-over";
-  });
+  // paleObj[i].on("precompose", function(evt){
+  //   evt.context.globalCompositeOperation = 'multiply';
+  // });
+  // paleObj[i].on("postcompose", function(evt){
+  //   evt.context.globalCompositeOperation = "source-over";
+  // });
 }
 const paleSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 白地図--------------------------------------------------------------------------------------
@@ -265,12 +265,12 @@ function Inei () {
 const ineiObj = {};
 for (let i of mapsStr) {
   ineiObj[i] = new TileLayer(new Inei())
-  ineiObj[i].on("precompose", function(evt){
-    evt.context.globalCompositeOperation = 'multiply';
-  });
-  ineiObj[i].on("postcompose", function(evt){
-    evt.context.globalCompositeOperation = "source-over";
-  });
+  // ineiObj[i].on("precompose", function(evt){
+  //   evt.context.globalCompositeOperation = 'multiply';
+  // });
+  // ineiObj[i].on("postcompose", function(evt){
+  //   evt.context.globalCompositeOperation = "source-over";
+  // });
 }
 // 傾斜量図---------------------------------------------------------------------------------
 function Keisya () {
@@ -284,12 +284,12 @@ function Keisya () {
 const keisyaObj = {};
 for (let i of mapsStr) {
   keisyaObj[i] = new TileLayer(new Keisya())
-  keisyaObj[i].on("precompose", function(evt){
-    evt.context.globalCompositeOperation = 'multiply';
-  });
-  keisyaObj[i].on("postcompose", function(evt){
-    evt.context.globalCompositeOperation = "source-over";
-  });
+  // keisyaObj[i].on("precompose", function(evt){
+  //   evt.context.globalCompositeOperation = 'multiply';
+  // });
+  // keisyaObj[i].on("postcompose", function(evt){
+  //   evt.context.globalCompositeOperation = "source-over";
+  // });
 }
 // 宮崎県航空写真----------------------------------------------------------------------------
 function MiyazakiOrt () {
@@ -7574,12 +7574,12 @@ function Otm () {
 const otmObj = {};
 for (let i of mapsStr) {
   otmObj[i] = new TileLayer(new Otm())
-  otmObj[i].on("precompose", function(evt){
-    evt.context.globalCompositeOperation = 'multiply';
-  });
-  otmObj[i].on("postcompose", function(evt){
-    evt.context.globalCompositeOperation = "source-over";
-  });
+  // otmObj[i].on("precompose", function(evt){
+  //   evt.context.globalCompositeOperation = 'multiply';
+  // });
+  // otmObj[i].on("postcompose", function(evt){
+  //   evt.context.globalCompositeOperation = "source-over";
+  // });
 }
 const otmSumm = '<a href="https://wiki.openstreetmap.org/wiki/JA:OpenTopoMap" target="_blank">OpenTopoMap</a>'
 // 浸水推定図------------------------------------------------------------------------------------

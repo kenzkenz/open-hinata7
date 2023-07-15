@@ -97,8 +97,8 @@ export function permalinkEventSet () {
                     store.commit('base/unshiftLayerList', {
                       value: {
                         id: node.data.id,
+                        multipli: urlLayerListArr[i][j].m,
                         check: urlLayerListArr[i][j].ck,
-                        // check: false,
                         title: node.text,
                         layer: node.data.layer,
                         opacity: urlLayerListArr[i][j].o,
@@ -118,6 +118,7 @@ export function permalinkEventSet () {
                       const infoDialog =
                         {
                           id: node.data.id,
+                          multipli: node.data.multipli,
                           check: node.data.check,
                           title: node.text,
                           summary: node.data.summary,

@@ -61,6 +61,7 @@ const moduleBase = {
           }
           layerList2.push({
             id:layer.id,
+            m:layer.multipli,
             ck:check,
             o:layer.opacity,
             c:layer.component

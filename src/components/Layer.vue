@@ -13,6 +13,18 @@
                 </div>
               </label>
 
+              <label :for='"checkbox2" + item.id'>
+                <div class="check2-div" >
+                  <input :id='"checkbox2" + item.id' type="checkbox" class='check-box' v-model="item.multipli" @change="multipliLayer(item)">
+                  <b-popover   content="下の背景と合成します。"
+                               :target='"checkbox2" + item.id'
+                               triggers="hover"
+                               placement="left"
+                               boundary="viewport"
+                  />
+                </div>
+              </label>
+
               <div class="item-div">
                     <span class ="title-span" v-html="item.title"></span>
               </div>
@@ -49,6 +61,10 @@
       },
       checkLayer (item) {
         MyMap.checkLayer(item, this.s_layerList, this.mapName);
+        permalink.moveEnd()
+      },
+      multipliLayer (item) {
+        MyMap.multipliLayer(item, this.s_layerList, this.mapName);
         permalink.moveEnd()
       },
       removeLayer (item) {
@@ -171,19 +187,19 @@
     }
     .item-div{
         position: absolute;
-        left: 66px;
+        left: 90px;
         top: 3px;
     }
     .range-div{
         position: absolute;
         top:16px;
-        left:50px;
-        width:calc(100% - 70px);
+        left:86px;
+        width:calc(100% - 104px);
     }
     .info-div{
         position: absolute;
-        top:2px;
-        left:50px;
+        top:7px;
+        left:70px;
         width:15px;
         cursor: pointer;
         color:rgba(0,60,136,0.5);
@@ -214,7 +230,13 @@
       height: 100%;
       cursor: pointer;
     }
-    #layer-check{
+    .check2-div{
+      position: absolute;
+      padding-top: 0px;
+      padding-left: 5px;
+      left: 46px;
+      top:8px;
+      height: 100%;
       cursor: pointer;
     }
     .check-box {

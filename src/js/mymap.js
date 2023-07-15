@@ -793,6 +793,44 @@ export function watchLayer (map, thisName, newLayerList,oldLayerList) {
         } else {
             layer.setVisible(newLayerList[0][i].check)
         }
+
+        if (layer.values_.layers) {
+            const gLayers = layer.values_.layers.array_;
+            for (let j in gLayers) {
+                if (newLayerList[0][i].multipli===false || newLayerList[0][i].multipli===undefined){
+                    gLayers[j].on("precompose", function(evt){
+                        evt.context.globalCompositeOperation = 'source-over';
+                    });
+                    gLayers[j].on("postcompose", function(evt){
+                        evt.context.globalCompositeOperation = '';
+                    });
+                } else {
+                    gLayers[j].on("precompose", function(evt){
+                        evt.context.globalCompositeOperation = 'multiply';
+                    });
+                    gLayers[j].on("postcompose", function(evt){
+                        evt.context.globalCompositeOperation = 'source-over';
+                    });
+                }
+            }
+        }
+
+        if (newLayerList[0][i].multipli===false || newLayerList[0][i].multipli===undefined) {
+            layer.on("precompose", function(evt){
+                evt.context.globalCompositeOperation = 'source-over';
+            });
+            layer.on("postcompose", function(evt){
+                evt.context.globalCompositeOperation = '';
+            });
+        }else{
+            layer.on("precompose", function(evt){
+                evt.context.globalCompositeOperation = 'multiply';
+            });
+            layer.on("postcompose", function(evt){
+                evt.context.globalCompositeOperation = 'source-over';
+            });
+        }
+
         layer.setOpacity(newLayerList[0][i].opacity)
         // 新規追加したレイヤーだけにズームとセンターを設定する。
         if(!store.state.base.firstFlg) {
@@ -818,15 +856,53 @@ export function checkLayer (item, layerList, name) {
             item.layer.setVisible(false)
         }else{
             item.layer.setVisible(true)
-            // item.layer.on("precompose", function(evt){
-            //     evt.context.globalCompositeOperation = 'multiply';
-            // });
-            // item.layer.on("postcompose", function(evt){
-            //     evt.context.globalCompositeOperation = "source-over";
-            // });
         }
     } catch( e ) {
     }
+}
+export function multipliLayer (item, layerList, name) {
+    store.commit('base/updateList', {value: layerList, mapName: name});
+    const map = store.state.base.maps[name];
+    console.log(item.multipli)
+    console.log(item.layer)
+
+    if (item.layer.values_.layers) {
+        const gLayers = item.layer.values_.layers.array_;
+        for (let i in gLayers) {
+            if (item.multipli===false) {
+                gLayers[i].on("precompose", function(evt){
+                    evt.context.globalCompositeOperation = 'source-over';
+                });
+                gLayers[i].on("postcompose", function(evt){
+                    evt.context.globalCompositeOperation = '';
+                });
+            }else{
+                gLayers[i].on("precompose", function(evt){
+                    evt.context.globalCompositeOperation = 'multiply';
+                });
+                gLayers[i].on("postcompose", function(evt){
+                    evt.context.globalCompositeOperation = 'source-over';
+                });
+            }
+        }
+    }
+
+    if (item.multipli===false) {
+        item.layer.on("precompose", function(evt){
+            evt.context.globalCompositeOperation = 'source-over';
+        });
+        item.layer.on("postcompose", function(evt){
+            evt.context.globalCompositeOperation = '';
+        });
+    }else{
+        item.layer.on("precompose", function(evt){
+            evt.context.globalCompositeOperation = 'multiply';
+        });
+        item.layer.on("postcompose", function(evt){
+            evt.context.globalCompositeOperation = 'source-over';
+        });
+    }
+    map.render();
 }
 
 export function removeLayer (item, layerList, name) {
