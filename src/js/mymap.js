@@ -818,6 +818,12 @@ export function checkLayer (item, layerList, name) {
             item.layer.setVisible(false)
         }else{
             item.layer.setVisible(true)
+            // item.layer.on("precompose", function(evt){
+            //     evt.context.globalCompositeOperation = 'multiply';
+            // });
+            // item.layer.on("postcompose", function(evt){
+            //     evt.context.globalCompositeOperation = "source-over";
+            // });
         }
     } catch( e ) {
     }
