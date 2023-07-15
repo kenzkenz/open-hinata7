@@ -258,13 +258,38 @@ function Inei () {
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 2,
     maxZoom: 16
   })
 }
 const ineiObj = {};
 for (let i of mapsStr) {
   ineiObj[i] = new TileLayer(new Inei())
+  ineiObj[i].on("precompose", function(evt){
+    evt.context.globalCompositeOperation = 'multiply';
+  });
+  ineiObj[i].on("postcompose", function(evt){
+    evt.context.globalCompositeOperation = "source-over";
+  });
+}
+// 傾斜量図---------------------------------------------------------------------------------
+function Keisya () {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/slopemap/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 3,
+    maxZoom: 15
+  })
+}
+const keisyaObj = {};
+for (let i of mapsStr) {
+  keisyaObj[i] = new TileLayer(new Keisya())
+  keisyaObj[i].on("precompose", function(evt){
+    evt.context.globalCompositeOperation = 'multiply';
+  });
+  keisyaObj[i].on("postcompose", function(evt){
+    evt.context.globalCompositeOperation = "source-over";
+  });
 }
 // 宮崎県航空写真----------------------------------------------------------------------------
 function MiyazakiOrt () {
@@ -588,7 +613,7 @@ function NaganoCs () {
   this.source = new XYZ({
     url: 'https://tile.geospatial.jp/CS/VER2/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 1,
+    minZoom: 10,
     maxZoom: 18
   });
 }
@@ -7581,6 +7606,7 @@ const layers =
         { text: '白地図', data: { id: 3, layer: blankObj, opacity: 1, summary: blankSumm } },
         { text: '色別標高図', data: { id: 4, layer: reliefObj, opacity: 1, summary: reliefSumm } },
         { text: '陰影起伏図', data: { id: 'inei', layer: ineiObj, opacity: 1, summary: stdSumm } },
+        { text: '傾斜量図', data: { id: 'keisya', layer: keisyaObj, opacity: 1, summary: stdSumm } },
         { text: '治水地形分類図 更新版（2007年以降）', data: { id: 'tisui2007', layer: tisui2007Obj, opacity: 1, summary: tisui2007Summ } },
         { text: '地形分類（自然地形）', data: { id: 'sizen0', layer: LayersMvt.sizentikei0Obj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
         { text: '地形分類（自然地形『詳細版』）', data: { id: 'sizen', layer: LayersMvt.sizentikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
