@@ -189,6 +189,10 @@
         position: absolute;
         left: 90px;
         top: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width:calc(100% - 104px);
     }
     .range-div{
         position: absolute;
