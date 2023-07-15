@@ -1,25 +1,20 @@
 選択されたリストを表示するvueファイル。
 <template>
-    <v-draggable element="ul" :options="{handle:'.handle-div',animation: 200}" v-model="s_layerList">
+    <v-draggable element="ul" :options="{handle:'.handle-div, .title-span',animation: 200}" v-model="s_layerList">
         <li v-for="item in s_layerList" :key="item.id">
             <div class="list-div">
-<!--              <div class="handle-div" ><i class="fa-solid fa-bars hover-white handle-icon "></i></div>-->
+
               <div class="handle-div" ><i class="fa-solid fa-up-down fa-lg handle-icon"></i></div>
-              <label for="layer-check">
+
+              <label class="check-box" :for='"checkbox" + item.id'>
                 <div class="check-div" >
-  <!--                <b-form-checkbox-->
-  <!--                    v-model="item.check"-->
-  <!--                    @change="checkLayer(item)"-->
-  <!--                    checked="checked"-->
-  <!--                >-->
-  <!--                  {{ item.check }}-->
-  <!--                </b-form-checkbox>-->
-                  <input id='layer-check' type="checkbox" checked v-model="item.check" @change="checkLayer(item)">
+                    <input :id='"checkbox" + item.id' type="checkbox" checked v-model="item.check" @change="checkLayer(item)">
+                    <span class="check-text"></span>
                 </div>
               </label>
 
               <div class="item-div">
-                    <span v-html="item.title"></span>
+                    <span class ="title-span" v-html="item.title"></span>
               </div>
                 <div class="range-div"><input type="range" min="0" max="1" step="0.01" class="range" v-model.number="item.opacity" @input="opacityChange(item)" /></div>
                 <div class="info-div" @click="infoOpen(arguments[0],item)"><i class="fa-solid fa-circle-info hover"></i></div>
@@ -156,20 +151,9 @@
         -ms-user-select: none;
         user-select: none;
     }
-    .check-div{
-      position: absolute;
-      padding-top: 0px;
-      padding-left: 5px;
-      left: 25px;
-      height: 100%;
-      cursor: pointer;
-    }
-    #layer-check{
-      cursor: pointer;
-    }
-    .check-icon{
-      margin: 10px 5px 0 5px;
-    }
+    /*.check-icon{*/
+    /*  margin: 10px 5px 0 5px;*/
+    /*}*/
     .handle-div{
         position: absolute;
         width: 25px;
@@ -220,6 +204,45 @@
     }
     .el-notification__content{
         display: block;
+    }
+    .check-div{
+      position: absolute;
+      padding-top: 0px;
+      padding-left: 5px;
+      left: 23px;
+      top:8px;
+      height: 100%;
+      cursor: pointer;
+    }
+    #layer-check{
+      cursor: pointer;
+    }
+    .check-box {
+      cursor: pointer;
+    }
+    .check-text {
+      /* チェックボックスとテキストの上下を中央に */
+      align-items: center;
+      display: flex;
+    }
+    .check-box input {
+      display: none; /* デフォルトのチェックボックスを非表示 */
+    }
+    .check-box input + .check-text::before {
+      background-image: url("https://kenzkenz.xsrv.jp/open-hinata/icon/eye2.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      content: "";
+      height: 16px;
+      position: relative;
+      width: 16px;
+    }
+    .check-box input:checked + .check-text::before {
+      background-image: url("https://kenzkenz.xsrv.jp/open-hinata/icon/eye.png");
+    }
+    .title-span{
+      cursor: grab;
     }
 </style>
 <style>
