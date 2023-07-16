@@ -7595,6 +7595,24 @@ const sinsuisuiteiObj = {};
 for (let i of mapsStr) {
   sinsuisuiteiObj[i] = new TileLayer(new Sinsuisitei())
 }
+// 今後30年間震度6以上の確率--------------------------------------------------------------------------------------
+function Jisin () {
+  this.pointer = true
+  this.name = 'jisin'
+  this.source = new XYZ({
+    url: 'https://maps.gsi.go.jp/xyz/jishindo_yosoku/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 2,
+    maxZoom: 17
+  })
+}
+const jisinObj = {};
+for (let i of mapsStr) {
+  jisinObj[i] = new TileLayer(new Jisin())
+}
+const jisinSumm = '<a href="https://www.j-shis.bosai.go.jp/shm" target="_blank">地震ハザードステーション</a>'
+
+
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
 const layers =
   [
@@ -8497,6 +8515,7 @@ const layers =
             { text: '総合危険度ランク', data: { id: "tokyoZisin", layer: LayersMvt.tokyoZisinObj, opacity: 1, summary: LayersMvt.tokyoZisinSumm } },
             { text: '災害時活動困難係数', data: { id: "tokyoZisin2", layer: LayersMvt.tokyoZisin2Obj, opacity: 1, summary: LayersMvt.tokyoZisin2Summ } },
           ]},
+        { text: '今後30年間震度6以上の確率', data: { id: 'jisin', layer: jisinObj, opacity: 1, summary: jisinSumm } },
         { text: '宮崎市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyazakisiHm', layer: miyazakisiHmObj, opacity: 1, zoom: 13, center: [131.42054548436312, 31.907339493919977], summary: miyazakisiHmSumm } },
         { text: '都城市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyakonozyousiHm', layer: miyakonozyousiHmObj, opacity: 1, zoom: 13, center: [131.07797970576192, 31.78882205640913], summary: miyakonozyousiHmSumm } },
         { text: '日向市防災ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'hyuugasiHm', layer: hyuugasiHmObj, opacity: 1, zoom: 13, center: [131.6400086045909, 32.395198966795306], summary: hyuugasiHmSumm } },

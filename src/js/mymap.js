@@ -378,6 +378,9 @@ export function initMap (vm) {
                     case 'ekizyouka47':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/47_okinawa/',PopUp.popUpEkizyouka47,15)
                         break;
+                    case 'jisin':
+                        getColor0(evt,'https://maps.gsi.go.jp/xyz/jishindo_yosoku/',PopUp.popUpJisin,15)
+                        break;
                     default:
                 }
             });
@@ -607,6 +610,9 @@ export function initMap (vm) {
         const win = window.navigator.userAgent.includes('Win')
         map.on('moveend', function (event) {
             getElevation(event)
+
+            map.render();
+
         });
         map.on("pointermove",function(event){
             // if (win)
@@ -865,7 +871,6 @@ export function multipliLayer (item, layerList, name) {
     const map = store.state.base.maps[name];
     console.log(item.multipli)
     console.log(item.layer)
-
     if (item.layer.values_.layers) {
         const gLayers = item.layer.values_.layers.array_;
         for (let i in gLayers) {

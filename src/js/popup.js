@@ -1479,3 +1479,21 @@ export function popUpEkizyouka47(rgba) {
   }
   store.commit('base/popUpContUpdate',cont)
 }
+
+//----------------------------------------------------------------------------------------
+export function popUpJisin(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if (r === 224 && g === 199 && b === 224) {
+    cont = "<div style=width:200px>高い 26%以上</div>"
+  } else if (r === 254 && g === 209 && b === 199) {
+    cont = "<div style=width:200px>高い 6%〜26%</div>"
+  } else if (r === 254 && g === 229 && b === 149) {
+    cont = "<div style=width:200px>高い 3%〜6%</div>"
+  } else if (r === 254 && g === 254 && b === 189) {
+    cont = "<div style=width:200px>やや高い 0.1%〜3%</div>"
+  }
+  store.commit('base/popUpContUpdate', cont)
+}
