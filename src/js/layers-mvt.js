@@ -3095,14 +3095,14 @@ function Sizentikei(name,minzoom,maxzoom,url){
   this.style = sizentikeiStyleFunction(name);
   this.useInterimTilesOnError = false
 }
-const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('sizentikei3',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
+const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('sizentikei3',1,18,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
 const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('sizentikei4',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
 export const sizentikeiObj = {}
 for (let i of mapsStr) {
   sizentikeiObj[i] = new LayerGroup({
     layers: [
-      sizentikeiObj1,
-      sizentikeiObj2
+      sizentikeiObj2,
+      sizentikeiObj1
     ]
   })
 }
