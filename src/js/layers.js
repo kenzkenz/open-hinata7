@@ -98,7 +98,8 @@ let floodSumm = ''
 
 // シームレス地質図-------------------------------------------------------------------------------
 const sources =new XYZ({
-  url: 'https://gbank.gsj.jp/seamless/v2/api/1.2/tiles/{z}/{y}/{x}.png',
+  url: 'https://gbank.gsj.jp/seamless/v2/api/1.2/tiles/{z}/{y}/{x}.png?layer=glf',
+  // url: 'https://gbank.gsj.jp/seamless/v2/api/1.2/tiles/{z}/{y}/{x}.png',
   crossOrigin: 'Anonymous',
   minZoom: 5,
   maxZoom: 13,

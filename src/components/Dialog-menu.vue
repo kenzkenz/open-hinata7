@@ -63,18 +63,30 @@
       // 短縮URL作成----------------------------------------------------------------------------
       shortUrl () {
         const vm = this;
-        const url = 'https://api-ssl.bitly.com/v3/shorten';
-        const myToken = '032704dc9764ff62c36ef2aff9464eb50e89b4fe';
-        // const target = 'https://kenzkenz.xsrv.jp/aaa/#8/140.1/37.86%3FS%3D1%26L%3D%5B%5B%7B%22id%22%3A1%2C%22o%22%3A1%7D%5D%2C%5B%7B%22id%22%3A2%2C%22o%22%3A1%7D%5D%2C%5B%7B%22id%22%3A4%2C%22o%22%3A1%7D%5D%2C%5B%7B%22id%22%3A5%2C%22o%22%3A1%7D%5D%5D'
+        //const target = 'https://kenzkenz.xsrv.jp/aaa/#8/140.1/37.86%3FS%3D1%26L%3D%5B%5B%7B%22id%22%3A1%2C%22o%22%3A1%7D%5D%2C%5B%7B%22id%22%3A2%2C%22o%22%3A1%7D%5D%2C%5B%7B%22id%22%3A4%2C%22o%22%3A1%7D%5D%2C%5B%7B%22id%22%3A5%2C%22o%22%3A1%7D%5D%5D'
         const target = window.location.href;
-        axios.get(url, {
-          params: {
-            "access_token":myToken,
-            "longUrl":target
+        console.log(target)
+        const BITLY_ACCESS_TOKEN = '032704dc9764ff62c36ef2aff9464eb50e89b4fe' || "";
+        (async () => {
+          try {
+            const endpoint = 'https://api-ssl.bitly.com/v4';
+            const url = `${endpoint}/shorten`;
+            const options = {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${BITLY_ACCESS_TOKEN}`
+              }
+            };
+            const params = {
+              long_url: target
+            };
+            const res = await axios.post(url, params, options);
+            console.log(res.data.link);
+            vm.shortUrlText = res.data.link
+          } catch (error) {
+            console.log(error.response.body);
           }
-        }) .then(function (response) {
-          vm.shortUrlText = response.data.data.url
-        });
+        })();
       },
       toPng(){
         const map = this.$store.state.base.maps['map01']
