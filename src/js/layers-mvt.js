@@ -3082,7 +3082,7 @@ for (let i of mapsStr) {
   sizentikei0Obj[i] = new VectorTileLayer(new Sizentikei0('sizentikei2',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
 }
 // 詳細版
-function Sizentikei(name,minzoom,maxzoom,url){
+function Sizentikei(name,minzoom,maxzoom,url,zIndex){
   this.name = 'sizentikei'
   this.source = new VectorTileSource({
     format: new GeoJSON({defaultProjection:'EPSG:4326'}),
@@ -3090,13 +3090,18 @@ function Sizentikei(name,minzoom,maxzoom,url){
       minZoom:minzoom,
       maxZoom:maxzoom
     }),
-    url:url
+    // zIndex:zIndex,
+    url:url,
   });
   this.style = sizentikeiStyleFunction(name);
+  this.zIndex = zIndex
   this.useInterimTilesOnError = false
+  this.updateWhileInteracting = true
+
 }
-const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('sizentikei3',1,18,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson"))
-const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('sizentikei4',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
+const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('sizentikei3',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson",1001))
+// const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('sizentikei3',1,18,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson",1001))
+const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('sizentikei4',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson",1002))
 export const sizentikeiObj = {}
 for (let i of mapsStr) {
   sizentikeiObj[i] = new LayerGroup({
@@ -3120,6 +3125,7 @@ function Zinkoutikei(minzoom,maxzoom){
   });
   this.style = zinkoutikeiStyleFunction();
   this.useInterimTilesOnError = false
+  this.updateWhileInteracting = true
 }
 export  const zinkoutikeiObj = {};
 for (let i of mapsStr) {
@@ -3146,7 +3152,8 @@ function sizentikeiStyleFunction(name) {
       return [new Style({
         fill: new Fill({
           color: fillColor
-        })
+        }),
+        zIndex:1001
       })];
     }
   } else {
@@ -3167,7 +3174,8 @@ function sizentikeiStyleFunction(name) {
       return [new Style({
         fill: new Fill({
           color: fillColor
-        })
+        }),
+        zIndex:1000
       })];
     }
   }

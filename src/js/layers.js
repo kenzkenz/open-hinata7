@@ -148,12 +148,6 @@ function Osm () {
 const osmObj = {};
 for (let i of mapsStr) {
   osmObj[i] = new TileLayer(new Osm())
-  // osmObj[i].on("precompose", function(evt){
-  //   evt.context.globalCompositeOperation = 'multiply';
-  // });
-  // osmObj[i].on("postcompose", function(evt){
-  //   evt.context.globalCompositeOperation = "source-over";
-  // });
 }
 const osmSumm = 'OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。<a href=\'https://openstreetmap.jp\' target=\'_blank\'>OpenStreetMap</a>';
 // 標準地図------------------------------------------------------------------------------------
@@ -731,7 +725,23 @@ for (let i of mapsStr) {
 }
 const kochiCsSumm = '出典：<a href="https://www2.ffpri.go.jp/soilmap/index.html" target="_blank">森林総研・森林土壌デジタルマップ</a>'
 
-
+const cs00Obj = {}
+for (let i of mapsStr) {
+  cs00Obj[i] = new LayerGroup({
+    layers: [
+      gihuCsObj[i],
+      hyougoCsTestObj[i],
+      naganoCsObj[i],
+      sizuokaCsObj[i],
+      hiroshimaCsObj[i],
+      okayamaCsObj[i],
+      fukushimaCsObj[i],
+      ehimeCsObj[i],
+      kochiCsObj[i],
+      kumamotoCsObj[i]
+    ]
+  })
+}
 
 // 日本CS立体図------------------------------------------------------------------------------
 function NihonCs () {
@@ -7659,8 +7669,10 @@ const layers =
         { text: '川だけ地形地図', data: { id: 'kawadake', layer: kawadakeObj, opacity: 1, summary: kawadakeSumm } },
         { text: '川と流域地図', data: { id: 'ryuuiki', layer: ryuuikiObj, opacity: 1, summary: ryuuikiSumm } },
         { text: 'エコリス植生図', data: { id: 'ecoris', layer: ecorisObj, opacity: 1, summary: ecorisSumm } },
-        { text: '日本CS立体図', data: { id: 'jcs', layer: nihonCsObj, opacity: 1, summary: nihonCsSumm } },
-        { text: '全国CS立体図10m', data: { id: 'cs10', layer: cs10mObj, opacity: 1, summary: cs10mSumm } },
+        // { text: '日本CS立体図', data: { id: 'jcs', layer: nihonCsObj, opacity: 1, summary: nihonCsSumm } },
+        // { text: '全国CS立体図10m', data: { id: 'cs10', layer: cs10mObj, opacity: 1, summary: cs10mSumm } },
+        { text: 'CS立体図全部', data: { id: 'cs00', layer: cs00Obj, opacity: 1, summary: gihuCsSumm } },
+
         { text: '岐阜県CS立体図', data: { id: 'gcs', layer: gihuCsObj, opacity: 1, zoom:9, center:[137.03491577372932, 35.871742161031975], summary: gihuCsSumm } },
         { text: '兵庫県CS立体図', data: { id: 'hyougocs', layer: hyougoCsObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCsSumm } },
         { text: '兵庫県CS立体図50cm', data: { id: 'hyougocs50cm', layer: hyougoCsTestObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCsSummTest } },
