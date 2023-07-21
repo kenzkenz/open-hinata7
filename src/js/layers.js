@@ -410,12 +410,12 @@ const atugiOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Atsugi_ortho"
 
 // 掛川市航空写真----------------------------------------------------------------------------
 function KakegawaOrt () {
-  // this.extent = transformE([139.2161,35.3932,139.384260,35.529670])
+  this.extent = transformE([137.9241, 34.9255, 138.1404, 34.6174])
   this.source = new XYZ({
-    url: 'https://kenzkenz.xsrv.jp/tile/kakegawa/{z}/{x}/{-y}.png',
-    // crossOrigin: 'Anonymous',
+    url: 'https://kenzkenz2.xsrv.jp/tile/kakegawa/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
     minZoom: 12,
-    maxZoom: 19
+    maxZoom: 18
   });
 }
 const kakegawaOrtObj = {};
