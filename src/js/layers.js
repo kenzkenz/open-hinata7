@@ -408,6 +408,22 @@ for (let i of mapsStr) {
 }
 const atugiOrtSumm = '<a href="https://wiki.openstreetmap.org/wiki/Atsugi_ortho" target="_blank">Atsugi ortho</a>'
 
+// 掛川市航空写真----------------------------------------------------------------------------
+function KakegawaOrt () {
+  // this.extent = transformE([139.2161,35.3932,139.384260,35.529670])
+  this.source = new XYZ({
+    url: 'https://kenzkenz.xsrv.jp/tile/kakegawa/{z}/{x}/{-y}.png',
+    // crossOrigin: 'Anonymous',
+    minZoom: 12,
+    maxZoom: 19
+  });
+}
+const kakegawaOrtObj = {};
+for (let i of mapsStr) {
+  kakegawaOrtObj[i] = new TileLayer(new KakegawaOrt())
+}
+const kakegawaOrtSumm = '<a href="https://www.city.kakegawa.shizuoka.jp/gyosei/docs/452145.html" target="_blank">令和4年度掛川市航空写真(オルソ画像)</a>'
+
 // 鹿児島市航空写真----------------------------------------------------------------------------
 function KagosimasiOrt () {
   this.extent = transformE([130.370675,31.2819,130.732,31.767])
@@ -7651,6 +7667,9 @@ const layers =
         { text: '練馬区航空写真', data: { id: 'nerimaOrt', layer: nerimaOrtObj, opacity: 1, zoom:13,center:[139.6202217042446, 35.746911721247685], summary: nerimaOrtSumm } },
         { text: '深谷市航空写真', data: { id: 'fukayaOrt', layer: fukayaOrtObj, opacity: 1, zoom:13,center:[139.26120936870575, 36.18044647223677], summary: fukayaOrtSumm } },
         { text: '厚木市航空写真', data: { id: 'atugiOrt', layer: atugiOrtObj, opacity: 1, zoom:12,center:[139.30477798325904, 35.45374856324422], summary: atugiOrtSumm } },
+        { text: '掛川市航空写真', data: { id: 'kakegawaOrt', layer: kakegawaOrtObj, opacity: 1, zoom:12,center:[138.01527201622224, 34.76907462604038], summary: kakegawaOrtSumm } },
+
+
         { text: '富田林市航空写真', data: { id: 'tondaOrt', layer: tondaOrtObj, opacity: 1, zoom:13,center:[135.60006642031433, 34.50010582072453], summary: tondaOrtSumm } },
         { text: '鹿児島市航空写真', data: { id: 'kagosimasiort', layer: kagosimasiOrtObj, opacity: 1, zoom:12,center:[130.51208842259823, 31.58146097086727], summary: kagosimasiOrtSumm } },
       ]},
