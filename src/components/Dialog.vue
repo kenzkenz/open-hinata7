@@ -48,11 +48,6 @@
           }],
           mapName: this.mapName
         })
-
-        // const url = decodeURIComponent(window.location.href).split("?")[0];
-        // history.pushState(null, null,url);
-        // window.location.reload(true);
-
       },
       closeBtn () {
         this.dialog.style.display = 'none'

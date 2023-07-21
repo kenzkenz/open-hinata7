@@ -19,6 +19,7 @@
 
             <v-kouzi :item="item" :mapName="mapName" v-else-if="item.component.name === 'kouzi'"/>
 
+            <v-dokuji :item="item" :mapName="mapName" v-else-if="item.component.name === 'dokuji'"/>
 
         </div>
     </div>
@@ -28,12 +29,14 @@
   import DialogInfoFlood from './dialog-info/Dialog-info-flood'
   import DialogInfoSeamless from "@/components/dialog-info/Dialog-info-seamless";
   import DialogInfoKouzi from "@/components/dialog-info/Dialog-info-kouzi";
+  import DialogInfoDokuji from "@/components/dialog-info/Dialog-info-dokuji";
   export default {
     name: "v-dialog-info",
     components: {
       'v-kouzi': DialogInfoKouzi,
       'v-seamless':DialogInfoSeamless,
-      'v-flood': DialogInfoFlood
+      'v-flood': DialogInfoFlood,
+      'v-dokuji':DialogInfoDokuji
     },
     props: ['mapName'],
     computed: {

@@ -7640,6 +7640,22 @@ for (let i of mapsStr) {
 const jisinSumm = '<a href="https://www.j-shis.bosai.go.jp/shm" target="_blank">地震ハザードステーション</a>'
 
 
+function Dokuji () {
+  this.pointer = true
+  this.name = 'dokuji'
+  this.source = new XYZ({
+    // url: 'https://maps.gsi.go.jp/xyz/jishindo_yosoku/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 2,
+    maxZoom: 17
+  })
+}
+const dokujiObj = {};
+for (let i of mapsStr) {
+  dokujiObj[i] = new TileLayer(new Dokuji())
+}
+
+
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
 const layers =
   [
@@ -8554,6 +8570,9 @@ const layers =
       ]},
     { text: 'その他',
       children: [
+        { text: 'ラスタータイルtest', data: { id: "dokuji", layer: dokujiObj, opacity: 1, summary: LayersMvt.busSumm, component: {name: 'dokuji', values:[]}} },
+
+
         { text: 'バス', data: { id: "bus", layer: LayersMvt.bus0Obj, opacity: 1, summary: LayersMvt.busSumm} },
         { text: '鉄道', data: { id: "rosen", layer: LayersMvt.rosen0Obj, opacity: 1, summary: LayersMvt.rosenSumm} },
         { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
