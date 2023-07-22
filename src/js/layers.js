@@ -7641,14 +7641,15 @@ const jisinSumm = '<a href="https://www.j-shis.bosai.go.jp/shm" target="_blank">
 
 
 function Dokuji () {
-  this.pointer = true
   this.name = 'dokuji'
   this.source = new XYZ({
     // url: 'https://maps.gsi.go.jp/xyz/jishindo_yosoku/{z}/{x}/{y}.png',
-    crossOrigin: 'Anonymous',
-    minZoom: 2,
-    maxZoom: 17
+    // crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
   })
+  this.useInterimTilesOnError = false
+  // this.updateWhileInteracting = true
 }
 const dokujiObj = {};
 for (let i of mapsStr) {
