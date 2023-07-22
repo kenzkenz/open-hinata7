@@ -41,16 +41,11 @@ export default {
 
       console.log(this.dokujiUrl)
       const map = store.state.base.maps[this.mapName];
-      const result = this.s_layerList.filter((el) => el.id === 'dokuji');
-      console.log(result[0].layer.getSource())
-      result[0].layer.getSource().setUrl(this.dokujiUrl)
-      result[0].layer.getSource().changed()
+      const result = this.s_layerList.find((el) => el.id === 'dokuji');
+      console.log(result.layer.getSource())
+      result.layer.getSource().setUrl(this.dokujiUrl)
+      result.layer.getSource().changed()
       map.render();
-
-      // MvtLayers.kouziH19Obj[this.mapName].getSource().changed()
-      // MvtLayers.kouziH25Obj[this.mapName].getSource().changed()
-      // MvtLayers.kouziH30Obj[this.mapName].getSource().changed()
-      // MvtLayers.kouziR04Obj[this.mapName].getSource().changed()
     }
   },
   mounted ()  {
