@@ -117,6 +117,7 @@ const moduleBase = {
     pushDialogsInfo (state,payload) {
       const dialogs = state.dialogsInfo[payload.mapName];
       dialogs.push(payload.dialog)
+      console.log(payload.dialog)
     },
     // レイヤーリスト更新-------------------------------------------------------------------------
     updateList (state, payload) {
@@ -159,6 +160,18 @@ const moduleBase = {
 const moduleInfo = {
   namespaced: true,
   state: {
+    dokujiUrl: {
+      map01: '',
+      map02: '',
+      map03: '',
+      map04: ''
+    },
+    crossOrigin: {
+      map01: '',
+      map02: '',
+      map03: '',
+      map04: ''
+    },
     selected5m: {
       map01: 100,
       map02: 100,
@@ -224,6 +237,9 @@ const moduleInfo = {
         case 'kouzi':
             variable = 'kouzi'
           break
+        case 'dokuji':
+          variable = 'dokujiUrl'
+          break
       }
       state[variable][payload.mapName] = payload.value
     },
@@ -241,7 +257,13 @@ const moduleInfo = {
     },
     updateSelected10m (state,payload) {
       state.selected10m[payload.mapName] = payload.value
-    }
+    },
+    updateDokujiUrl (state,payload) {
+      state.dokujiUrl[payload.mapName] = payload.value
+    },
+    updateCrossOrigin (state,payload) {
+      state.crossOrigin[payload.mapName] = payload.value
+    },
   }
 };
 

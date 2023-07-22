@@ -1,12 +1,34 @@
 <template>
   <div style="padding: 10px;">
     タイルURL<br>
-    <input type='text' @input="onInput" v-model="dokujiUrl" style="width: 300px;"><br><br>
+    <input type='text' @input="onInput" v-model="s_dokujiUrl" style="width: 300px;"><br><br>
+
+    <fieldset>
+<!--      crossOrigin-->
+<!--      <div>-->
+<!--        <input type="radio"-->
+<!--               id="coYes"-->
+<!--               name="crossOrigin"-->
+<!--               value=true-->
+<!--               v-model="s_co"-->
+<!--               @change="changeRadio"-->
+<!--               checked>-->
+<!--        <label for="coYes">Anonymous</label>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <input type="radio"-->
+<!--               id="coNo"-->
+<!--               name="crossOrigin"-->
+<!--               value=false-->
+<!--               @change="changeRadio"-->
+<!--               v-model="s_co">-->
+<!--        <label for="coNo">設定無し</label>-->
+<!--      </div>-->
+    </fieldset>
     URLは記録されません。テスト用です。
  </div>
 </template>
 <script>
-import * as MvtLayers from '../../js/layers-mvt'
 import * as permalink from '../../js/permalink'
 import store from "@/js/store";
 export default {
@@ -14,7 +36,7 @@ export default {
   props: ['mapName', 'item'],
   data () {
     return {
-      dokujiUrl: '',
+      picked: '',
       btnSize: 'sm',
       groupName:[],
       formationAge:[]
@@ -22,34 +44,46 @@ export default {
   },
   computed: {
     s_layerList: {
-      get () { return store.getters['base/layerList'](this.mapName) },
+      get () {return store.getters['base/layerList'](this.mapName)},
       set (value) { store.commit('base/updateList', {value: value, mapName: this.mapName}) }
     },
-    // s_zyougen: {
-    //   get() {
-    //     return this.$store.state.info.kouzi[this.mapName]
-    //   },
-    //   set(value) {
-    //     this.$store.commit('base/updateListPart',{mapName: this.mapName, id:this.item.id, values: [value]});
-    //     this.$store.commit('info/updateKouzi',{mapName: this.mapName, value: value})
-    //     permalink.moveEnd()
-    //   }
-    // },
+    s_dokujiUrl:{
+        get() {
+          return this.$store.state.info.dokujiUrl[this.mapName].url
+        },
+        set(value) {
+          this.$store.commit('base/updateListPart',{mapName: this.mapName, id:this.item.id, values: [{url:value}]});
+          this.$store.commit('info/updateDokujiUrl',{mapName: this.mapName, value: {url:value}})
+          permalink.moveEnd()
+        }
+    },
+    s_co:{
+      get() {
+        return this.$store.state.info.dokujiUrl[this.mapName].co
+      },
+      set(value) {
+        this.$store.commit('base/updateListPart',{mapName: this.mapName, id:this.item.id, values: [{co:value}]});
+        this.$store.commit('info/updateDokujiUrl',{mapName: this.mapName, value: {co:value}})
+        permalink.moveEnd()
+      }
+    }
   },
   methods: {
+    changeRadio: function() {
+      console.log(this.picked)
+    },
     onInput: function() {
-
-      console.log(this.dokujiUrl)
+      console.log(this.s_dokujiUrl)
       const map = store.state.base.maps[this.mapName];
       const result = this.s_layerList.find((el) => el.id === 'dokuji');
       console.log(result.layer.getSource())
-      result.layer.getSource().setUrl(this.dokujiUrl)
+      result.layer.getSource().setUrl(this.s_dokujiUrl)
       result.layer.getSource().changed()
       map.render();
     }
   },
   mounted ()  {
-
+    this.onInput()
   },
   watch: {
 
