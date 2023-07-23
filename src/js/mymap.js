@@ -14,6 +14,7 @@ import Notification from './notification'
 import * as Layers from './layers'
 import * as PopUp from './popup'
 import {defaults as defaultInteractions, DragRotateAndZoom} from 'ol/interaction';
+import axios from "axios";
 let maxZndex = 0;
 let legoFilter = null;
 export function initMap (vm) {
@@ -929,4 +930,19 @@ export function lego (name, selected) {
 export function legoRemove (name) {
     const map = store.state.base.maps[name];
     try{map.removeFilter(legoFilter);}catch(e){}
+}
+export function addressSerch (name,address) {
+    const map = store.state.base.maps[name];
+    axios
+        .get('https://msearch.gsi.go.jp/address-search/AddressSearch?q=' + address)
+        .then(function (response) {
+            const lonLat = response.data[0].geometry.coordinates
+            map.getView().setCenter(transform(lonLat, "EPSG:4326", "EPSG:3857"));
+            map.getView().setZoom(14)
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+        .finally(function () {
+        });
 }

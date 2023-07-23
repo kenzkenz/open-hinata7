@@ -16,7 +16,10 @@
                 <b-button :pressed.sync="myToggle" class='olbtn' :size="btnSize">{{ myToggle ? 'ブロックOFF' : 'ブロックON' }}</b-button>
                 <b-form-select v-model="selected" :options="options" style="width: 60px;margin-left: 10px;"/>
             </div>
-            <br>
+            <hr>
+             住所
+            <input type='text' @input="onInput" v-model="address" placeholder="住所検索します。" style="width: 200px;">
+            <hr>
             <a id="toPng" href="#" download="image.png" @click='toPng'>PNGダウンロード</a>
         </div>
     </v-dialog>
@@ -29,6 +32,7 @@
     name: "Menu",
     data () {
       return {
+        address: '',
         menuContentSize: {'height': 'auto','margin': '10px', 'overflow': 'auto', 'user-select': 'text'},
         btnSize: 'sm',
         shortUrlText: '',
@@ -47,6 +51,9 @@
       }
     },
     methods: {
+      onInput() {
+        MyMap.addressSerch('map01',this.address)
+      },
       // リセット------------------------------------------------------------------------------------
       reset01() {
         let url = window.location.href.split("#")[0];
@@ -100,7 +107,6 @@
           console.log(target)
           map.removeControl(target)
         })
-
         const type = 'image/png';
         const canvas = document.querySelector("canvas");
         const dataurl = canvas.toDataURL(type);
