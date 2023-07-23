@@ -3,7 +3,7 @@
     タイルURL<br>
     <input type='text' @input="onInput" v-model="s_dokujiUrl" style="width: 300px;"><br><br>
 
-    <fieldset>
+<!--    <fieldset>-->
 <!--      crossOrigin-->
 <!--      <div>-->
 <!--        <input type="radio"-->
@@ -24,7 +24,7 @@
 <!--               v-model="s_co">-->
 <!--        <label for="coNo">設定無し</label>-->
 <!--      </div>-->
-    </fieldset>
+<!--    </fieldset>-->
     URLは記録されません。テスト用です。
  </div>
 </template>
@@ -57,21 +57,21 @@ export default {
           permalink.moveEnd()
         }
     },
-    s_co:{
-      get() {
-        return this.$store.state.info.dokujiUrl[this.mapName].co
-      },
-      set(value) {
-        this.$store.commit('base/updateListPart',{mapName: this.mapName, id:this.item.id, values: [{co:value}]});
-        this.$store.commit('info/updateDokujiUrl',{mapName: this.mapName, value: {co:value}})
-        permalink.moveEnd()
-      }
-    }
+    // s_co:{
+    //   get() {
+    //     return this.$store.state.info.crossOrigin[this.mapName].co
+    //   },
+    //   set(value) {
+    //     this.$store.commit('base/updateListPart',{mapName: this.mapName, id:this.item.id, values: [{co:value}]});
+    //     this.$store.commit('info/updateCrossOrigin',{mapName: this.mapName, value: {co:value}})
+    //     permalink.moveEnd()
+    //   }
+    // }
   },
   methods: {
-    changeRadio: function() {
-      console.log(this.picked)
-    },
+    // changeRadio: function() {
+    //   console.log(this.picked)
+    // },
     onInput: function() {
       console.log(this.s_dokujiUrl)
       const map = store.state.base.maps[this.mapName];

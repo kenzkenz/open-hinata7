@@ -166,12 +166,12 @@ const moduleInfo = {
       map03: '',
       map04: ''
     },
-    crossOrigin: {
-      map01: '',
-      map02: '',
-      map03: '',
-      map04: ''
-    },
+    // crossOrigin: {
+    //   map01: '',
+    //   map02: '',
+    //   map03: '',
+    //   map04: ''
+    // },
     selected5m: {
       map01: 100,
       map02: 100,
