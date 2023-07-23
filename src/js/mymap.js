@@ -933,16 +933,22 @@ export function legoRemove (name) {
 }
 export function addressSerch (name,address) {
     const map = store.state.base.maps[name];
-    axios
-        .get('https://msearch.gsi.go.jp/address-search/AddressSearch?q=' + address)
-        .then(function (response) {
-            const lonLat = response.data[0].geometry.coordinates
-            map.getView().setCenter(transform(lonLat, "EPSG:4326", "EPSG:3857"));
-            map.getView().setZoom(14)
-        })
-        .catch(function (error) {
-            console.log(error);
-        })
-        .finally(function () {
-        });
+    if (address === '') {
+        const lonLat = [140.097, 37.856]
+        map.getView().setCenter(transform(lonLat, "EPSG:4326", "EPSG:3857"));
+        map.getView().setZoom(6)
+    } else {
+        axios
+            .get('https://msearch.gsi.go.jp/address-search/AddressSearch?q=' + address)
+            .then(function (response) {
+                const lonLat = response.data[0].geometry.coordinates
+                map.getView().setCenter(transform(lonLat, "EPSG:4326", "EPSG:3857"));
+                map.getView().setZoom(14)
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+            .finally(function () {
+            });
+    }
 }
