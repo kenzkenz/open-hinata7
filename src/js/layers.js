@@ -446,7 +446,7 @@ function PlateauOrt () {
   this.source = new XYZ({
     url: 'https://gic-plateau.s3.ap-northeast-1.amazonaws.com/2020/ortho/tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
-    minZoom: 11,
+    minZoom: 1,
     maxZoom: 19
   });
 }
