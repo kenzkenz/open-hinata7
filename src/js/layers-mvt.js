@@ -2232,7 +2232,7 @@ export  const nougyouH27Obj = {};
 for (let i of mapsStr) {
   nougyouH27Obj[i] = new VectorTileLayer(new NougyouH27())
 }
-export const nougyouH27Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-mesh1000h30.html' target='_blank'>国土数値情報　1kmメッシュ別将来推計人口データ</a>"
+export const nougyouH27Summ = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A12.html' target='_blank'>国土数値情報　農業地域データ</a>"
 //------------------------------------------
 function nougyouStyleFunction() {
   return function (feature, resolution) {
