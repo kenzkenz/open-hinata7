@@ -1057,6 +1057,8 @@ function KouziR04(mapName){
     url: "https://kenzkenz.github.io/kouzi_r4_2/{z}/{x}/{y}.mvt"
   });
   this.style = kouziStyleFunction(mapName,4);
+  this.useInterimTilesOnError = false
+  this.renderMode = 'vector'
 }
 export const kouziR04Obj = {};
 for (let i of mapsStr) {
