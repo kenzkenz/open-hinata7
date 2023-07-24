@@ -543,6 +543,53 @@ for (let i of mapsStr) {
   sp61Obj[i] = new TileLayer(new Sp61())
 }
 const sp61Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
+
+// 45~50年の航空写真-------------------------------------------------------------------------------
+function Sp45 () {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/ort_USA10/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 17
+  })
+}
+const sp45Obj = {};
+for (let i of mapsStr) {
+  sp45Obj[i] = new TileLayer(new Sp45())
+}
+const sp45Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
+
+// 36~42年の航空写真-------------------------------------------------------------------------------
+function Sp36 () {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/ort_riku10/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 17
+  })
+}
+const sp36Obj = {};
+for (let i of mapsStr) {
+  sp36Obj[i] = new TileLayer(new Sp36())
+}
+const sp36Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
+
+// 28年の航空写真-------------------------------------------------------------------------------
+function Sp28 () {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/ort_1928/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 17
+  })
+}
+const sp28Obj = {};
+for (let i of mapsStr) {
+  sp28Obj[i] = new TileLayer(new Sp28())
+}
+const sp28Summ = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
+
+
 // 川だけ地形地図---------------------------------------------------------------------------
 function Kawadake () {
   this.source = new XYZ({
@@ -7713,7 +7760,11 @@ const layers =
         { text: '84~86年航空写真', data: { id: 'sp84', layer: sp84Obj, opacity: 1, summary: sp84Summ } },
         { text: '79~83年航空写真', data: { id: 'sp79', layer: sp79Obj, opacity: 1, summary: sp79Summ } },
         { text: '74~78年航空写真(全国)', data: { id: 'sp74', layer: sp74Obj, opacity: 1, summary: sp74Summ } },
-        { text: '61~64年航空写真', data: { id: 'sp61', layer: sp61Obj, opacity: 1, summary: sp61Summ } }
+        { text: '61~64年航空写真', data: { id: 'sp61', layer: sp61Obj, opacity: 1, summary: sp61Summ } },
+        { text: '45~50年航空写真', data: { id: 'sp45', layer: sp45Obj, opacity: 1, summary: sp45Summ } },
+        { text: '36~42年航空写真', data: { id: 'sp36', layer: sp36Obj, opacity: 1, summary: sp36Summ } },
+        { text: '28年航空写真', data: { id: 'sp28', layer: sp28Obj, opacity: 1, summary: sp28Summ } },
+
       ]},
     { text: '立体図、地質図等',
       children: [
