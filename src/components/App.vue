@@ -261,7 +261,7 @@
         left: 10px;
         /*bottom: 10px;*/
         top: calc(100% - 1.5em);
-        z-index: 1;
+        z-index: 9999;
         color: #fff;
         text-shadow: black 1px 1px 0, black -1px 1px 0,
         black 1px -1px 0, black -1px -1px 0;

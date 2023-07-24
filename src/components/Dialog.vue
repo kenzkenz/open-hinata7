@@ -73,7 +73,7 @@
 <style scoped>
     .dialog-div{
         position: absolute;
-        z-index: 10;
+        z-index: 1;
         background-color: #fff;
         box-shadow:2px 2px 5px #787878;
         border: 1px solid whitesmoke;

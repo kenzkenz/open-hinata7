@@ -96,6 +96,8 @@
         })();
       },
       toPng(){
+        // MyMap.ChangeFilter('map01','grayscale')
+
         const map = this.$store.state.base.maps['map01']
         const targetArr = []
         const targets = map.getControls().array_

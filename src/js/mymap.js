@@ -8,6 +8,7 @@ import { transform, fromLonLat } from 'ol/proj'
 import { ScaleLine } from 'ol/control';
 import Toggle from 'ol-ext/control/Toggle'
 import Target from 'ol-ext/control/Target'
+import Colorize from 'ol-ext/filter/Colorize'
 import Synchronize from 'ol-ext/interaction/Synchronize'
 import Lego from 'ol-ext/filter/Lego'
 import Notification from './notification'
@@ -952,3 +953,21 @@ export function addressSerch (name,address) {
             });
     }
 }
+export function ChangeFilter (item, layerList,name,presetName){
+    if(presetName==='') {
+        const layer = layerList.find((el) => el.id === item.id).layer;
+        layer.removeFilter()
+    } else {
+        const layer = layerList.find((el) => el.id === item.id).layer;
+        // const map = store.state.base.maps[name];
+        // const layers = map.getLayers().getArray();
+        console.log(presetName)
+        const filter = new Colorize();
+        layer.removeFilter()
+        layer.addFilter(filter);
+        filter.setFilter(presetName)
+    }
+}
+
+
+
