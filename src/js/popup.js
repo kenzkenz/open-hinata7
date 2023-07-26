@@ -473,15 +473,27 @@ export function popUp(map,layers,features,overlay,evt,content) {
            '</div>'
       break
     case 'kumamotomai':
-      cont = '<div style=width:300px;font-size:small;>' +
-          '遺跡番号=' + prop.m_cont1 + '<hr>' +
-          '遺跡名称=' + prop.m_cont2 + '<hr>' +
-          '所在地=' + prop.m_cont3 + '<hr>' +
-          '時代=' + prop.m_cont4 + '<hr>' +
-          '種別=' + prop.m_cont5 + '<hr>' +
-          '指定分類=' + prop.m_cont6 + '<hr>' +
-          '概要=' + prop.m_cont7 + '<hr>' +
-          '</div>'
+      if(!prop["ITM01_NAME"]) {
+        cont = '<div style=width:300px;font-size:small;>' +
+            '遺跡番号=' + prop.m_cont1 + '<hr>' +
+            '遺跡名称=' + prop.m_cont2 + '<hr>' +
+            '所在地=' + prop.m_cont3 + '<hr>' +
+            '時代=' + prop.m_cont4 + '<hr>' +
+            '種別=' + prop.m_cont5 + '<hr>' +
+            '指定分類=' + prop.m_cont6 + '<hr>' +
+            '概要=' + prop.m_cont7 + '<hr>' +
+            '</div>'
+      } else {
+        cont = '<div style=width:300px;font-size:small;>' +
+            '遺跡番号=' + prop.ITM01_VAL + '<hr>' +
+            '遺跡名称=' + prop.ITM02_VAL + '<hr>' +
+            '備考1=' + prop.ITM03_VAL + '<hr>' +
+            '備考2=' + prop.ITM04_VAL + '<hr>' +
+            '備考3=' + prop.ITM05_VAL + '<hr>' +
+            '指定分類=' + prop.ITM06_VAL + '<hr>' +
+            '</div>'
+
+      }
       break
 
   }
