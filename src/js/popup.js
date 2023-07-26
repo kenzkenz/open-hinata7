@@ -460,6 +460,18 @@ export function popUp(map,layers,features,overlay,evt,content) {
           'バス停名=' + prop.P11_001 + '<hr>' +
           'バス系統=' + prop.P11_003_01 + '</div>'
       break
+    case 'okayamamai':
+      cont = '<div style=width:300px;font-size:small;>' +
+          '遺跡名=' + prop.遺跡名 + '<hr>' +
+          '所在地=' + prop.所在地 + '<hr>' +
+          '代表的な=' + prop.代表的な + '<hr>' +
+          '詳細な種=' + prop.詳細な種 + '<hr>' +
+          '主な時代=' + prop.主な時代 + '<hr>' +
+          '主な出土=' + prop.主な出土 + '<hr>' +
+          '遺跡の残=' + prop.遺跡の残 + '<hr>' +
+          '遺跡概_1=' + prop.遺跡概_1 + '<hr>' +
+           '</div>'
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);

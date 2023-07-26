@@ -260,12 +260,6 @@ function Inei () {
 const ineiObj = {};
 for (let i of mapsStr) {
   ineiObj[i] = new TileLayer(new Inei())
-  // ineiObj[i].on("precompose", function(evt){
-  //   evt.context.globalCompositeOperation = 'multiply';
-  // });
-  // ineiObj[i].on("postcompose", function(evt){
-  //   evt.context.globalCompositeOperation = "source-over";
-  // });
 }
 // 傾斜量図---------------------------------------------------------------------------------
 function Keisya () {
@@ -279,12 +273,19 @@ function Keisya () {
 const keisyaObj = {};
 for (let i of mapsStr) {
   keisyaObj[i] = new TileLayer(new Keisya())
-  // keisyaObj[i].on("precompose", function(evt){
-  //   evt.context.globalCompositeOperation = 'multiply';
-  // });
-  // keisyaObj[i].on("postcompose", function(evt){
-  //   evt.context.globalCompositeOperation = "source-over";
-  // });
+}
+// 明治期の低湿地---------------------------------------------------------------------------------
+function Sitti () {
+  this.source = new XYZ({
+    url: 'https://cyberjapandata.gsi.go.jp/xyz/swale/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 16
+  })
+}
+const sittiObj = {};
+for (let i of mapsStr) {
+  sittiObj[i] = new TileLayer(new Sitti())
 }
 // 宮崎県航空写真----------------------------------------------------------------------------
 function MiyazakiOrt () {
@@ -7664,12 +7665,6 @@ function Otm () {
 const otmObj = {};
 for (let i of mapsStr) {
   otmObj[i] = new TileLayer(new Otm())
-  // otmObj[i].on("precompose", function(evt){
-  //   evt.context.globalCompositeOperation = 'multiply';
-  // });
-  // otmObj[i].on("postcompose", function(evt){
-  //   evt.context.globalCompositeOperation = "source-over";
-  // });
 }
 const otmSumm = '<a href="https://wiki.openstreetmap.org/wiki/JA:OpenTopoMap" target="_blank">OpenTopoMap</a>'
 // 浸水推定図------------------------------------------------------------------------------------
@@ -7719,7 +7714,6 @@ for (let i of mapsStr) {
   dokujiObj[i] = new TileLayer(new Dokuji())
 }
 
-
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
 const layers =
   [
@@ -7732,6 +7726,8 @@ const layers =
         { text: '色別標高図', data: { id: 4, layer: reliefObj, opacity: 1, summary: reliefSumm } },
         { text: '陰影起伏図', data: { id: 'inei', layer: ineiObj, opacity: 1, summary: stdSumm } },
         { text: '傾斜量図', data: { id: 'keisya', layer: keisyaObj, opacity: 1, summary: stdSumm } },
+        { text: '明治期の低湿地', data: { id: 'sitti', layer: sittiObj, opacity: 1, summary: stdSumm } },
+
         { text: '治水地形分類図 更新版（2007年以降）', data: { id: 'tisui2007', layer: tisui2007Obj, opacity: 1, summary: tisui2007Summ } },
         { text: '地形分類（自然地形）', data: { id: 'sizen0', layer: LayersMvt.sizentikei0Obj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
         { text: '地形分類（自然地形『詳細版』）', data: { id: 'sizen', layer: LayersMvt.sizentikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
@@ -8639,6 +8635,10 @@ const layers =
     { text: 'その他',
       children: [
         { text: 'ラスタータイルtest', data: { id: "dokuji", layer: dokujiObj, opacity: 1, summary: LayersMvt.busSumm, component: {name: 'dokuji', values:[]}} },
+        { text: '岡山埋蔵文化財', data: { id: "okayamamai", layer: LayersMvt.okayamamaiiObj, opacity: 1, summary: LayersMvt.busSumm } },
+
+
+
         { text: 'バス', data: { id: "bus", layer: LayersMvt.bus0Obj, opacity: 1, summary: LayersMvt.busSumm} },
         { text: '鉄道', data: { id: "rosen", layer: LayersMvt.rosen0Obj, opacity: 1, summary: LayersMvt.rosenSumm} },
         { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },

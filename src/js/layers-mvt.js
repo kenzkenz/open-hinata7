@@ -11,6 +11,8 @@ import LayerGroup from "ol/layer/Group";
 import XYZ from "ol/source/XYZ";
 import TileLayer from "ol/layer/Tile";
 import Icon from 'ol/style/Icon.js';
+import VectorSource from "ol/source/Vector";
+import VectorLayer from "ol/layer/Vector";
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
@@ -3810,4 +3812,51 @@ for (let i of mapsStr) {
       busteiObj[i],
     ]
   })
+}
+
+// 岡山埋蔵文化財
+function OkayamaMai() {
+  this.name = "okayamamai";
+  this.style = okayamamaiFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 15,
+    url: "https://kenzkenz.github.io/okayama/{z}/{x}/{y}.mvt"
+  });
+}
+export const okayamamaiSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N07-v2_0.html' target='_blank'>国土数値情報　バスデータ</a>"
+export  const okayamamaiiObj = {};
+for (let i of mapsStr) {
+  okayamamaiiObj[i] = new VectorTileLayer(new OkayamaMai())
+}
+// function OkayamaMai () {
+//   this.useInterimTilesOnError = false
+//   this.name = 'okayamamai'
+//   this.source = new VectorSource({
+//     url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/okayama.geojson',
+//     format: new GeoJSON()
+//   });
+//   this.style = okayamamaiFunction()
+// }
+// export const okayamamaiiObj = {};
+// for (let i of mapsStr) {
+//   okayamamaiiObj[i] = new VectorLayer(new OkayamaMai())
+// }
+// ------------------------------------
+function okayamamaiFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    const geoType = feature.getGeometry().getType();
+    const zoom = getZoom(resolution);
+    const style = new Style({
+      fill: new Fill({
+        color: 'green'
+      }),
+      stroke: new Stroke({
+        color: 'black',
+        width: 1,
+      })
+    });
+    return style;
+  }
 }
