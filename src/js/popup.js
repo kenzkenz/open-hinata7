@@ -472,6 +472,18 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '遺跡概_1=' + prop.遺跡概_1 + '<hr>' +
            '</div>'
       break
+    case 'kumamotomai':
+      cont = '<div style=width:300px;font-size:small;>' +
+          '遺跡番号=' + prop.m_cont1 + '<hr>' +
+          '遺跡名称=' + prop.m_cont2 + '<hr>' +
+          '所在地=' + prop.m_cont3 + '<hr>' +
+          '時代=' + prop.m_cont4 + '<hr>' +
+          '種別=' + prop.m_cont5 + '<hr>' +
+          '指定分類=' + prop.m_cont6 + '<hr>' +
+          '概要=' + prop.m_cont7 + '<hr>' +
+          '</div>'
+      break
+
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);

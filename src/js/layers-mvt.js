@@ -3845,9 +3845,9 @@ for (let i of mapsStr) {
 // ------------------------------------
 function okayamamaiFunction() {
   return function (feature, resolution) {
-    const prop = feature.getProperties();
-    const geoType = feature.getGeometry().getType();
-    const zoom = getZoom(resolution);
+    // const prop = feature.getProperties();
+    // const geoType = feature.getGeometry().getType();
+    // const zoom = getZoom(resolution);
     const style = new Style({
       fill: new Fill({
         color: 'green'
@@ -3857,6 +3857,203 @@ function okayamamaiFunction() {
         width: 1,
       })
     });
+    return style;
+  }
+}
+// 熊本県埋蔵文化財
+function kumamotoMai() {
+  this.name = "kumamotomai";
+  this.style = kumamotomaiFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 17,
+    url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/kumamotoken/{z}/{x}/{y}.mvt"
+  });
+}
+export const kumamotomaiSumm = ""
+export  const kumamotomaiObj = {};
+for (let i of mapsStr) {
+  kumamotomaiObj[i] = new VectorTileLayer(new kumamotoMai())
+}
+function kumamotomaiFunction(feature, resolution) {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    // const prop = feature.getProperties();
+    const geoType = feature.getGeometry().getType();
+    let style
+    switch (geoType){
+      case "MultiLineString":
+      case "LineString":
+        style = new Style({
+          stroke: new Stroke({
+            color:"red",
+            width:1
+          })
+        });
+        break;
+      case "MultiPoint":
+      case "Point":
+        if(resolution>305) break;
+        style = new Style({
+          image: new Icon({
+            anchor: [0.5, 1],
+            src: require('@/assets/icon/whitepin.png'),
+            color: 'orange'
+          }),
+
+          // image: new Circle({
+          //   radius:8,
+          //   fill: new Fill({
+          //     color:"orange"
+          //   }),
+          //   stroke: new Stroke({
+          //     color: "white",
+          //     width: 1
+          //   })
+          // }),
+
+          // text: Text({
+          //   font: "8px sans-serif",
+          //   text: text,
+          //   offsetY:10,
+          //   stroke: Stroke({
+          //     color: "white",
+          //     width: 3
+          //   })
+          // })
+        });
+        break;
+      case "Polygon":
+      case "MultiPolygon":
+        if(resolution<76) {
+          style = new Style({
+            fill: new Fill({
+              color:"rgba(0,128,0,0.8)"
+            }),
+            stroke: new Stroke({
+              color: "gray",
+              width: 1
+            }),
+            // text: new Text({
+            //   font: "8px sans-serif",
+            //   text: text,
+            //   stroke: new Stroke({
+            //     color: "white",
+            //     width: 3
+            //   })
+            // }),
+            zIndex: 0
+          });
+        }else{
+          style = new Style({
+            fill: new Fill({
+              color:"rgba(0,128,0,1.0)"
+            }),
+            zIndex: 0
+          });
+        }
+        break;
+      default:
+    }
+
+
+
+
+
+  // var geoType = feature.getGeometry().getType();
+  // //var fillColor = prop["_fillColor"];
+  // if(resolution>2445) {//ズーム６
+  //   var pointRadius = 2;
+  // }else if(resolution>1222) {//ズーム７
+  //   var pointRadius = 2;
+  // }else if(resolution>611){
+  //   var pointRadius = 2;
+  // }else if(resolution>305) {
+  //   var pointRadius = 2;
+  // }else if(resolution>152) {
+  //   var pointRadius = 2;
+  // }else if(resolution>76) {
+  //   var pointRadius = 2;
+  // }else if(resolution>38) {
+  //   var pointRadius = 4;
+  // }else{
+  //   var pointRadius = 6;
+  // }
+  // var text = "";
+  // if(resolution<4.78) {
+  //   if(prop["m_cont2"]) {
+  //     text = prop["m_cont2"];
+  //   }else{
+  //     text = prop["ITM02_VAL"];
+  //   }
+  // }
+  // switch (geoType){
+  //   case "MultiLineString":
+  //   case "LineString":
+  //     var style = new Style({
+  //       stroke: new Stroke({
+  //         color:"red",
+  //         width:1
+  //       })
+  //     });
+  //     break;
+  //   case "MultiPoint":
+  //   case "Point":
+  //     if(resolution>305) break;
+  //     var style = new Style({
+  //       image: new Circle({
+  //         radius:pointRadius,
+  //         fill: new Fill({
+  //           color:"orange"
+  //         }),
+  //         stroke: new Stroke({
+  //           color: "white",
+  //           width: 1
+  //         })
+  //       }),
+  //       text: Text({
+  //         font: "8px sans-serif",
+  //         text: text,
+  //         offsetY:10,
+  //         stroke: Stroke({
+  //           color: "white",
+  //           width: 3
+  //         })
+  //       })
+  //     });
+  //     break;
+  //   case "Polygon":
+  //   case "MultiPolygon":
+  //     if(resolution<76) {
+  //       var style = new ol.style.Style({
+  //         fill: new ol.style.Fill({
+  //           color:"rgba(0,128,0,0.8)"
+  //         }),
+  //         stroke: new ol.style.Stroke({
+  //           color: "gray",
+  //           width: 1
+  //         }),
+  //         text: new ol.style.Text({
+  //           font: "8px sans-serif",
+  //           text: text,
+  //           stroke: new ol.style.Stroke({
+  //             color: "white",
+  //             width: 3
+  //           })
+  //         }),
+  //         zIndex: 0
+  //       });
+  //     }else{
+  //       var style = new ol.style.Style({
+  //         fill: new ol.style.Fill({
+  //           color:"rgba(0,128,0,1.0)"
+  //         }),
+  //         zIndex: 0
+  //       });
+  //     }
+  //     break;
+  //   default:
+  // }
     return style;
   }
 }
