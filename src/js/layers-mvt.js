@@ -3852,10 +3852,11 @@ function kumamotoMai() {
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom: 17,
-    url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/kumamotoken/{z}/{x}/{y}.mvt"
+    // url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/kumamotoken/{z}/{x}/{y}.mvt"
+    url: "https://kenzkenz.github.io/kumamotoiseki/{z}/{x}/{y}.mvt"
   });
 }
-export const kumamotomaiSumm = ""
+export const kumamotomaiSumm = "<a href='https://www.pref.kumamoto.jp/soshiki/125/90282.html' target='_blank'>熊本県　遺跡地図</a>"
 export  const kumamotomaiObj = {};
 for (let i of mapsStr) {
   kumamotomaiObj[i] = new VectorTileLayer(new kumamotoMai())
