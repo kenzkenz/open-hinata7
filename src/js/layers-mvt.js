@@ -3824,7 +3824,7 @@ function OkayamaMai() {
     url: "https://kenzkenz.github.io/okayama/{z}/{x}/{y}.mvt"
   });
 }
-export const okayamamaiSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N07-v2_0.html' target='_blank'>国土数値情報　バスデータ</a>"
+export const okayamamaiSumm = "<a href='https://www.okayama-opendata.jp/resources/10378' target='_blank'>岡山県　埋蔵文化財</a>"
 export  const okayamamaiiObj = {};
 for (let i of mapsStr) {
   okayamamaiiObj[i] = new VectorTileLayer(new OkayamaMai())
