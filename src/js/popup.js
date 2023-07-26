@@ -84,7 +84,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '容積率＝' + prop.A29_007 + '</div>'
       break;
     case 'tosiH30' :
-
       switch (prop.layer_no) {
         case 1://市街化区域
           cont = "<div style=width:100px>市街化区域</div>";
@@ -492,8 +491,15 @@ export function popUp(map,layers,features,overlay,evt,content) {
             '備考3=' + prop.ITM05_VAL + '<hr>' +
             '指定分類=' + prop.ITM06_VAL + '<hr>' +
             '</div>'
-
       }
+      break
+    case 'tokyobunkazai':
+      cont = '<div style=width:300px;font-size:small;>' +
+          '名称=' + prop.名称 + '<hr>' +
+          '住所=' + prop.住所 + '<hr>' +
+          '種類=' + prop.種類 + '<hr>' +
+          '説明=' + prop.説明 + '<hr>' +
+          '</div>'
       break
 
   }

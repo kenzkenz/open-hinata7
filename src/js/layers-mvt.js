@@ -3829,25 +3829,10 @@ export  const okayamamaiiObj = {};
 for (let i of mapsStr) {
   okayamamaiiObj[i] = new VectorTileLayer(new OkayamaMai())
 }
-// function OkayamaMai () {
-//   this.useInterimTilesOnError = false
-//   this.name = 'okayamamai'
-//   this.source = new VectorSource({
-//     url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/okayama.geojson',
-//     format: new GeoJSON()
-//   });
-//   this.style = okayamamaiFunction()
-// }
-// export const okayamamaiiObj = {};
-// for (let i of mapsStr) {
-//   okayamamaiiObj[i] = new VectorLayer(new OkayamaMai())
-// }
+
 // ------------------------------------
 function okayamamaiFunction() {
   return function (feature, resolution) {
-    // const prop = feature.getProperties();
-    // const geoType = feature.getGeometry().getType();
-    // const zoom = getZoom(resolution);
     const style = new Style({
       fill: new Fill({
         color: 'green'
@@ -3955,105 +3940,33 @@ function kumamotomaiFunction(feature, resolution) {
         break;
       default:
     }
-
-
-
-
-
-  // var geoType = feature.getGeometry().getType();
-  // //var fillColor = prop["_fillColor"];
-  // if(resolution>2445) {//ズーム６
-  //   var pointRadius = 2;
-  // }else if(resolution>1222) {//ズーム７
-  //   var pointRadius = 2;
-  // }else if(resolution>611){
-  //   var pointRadius = 2;
-  // }else if(resolution>305) {
-  //   var pointRadius = 2;
-  // }else if(resolution>152) {
-  //   var pointRadius = 2;
-  // }else if(resolution>76) {
-  //   var pointRadius = 2;
-  // }else if(resolution>38) {
-  //   var pointRadius = 4;
-  // }else{
-  //   var pointRadius = 6;
-  // }
-  // var text = "";
-  // if(resolution<4.78) {
-  //   if(prop["m_cont2"]) {
-  //     text = prop["m_cont2"];
-  //   }else{
-  //     text = prop["ITM02_VAL"];
-  //   }
-  // }
-  // switch (geoType){
-  //   case "MultiLineString":
-  //   case "LineString":
-  //     var style = new Style({
-  //       stroke: new Stroke({
-  //         color:"red",
-  //         width:1
-  //       })
-  //     });
-  //     break;
-  //   case "MultiPoint":
-  //   case "Point":
-  //     if(resolution>305) break;
-  //     var style = new Style({
-  //       image: new Circle({
-  //         radius:pointRadius,
-  //         fill: new Fill({
-  //           color:"orange"
-  //         }),
-  //         stroke: new Stroke({
-  //           color: "white",
-  //           width: 1
-  //         })
-  //       }),
-  //       text: Text({
-  //         font: "8px sans-serif",
-  //         text: text,
-  //         offsetY:10,
-  //         stroke: Stroke({
-  //           color: "white",
-  //           width: 3
-  //         })
-  //       })
-  //     });
-  //     break;
-  //   case "Polygon":
-  //   case "MultiPolygon":
-  //     if(resolution<76) {
-  //       var style = new ol.style.Style({
-  //         fill: new ol.style.Fill({
-  //           color:"rgba(0,128,0,0.8)"
-  //         }),
-  //         stroke: new ol.style.Stroke({
-  //           color: "gray",
-  //           width: 1
-  //         }),
-  //         text: new ol.style.Text({
-  //           font: "8px sans-serif",
-  //           text: text,
-  //           stroke: new ol.style.Stroke({
-  //             color: "white",
-  //             width: 3
-  //           })
-  //         }),
-  //         zIndex: 0
-  //       });
-  //     }else{
-  //       var style = new ol.style.Style({
-  //         fill: new ol.style.Fill({
-  //           color:"rgba(0,128,0,1.0)"
-  //         }),
-  //         zIndex: 0
-  //       });
-  //     }
-  //     break;
-  //   default:
-  // }
+    return style;
+  }
+}
+// 東京文化財---------------------------------------------------------------
+function TokyoBunkazai () {
+  this.useInterimTilesOnError = false
+  this.name = 'tokyobunkazai'
+  this.source = new VectorSource({
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/tokyobunkazai.geojson',
+    format: new GeoJSON()
+  });
+  this.style = tokyobunkazaiFunction()
+}
+export const tokyobunkazaiSumm = "<a href='https://catalog.data.metro.tokyo.lg.jp/dataset/t000021d0000000017' target='_blank'>TOKYO OPENDATA</a>"
+export const tokyobunkazaiObj = {};
+for (let i of mapsStr) {
+  tokyobunkazaiObj[i] = new VectorLayer(new TokyoBunkazai())
+}
+function tokyobunkazaiFunction() {
+  return function (feature, resolution) {
+    const style = new Style({
+      image: new Icon({
+        anchor: [0.5, 1],
+        src: require('@/assets/icon/whitepin.png'),
+        color: 'orange'
+      })
+    })
     return style;
   }
 }
