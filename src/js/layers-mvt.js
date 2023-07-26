@@ -3964,7 +3964,7 @@ function tokyobunkazaiFunction() {
       image: new Icon({
         anchor: [0.5, 1],
         src: require('@/assets/icon/whitepin.png'),
-        color: 'orange'
+        color: 'green'
       })
     })
     return style;
