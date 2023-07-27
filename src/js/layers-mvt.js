@@ -3885,7 +3885,15 @@ function kumamotomaiFunction(feature, resolution) {
           image: new Icon({
             anchor: [0.5, 1],
             src: require('@/assets/icon/whitepin.png'),
-            color: 'orange'
+            color: 'orange',
+          }),
+          zIndex: 9
+        });
+        const iconStyleLerge = new Style({
+          image: new Icon({
+            anchor: [0.5, 1],
+            src: require('@/assets/icon/whitepinlarge.png'),
+            color: 'orange',
           }),
           zIndex: 9
         });
@@ -3901,7 +3909,8 @@ function kumamotomaiFunction(feature, resolution) {
             zIndex: 9
           })
         })
-        if (zoom>=11) styles.push(iconStyle)
+        if (zoom>=11 && zoom<=12) styles.push(iconStyle)
+        if (zoom>=13) styles.push(iconStyleLerge)
         if (zoom>=13) styles.push(textStyle)
         break;
       case "Polygon":
