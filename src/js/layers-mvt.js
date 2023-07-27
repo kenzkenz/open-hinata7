@@ -3864,55 +3864,49 @@ for (let i of mapsStr) {
 function kumamotomaiFunction(feature, resolution) {
   return function (feature, resolution) {
     const zoom = getZoom(resolution);
-    // const prop = feature.getProperties();
+    const prop = feature.getProperties();
     const geoType = feature.getGeometry().getType();
-    let style
+    const text = prop.m_cont2
+    const styles = [];
     switch (geoType){
       case "MultiLineString":
       case "LineString":
-        style = new Style({
+        const lineStyle = new Style({
           stroke: new Stroke({
             color:"red",
             width:1
           })
         });
+        styles.push(lineStyle)
         break;
       case "MultiPoint":
       case "Point":
-        if(resolution>305) break;
-        style = new Style({
+        const iconStyle = new Style({
           image: new Icon({
             anchor: [0.5, 1],
             src: require('@/assets/icon/whitepin.png'),
             color: 'orange'
           }),
-
-          // image: new Circle({
-          //   radius:8,
-          //   fill: new Fill({
-          //     color:"orange"
-          //   }),
-          //   stroke: new Stroke({
-          //     color: "white",
-          //     width: 1
-          //   })
-          // }),
-
-          // text: Text({
-          //   font: "8px sans-serif",
-          //   text: text,
-          //   offsetY:10,
-          //   stroke: Stroke({
-          //     color: "white",
-          //     width: 3
-          //   })
-          // })
+          zIndex: 9
         });
+        const textStyle = new Style({
+          text: new Text({
+            font: "10px sans-serif",
+            text: text,
+            offsetY: 10,
+            stroke: new Stroke({
+              color: "white",
+              width: 3
+            }),
+            zIndex: 9
+          })
+        })
+        if (zoom>=11) styles.push(iconStyle)
+        if (zoom>=13) styles.push(textStyle)
         break;
       case "Polygon":
       case "MultiPolygon":
-        if(resolution<76) {
-          style = new Style({
+          const fillStyle = new Style({
             fill: new Fill({
               color:"rgba(0,128,0,0.8)"
             }),
@@ -3920,28 +3914,13 @@ function kumamotomaiFunction(feature, resolution) {
               color: "gray",
               width: 1
             }),
-            // text: new Text({
-            //   font: "8px sans-serif",
-            //   text: text,
-            //   stroke: new Stroke({
-            //     color: "white",
-            //     width: 3
-            //   })
-            // }),
             zIndex: 0
           });
-        }else{
-          style = new Style({
-            fill: new Fill({
-              color:"rgba(0,128,0,1.0)"
-            }),
-            zIndex: 0
-          });
-        }
+          styles.push(fillStyle)
         break;
       default:
     }
-    return style;
+    return styles;
   }
 }
 // 東京文化財---------------------------------------------------------------
