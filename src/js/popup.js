@@ -501,6 +501,18 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '説明=' + prop.説明 + '<hr>' +
           '</div>'
       break
+    case 'kyuusekki':
+      cont = '<div style=width:300px;font-size:small;>' +
+          '遺跡名=' + prop.遺跡名 + '<hr>' +
+          '読み方=' + prop.遺跡名読み方 + '<hr>' +
+          '所在地=' + prop.所在地 + '<hr>' +
+          '標高=' + prop.標高 + '<hr>' +
+          '文献=' + prop.文献 + '<hr>' +
+          '調査歴=' + prop.調査歴 + '<hr>' +
+          '作成年月日=' + prop.作成年月日 + '<hr>' +
+          '作成者=' + prop.作成者 + '<hr>' +
+          '</div>'
+      break
 
   }
   content.innerHTML = cont

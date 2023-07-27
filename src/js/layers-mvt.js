@@ -3959,3 +3959,53 @@ function tokyobunkazaiFunction() {
     return style;
   }
 }
+// 全国旧石器時代遺跡
+function Kyuusekki() {
+  this.name = "kyuusekki";
+  this.style = kyuusekkiFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 15,
+    url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/zenkoku/{z}/{x}/{y}.mvt"
+  });
+}
+export const kyuusekkiSumm = "<a href='https://www.pref.kumamoto.jp/soshiki/125/90282.html' target='_blank'>熊本県　遺跡地図</a>"
+export  const kyuusekkiObj = {};
+for (let i of mapsStr) {
+  kyuusekkiObj[i] = new VectorTileLayer(new Kyuusekki())
+}
+function kyuusekkiFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const style = new Style({
+      image: new Icon({
+        anchor: [0.5, 1],
+        src: require('@/assets/icon/whitepin.png'),
+        color: 'green'
+      })
+    })
+    const styleLarge = new Style({
+      image: new Icon({
+        anchor: [0.5, 1],
+        src: require('@/assets/icon/whitepinlarge.png'),
+        color: 'green'
+      }),
+      text: new Text({
+        font: "10px sans-serif",
+        text: prop["遺跡名"],
+        offsetY: 10,
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        zIndex: 9
+      })
+    })
+    if (zoom<=13) {
+      return style
+    } else {
+      return styleLarge
+    }
+  }
+}
