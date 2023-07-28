@@ -4060,3 +4060,18 @@ function bunkazaidbFunction() {
     }
   }
 }
+// 	全国縄文・弥生集落遺跡
+function Yayoiiseki() {
+  this.name = "yayoiiseki";
+  this.style = bunkazaidbFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 15,
+    url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/yoyoi/{z}/{x}/{y}.mvt"
+  });
+}
+export const yayoiisekiSumm = "<a href='' target='_blank'></a>"
+export  const yayoiisekiObj = {};
+for (let i of mapsStr) {
+  yayoiisekiObj[i] = new VectorTileLayer(new Yayoiiseki())
+}
