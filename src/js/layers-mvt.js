@@ -4012,7 +4012,7 @@ function kyuusekkiFunction() {
 // 国指定文化財等データベース
 function BunkazaiDb() {
   this.name = "bunkazaidb";
-  this.style = kyuusekkiFunction();
+  this.style = bunkazaidbFunction();
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom: 15,
@@ -4024,4 +4024,39 @@ export const bunkazaidbSumm = "<a href='https://kunishitei.bunka.go.jp/bsys/inde
 export  const bunkazaidbObj = {};
 for (let i of mapsStr) {
   bunkazaidbObj[i] = new VectorTileLayer(new BunkazaiDb())
+}
+function bunkazaidbFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const style = new Style({
+      image: new Icon({
+        anchor: [0.5, 1],
+        src: require('@/assets/icon/whitepin.png'),
+        color: 'green'
+      })
+    })
+    const styleLarge = new Style({
+      image: new Icon({
+        anchor: [0.5, 1],
+        src: require('@/assets/icon/whitepinlarge.png'),
+        color: 'green'
+      }),
+      text: new Text({
+        font: "10px sans-serif",
+        text: prop["名称"],
+        offsetY: 10,
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        zIndex: 9
+      })
+    })
+    if (zoom<=13) {
+      return style
+    } else {
+      return styleLarge
+    }
+  }
 }
