@@ -4009,3 +4009,19 @@ function kyuusekkiFunction() {
     }
   }
 }
+// 国指定文化財等データベース
+function BunkazaiDb() {
+  this.name = "bunkazaidb";
+  this.style = kyuusekkiFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 15,
+    url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkatyoudb/{z}/{x}/{y}.mvt"
+  });
+}
+export const bunkazaidbSumm = "<a href='https://kunishitei.bunka.go.jp/bsys/index' target='_blank'>国指定文化財等データベース</a><br>" +
+    "文化庁のデータベースからcsvを取得しました。"
+export  const bunkazaidbObj = {};
+for (let i of mapsStr) {
+  bunkazaidbObj[i] = new VectorTileLayer(new BunkazaiDb())
+}

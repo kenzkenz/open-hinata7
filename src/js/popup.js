@@ -513,6 +513,19 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '作成者=' + prop.作成者 + '<hr>' +
           '</div>'
       break
+    case 'bunkazaidb':
+      cont = '<div style=width:300px;font-size:small;>' +
+          '台帳ID=' + prop.台帳ID + '<hr>' +
+          '管理対象ID=' + prop.管理対象ID + '<hr>' +
+          '名称=<a href="https://kunishitei.bunka.go.jp/heritage/detail/' + prop.台帳ID  + '/' + prop.管理対象ID + '" target="_blank" >' + prop.名称 + '</a><hr>' +
+          '文化財種類=' + prop.文化財種類 + '<hr>' +
+          '種別1=' + prop.種別1 + '<hr>' +
+          '種別2=' + prop.種別2 + '<hr>' +
+          '重文指定年月日=' + prop.重文指定年月日 + '<hr>' +
+          '都道府県=' + prop.都道府県 + '<hr>' +
+          '所在地=' + prop.所在地 + '<hr>' +
+          '</div>'
+      break
 
   }
   content.innerHTML = cont
