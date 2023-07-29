@@ -8,6 +8,12 @@ export function popUp(map,layers,features,overlay,evt,content) {
   console.log(coordinate)
   console.log(features[0])
   const prop = features[0].getProperties();
+  const geoType = features[0].getGeometry().getType();
+  const geometry = features[0].getGeometry()
+  const lonLat = transform([geometry.extent_[0],geometry.extent_[1]], "EPSG:3857", "EPSG:4326")
+  const lon = lonLat[0]
+  const lat = lonLat[1]
+  console.log(geoType)
   console.log(prop)
   switch (layers[0].get('name') ) {
     // 小学校区
@@ -381,9 +387,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
       break
     case 'densyou':
       console.log(prop.geometry.extent_[0])
-      const lonLat = transform([prop.geometry.extent_[0],prop.geometry.extent_[1]], "EPSG:3857", "EPSG:4326")
-      const lon = lonLat[0]
-      const lat = lonLat[1]
+      const lonLat1 = transform([prop.geometry.extent_[0],prop.geometry.extent_[1]], "EPSG:3857", "EPSG:4326")
+      const lon1 = lonLat1[0]
+      const lat1 = lonLat1[1]
       cont = '<div style="width:400px;font-size:small">碑名=' + prop.LoreName + '<hr>' +
           '災害名=' + prop.DisasterName + '<hr>' +
           '災害種別=' + prop.DisasterKind + '<hr>' +
@@ -391,7 +397,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '建立年=' + prop.LoreYear + '<hr>' +
           '伝承内容=' + prop.DisasterInfo + '<hr>' +
           '<a href="' + prop.Image + '" target="_blank"><img height="200" src="' + prop.Image + '"></a>' +
-          '<br><a href="https://www.google.com/maps?q=' + lat + ',' + lon + '" target="_blank">GoogleMapsで開く</a>' +
+          '<br><a href="https://www.google.com/maps?q=' + lat1 + ',' + lon1 + '" target="_blank">GoogleMapsで開く</a>' +
           '　<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
           '</div>'
       break
@@ -472,6 +478,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
            '</div>'
       break
     case 'kumamotomai':
+
       if(!prop["ITM01_NAME"]) {
         cont = '<div style=width:300px;font-size:small;>' +
             '遺跡番号=' + prop.m_cont1 + '<hr>' +
@@ -481,7 +488,8 @@ export function popUp(map,layers,features,overlay,evt,content) {
             '種別=' + prop.m_cont5 + '<hr>' +
             '指定分類=' + prop.m_cont6 + '<hr>' +
             '概要=' + prop.m_cont7 + '<hr>' +
-            '</div>'
+            '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
+        '</div>'
       } else {
         cont = '<div style=width:300px;font-size:small;>' +
             '遺跡番号=' + prop.ITM01_VAL + '<hr>' +
