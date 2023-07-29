@@ -526,6 +526,21 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '所在地=' + prop.所在地 + '<hr>' +
           '</div>'
       break
+    case 'toyamamaibun':
+      cont = '<div style=width:300px;font-size:small;>' +
+          '名称=' + prop.名称 + '<hr>' +
+          'かな=' + prop.かな + '<hr>' +
+          '市町村=' + prop.市町村 + '<hr>' +
+          '所在地=' + prop.所在地 + '<hr>' +
+          '文献=' + prop.文献 + '<hr>' +
+          '旧称等=' + prop.旧称等 + '<hr>' +
+          '現況=' + prop.現況 + '<hr>' +
+          '番号=' + prop.番号 + '<hr>' +
+          '発掘=' + prop.発掘 + '<hr>' +
+          '立地=' + prop.立地 + '<hr>' +
+          '面積=' + prop.面積 + '<hr>' +
+          '</div>'
+      break
 
   }
   content.innerHTML = cont

@@ -4075,3 +4075,18 @@ export  const yayoiisekiObj = {};
 for (let i of mapsStr) {
   yayoiisekiObj[i] = new VectorTileLayer(new Yayoiiseki())
 }
+// 富山県埋蔵文化財
+function Toyamamaibun() {
+  this.name = "toyamamaibun";
+  this.style = okayamamaiFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 17,
+    url: "https://kenzkenz.github.io/toyama/{z}/{x}/{y}.mvt"
+  });
+}
+export const toyamamaibunSumm = "<a href='' target='_blank'></a>"
+export  const toyamamaibunObj = {};
+for (let i of mapsStr) {
+  toyamamaibunObj[i] = new VectorTileLayer(new Toyamamaibun())
+}
