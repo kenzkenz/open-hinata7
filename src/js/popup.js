@@ -392,7 +392,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '伝承内容=' + prop.DisasterInfo + '<hr>' +
           '<a href="' + prop.Image + '" target="_blank"><img height="200" src="' + prop.Image + '"></a>' +
           '<br><a href="https://www.google.com/maps?q=' + lat + ',' + lon + '" target="_blank">GoogleMapsで開く</a>' +
-          // '<button value="' + prop.Image + '" onclick="MyMap.fileDl()">eeeeee</button>'
+          '　<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
           '</div>'
       break
     case 'hinanzyo01':
