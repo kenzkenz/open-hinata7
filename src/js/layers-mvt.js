@@ -4085,7 +4085,7 @@ function Toyamamaibun() {
     url: "https://kenzkenz.github.io/toyama/{z}/{x}/{y}.mvt"
   });
 }
-export const toyamamaibunSumm = "<a href='' target='_blank'></a>"
+export const toyamamaibunSumm = "<a href='https://opendata.pref.toyama.jp/dataset/gis-maibun/resource/7031917f-42c7-41d9-9f78-41ef72a10adc' target='_blank'>富山県埋蔵文化財</a>"
 export  const toyamamaibunObj = {};
 for (let i of mapsStr) {
   toyamamaibunObj[i] = new VectorTileLayer(new Toyamamaibun())
