@@ -13,6 +13,8 @@ export function popUp(map,layers,features,overlay,evt,content) {
   const lonLat = transform([geometry.extent_[0],geometry.extent_[1]], "EPSG:3857", "EPSG:4326")
   const lon = lonLat[0]
   const lat = lonLat[1]
+  const streetView = '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
+
   console.log(geoType)
   console.log(prop)
   switch (layers[0].get('name') ) {
@@ -547,6 +549,18 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '発掘=' + prop.発掘 + '<hr>' +
           '立地=' + prop.立地 + '<hr>' +
           '面積=' + prop.面積 + '<hr>' +
+          '</div>'
+      break
+    case 'hokkaidoumaibun':
+      cont = '<div style=width:300px;font-size:small;>' +
+          '名称=' + prop.SiteName + '<hr>' +
+          '所在地=' + prop.所在地 + '<hr>' +
+          '出土遺物=' + prop.出土遺物 + '<hr>' +
+          '時代=' + prop.時代 + '<hr>' +
+          '標高=' + prop.標高 + '<hr>' +
+          '種別=' + prop.種別 + '<hr>' +
+          '立地=' + prop.立地 + '<hr>' +
+          // streetView +
           '</div>'
       break
 

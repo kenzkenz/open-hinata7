@@ -3848,7 +3848,7 @@ function okayamamaiFunction() {
 // 熊本県埋蔵文化財
 function kumamotoMai() {
   this.name = "kumamotomai";
-  this.style = kumamotomaiFunction();
+  this.style = kumamotomaiFunction('m_cont2');
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom: 17,
@@ -3861,12 +3861,11 @@ export  const kumamotomaiObj = {};
 for (let i of mapsStr) {
   kumamotomaiObj[i] = new VectorTileLayer(new kumamotoMai())
 }
-function kumamotomaiFunction(feature, resolution) {
+function kumamotomaiFunction(text) {
   return function (feature, resolution) {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
     const geoType = feature.getGeometry().getType();
-    const text = prop.m_cont2
     const styles = [];
     switch (geoType){
       case "MultiLineString":
@@ -3900,7 +3899,7 @@ function kumamotomaiFunction(feature, resolution) {
         const textStyle = new Style({
           text: new Text({
             font: "10px sans-serif",
-            text: text,
+            text: prop[text],
             offsetY: 10,
             stroke: new Stroke({
               color: "white",
@@ -4089,4 +4088,19 @@ export const toyamamaibunSumm = "<a href='https://opendata.pref.toyama.jp/datase
 export  const toyamamaibunObj = {};
 for (let i of mapsStr) {
   toyamamaibunObj[i] = new VectorTileLayer(new Toyamamaibun())
+}
+// 北海道埋蔵文化財包蔵地---------------------------------------------------
+function Hokkaidoumaibun() {
+  this.name = "hokkaidoumaibun";
+  this.style = kumamotomaiFunction('SiteName');
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 17,
+    url: "https://kenzkenz.github.io/hokkaidou/{z}/{x}/{y}.mvt"
+  });
+}
+export const hokkaidoumaibunSumm = "<a href='' target='_blank'>北海道埋蔵文化財包蔵地</a>"
+export  const hokkaidoumaibunObj = {};
+for (let i of mapsStr) {
+  hokkaidoumaibunObj[i] = new VectorTileLayer(new Hokkaidoumaibun())
 }
