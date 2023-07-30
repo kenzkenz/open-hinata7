@@ -4099,7 +4099,7 @@ function Hokkaidoumaibun() {
     url: "https://kenzkenz.github.io/hokkaidou/{z}/{x}/{y}.mvt"
   });
 }
-export const hokkaidoumaibunSumm = "<a href='' target='_blank'>北海道埋蔵文化財包蔵地</a>"
+export const hokkaidoumaibunSumm = "<a href='https://www.harp.lg.jp/opendata/dataset/1245.html' target='_blank'>北海道埋蔵文化財包蔵地</a>"
 export  const hokkaidoumaibunObj = {};
 for (let i of mapsStr) {
   hokkaidoumaibunObj[i] = new VectorTileLayer(new Hokkaidoumaibun())
