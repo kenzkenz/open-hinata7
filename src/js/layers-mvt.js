@@ -4092,7 +4092,7 @@ for (let i of mapsStr) {
 // 北海道埋蔵文化財包蔵地---------------------------------------------------
 function Hokkaidoumaibun() {
   this.name = "hokkaidoumaibun";
-  this.style = kumamotomaiFunction('SiteName');
+  this.style = hokkaidoumaibunFunction('SiteName');
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom: 17,
@@ -4103,4 +4103,74 @@ export const hokkaidoumaibunSumm = "<a href='' target='_blank'>北海道埋蔵�
 export  const hokkaidoumaibunObj = {};
 for (let i of mapsStr) {
   hokkaidoumaibunObj[i] = new VectorTileLayer(new Hokkaidoumaibun())
+}
+function hokkaidoumaibunFunction(text) {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const geoType = feature.getGeometry().getType();
+    const styles = [];
+    switch (geoType){
+      case "MultiLineString":
+      case "LineString":
+        const lineStyle = new Style({
+          stroke: new Stroke({
+            color:"red",
+            width:1
+          })
+        });
+        styles.push(lineStyle)
+        break;
+      case "MultiPoint":
+      case "Point":
+        const iconStyle = new Style({
+          image: new Icon({
+            anchor: [0.5, 1],
+            src: require('@/assets/icon/whitepin.png'),
+            color: 'orange',
+          }),
+          zIndex: 9
+        });
+        const iconStyleLerge = new Style({
+          image: new Icon({
+            anchor: [0.5, 1],
+            src: require('@/assets/icon/whitepinlarge.png'),
+            color: 'orange',
+          }),
+          zIndex: 9
+        });
+        const textStyle = new Style({
+          text: new Text({
+            font: "10px sans-serif",
+            text: prop[text],
+            offsetY: 10,
+            stroke: new Stroke({
+              color: "white",
+              width: 3
+            }),
+            zIndex: 9
+          })
+        })
+        styles.push(iconStyle)
+        if (zoom>=13) styles.push(iconStyleLerge)
+        if (zoom>=13) styles.push(textStyle)
+        break;
+      case "Polygon":
+      case "MultiPolygon":
+        const fillStyle = new Style({
+          fill: new Fill({
+            color:"rgba(0,128,0,0.8)"
+          }),
+          stroke: new Stroke({
+            color: "gray",
+            width: 1
+          }),
+          zIndex: 0
+        });
+        styles.push(fillStyle)
+        break;
+      default:
+    }
+    return styles;
+  }
 }
