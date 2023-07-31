@@ -18,7 +18,7 @@ import Crop from 'ol-ext/filter/Crop'
 import Mask from 'ol-ext/filter/Mask'
 import  * as MaskDep from './mask-dep'
 import  * as LayersMvt from './layers-mvt'
-import {houmusyouObj, houmusyouSumm} from "./layers-mvt";
+import {hokkaidouTunamiTObj, hokkaidouTunamiTSumm, houmusyouObj, houmusyouSumm} from "./layers-mvt";
 const mapsStr = ['map01','map02','map03','map04']
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
@@ -8628,6 +8628,9 @@ const layers =
             { text: '災害時活動困難係数', data: { id: "tokyoZisin2", layer: LayersMvt.tokyoZisin2Obj, opacity: 1, summary: LayersMvt.tokyoZisin2Summ } },
           ]},
         { text: '今後30年間震度6以上の確率', data: { id: 'jisin', layer: jisinObj, opacity: 1, summary: jisinSumm } },
+        { text: '北海道太平洋沿岸の津波浸水想定', data: { id: "hokkaidouTunamiT", layer: LayersMvt.hokkaidouTunamiTObj, opacity: 1, summary: LayersMvt.hokkaidouTunamiTSumm } },
+        { text: '北海道日本海沿岸の津波浸水想定', data: { id: "hokkaidouTunami", layer: LayersMvt.hokkaidouTunamiObj, opacity: 1, summary: LayersMvt.hokkaidouTunamiSumm } },
+
         { text: '宮崎市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyazakisiHm', layer: miyazakisiHmObj, opacity: 1, zoom: 13, center: [131.42054548436312, 31.907339493919977], summary: miyazakisiHmSumm } },
         { text: '都城市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyakonozyousiHm', layer: miyakonozyousiHmObj, opacity: 1, zoom: 13, center: [131.07797970576192, 31.78882205640913], summary: miyakonozyousiHmSumm } },
         { text: '日向市防災ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'hyuugasiHm', layer: hyuugasiHmObj, opacity: 1, zoom: 13, center: [131.6400086045909, 32.395198966795306], summary: hyuugasiHmSumm } },

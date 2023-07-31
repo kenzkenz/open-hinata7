@@ -563,6 +563,47 @@ export function popUp(map,layers,features,overlay,evt,content) {
           // streetView +
           '</div>'
       break
+    case 'hokkaidouTunami':
+    case 'hokkaidouTunamiT':
+      let sinsui = ''
+      if (prop.max) {
+        cont = '<div style=width:200px;>' +
+            '浸水想定=' + prop.max + 'メートル' +
+            '</div>'
+      } else if (prop.MAX_SIN) {
+          cont = '<div style=width:200px;>' +
+              '浸水想定=' + prop.MAX_SIN + 'メートル' +
+              '</div>'
+      } else {
+        switch (prop.level) {
+          case 1://0.3
+            sinsui = '0.3メートル未満'
+            break;
+          case 2://1
+            sinsui = '0.3〜1メートル未満'
+            break;
+          case 3://2
+            sinsui = '1〜2メートル未満'
+            break;
+          case 4://2〜5
+            sinsui = '2〜5メートル未満'
+            break;
+          case 5://10
+            sinsui = '5〜10メートル未満'
+            break;
+          case 6://20
+            sinsui = '10〜20メートル未満'
+            break;
+          case 7:
+            sinsui = '20メートル以上'
+            break;
+        }
+        cont = '<div style=width:250px;>' +
+            '浸水想定=' + sinsui + '<hr>' +
+            'ズームすると詳細な浸水想定を表示します。'
+            '</div>'
+      }
+      break
 
   }
   content.innerHTML = cont

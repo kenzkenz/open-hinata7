@@ -3845,7 +3845,7 @@ function okayamamaiFunction() {
     return style;
   }
 }
-// 熊本県埋蔵文化財
+// 熊本県埋蔵文化財----------------------------------------------------------
 function kumamotoMai() {
   this.name = "kumamotomai";
   this.style = kumamotomaiFunction('m_cont2');
@@ -4171,6 +4171,120 @@ function hokkaidoumaibunFunction(text) {
         break;
       default:
     }
+    return styles;
+  }
+}
+// 北海道太平洋沿岸の津波浸水想定---------------------------------------------------
+function HokkaidouTunamiT() {
+  this.name = "hokkaidouTunamiT";
+  this.style = hokkaidoutunamiFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 15,
+    url: "https://kenzkenz.github.io/hokkaido_tunami_t/{z}/{x}/{y}.mvt"
+  });
+  this.useInterimTilesOnError = false
+}
+export const hokkaidouTunamiTSumm = "<a href='https://www.harp.lg.jp/opendata/dataset/105.html' target='_blank'>北海道の津波浸水想定の公表資料</a>"
+export  const hokkaidouTunamiTObj = {};
+for (let i of mapsStr) {
+  hokkaidouTunamiTObj[i] = new VectorTileLayer(new HokkaidouTunamiT())
+}
+// 	北海道日本海沿岸の津波浸水想定---------------------------------------------------
+function HokkaidouTunami() {
+  this.name = "hokkaidouTunami";
+  this.style = hokkaidoutunamiFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 15,
+    url: "https://kenzkenz.github.io/hokkaido_tunami/{z}/{x}/{y}.mvt"
+  });
+  this.useInterimTilesOnError = false
+}
+export const hokkaidouTunamiSumm = "<a href='https://www.harp.lg.jp/opendata/dataset/105.html' target='_blank'>北海道の津波浸水想定の公表資料</a>"
+export  const hokkaidouTunamiObj = {};
+for (let i of mapsStr) {
+  hokkaidouTunamiObj[i] = new VectorTileLayer(new HokkaidouTunami())
+}
+function hokkaidoutunamiFunction() {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const styles = []
+    const prop = feature.getProperties();
+    const level = prop.level
+    const max = prop.max
+    const maxSin = prop.MAX_SIN
+    let color
+    if (level) {
+      switch (level) {
+        case 1://0.3
+          color = "rgba(0,255,0,0.7)";
+          break;
+        case 2://1
+          color = "rgba(255,230,0,0.7)";
+          break;
+        case 3://2
+          color = "rgba(255,153,0,0.7)";
+          break;
+        case 4://2〜5
+          color = "rgba(239,117,152,0.7)";
+          break;
+        case 5://10
+          color = "rgba(255,40,0,0.7)";
+          break;
+        case 6://20
+          color = "rgba(180,0,104,0.7)";
+          break;
+        case 7:
+          color = "rgba(128,0,255,0.7)";
+          break;
+      }
+    } else if (max) {
+      if (max < 0.3) {
+        color = "rgba(0,255,0,0.7)";
+      } else if (max < 1) {
+        color = "rgba(255,230,0,0.7)";
+      } else if (max < 2) {
+        color = "rgba(255,153,0,0.7)";
+      } else if (max < 5) {
+        color = "rgba(239,117,152,0.7)";
+      } else if (max < 10) {
+        color = "rgba(255,40,0,0.7)";
+      } else if (max < 20) {
+        color = "rgba(180,0,104,0.7)";
+      } else {
+        color = "rgba(128,0,255,0.7)";
+      }
+    } else if (maxSin) {
+      if (maxSin < 0.3) {
+        color = "rgba(0,255,0,0.7)";
+      } else if (maxSin < 1) {
+        color = "rgba(255,230,0,0.7)";
+      } else if (maxSin < 2) {
+        color = "rgba(255,153,0,0.7)";
+      } else if (maxSin < 5) {
+        color = "rgba(239,117,152,0.7)";
+      } else if (maxSin < 10) {
+        color = "rgba(255,40,0,0.7)";
+      } else if (maxSin < 20) {
+        color = "rgba(180,0,104,0.7)";
+      } else {
+        color = "rgba(128,0,255,0.7)";
+      }
+    }
+    const fillStyle = new Style({
+      fill: new Fill({
+        color: color
+      }),
+    });
+    const strokeStyle = new Style({
+      stroke: new Stroke({
+        color: 'black',
+        width: 1,
+      })
+    });
+    if (zoom>=16) styles.push(strokeStyle)
+    styles.push(fillStyle)
     return styles;
   }
 }
