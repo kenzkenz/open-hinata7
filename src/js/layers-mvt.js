@@ -4092,7 +4092,7 @@ for (let i of mapsStr) {
 // 北海道埋蔵文化財包蔵地---------------------------------------------------
 function Hokkaidoumaibun() {
   this.name = "hokkaidoumaibun";
-  this.style = hokkaidoumaibunFunction('SiteName');
+  this.style = standardFunction('SiteName');
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom: 17,
@@ -4104,7 +4104,7 @@ export  const hokkaidoumaibunObj = {};
 for (let i of mapsStr) {
   hokkaidoumaibunObj[i] = new VectorTileLayer(new Hokkaidoumaibun())
 }
-function hokkaidoumaibunFunction(text) {
+export function standardFunction(text) {
   return function (feature, resolution) {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();

@@ -15,9 +15,14 @@ import Notification from './notification'
 import * as Layers from './layers'
 import * as PopUp from './popup'
 import {defaults as defaultInteractions, DragRotateAndZoom} from 'ol/interaction';
+import VectorSource from "ol/source/Vector";
+import VectorLayer from "ol/layer/Vector";
 import axios from "axios";
 let maxZndex = 0;
 let legoFilter = null;
+import DragAndDrop from 'ol/interaction/DragAndDrop.js';
+import {GPX, GeoJSON, IGC, KML, TopoJSON} from 'ol/format.js';
+import {standardFunction} from "@/js/layers-mvt";
 export function initMap (vm) {
     // マップ作製ループ用の配列を作成
     const maps = [
@@ -76,6 +81,38 @@ export function initMap (vm) {
             store.state.base.maps.map03.addInteraction(new Synchronize({maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
             store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
         }
+        let dragAndDropInteraction;
+        function setInteraction() {
+            // const map = store.state.base.maps.map01;
+            if (dragAndDropInteraction) {
+                map.removeInteraction(dragAndDropInteraction);
+            }
+            dragAndDropInteraction = new DragAndDrop({
+                formatConstructors: [
+                    GPX,
+                    GeoJSON,
+                    IGC,
+                    // use constructed format to set options
+                    new KML({extractStyles: true}),
+                    TopoJSON,
+                ],
+            });
+            dragAndDropInteraction.on('addfeatures', function (event) {
+                const vectorSource = new VectorSource({
+                    features: event.features,
+                });
+                map.addLayer(
+                    new VectorLayer({
+                        source: vectorSource,
+                        style:standardFunction(),
+                        zIndex:999999
+                    })
+                );
+                map.getView().fit(vectorSource.getExtent());
+            });
+            map.addInteraction(dragAndDropInteraction);
+        }
+        setInteraction();
         //現在地取得
         const  success = (pos) =>{
             const lon = pos.coords.longitude;
@@ -968,6 +1005,36 @@ export function ChangeFilter (item, layerList,name,presetName){
         filter.setFilter(presetName)
     }
 }
+// let dragAndDropInteraction;
+// function setInteraction() {
+//     const map = store.state.base.maps.map01;
+//     if (dragAndDropInteraction) {
+//         map.removeInteraction(dragAndDropInteraction);
+//     }
+//     dragAndDropInteraction = new DragAndDrop({
+//         formatConstructors: [
+//             GPX,
+//             GeoJSON,
+//             IGC,
+//             // use constructed format to set options
+//             // new KML({extractStyles: extractStyles.checked}),
+//             TopoJSON,
+//         ],
+//     });
+//     dragAndDropInteraction.on('addfeatures', function (event) {
+//         const vectorSource = new VectorSource({
+//             features: event.features,
+//         });
+//         map.addLayer(
+//             new VectorLayer({
+//                 source: vectorSource,
+//             })
+//         );
+//         map.getView().fit(vectorSource.getExtent());
+//     });
+//     map.addInteraction(dragAndDropInteraction);
+// }
+// setInteraction();
 
-
+// extractStyles.addEventListener('change', setInteraction);
 
