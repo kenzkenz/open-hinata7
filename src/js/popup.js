@@ -490,8 +490,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
             '種別=' + prop.m_cont5 + '<hr>' +
             '指定分類=' + prop.m_cont6 + '<hr>' +
             '概要=' + prop.m_cont7 + '<hr>' +
-            '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
-        '</div>'
+            // '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
+            streetView +
+            '</div>'
       } else {
         cont = '<div style=width:300px;font-size:small;>' +
             '遺跡番号=' + prop.ITM01_VAL + '<hr>' +
@@ -500,6 +501,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
             '備考2=' + prop.ITM04_VAL + '<hr>' +
             '備考3=' + prop.ITM05_VAL + '<hr>' +
             '指定分類=' + prop.ITM06_VAL + '<hr>' +
+            streetView +
             '</div>'
       }
       break

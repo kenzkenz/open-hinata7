@@ -104,8 +104,8 @@ export function initMap (vm) {
                 map.addLayer(
                     new VectorLayer({
                         source: vectorSource,
-                        style:standardFunction(),
-                        zIndex:999999
+                        style: standardFunction(),
+                        zIndex: 999999
                     })
                 );
                 map.getView().fit(vectorSource.getExtent());
