@@ -455,7 +455,8 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'eki':
       cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
           '路線名=' + prop.N05_002 + '<hr>' +
-          '駅名=' + prop.N05_011 +
+          '駅名=' + prop.N05_011 + '<hr>' +
+          streetView +
           '</div>'
       break
     case 'bus':
@@ -480,7 +481,6 @@ export function popUp(map,layers,features,overlay,evt,content) {
            '</div>'
       break
     case 'kumamotomai':
-
       if(!prop["ITM01_NAME"]) {
         cont = '<div style=width:300px;font-size:small;>' +
             '遺跡番号=' + prop.m_cont1 + '<hr>' +
@@ -562,7 +562,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '標高=' + prop.標高 + '<hr>' +
           '種別=' + prop.種別 + '<hr>' +
           '立地=' + prop.立地 + '<hr>' +
-          // streetView +
+          streetView +
           '</div>'
       break
     case 'hokkaidouTunami':
