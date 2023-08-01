@@ -105,7 +105,8 @@ export function initMap (vm) {
                     new VectorLayer({
                         source: vectorSource,
                         style: standardFunction(),
-                        zIndex: 999999
+                        zIndex: 999999,
+                        name: 'draganddrop'
                     })
                 );
                 map.getView().fit(vectorSource.getExtent());

@@ -606,7 +606,15 @@ export function popUp(map,layers,features,overlay,evt,content) {
             '</div>'
       }
       break
-
+    case 'draganddrop':
+      cont = '<div style=width:300px;max-height:500px;overflow:scroll; font-size:small;>'
+      Object.keys(prop).forEach(function(key) {
+        if (key !== 'geometry') {
+          cont += key + '=' + prop[key] + '<hr>'
+        }
+      })
+      cont += streetView +'<div>'
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);
