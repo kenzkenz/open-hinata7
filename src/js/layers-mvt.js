@@ -3770,25 +3770,21 @@ function busteiStyleFunction(color) {
     const prop = feature.getProperties();
     const text = prop.P11_001
     const styles = [];
-    const fillStyle = new Style({
+    const iconStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
         src: require('@/assets/icon/blackpinmini.png'),
       })
-      // image: new Circle({
-      //   radius: 8,
-      //   fill: new Fill({
-      //     color: color
-      //   }),
-      //   stroke: new Stroke({
-      //     color: "white",
-      //     width: 1
-      //   })
-      // })
+    });
+    const iconStyle2 = new Style({
+      image: new Icon({
+        anchor: [0.5, 1],
+        src: require('@/assets/icon/blackpin.png'),
+      })
     });
     const textStyle = new Style({
       text: new Text({
-        font: "8px sans-serif",
+        font: "10px sans-serif",
         text: text,
         offsetY: 10,
         stroke: new Stroke({
@@ -3797,7 +3793,11 @@ function busteiStyleFunction(color) {
         })
       })
     });
-    styles.push(fillStyle);
+    if (zoom>=15) {
+      styles.push(iconStyle2);
+    } else {
+      styles.push(iconStyle);
+    }
     if(zoom>=15) {
       styles.push(textStyle);
     }

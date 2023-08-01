@@ -466,7 +466,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'bustei':
       cont = '<div style=width:200px>事業者名=' + prop.P11_002 + '<hr>' +
           'バス停名=' + prop.P11_001 + '<hr>' +
-          'バス系統=' + prop.P11_003_01 + '</div>'
+          'バス系統=' + prop.P11_003_01 + '<hr>' +
+          streetView +
+          '</div>'
       break
     case 'okayamamai':
       cont = '<div style=width:300px;font-size:small;>' +
