@@ -6,6 +6,7 @@ import {createXYZ} from "ol/tilegrid";
 import VectorTileLayer from "ol/layer/VectorTile";
 import * as d3 from "d3";
 import {Fill, Stroke, Style, Text, Circle} from "ol/style";
+import FontSymbol from 'ol-ext/style/FontSymbol'
 import {transformExtent} from "ol/proj";
 import LayerGroup from "ol/layer/Group";
 import XYZ from "ol/source/XYZ";
@@ -3948,6 +3949,34 @@ for (let i of mapsStr) {
 }
 function tokyobunkazaiFunction() {
   return function (feature, resolution) {
+  // const st =[]
+  //   st.push ( new Style({
+  //     image: new FontSymbol({
+  //       form: "blazon",
+  //       glyph: '',
+  //       text: '1',    // text to use if no glyph is defined
+  //       font: 'sans-serif',
+  //       fontSize: 1,
+  //       // fontStyle: $("#style").val(),
+  //       radius: 15,
+  //       color: 'white',
+  //       fill: new Fill({
+  //         color: 'navy'
+  //       }),
+  //       stroke: new Stroke({
+  //         color: 'white',
+  //         width: 3
+  //       })
+  //     }),
+  //     stroke: new Stroke({
+  //       width: 2,
+  //       color: '#f80'
+  //     }),
+  //     fill: new Fill({
+  //       color: 'black'
+  //     })
+  //   }));
+  //   return st
     const style = new Style({
       image: new Icon({
         anchor: [0.5, 1],

@@ -443,7 +443,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
       const pattern = new RegExp( '(?<= href=).*?(?=target)' );
       console.log(str.match(pattern)[0])
       cont = '<div style=width:200px>' + prop.name + '<hr>' +
-          '<a href=' + str.match(pattern)[0] + ' target="_blank">箇所表</a></div>'
+          '<a href=' + str.match(pattern)[0] + ' target="_blank">箇所表</a>'+ '<hr>' +
+          streetView +
+          '</div>'
       break
     case 'kiseikukan':
       cont = '<div style=width:200px>' + prop.A1 + prop.A2 + '</div>'
@@ -513,6 +515,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '住所=' + prop.住所 + '<hr>' +
           '種類=' + prop.種類 + '<hr>' +
           '説明=' + prop.説明 + '<hr>' +
+          streetView +
           '</div>'
       break
     case 'kyuusekki':
