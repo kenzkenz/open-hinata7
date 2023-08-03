@@ -10,7 +10,12 @@ export function popUp(map,layers,features,overlay,evt,content) {
   const prop = features[0].getProperties();
   const geoType = features[0].getGeometry().getType();
   const geometry = features[0].getGeometry()
-  const lonLat = transform([geometry.extent_[0],geometry.extent_[1]], "EPSG:3857", "EPSG:4326")
+  let lonLat
+  if (geoType === 'Polygon') {
+    lonLat = transform([coordinate[0],coordinate[1]], "EPSG:3857", "EPSG:4326")
+  } else {
+    lonLat = transform([geometry.extent_[0],geometry.extent_[1]], "EPSG:3857", "EPSG:4326")
+  }
   const lon = lonLat[0]
   const lat = lonLat[1]
   const streetView = '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
@@ -650,7 +655,11 @@ export function popupSeamless(overlay,evt,content) {
   });
 }
 //----------------------------------------------------------------------------------------
-export function popUpShinsuishin(rgba) {
+export function popUpShinsuishin(rgba,coordinate) {
+    const lonLat = transform([coordinate[0],coordinate[1]], "EPSG:3857", "EPSG:4326")
+    const lon = lonLat[0]
+    const lat = lonLat[1]
+    const streetView = '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
     const r = rgba[0]
     const g = rgba[1]
     const b = rgba[2]
@@ -670,10 +679,16 @@ export function popUpShinsuishin(rgba) {
     }else if(r===220 && g===122 && b===220) {
       cont = "<div style=width:200px>洪水浸水深　20.0m以上</div>"
     }
+    cont += streetView
     store.commit('base/popUpContUpdate',cont)
 }
 //----------------------------------------------------------------------------------------
-export function popUpTunami(rgba) {
+export function popUpTunami(rgba,coordinate) {
+  const lonLat = transform([coordinate[0],coordinate[1]], "EPSG:3857", "EPSG:4326")
+  const lon = lonLat[0]
+  const lat = lonLat[1]
+  const streetView = '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
+
   const r = rgba[0]
   const g = rgba[1]
   const b = rgba[2]
@@ -695,6 +710,7 @@ export function popUpTunami(rgba) {
   }else if(r===220 && g===122 && b===220) {
     cont = "<div style=width:200px>津波浸水深　20.0m以上</div>"
   }
+  cont += streetView
   store.commit('base/popUpContUpdate',cont)
 }
 //----------------------------------------------------------------------------------------

@@ -235,8 +235,8 @@ export function initMap (vm) {
                     // const server = 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/'
                     document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "wait"
                     getColor( x, y, z, server,   function( rgb ) {
-                        popup(rgb)
                         const coordinate = evt.coordinate;
+                        popup(rgb,coordinate)
                         const cont = store.state.base.popUpCont
                         content.innerHTML = cont
                         if (cont.includes('undefined') || cont==='') {
