@@ -3365,10 +3365,10 @@ function hinanzyoStyleFunction(color) {
     const prop = feature.getProperties();
     const text = prop.name
     const styles = [];
-    const fillStyle = new Style({
+    const iconStyle = new Style({
       image: new Icon({
         anchor: [0.5, 1],
-        src: require('@/assets/icon/whitepin.png'),
+        src: require('@/assets/icon/whitepinlarge.png'),
         color: color
       })
       // image: new Circle({
@@ -3384,7 +3384,7 @@ function hinanzyoStyleFunction(color) {
     });
     const textStyle = new Style({
       text: new Text({
-        font: "8px sans-serif",
+        font: "12px sans-serif",
         text: text,
         offsetY: 10,
         stroke: new Stroke({
@@ -3393,7 +3393,7 @@ function hinanzyoStyleFunction(color) {
         })
       })
     });
-    if(zoom>=10) styles.push(fillStyle);
+    if(zoom>=10) styles.push(iconStyle);
     if(zoom>=14) styles.push(textStyle);
     return styles;
   }
