@@ -631,8 +631,8 @@ export function popUp(map,layers,features,overlay,evt,content) {
           // '名称=<a href="' + prop.url + '" target="_blank" >' + prop.name + '</a><hr>' +
           '読み=' + prop.yomi + '<hr>' +
           '所在地=' + prop.spot + '<hr>' +
-          'status=' + prop.status + '<hr>' +
-          '<a href="' + prop.image + '" target="_blank"><img height="200" src="' + prop.image + '"></a><hr>' +
+          '指定等=' + prop.status + '<hr>' +
+          '<a href="' + prop.image + '" target="_blank"><img width="300px" src="' + prop.image + '"></a><hr>' +
           streetView +
           '</div>'
       break
