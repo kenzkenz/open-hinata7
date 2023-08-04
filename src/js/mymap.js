@@ -114,6 +114,9 @@ export function initMap (vm) {
             map.addInteraction(dragAndDropInteraction);
         }
         setInteraction();
+
+
+
         //現在地取得
         const  success = (pos) =>{
             const lon = pos.coords.longitude;
@@ -786,6 +789,11 @@ export function synch (vm) {
         store.state.base.maps.map03.setView(viewArr[1]);
         store.state.base.maps.map04.setView(viewArr[2]);
         console.log(store.state.base.maps.map01.interactions)
+        store.state.base.maps.map01.removeInteraction(store.state.base.maps.map01.getInteractions().array_[10])
+        store.state.base.maps.map02.removeInteraction(store.state.base.maps.map02.getInteractions().array_[10])
+        store.state.base.maps.map03.removeInteraction(store.state.base.maps.map03.getInteractions().array_[10])
+        store.state.base.maps.map04.removeInteraction(store.state.base.maps.map04.getInteractions().array_[10])
+        // 2回削除する。
         store.state.base.maps.map01.removeInteraction(store.state.base.maps.map01.getInteractions().array_[10])
         store.state.base.maps.map02.removeInteraction(store.state.base.maps.map02.getInteractions().array_[10])
         store.state.base.maps.map03.removeInteraction(store.state.base.maps.map03.getInteractions().array_[10])
