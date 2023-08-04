@@ -625,6 +625,17 @@ export function popUp(map,layers,features,overlay,evt,content) {
       })
       cont += streetView +'<div>'
       break
+    case 'nihonisan':
+      cont = '<div style=width:300px;font-size:small;>' +
+          '名称=<a href="https://japan-heritage.bunka.go.jp/ja/stories/story' +  ('000' + prop.jhno).slice(-3) + '/" target="_blank" >' + prop.name + '</a><hr>' +
+          // '名称=<a href="' + prop.url + '" target="_blank" >' + prop.name + '</a><hr>' +
+          '読み=' + prop.yomi + '<hr>' +
+          '所在地=' + prop.spot + '<hr>' +
+          'status=' + prop.status + '<hr>' +
+          '<a href="' + prop.image + '" target="_blank"><img height="200" src="' + prop.image + '"></a><hr>' +
+          streetView +
+          '</div>'
+      break
   }
   content.innerHTML = cont
   if (cont && cont !== undefined) overlay.setPosition(coordinate);

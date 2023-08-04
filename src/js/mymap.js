@@ -114,9 +114,6 @@ export function initMap (vm) {
             map.addInteraction(dragAndDropInteraction);
         }
         setInteraction();
-
-
-
         //現在地取得
         const  success = (pos) =>{
             const lon = pos.coords.longitude;

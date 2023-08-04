@@ -4317,3 +4317,19 @@ function hokkaidoutunamiFunction() {
     return styles;
   }
 }
+// 日本遺産---------------------------------------------------------------
+function Nihonisan () {
+  this.useInterimTilesOnError = false
+  this.name = 'nihonisan'
+  this.source = new VectorSource({
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/nihonisan.geojson',
+    format: new GeoJSON()
+  });
+  this.style = standardFunction('name')
+}
+export const nihonisanSumm = "<a href='https://japan-heritage.bunka.go.jp/ja/' target='_blank'>日本遺産ポータルサイト</a><br>" +
+                             "<a href='https://fukuno.jig.jp/4026' target='_blank'>福野泰介の一日一創</a>"
+export const nihonisanObj = {};
+for (let i of mapsStr) {
+  nihonisanObj[i] = new VectorLayer(new Nihonisan())
+}
