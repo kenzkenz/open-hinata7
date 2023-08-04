@@ -76,10 +76,10 @@ export function initMap (vm) {
         map.addControl(notification);
         store.commit('base/setNotifications',{mapName:mapName, control: notification});
         if (i==3) {
-            store.state.base.maps.map01.addInteraction(new Synchronize({maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
-            store.state.base.maps.map02.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04] }) );
-            store.state.base.maps.map03.addInteraction(new Synchronize({maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
-            store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03] }) );
+            store.state.base.maps.map01.addInteraction(new Synchronize({ maps: [store.state.base.maps.map02,store.state.base.maps.map03,store.state.base.maps.map04]}));
+            store.state.base.maps.map02.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map03,store.state.base.maps.map04]}));
+            store.state.base.maps.map03.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map04]}));
+            store.state.base.maps.map04.addInteraction(new Synchronize({ maps: [store.state.base.maps.map01,store.state.base.maps.map02,store.state.base.maps.map03]}));
         }
         let dragAndDropInteraction;
         function setInteraction() {
@@ -1006,36 +1006,5 @@ export function ChangeFilter (item, layerList,name,presetName){
         filter.setFilter(presetName)
     }
 }
-// let dragAndDropInteraction;
-// function setInteraction() {
-//     const map = store.state.base.maps.map01;
-//     if (dragAndDropInteraction) {
-//         map.removeInteraction(dragAndDropInteraction);
-//     }
-//     dragAndDropInteraction = new DragAndDrop({
-//         formatConstructors: [
-//             GPX,
-//             GeoJSON,
-//             IGC,
-//             // use constructed format to set options
-//             // new KML({extractStyles: extractStyles.checked}),
-//             TopoJSON,
-//         ],
-//     });
-//     dragAndDropInteraction.on('addfeatures', function (event) {
-//         const vectorSource = new VectorSource({
-//             features: event.features,
-//         });
-//         map.addLayer(
-//             new VectorLayer({
-//                 source: vectorSource,
-//             })
-//         );
-//         map.getView().fit(vectorSource.getExtent());
-//     });
-//     map.addInteraction(dragAndDropInteraction);
-// }
-// setInteraction();
 
-// extractStyles.addEventListener('change', setInteraction);
 

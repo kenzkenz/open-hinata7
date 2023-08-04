@@ -129,34 +129,34 @@
             vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
             break;
           // 2画面（横２画面）
-          case 3:
-            vm.synchDivFlg = true;
-            vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = false; vm.mapFlg['map04'] = false;
-            vm.mapSize['map01'] = {top: 0, left: 0, width: '100%', height: height2};
-            vm.mapSize['map02'] = {top: '50%', left: 0, width: '100%', height: height2};
-            vm.mapSize['map03'] = {top: 0, left: 0, width: 0, height: 0};
-            vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
-            break;
+          // case 3:
+          //   vm.synchDivFlg = true;
+          //   vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = false; vm.mapFlg['map04'] = false;
+          //   vm.mapSize['map01'] = {top: 0, left: 0, width: '100%', height: height2};
+          //   vm.mapSize['map02'] = {top: '50%', left: 0, width: '100%', height: height2};
+          //   vm.mapSize['map03'] = {top: 0, left: 0, width: 0, height: 0};
+          //   vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
+          //   break;
           // 3画面１（左が縦全、右が縦半）
-          case 4:
-            vm.synchDivFlg = true;
-            vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = true; vm.mapFlg['map04'] = false;
-            vm.mapSize['map01'] = {top: 0, left: 0, width: '50%', height: height};
-            vm.mapSize['map02'] = {top: 0, left: '50%', width: '50%', height: height2};
-            vm.mapSize['map03'] = {top: '50%', left: '50%', width: '50%', height: height2};
-            vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
-            break;
-          // 3画面2（全て縦半）
-          case 5:
-            vm.synchDivFlg = true;
-            vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = true; vm.mapFlg['map04'] = false;
-            vm.mapSize['map01'] = {top: 0, left: 0, width: '100%', height: height2};
-            vm.mapSize['map02'] = {top: '50%', left: 0, width: '50%', height: height2};
-            vm.mapSize['map03'] = {top: '50%', left: '50%', width: '50%', height: height2};
-            vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
-            break;
+          // case 4:
+          //   vm.synchDivFlg = true;
+          //   vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = true; vm.mapFlg['map04'] = false;
+          //   vm.mapSize['map01'] = {top: 0, left: 0, width: '50%', height: height};
+          //   vm.mapSize['map02'] = {top: 0, left: '50%', width: '50%', height: height2};
+          //   vm.mapSize['map03'] = {top: '50%', left: '50%', width: '50%', height: height2};
+          //   vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
+          //   break;
+          // // 3画面2（全て縦半）
+          // case 5:
+          //   vm.synchDivFlg = true;
+          //   vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = true; vm.mapFlg['map04'] = false;
+          //   vm.mapSize['map01'] = {top: 0, left: 0, width: '100%', height: height2};
+          //   vm.mapSize['map02'] = {top: '50%', left: 0, width: '50%', height: height2};
+          //   vm.mapSize['map03'] = {top: '50%', left: '50%', width: '50%', height: height2};
+          //   vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
+          //   break;
           // 4画面（全て縦半）
-          case 6:
+          case 3:
             vm.synchDivFlg = true;
             vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = true; vm.mapFlg['map04'] = true;
             vm.mapSize['map01'] = {top: 0, left: 0, width: '50%', height: height2};

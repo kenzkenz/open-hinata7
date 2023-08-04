@@ -148,7 +148,7 @@ const moduleBase = {
     //マップ分割フラグ----------------------------------------------------------------------------
     incrSplitFlg (state) {
       state.splitFlg++;
-      if (state.splitFlg === 7) state.splitFlg = 1
+      if (state.splitFlg === 4) state.splitFlg = 1
     },
     updateSplitFlg (state, payload) {
       state.splitFlg = Number(payload)
