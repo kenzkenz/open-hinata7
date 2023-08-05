@@ -4170,9 +4170,12 @@ export function standardFunction(text) {
         });
         const textStyle = new Style({
           text: new Text({
-            font: "10px sans-serif",
+            font: "12px sans-serif",
             text: prop[text],
             offsetY: 10,
+            fill:  new Fill({
+              color:"red"
+            }),
             stroke: new Stroke({
               color: "white",
               width: 3
