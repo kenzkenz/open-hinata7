@@ -3998,7 +3998,7 @@ function Kyuusekki() {
     url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/zenkoku/{z}/{x}/{y}.mvt"
   });
 }
-export const kyuusekkiSumm = "<a href='https://www.pref.kumamoto.jp/soshiki/125/90282.html' target='_blank'>熊本県　遺跡地図</a>"
+export const kyuusekkiSumm = "<a href='http://palaeolithic.jp/data/index.htm' target='_blank'>データベース『日本列島の旧石器時代遺跡』</a>"
 export  const kyuusekkiObj = {};
 for (let i of mapsStr) {
   kyuusekkiObj[i] = new VectorTileLayer(new Kyuusekki())
