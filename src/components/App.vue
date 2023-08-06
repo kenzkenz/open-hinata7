@@ -540,7 +540,7 @@
       left: calc(100% - 3em);
     }
 
-    ol-target-overlay .ol-target
+    .ol-target-overlay .ol-target
     {	border: 1px solid transparent;
       -webkit-box-shadow: 0 0 1px 1px #fff;
       box-shadow: 0 0 1px 1px #fff;
@@ -552,21 +552,18 @@
     .ol-target-overlay .ol-target:after,
     .ol-target-overlay .ol-target:before
     {	content:"";
-      border: 1px solid black;
-      -webkit-box-shadow: none;	box-shadow: none;
-      /*-webkit-box-shadow: 0 0 1px 1px #fff;*/
-      /*box-shadow: 0 0 1px 1px #fff;*/
+      border: 1px solid #369;
+      -webkit-box-shadow: 0 0 1px 1px #fff;
+      box-shadow: 0 0 1px 1px #fff;
       display: block;
       width: 20px;
       height: 0;
       position:absolute;
-      top:9px;
+      top:10px;
       left:-9px;
     }
     .ol-target-overlay .ol-target:after
-    {
-      -webkit-box-shadow: none;	box-shadow: none;
-      /*-webkit-box-shadow: 0 0 1px 1px #fff;*/
+    {	-webkit-box-shadow: none;	box-shadow: none;
       height: 20px;
       width: 0;
       top:0px;
