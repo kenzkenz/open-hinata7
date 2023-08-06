@@ -21,6 +21,8 @@
             <input type='text' @input="onInput" v-model="address" placeholder="住所検索します。" style="width: 200px;">
             <hr>
             <a id="toPng" href="#" download="image.png" @click='toPng'>PNGダウンロード</a>
+            <hr>
+            <a href="https://kenzkenz.xsrv.jp/open-hinata/open-hinata.html" target="_blank">WEBページへ</a>
         </div>
     </v-dialog>
 </template>
