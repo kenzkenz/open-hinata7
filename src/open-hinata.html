@@ -5,10 +5,26 @@
     <title>open-hinata</title>
     <link rel="icon" href="./favicon.ico" id="favicon">
     <script src="https://js.ptengine.jp/42ju29nt.js"></script>
+    <script src="https://hgis.pref.miyazaki.lg.jp/hinata/js/ol3/ol-cesium-v1.32/olcesium.js"></script>
     <style>
         html, body {
-            margin: 1em;
+            margin: 0;
             padding: 0;
+        }
+        #map {
+            position:relative;
+            width:100%;
+            height:90px;
+        }
+        #title {
+            position:absolute;
+            top:0px;
+            left:10px;
+            z-index:1;
+            pointer-events:none;
+        }
+        #title h1 {
+            color: #fff;
         }
         h2 {
             border-bottom: 3px solid #aaa;
@@ -33,11 +49,19 @@
             max-width: 960px;
             margin-right: auto;
             margin-left: auto;
+            padding: 1em;
         }
     </style>
 </head>
 <body>
 <!--<iframe frameborder=0 src="https://kenzkenz.xsrv.jp/open-hinata/#15/131.42174/31.89969%3FS%3D1%26L%3D%5B%5B%7B%22id%22%3A6%2C%22ck%22%3Atrue%2C%22o%22%3A1%7D%2C%7B%22id%22%3A2%2C%22ck%22%3Atrue%2C%22o%22%3A1%2C%22c%22%3A%22%22%7D%5D%2C%5B%7B%22id%22%3A2%2C%22ck%22%3Atrue%2C%22o%22%3A1%2C%22c%22%3A%22%22%7D%5D%2C%5B%7B%22id%22%3A2%2C%22ck%22%3Atrue%2C%22o%22%3A1%2C%22c%22%3A%22%22%7D%5D%2C%5B%7B%22id%22%3A2%2C%22ck%22%3Atrue%2C%22o%22%3A1%2C%22c%22%3A%22%22%7D%5D%5D" width="100%" height="200PX"></iframe>-->
+
+<div id="map">
+    <div id='title' style="">
+        <h1>open-hinata</h1>
+    </div>
+</div>
+
 <div class="container">
     <h1>open-hinata</h1>
     URLは次のとおりです。<a href="https://kenzkenz.xsrv.jp/open-hinata" target="_blank">https://kenzkenz.xsrv.jp/open-hinata</a>
@@ -143,5 +167,24 @@
     <h2>作者</h2>
         <a href="https://twitter.com/kenzkenz" target="_blank">@kenzkenz</a>
 </div>
+
+<script type="text/javascript">
+    function MiyazakiOrt(){
+        this.source = new ol.source.XYZ({
+            url:'https://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
+            crossOrigin:"anonymous",
+            maxZoom:19
+        })
+    }
+    const ort1 = new ol.layer.Tile(new MiyazakiOrt());
+    const map = new ol.Map({
+        target: 'map',
+        layers: [ort1],
+        view: new ol.View({
+            center:ol.proj.fromLonLat([131.415,31.908]),
+            zoom: 15
+        })
+    });
+</script>
 </body>
 </html>
