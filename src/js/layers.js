@@ -1183,7 +1183,7 @@ for (let i of mapsStr) {
 const ezosansenSumm2 = '<a href="https://github.com/koukita/touzaiezo" target="_blank">喜多氏のgithub</a>'
 // 	東西蝦夷山川地理取調図ここまで------------------------------------------------------------------------
 
-const SSK = '<a href="https://dl.ndl.go.jp/search/searchResult?featureCode=all&searchWord=%E6%9C%80%E6%96%B0%E8%A9%B3%E5%AF%86%E9%87%91%E5%88%BA%E5%88%86%E7%B8%A3%E5%9C%96&fulltext=1&viewRestricted=0" target="_blank">最新詳密金刺分縣圖</a>です。'
+const SSK = '<a href="https://dl.ndl.go.jp/pid/1880805" target="_blank">最新詳密金刺分縣圖</a>です。'
 // 	北海道古地図-------------------------------------------------------------------------------
 function Kotizu01hokkaidou () {
   this.extent = transformE([139.53735724663997, 41.186004293591395,146.42212376570964, 46.26259923231669])
@@ -7850,7 +7850,6 @@ const layers =
                 { text: '33岡山県古地図(大正14年)', data: { id: 'kotizu33okayama', layer: kotizu33okayamaObj, opacity: 1, zoom: 9, center: [133.79959468951728, 34.87942275146696], summary: kotizu33okayamaSumm } },
                 { text: '34広島県古地図(大正13年)', data: { id: 'kotizu34hiroshima', layer: kotizu34hiroshimaObj, opacity: 1, zoom: 9, center: [132.7589452109575, 34.56839937423835], summary: kotizu34hiroshimaSumm } },
                 { text: '35山口県古地図(大正13年)', data: { id: 'kotizu35yamaguchi', layer: kotizu35yamaguchiObj, opacity: 1, zoom: 9, center: [131.59317370493247, 34.230980820797356], summary: kotizu35yamaguchiSumm } },
-
            ]},
             { text: '四国',
               children: [
