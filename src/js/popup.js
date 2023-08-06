@@ -625,6 +625,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
       })
       cont += streetView +'<div>'
       break
+    case 'nihonisanheatmap':
     case 'nihonisan':
       cont = '<div style=width:300px;font-size:small;>' +
           '名称=<a href="https://japan-heritage.bunka.go.jp/ja/stories/story' +  ('000' + prop.jhno).slice(-3) + '/" target="_blank" >' + prop.name + '</a><hr>' +

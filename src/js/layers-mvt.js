@@ -14,6 +14,7 @@ import TileLayer from "ol/layer/Tile";
 import Icon from 'ol/style/Icon.js';
 import VectorSource from "ol/source/Vector";
 import VectorLayer from "ol/layer/Vector";
+import {Heatmap } from 'ol/layer.js';
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
@@ -4002,6 +4003,10 @@ export  const kyuusekkiObj = {};
 for (let i of mapsStr) {
   kyuusekkiObj[i] = new VectorTileLayer(new Kyuusekki())
 }
+export  const kyuusekkiHmObj = {};
+for (let i of mapsStr) {
+  kyuusekkiHmObj[i] = new Heatmap(new Kyuusekki())
+}
 function kyuusekkiFunction() {
   return function (feature, resolution) {
     const zoom = getZoom(resolution);
@@ -4335,4 +4340,20 @@ export const nihonisanSumm = "<a href='https://japan-heritage.bunka.go.jp/ja/' t
 export const nihonisanObj = {};
 for (let i of mapsStr) {
   nihonisanObj[i] = new VectorLayer(new Nihonisan())
+}
+
+function NihonisanHeatmap () {
+  this.useInterimTilesOnError = false
+  this.name = 'nihonisanheatmap'
+  this.source = new VectorSource({
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/nihonisan.geojson',
+    format: new GeoJSON()
+  });
+  this.style = standardFunction('name')
+}
+export const nihonisanheatmapSumm = "<a href='https://japan-heritage.bunka.go.jp/ja/' target='_blank'>日本遺産ポータルサイト</a><br>" +
+    "<a href='https://fukuno.jig.jp/4026' target='_blank'>福野泰介の一日一創</a>"
+export const nihonisanheatmapObj = {};
+for (let i of mapsStr) {
+  nihonisanheatmapObj[i] = new Heatmap(new NihonisanHeatmap())
 }
