@@ -9,7 +9,7 @@
               </div>
                 <div class="top-left-div">
                     <b-button v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="openDialog(s_dialogs['menuDialog'])" style="margin-right:5px;"><i class="fa-solid fa-bars"></i></b-button>
-<!--                    <b-button id='split-map-btn' v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="splitMap" style="margin-right:5px;"><i class="fa-solid fa-table-columns"></i></b-button>-->
+                    <b-button v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="home" style="margin-right:5px;"><i class="fa-solid fa-house"></i></b-button>
                     <b-button id='split-map-btn' v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="splitMap" style="margin-right:5px;">分割</b-button>
                     <b-button class='olbtn-red' :size="btnSize" @click="openDialog(s_dialogs[mapName])">背景</b-button>
 <!--                  <b-popover   content="画面を分割します。"-->
@@ -93,6 +93,9 @@
       s_dialogMaxZindex () { return this.$store.state.base.dialogMaxZindex}
     },
     methods: {
+      home() {
+        window.open('https://kenzkenz.xsrv.jp/open-hinata/open-hinata.html')
+      },
       // レイヤーのダイアログを開く------------------------------------------------------------------
       openDialog (dialog) {
         this.$store.commit('base/incrDialogMaxZindex');
