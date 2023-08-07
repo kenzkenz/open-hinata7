@@ -100,18 +100,17 @@ function syougakkoukuStyleFunction(year) {
       case "Point":
         if (zoom < 12) break;
         style = new Style({
-          image: new Circle({
-            radius: 3,
-            fill: new Fill({
-              color: "black"
-            }),
-            stroke: new Stroke({
-              color: "white",
-              width: 1
-            })
+          image: new Icon({
+            anchor: [0.5, 1],
+            src: require('@/assets/icon/whitepin.png'),
+            color: 'black'
+          }),
+          stroke: new Stroke({
+            color: "white",
+            width: 1
           }),
           text: new Text({
-            font: "8px sans-serif",
+            font: "10px sans-serif",
             text: text,
             offsetY: 10,
             stroke: new Stroke({
@@ -590,9 +589,6 @@ function houmusyoStyleFunction() {
     const type = prop["type"];
     let text = prop.地番
     if (resolution > 9.554628) text = "・";
-
-
-
     const style = new Style({
       // image: new Circle({
       //   radius: 8,
