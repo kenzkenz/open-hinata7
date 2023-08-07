@@ -88,7 +88,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
             '名称＝' + prop.P29_005 + '<br>' +
             '所在地＝' + prop.P29_006 + '<br>' +
             streetView +
-            '</div>>'
+            '</div>'
       }
        break;
     case 'tyuugakkoukuH28' :
