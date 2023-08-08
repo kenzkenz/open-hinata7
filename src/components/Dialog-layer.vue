@@ -37,8 +37,8 @@
     },
     methods: {
       splitMap () {
-        const contentHeight = (window.innerHeight - 100) + 'px';
-        const contentHeight2 = ((window.innerHeight / 2) - 100) + 'px';
+        const contentHeight = (window.innerHeight - 190) + 'px';
+        const contentHeight2 = ((window.innerHeight / 2) - 190) + 'px';
         switch (this.s_splitFlg) {
           // 1画面
           case 1:
