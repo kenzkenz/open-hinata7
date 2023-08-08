@@ -12,15 +12,9 @@
                     <b-button v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="home" style="margin-right:5px;"><i class="fa-solid fa-house"></i></b-button>
                     <b-button id='split-map-btn' v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="splitMap" style="margin-right:5px;">分割</b-button>
                     <b-button class='olbtn-red' :size="btnSize" @click="openDialog(s_dialogs[mapName])">背景</b-button>
-<!--                  <b-popover   content="画面を分割します。"-->
-<!--                               target="split-map-btn"-->
-<!--                               triggers="hover"-->
-<!--                               placement="bottomleft"-->
-<!--                              boundary="viewport"-->
-<!--                    />-->
                 </div>
                 <div class="top-right-div">
-<!--                  <b-button i v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="openDialog(s_dialogs['mainInfoDialog'])"><i class="fa-brands fa-github"></i></b-button>-->
+                  <b-button i v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="openDialog(s_dialogs['mainInfoDialog'])"><i class="fa-brands fa-github"></i></b-button>
                 </div>
                 <v-dialog-layer :mapName=mapName />
                 <v-dialog-info :mapName=mapName />
@@ -444,6 +438,7 @@
       border: 1px solid #cccccc;
       bottom: 12px;
       left: -50px;
+      z-index: 999999;
       /*min-width: 400px;*/
       /*width:200px;*/
     }
