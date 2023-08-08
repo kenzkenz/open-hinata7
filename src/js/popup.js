@@ -114,7 +114,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '用途地域分類＝' + prop.A29_004 + '<br>' +
           '用途地域名＝' + prop.A29_005 + '<br>' +
           '建ぺい率＝' + prop.A29_006 + '<br>' +
-          '容積率＝' + prop.A29_007 + '</div>'
+          '容積率＝' + prop.A29_007 + '<br>' +
+          streetView +
+          '</div>'
       break;
     case 'tosiH30' :
       switch (prop.layer_no) {
