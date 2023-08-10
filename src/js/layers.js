@@ -1116,8 +1116,8 @@ for (let i of mapsStr) {
 for (let i of mapsStr) {
   mw5Obj[i].values_['mw'] = true
 }
-const mw5Summ = '<a href="https://mapwarper.h-gis.jp/" target="_blank">日本版 Map Warper</a><br>' +
-  '<a href="https://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41" target="_blank">スタンフォード大学</a>';
+const mw5Summ = '<a href="https://mapwarper.h-gis.jp/" target="_blank">・日本版 Map Warper</a><br>' +
+  '<a href="https://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41" target="_blank">・スタンフォード大学</a>';
 
 // 日本版mapwarper５万分の１ここまで------------------------------------------------------
 // 日本版mapwarper20万分の１ここから------------------------------------------------------
