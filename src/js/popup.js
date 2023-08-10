@@ -274,7 +274,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
              '<br>火災危険度順位＝' + prop.火災_順 +
              '<br>総合危険度ランク＝' + prop.総合_ラ +
              '<br>総合危険度順位＝' + prop.総合_順 +
-             '<br>災害時活動困難係数＝' + prop.災害_係 + '</div>'
+             '<br>災害時活動困難係数＝' + prop.災害_係 + '<br>' +
+             streetView +
+             '</div>'
       break
     case 'tokutei':
       cont = '<div style=width:120px>' + prop.A25_003 + prop.A25_006 + '</div>'
