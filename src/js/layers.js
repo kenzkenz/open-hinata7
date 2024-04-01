@@ -4796,7 +4796,7 @@ function Kz_tokyo502man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo502manObj = {};
 for (let i of mapsStr) {
@@ -4809,7 +4809,7 @@ function Kz_tokyo5000 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo5000Obj = {};
 for (let i of mapsStr) {
@@ -4822,7 +4822,7 @@ function Kz_tokyo5001 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo5001Obj = {};
 for (let i of mapsStr) {
@@ -4835,7 +4835,7 @@ function Kz_tokyo5002 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo5002Obj = {};
 for (let i of mapsStr) {
@@ -4848,7 +4848,7 @@ function Kz_tokyo5003 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo5003Obj = {};
 for (let i of mapsStr) {
@@ -4861,7 +4861,7 @@ function Kz_tokyo5004 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo5004Obj = {};
 for (let i of mapsStr) {
@@ -4874,7 +4874,7 @@ function Kz_tokyo5005 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo5005Obj = {};
 for (let i of mapsStr) {
@@ -4887,7 +4887,7 @@ function Kz_tokyo5006 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo5006Obj = {};
 for (let i of mapsStr) {
@@ -4900,7 +4900,7 @@ function Kz_tokyo5007 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.2055, 36.03780, 140.3430, 35.21344])
+  this.extent = transformEforMw([139.2055, 36.03780, 140.3430, 35.21344])
 }
 const kz_tokyo5007Obj = {};
 for (let i of mapsStr) {
@@ -4915,7 +4915,7 @@ function Kz_chukyo2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo2manObj = {};
 for (let i of mapsStr) {
@@ -4928,7 +4928,7 @@ function Kz_chukyo00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo00Obj = {};
 for (let i of mapsStr) {
@@ -4941,7 +4941,7 @@ function Kz_chukyo01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo01Obj = {};
 for (let i of mapsStr) {
@@ -4954,7 +4954,7 @@ function Kz_chukyo02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo02Obj = {};
 for (let i of mapsStr) {
@@ -4967,7 +4967,7 @@ function Kz_chukyo03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo03Obj = {};
 for (let i of mapsStr) {
@@ -4980,7 +4980,7 @@ function Kz_chukyo04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo04Obj = {};
 for (let i of mapsStr) {
@@ -4993,7 +4993,7 @@ function Kz_chukyo05 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo05Obj = {};
 for (let i of mapsStr) {
@@ -5006,7 +5006,7 @@ function Kz_chukyo06 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo06Obj = {};
 for (let i of mapsStr) {
@@ -5019,7 +5019,7 @@ function Kz_chukyo07 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo07Obj = {};
 for (let i of mapsStr) {
@@ -5032,7 +5032,7 @@ function Kz_chukyo08 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.4403, 35.51756, 137.2780, 34.80693])
+  this.extent = transformEforMw([136.4403, 35.51756, 137.2780, 34.80693])
 }
 const kz_chukyo08Obj = {};
 for (let i of mapsStr) {
@@ -5047,7 +5047,7 @@ function Kz_keihansin2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin2manObj = {};
 for (let i of mapsStr) {
@@ -5060,7 +5060,7 @@ function Kz_keihansin00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin00Obj = {};
 for (let i of mapsStr) {
@@ -5073,7 +5073,7 @@ function Kz_keihansin01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin01Obj = {};
 for (let i of mapsStr) {
@@ -5086,7 +5086,7 @@ function Kz_keihansin02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin02Obj = {};
 for (let i of mapsStr) {
@@ -5099,7 +5099,7 @@ function Kz_keihansin03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin03Obj = {};
 for (let i of mapsStr) {
@@ -5112,7 +5112,7 @@ function Kz_keihansin03x () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin03xObj = {};
 for (let i of mapsStr) {
@@ -5125,7 +5125,7 @@ function Kz_keihansin04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin04Obj = {};
 for (let i of mapsStr) {
@@ -5138,7 +5138,7 @@ function Kz_keihansin05 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin05Obj = {};
 for (let i of mapsStr) {
@@ -5151,7 +5151,7 @@ function Kz_keihansin06 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin06Obj = {};
 for (let i of mapsStr) {
@@ -5164,7 +5164,7 @@ function Kz_keihansin07 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9547, 35.16172, 136.0506, 34.24785])
+  this.extent = transformEforMw([134.9547, 35.16172, 136.0506, 34.24785])
 }
 const kz_keihansin07Obj = {};
 for (let i of mapsStr) {
@@ -5179,7 +5179,7 @@ function Kz_sapporo00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+  this.extent = transformEforMw([140.8138, 43.28177, 141.6423, 42.89743])
 }
 const kz_sapporo00Obj = {};
 for (let i of mapsStr) {
@@ -5192,7 +5192,7 @@ function Kz_sapporo01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+  this.extent = transformEforMw([140.8138, 43.28177, 141.6423, 42.89743])
 }
 const kz_sapporo01Obj = {};
 for (let i of mapsStr) {
@@ -5205,7 +5205,7 @@ function Kz_sapporo02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+  this.extent = transformEforMw([140.8138, 43.28177, 141.6423, 42.89743])
 }
 const kz_sapporo02Obj = {};
 for (let i of mapsStr) {
@@ -5218,7 +5218,7 @@ function Kz_sapporo03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+  this.extent = transformEforMw([140.8138, 43.28177, 141.6423, 42.89743])
 }
 const kz_sapporo03Obj = {};
 for (let i of mapsStr) {
@@ -5231,7 +5231,7 @@ function Kz_sapporo04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.8138, 43.28177, 141.6423, 42.89743])
+  this.extent = transformEforMw([140.8138, 43.28177, 141.6423, 42.89743])
 }
 const kz_sapporo04Obj = {};
 for (let i of mapsStr) {
@@ -5246,7 +5246,7 @@ function Kz_sendai00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformEforMw([140.7323, 38.43329, 141.2941, 38.05300])
 }
 const kz_sendai00Obj = {};
 for (let i of mapsStr) {
@@ -5259,7 +5259,7 @@ function Kz_sendai01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformEforMw([140.7323, 38.43329, 141.2941, 38.05300])
 }
 const kz_sendai01Obj = {};
 for (let i of mapsStr) {
@@ -5272,7 +5272,7 @@ function Kz_sendai02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformEforMw([140.7323, 38.43329, 141.2941, 38.05300])
 }
 const kz_sendai02Obj = {};
 for (let i of mapsStr) {
@@ -5285,7 +5285,7 @@ function Kz_sendai03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformEforMw([140.7323, 38.43329, 141.2941, 38.05300])
 }
 const kz_sendai03Obj = {};
 for (let i of mapsStr) {
@@ -5298,7 +5298,7 @@ function Kz_sendai04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.7323, 38.43329, 141.2941, 38.05300])
+  this.extent = transformEforMw([140.7323, 38.43329, 141.2941, 38.05300])
 }
 const kz_sendai04Obj = {};
 for (let i of mapsStr) {
@@ -5313,7 +5313,7 @@ function Kz_tohoku_pacific_coast00 () {
     minZoom: 8,
     maxZoom: 15
   })
-  this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
+  this.extent = transformEforMw([140.52184, 40.76320, 142.4267, 36.67445])
 }
 const kz_tohoku_pacific_coast00Obj = {};
 for (let i of mapsStr) {
@@ -5326,7 +5326,7 @@ function Kz_tohoku_pacific_coast01 () {
     minZoom: 8,
     maxZoom: 15
   })
-  this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
+  this.extent = transformEforMw([140.52184, 40.76320, 142.4267, 36.67445])
 }
 const kz_tohoku_pacific_coast01Obj = {};
 for (let i of mapsStr) {
@@ -5339,7 +5339,7 @@ function Kz_tohoku_pacific_coast02 () {
     minZoom: 8,
     maxZoom: 15
   })
-  this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
+  this.extent = transformEforMw([140.52184, 40.76320, 142.4267, 36.67445])
 }
 const kz_tohoku_pacific_coast02Obj = {};
 for (let i of mapsStr) {
@@ -5352,7 +5352,7 @@ function Kz_tohoku_pacific_coast03 () {
     minZoom: 8,
     maxZoom: 15
   })
-  this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
+  this.extent = transformEforMw([140.52184, 40.76320, 142.4267, 36.67445])
 }
 const kz_tohoku_pacific_coast03Obj = {};
 for (let i of mapsStr) {
@@ -5367,7 +5367,7 @@ function Kz_himeji2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+  this.extent = transformEforMw([134.4642, 34.95249, 135.1670, 34.53810])
 }
 const kz_himeji2manObj = {};
 for (let i of mapsStr) {
@@ -5380,7 +5380,7 @@ function Kz_himeji00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+  this.extent = transformEforMw([134.4642, 34.95249, 135.1670, 34.53810])
 }
 const kz_himeji00Obj = {};
 for (let i of mapsStr) {
@@ -5393,7 +5393,7 @@ function Kz_himeji01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+  this.extent = transformEforMw([134.4642, 34.95249, 135.1670, 34.53810])
 }
 const kz_himeji01Obj = {};
 for (let i of mapsStr) {
@@ -5406,7 +5406,7 @@ function Kz_himeji02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+  this.extent = transformEforMw([134.4642, 34.95249, 135.1670, 34.53810])
 }
 const kz_himeji02Obj = {};
 for (let i of mapsStr) {
@@ -5419,7 +5419,7 @@ function Kz_himeji03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.4642, 34.95249, 135.1670, 34.53810])
+  this.extent = transformEforMw([134.4642, 34.95249, 135.1670, 34.53810])
 }
 const kz_himeji03Obj = {};
 for (let i of mapsStr) {
@@ -5434,7 +5434,7 @@ function Kz_okayama2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+  this.extent = transformEforMw([132.9334, 34.78731, 134.2442, 34.27248])
 }
 const kz_okayama2manObj = {};
 for (let i of mapsStr) {
@@ -5447,7 +5447,7 @@ function Kz_okayama00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+  this.extent = transformEforMw([132.9334, 34.78731, 134.2442, 34.27248])
 }
 const kz_okayama00Obj = {};
 for (let i of mapsStr) {
@@ -5460,7 +5460,7 @@ function Kz_okayama01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+  this.extent = transformEforMw([132.9334, 34.78731, 134.2442, 34.27248])
 }
 const kz_okayama01Obj = {};
 for (let i of mapsStr) {
@@ -5473,7 +5473,7 @@ function Kz_okayama02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+  this.extent = transformEforMw([132.9334, 34.78731, 134.2442, 34.27248])
 }
 const kz_okayama02Obj = {};
 for (let i of mapsStr) {
@@ -5486,7 +5486,7 @@ function Kz_okayama03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.9334, 34.78731, 134.2442, 34.27248])
+  this.extent = transformEforMw([132.9334, 34.78731, 134.2442, 34.27248])
 }
 const kz_okayama03Obj = {};
 for (let i of mapsStr) {
@@ -5502,7 +5502,7 @@ function Kz_hamamatsu2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+  this.extent = transformEforMw([137.0838, 34.95158, 138.1734, 34.55129])
 }
 const kz_hamamatsu2manObj = {};
 for (let i of mapsStr) {
@@ -5515,7 +5515,7 @@ function Kz_hamamatsu00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+  this.extent = transformEforMw([137.0838, 34.95158, 138.1734, 34.55129])
 }
 const kz_hamamatsu00Obj = {};
 for (let i of mapsStr) {
@@ -5528,7 +5528,7 @@ function Kz_hamamatsu01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+  this.extent = transformEforMw([137.0838, 34.95158, 138.1734, 34.55129])
 }
 const kz_hamamatsu01Obj = {};
 for (let i of mapsStr) {
@@ -5541,7 +5541,7 @@ function Kz_hamamatsu02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+  this.extent = transformEforMw([137.0838, 34.95158, 138.1734, 34.55129])
 }
 const kz_hamamatsu02Obj = {};
 for (let i of mapsStr) {
@@ -5554,7 +5554,7 @@ function Kz_hamamatsu03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+  this.extent = transformEforMw([137.0838, 34.95158, 138.1734, 34.55129])
 }
 const kz_hamamatsu03Obj = {};
 for (let i of mapsStr) {
@@ -5567,7 +5567,7 @@ function Kz_hamamatsu04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+  this.extent = transformEforMw([137.0838, 34.95158, 138.1734, 34.55129])
 }
 const kz_hamamatsu04Obj = {};
 for (let i of mapsStr) {
@@ -5580,7 +5580,7 @@ function Kz_hamamatsu05 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.0838, 34.95158, 138.1734, 34.55129])
+  this.extent = transformEforMw([137.0838, 34.95158, 138.1734, 34.55129])
 }
 const kz_hamamatsu05Obj = {};
 for (let i of mapsStr) {
@@ -5595,7 +5595,7 @@ function Kz_hiroshima2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+  this.extent = transformEforMw([132.0764, 34.63549, 133.0733, 34.06630])
 }
 const kz_hiroshima2manObj = {};
 for (let i of mapsStr) {
@@ -5608,7 +5608,7 @@ function Kz_hiroshima00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+  this.extent = transformEforMw([132.0764, 34.63549, 133.0733, 34.06630])
 }
 const kz_hiroshima00Obj = {};
 for (let i of mapsStr) {
@@ -5621,7 +5621,7 @@ function Kz_hiroshima01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+  this.extent = transformEforMw([132.0764, 34.63549, 133.0733, 34.06630])
 }
 const kz_hiroshima01Obj = {};
 for (let i of mapsStr) {
@@ -5634,7 +5634,7 @@ function Kz_hiroshima02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+  this.extent = transformEforMw([132.0764, 34.63549, 133.0733, 34.06630])
 }
 const kz_hiroshima02Obj = {};
 for (let i of mapsStr) {
@@ -5647,7 +5647,7 @@ function Kz_hiroshima03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+  this.extent = transformEforMw([132.0764, 34.63549, 133.0733, 34.06630])
 }
 const kz_hiroshima03Obj = {};
 for (let i of mapsStr) {
@@ -5660,7 +5660,7 @@ function Kz_hiroshima04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.0764, 34.63549, 133.0733, 34.06630])
+  this.extent = transformEforMw([132.0764, 34.63549, 133.0733, 34.06630])
 }
 const kz_hiroshima04Obj = {};
 for (let i of mapsStr) {
@@ -5675,7 +5675,7 @@ function Kz_kanto00 () {
     minZoom: 8,
     maxZoom: 15
   })
-  this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
+  this.extent = transformEforMw([138.1383, 37.24556, 141.1668, 34.60537])
 }
 const kz_kanto00Obj = {};
 for (let i of mapsStr) {
@@ -5688,7 +5688,7 @@ function Kz_kanto01 () {
     minZoom: 8,
     maxZoom: 15
   })
-  this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
+  this.extent = transformEforMw([138.1383, 37.24556, 141.1668, 34.60537])
 }
 const kz_kanto01Obj = {};
 for (let i of mapsStr) {
@@ -5701,7 +5701,7 @@ function Kz_kanto02 () {
     minZoom: 8,
     maxZoom: 15
   })
-  this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
+  this.extent = transformEforMw([138.1383, 37.24556, 141.1668, 34.60537])
 }
 const kz_kanto02Obj = {};
 for (let i of mapsStr) {
@@ -5714,7 +5714,7 @@ function Kz_kanto03 () {
     minZoom: 8,
     maxZoom: 15
   })
-  this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
+  this.extent = transformEforMw([138.1383, 37.24556, 141.1668, 34.60537])
 }
 const kz_kanto03Obj = {};
 for (let i of mapsStr) {
@@ -5729,7 +5729,7 @@ function Kz_kagoshima5man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+  this.extent = transformEforMw([130.3444, 31.84601, 130.7926, 31.45388])
 }
 const kz_kagoshima5manObj = {};
 for (let i of mapsStr) {
@@ -5742,7 +5742,7 @@ function Kz_kagoshima2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+  this.extent = transformEforMw([130.3444, 31.84601, 130.7926, 31.45388])
 }
 const kz_kagoshima2manObj = {};
 for (let i of mapsStr) {
@@ -5755,7 +5755,7 @@ function Kz_kagoshima00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+  this.extent = transformEforMw([130.3444, 31.84601, 130.7926, 31.45388])
 }
 const kz_kagoshima00Obj = {};
 for (let i of mapsStr) {
@@ -5768,7 +5768,7 @@ function Kz_kagoshima01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+  this.extent = transformEforMw([130.3444, 31.84601, 130.7926, 31.45388])
 }
 const kz_kagoshima01Obj = {};
 for (let i of mapsStr) {
@@ -5781,7 +5781,7 @@ function Kz_kagoshima02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+  this.extent = transformEforMw([130.3444, 31.84601, 130.7926, 31.45388])
 }
 const kz_kagoshima02Obj = {};
 for (let i of mapsStr) {
@@ -5794,7 +5794,7 @@ function Kz_kagoshima03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.3444, 31.84601, 130.7926, 31.45388])
+  this.extent = transformEforMw([130.3444, 31.84601, 130.7926, 31.45388])
 }
 const kz_kagoshima03Obj = {};
 for (let i of mapsStr) {
@@ -5809,7 +5809,7 @@ function Kz_akita00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9861, 39.92753, 140.2590, 39.57517])
+  this.extent = transformEforMw([139.9861, 39.92753, 140.2590, 39.57517])
 }
 const kz_akita00Obj = {};
 for (let i of mapsStr) {
@@ -5822,7 +5822,7 @@ function Kz_akita01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9861, 39.92753, 140.2590, 39.57517])
+  this.extent = transformEforMw([139.9861, 39.92753, 140.2590, 39.57517])
 }
 const kz_akita01Obj = {};
 for (let i of mapsStr) {
@@ -5835,7 +5835,7 @@ function Kz_akita02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9861, 39.92753, 140.2590, 39.57517])
+  this.extent = transformEforMw([139.9861, 39.92753, 140.2590, 39.57517])
 }
 const kz_akita02Obj = {};
 for (let i of mapsStr) {
@@ -5848,7 +5848,7 @@ function Kz_akita03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9861, 39.92753, 140.2590, 39.57517])
+  this.extent = transformEforMw([139.9861, 39.92753, 140.2590, 39.57517])
 }
 const kz_akita03Obj = {};
 for (let i of mapsStr) {
@@ -5863,7 +5863,7 @@ function Kz_morioka00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([40.9799, 39.84484, 141.2624, 39.49430])
+  this.extent = transformEforMw([40.9799, 39.84484, 141.2624, 39.49430])
 }
 const kz_morioka00Obj = {};
 for (let i of mapsStr) {
@@ -5876,7 +5876,7 @@ function Kz_morioka01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([40.9799, 39.84484, 141.2624, 39.49430])
+  this.extent = transformEforMw([40.9799, 39.84484, 141.2624, 39.49430])
 }
 const kz_morioka01Obj = {};
 for (let i of mapsStr) {
@@ -5889,7 +5889,7 @@ function Kz_morioka02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([40.9799, 39.84484, 141.2624, 39.49430])
+  this.extent = transformEforMw([40.9799, 39.84484, 141.2624, 39.49430])
 }
 const kz_morioka02Obj = {};
 for (let i of mapsStr) {
@@ -5902,7 +5902,7 @@ function Kz_morioka03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([40.9799, 39.84484, 141.2624, 39.49430])
+  this.extent = transformEforMw([40.9799, 39.84484, 141.2624, 39.49430])
 }
 const kz_morioka03Obj = {};
 for (let i of mapsStr) {
@@ -5915,7 +5915,7 @@ function Kz_morioka04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([40.9799, 39.84484, 141.2624, 39.49430])
+  this.extent = transformEforMw([40.9799, 39.84484, 141.2624, 39.49430])
 }
 const kz_morioka04Obj = {};
 for (let i of mapsStr) {
@@ -5930,7 +5930,7 @@ function Kz_fukui2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])
+  this.extent = transformEforMw([136.0866, 36.17954, 136.4248, 35.81107])
 }
 const kz_fukui2manObj = {};
 for (let i of mapsStr) {
@@ -5943,7 +5943,7 @@ function Kz_fukui00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])}
+  this.extent = transformEforMw([136.0866, 36.17954, 136.4248, 35.81107])}
 const kz_fukui00Obj = {};
 for (let i of mapsStr) {
   kz_fukui00Obj[i] = new TileLayer(new Kz_fukui00())
@@ -5955,7 +5955,7 @@ function Kz_fukui01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])}
+  this.extent = transformEforMw([136.0866, 36.17954, 136.4248, 35.81107])}
 const kz_fukui01Obj = {};
 for (let i of mapsStr) {
   kz_fukui01Obj[i] = new TileLayer(new Kz_fukui01())
@@ -5967,7 +5967,7 @@ function Kz_fukui02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])}
+  this.extent = transformEforMw([136.0866, 36.17954, 136.4248, 35.81107])}
 const kz_fukui02Obj = {};
 for (let i of mapsStr) {
   kz_fukui02Obj[i] = new TileLayer(new Kz_fukui02())
@@ -5979,7 +5979,7 @@ function Kz_fukui03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.0866, 36.17954, 136.4248, 35.81107])}
+  this.extent = transformEforMw([136.0866, 36.17954, 136.4248, 35.81107])}
 const kz_fukui03Obj = {};
 for (let i of mapsStr) {
   kz_fukui03Obj[i] = new TileLayer(new Kz_fukui03())
@@ -5993,7 +5993,7 @@ function Kz_tottori2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.0789, 35.62651, 134.33077, 35.38198])
+  this.extent = transformEforMw([134.0789, 35.62651, 134.33077, 35.38198])
 }
 const kz_tottori2manObj = {};
 for (let i of mapsStr) {
@@ -6006,7 +6006,7 @@ function Kz_tottori00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.0789, 35.62651, 134.33077, 35.38198])
+  this.extent = transformEforMw([134.0789, 35.62651, 134.33077, 35.38198])
 }
 const kz_tottori00Obj = {};
 for (let i of mapsStr) {
@@ -6019,7 +6019,7 @@ function Kz_tottori01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.0789, 35.62651, 134.33077, 35.38198])
+  this.extent = transformEforMw([134.0789, 35.62651, 134.33077, 35.38198])
 }
 const kz_tottori01Obj = {};
 for (let i of mapsStr) {
@@ -6032,7 +6032,7 @@ function Kz_tottori02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.0789, 35.62651, 134.33077, 35.38198])
+  this.extent = transformEforMw([134.0789, 35.62651, 134.33077, 35.38198])
 }
 const kz_tottori02Obj = {};
 for (let i of mapsStr) {
@@ -6045,7 +6045,7 @@ function Kz_tottori03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.0789, 35.62651, 134.33077, 35.38198])
+  this.extent = transformEforMw([134.0789, 35.62651, 134.33077, 35.38198])
 }
 const kz_tottori03Obj = {};
 for (let i of mapsStr) {
@@ -6060,7 +6060,7 @@ function Kz_takamatsu2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+  this.extent = transformEforMw([133.6703, 34.44003, 134.2791, 34.11763])
 }
 const kz_takamatsu2manObj = {};
 for (let i of mapsStr) {
@@ -6073,7 +6073,7 @@ function Kz_takamatsu00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+  this.extent = transformEforMw([133.6703, 34.44003, 134.2791, 34.11763])
 }
 const kz_takamatsu00Obj = {};
 for (let i of mapsStr) {
@@ -6086,7 +6086,7 @@ function Kz_takamatsu01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+  this.extent = transformEforMw([133.6703, 34.44003, 134.2791, 34.11763])
 }
 const kz_takamatsu01Obj = {};
 for (let i of mapsStr) {
@@ -6099,7 +6099,7 @@ function Kz_takamatsu02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+  this.extent = transformEforMw([133.6703, 34.44003, 134.2791, 34.11763])
 }
 const kz_takamatsu02Obj = {};
 for (let i of mapsStr) {
@@ -6112,7 +6112,7 @@ function Kz_takamatsu03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.6703, 34.44003, 134.2791, 34.11763])
+  this.extent = transformEforMw([133.6703, 34.44003, 134.2791, 34.11763])
 }
 const kz_takamatsu03Obj = {};
 for (let i of mapsStr) {
@@ -6127,7 +6127,7 @@ function Kz_tokushima2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.2076, 34.29169, 134.7807, 33.82579])
+  this.extent = transformEforMw([134.2076, 34.29169, 134.7807, 33.82579])
 }
 const kz_tokushima2manObj = {};
 for (let i of mapsStr) {
@@ -6140,7 +6140,7 @@ function Kz_tokushima00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.2076, 34.29169, 134.7807, 33.82579])
+  this.extent = transformEforMw([134.2076, 34.29169, 134.7807, 33.82579])
 }
 const kz_tokushima00Obj = {};
 for (let i of mapsStr) {
@@ -6153,7 +6153,7 @@ function Kz_tokushima01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.2076, 34.29169, 134.7807, 33.82579])
+  this.extent = transformEforMw([134.2076, 34.29169, 134.7807, 33.82579])
 }
 const kz_tokushima01Obj = {};
 for (let i of mapsStr) {
@@ -6166,7 +6166,7 @@ function Kz_tokushima02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.2076, 34.29169, 134.7807, 33.82579])
+  this.extent = transformEforMw([134.2076, 34.29169, 134.7807, 33.82579])
 }
 const kz_tokushima02Obj = {};
 for (let i of mapsStr) {
@@ -6179,7 +6179,7 @@ function Kz_tokushima03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.2076, 34.29169, 134.7807, 33.82579])
+  this.extent = transformEforMw([134.2076, 34.29169, 134.7807, 33.82579])
 }
 const kz_tokushima03Obj = {};
 for (let i of mapsStr) {
@@ -6192,7 +6192,7 @@ function Kz_tokushima04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.2076, 34.29169, 134.7807, 33.82579])
+  this.extent = transformEforMw([134.2076, 34.29169, 134.7807, 33.82579])
 }
 const kz_tokushima04Obj = {};
 for (let i of mapsStr) {
@@ -6207,7 +6207,7 @@ function Kz_kochi2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.3387, 33.68745, 133.9075, 33.36919])
+  this.extent = transformEforMw([133.3387, 33.68745, 133.9075, 33.36919])
 }
 const kz_kochi2manObj = {};
 for (let i of mapsStr) {
@@ -6220,7 +6220,7 @@ function Kz_kochi00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.3387, 33.68745, 133.9075, 33.36919])
+  this.extent = transformEforMw([133.3387, 33.68745, 133.9075, 33.36919])
 }
 const kz_kochi00Obj = {};
 for (let i of mapsStr) {
@@ -6233,7 +6233,7 @@ function Kz_kochi01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.3387, 33.68745, 133.9075, 33.36919])
+  this.extent = transformEforMw([133.3387, 33.68745, 133.9075, 33.36919])
 }
 const kz_kochi01Obj = {};
 for (let i of mapsStr) {
@@ -6246,7 +6246,7 @@ function Kz_kochi02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.3387, 33.68745, 133.9075, 33.36919])
+  this.extent = transformEforMw([133.3387, 33.68745, 133.9075, 33.36919])
 }
 const kz_kochi02Obj = {};
 for (let i of mapsStr) {
@@ -6259,7 +6259,7 @@ function Kz_kochi03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([133.3387, 33.68745, 133.9075, 33.36919])
+  this.extent = transformEforMw([133.3387, 33.68745, 133.9075, 33.36919])
 }
 const kz_kochi03Obj = {};
 for (let i of mapsStr) {
@@ -6274,7 +6274,7 @@ function Kz_yamagata2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.1843, 38.51437, 140.5229, 38.06874])
+  this.extent = transformEforMw([140.1843, 38.51437, 140.5229, 38.06874])
 }
 const kz_yamagata2manObj = {};
 for (let i of mapsStr) {
@@ -6287,7 +6287,7 @@ function Kz_yamagata00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.1843, 38.51437, 140.5229, 38.06874])
+  this.extent = transformEforMw([140.1843, 38.51437, 140.5229, 38.06874])
 }
 const kz_yamagata00Obj = {};
 for (let i of mapsStr) {
@@ -6300,7 +6300,7 @@ function Kz_yamagata01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.1843, 38.51437, 140.5229, 38.06874])
+  this.extent = transformEforMw([140.1843, 38.51437, 140.5229, 38.06874])
 }
 const kz_yamagata01Obj = {};
 for (let i of mapsStr) {
@@ -6313,7 +6313,7 @@ function Kz_yamagata02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.1843, 38.51437, 140.5229, 38.06874])
+  this.extent = transformEforMw([140.1843, 38.51437, 140.5229, 38.06874])
 }
 const kz_yamagata02Obj = {};
 for (let i of mapsStr) {
@@ -6326,7 +6326,7 @@ function Kz_yamagata03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.1843, 38.51437, 140.5229, 38.06874])
+  this.extent = transformEforMw([140.1843, 38.51437, 140.5229, 38.06874])
 }
 const kz_yamagata03Obj = {};
 for (let i of mapsStr) {
@@ -6341,7 +6341,7 @@ function Kz_aomori00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+  this.extent = transformEforMw([140.6031, 40.93068, 140.8888, 40.74337])
 }
 const kz_aomori00Obj = {};
 for (let i of mapsStr) {
@@ -6354,7 +6354,7 @@ function Kz_aomori01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+  this.extent = transformEforMw([140.6031, 40.93068, 140.8888, 40.74337])
 }
 const kz_aomori01Obj = {};
 for (let i of mapsStr) {
@@ -6367,7 +6367,7 @@ function Kz_aomori02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+  this.extent = transformEforMw([140.6031, 40.93068, 140.8888, 40.74337])
 }
 const kz_aomori02Obj = {};
 for (let i of mapsStr) {
@@ -6380,7 +6380,7 @@ function Kz_aomori03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+  this.extent = transformEforMw([140.6031, 40.93068, 140.8888, 40.74337])
 }
 const kz_aomori03Obj = {};
 for (let i of mapsStr) {
@@ -6393,7 +6393,7 @@ function Kz_aomori04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6031, 40.93068, 140.8888, 40.74337])
+  this.extent = transformEforMw([140.6031, 40.93068, 140.8888, 40.74337])
 }
 const kz_aomori04Obj = {};
 for (let i of mapsStr) {
@@ -6408,7 +6408,7 @@ function Kz_fukushima00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+  this.extent = transformEforMw([140.2226, 37.84724, 140.5149, 37.15678])
 }
 const kz_fukushima00Obj = {};
 for (let i of mapsStr) {
@@ -6421,7 +6421,7 @@ function Kz_fukushima01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+  this.extent = transformEforMw([140.2226, 37.84724, 140.5149, 37.15678])
 }
 const kz_fukushima01Obj = {};
 for (let i of mapsStr) {
@@ -6434,7 +6434,7 @@ function Kz_fukushima02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+  this.extent = transformEforMw([140.2226, 37.84724, 140.5149, 37.15678])
 }
 const kz_fukushima02Obj = {};
 for (let i of mapsStr) {
@@ -6447,7 +6447,7 @@ function Kz_fukushima03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+  this.extent = transformEforMw([140.2226, 37.84724, 140.5149, 37.15678])
 }
 const kz_fukushima03Obj = {};
 for (let i of mapsStr) {
@@ -6460,7 +6460,7 @@ function Kz_fukushima04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.2226, 37.84724, 140.5149, 37.15678])
+  this.extent = transformEforMw([140.2226, 37.84724, 140.5149, 37.15678])
 }
 const kz_fukushima04Obj = {};
 for (let i of mapsStr) {
@@ -6475,7 +6475,7 @@ function Kz_nagano00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+  this.extent = transformEforMw([137.9812, 36.67809, 138.2593, 36.49367])
 }
 const kz_nagano00Obj = {};
 for (let i of mapsStr) {
@@ -6488,7 +6488,7 @@ function Kz_nagano01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+  this.extent = transformEforMw([137.9812, 36.67809, 138.2593, 36.49367])
 }
 const kz_nagano01Obj = {};
 for (let i of mapsStr) {
@@ -6501,7 +6501,7 @@ function Kz_nagano02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+  this.extent = transformEforMw([137.9812, 36.67809, 138.2593, 36.49367])
 }
 const kz_nagano02Obj = {};
 for (let i of mapsStr) {
@@ -6514,7 +6514,7 @@ function Kz_nagano03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+  this.extent = transformEforMw([137.9812, 36.67809, 138.2593, 36.49367])
 }
 const kz_nagano03Obj = {};
 for (let i of mapsStr) {
@@ -6527,7 +6527,7 @@ function Kz_nagano04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+  this.extent = transformEforMw([137.9812, 36.67809, 138.2593, 36.49367])
 }
 const kz_nagano04Obj = {};
 for (let i of mapsStr) {
@@ -6540,7 +6540,7 @@ function Kz_nagano05 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.9812, 36.67809, 138.2593, 36.49367])
+  this.extent = transformEforMw([137.9812, 36.67809, 138.2593, 36.49367])
 }
 const kz_nagano05Obj = {};
 for (let i of mapsStr) {
@@ -6555,7 +6555,7 @@ function Kz_matsuyama2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5737, 33.94776, 133.0168, 33.70724])
+  this.extent = transformEforMw([132.5737, 33.94776, 133.0168, 33.70724])
 }
 const kz_matsuyama2manObj = {};
 for (let i of mapsStr) {
@@ -6568,7 +6568,7 @@ function Kz_matsuyama00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5737, 33.94776, 133.0168, 33.70724])
+  this.extent = transformEforMw([132.5737, 33.94776, 133.0168, 33.70724])
 }
 const kz_matsuyama00Obj = {};
 for (let i of mapsStr) {
@@ -6581,7 +6581,7 @@ function Kz_matsuyama01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5737, 33.94776, 133.0168, 33.70724])
+  this.extent = transformEforMw([132.5737, 33.94776, 133.0168, 33.70724])
 }
 const kz_matsuyama01Obj = {};
 for (let i of mapsStr) {
@@ -6594,7 +6594,7 @@ function Kz_matsuyama02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5737, 33.94776, 133.0168, 33.70724])
+  this.extent = transformEforMw([132.5737, 33.94776, 133.0168, 33.70724])
 }
 const kz_matsuyama02Obj = {};
 for (let i of mapsStr) {
@@ -6607,7 +6607,7 @@ function Kz_matsuyama03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5737, 33.94776, 133.0168, 33.70724])
+  this.extent = transformEforMw([132.5737, 33.94776, 133.0168, 33.70724])
 }
 const kz_matsuyama03Obj = {};
 for (let i of mapsStr) {
@@ -6621,7 +6621,7 @@ function Kz_kanazawa2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+  this.extent = transformEforMw([136.2230, 36.85496, 137.6053, 36.31367])
 }
 const kz_kanazawa2manObj = {};
 for (let i of mapsStr) {
@@ -6634,7 +6634,7 @@ function Kz_kanazawa00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+  this.extent = transformEforMw([136.2230, 36.85496, 137.6053, 36.31367])
 }
 const kz_kanazawa00Obj = {};
 for (let i of mapsStr) {
@@ -6647,7 +6647,7 @@ function Kz_kanazawa01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+  this.extent = transformEforMw([136.2230, 36.85496, 137.6053, 36.31367])
 }
 const kz_kanazawa01Obj = {};
 for (let i of mapsStr) {
@@ -6660,7 +6660,7 @@ function Kz_kanazawa02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+  this.extent = transformEforMw([136.2230, 36.85496, 137.6053, 36.31367])
 }
 const kz_kanazawa02Obj = {};
 for (let i of mapsStr) {
@@ -6673,7 +6673,7 @@ function Kz_kanazawa03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.2230, 36.85496, 137.6053, 36.31367])
+  this.extent = transformEforMw([136.2230, 36.85496, 137.6053, 36.31367])
 }
 const kz_kanazawa03Obj = {};
 for (let i of mapsStr) {
@@ -6687,7 +6687,7 @@ function Kz_wakayama2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+  this.extent = transformEforMw([134.9722, 34.35308, 135.5498, 34.03339])
 }
 const kz_wakayama2manObj = {};
 for (let i of mapsStr) {
@@ -6700,7 +6700,7 @@ function Kz_wakayama00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+  this.extent = transformEforMw([134.9722, 34.35308, 135.5498, 34.03339])
 }
 const kz_wakayama00Obj = {};
 for (let i of mapsStr) {
@@ -6713,7 +6713,7 @@ function Kz_wakayama01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+  this.extent = transformEforMw([134.9722, 34.35308, 135.5498, 34.03339])
 }
 const kz_wakayama01Obj = {};
 for (let i of mapsStr) {
@@ -6726,7 +6726,7 @@ function Kz_wakayama02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+  this.extent = transformEforMw([134.9722, 34.35308, 135.5498, 34.03339])
 }
 const kz_wakayama02Obj = {};
 for (let i of mapsStr) {
@@ -6739,7 +6739,7 @@ function Kz_wakayama03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+  this.extent = transformEforMw([134.9722, 34.35308, 135.5498, 34.03339])
 }
 const kz_wakayama03Obj = {};
 for (let i of mapsStr) {
@@ -6752,7 +6752,7 @@ function Kz_wakayama04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([134.9722, 34.35308, 135.5498, 34.03339])
+  this.extent = transformEforMw([134.9722, 34.35308, 135.5498, 34.03339])
 }
 const kz_wakayama04Obj = {};
 for (let i of mapsStr) {
@@ -6767,7 +6767,7 @@ function Kz_omi2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.7579, 35.52322, 136.5286, 34.87454])
+  this.extent = transformEforMw([135.7579, 35.52322, 136.5286, 34.87454])
 }
 const kz_omi2manObj = {};
 for (let i of mapsStr) {
@@ -6780,7 +6780,7 @@ function Kz_omi00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.7579, 35.52322, 136.5286, 34.87454])
+  this.extent = transformEforMw([135.7579, 35.52322, 136.5286, 34.87454])
 }
 const kz_omi00Obj = {};
 for (let i of mapsStr) {
@@ -6793,7 +6793,7 @@ function Kz_omi01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.7579, 35.52322, 136.5286, 34.87454])
+  this.extent = transformEforMw([135.7579, 35.52322, 136.5286, 34.87454])
 }
 const kz_omi01Obj = {};
 for (let i of mapsStr) {
@@ -6806,7 +6806,7 @@ function Kz_omi02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.7579, 35.52322, 136.5286, 34.87454])
+  this.extent = transformEforMw([135.7579, 35.52322, 136.5286, 34.87454])
 }
 const kz_omi02Obj = {};
 for (let i of mapsStr) {
@@ -6819,7 +6819,7 @@ function Kz_omi03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.7579, 35.52322, 136.5286, 34.87454])
+  this.extent = transformEforMw([135.7579, 35.52322, 136.5286, 34.87454])
 }
 const kz_omi03Obj = {};
 for (let i of mapsStr) {
@@ -6832,7 +6832,7 @@ function Kz_omi04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.7579, 35.52322, 136.5286, 34.87454])
+  this.extent = transformEforMw([135.7579, 35.52322, 136.5286, 34.87454])
 }
 const kz_omi04Obj = {};
 for (let i of mapsStr) {
@@ -6848,7 +6848,7 @@ function Kz_asahikawa00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.2280, 43.93407, 142.5118, 43.66072])
+  this.extent = transformEforMw([142.2280, 43.93407, 142.5118, 43.66072])
 }
 const kz_asahikawa00Obj = {};
 for (let i of mapsStr) {
@@ -6861,7 +6861,7 @@ function Kz_asahikawa01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.2280, 43.93407, 142.5118, 43.66072])
+  this.extent = transformEforMw([142.2280, 43.93407, 142.5118, 43.66072])
 }
 const kz_asahikawa01Obj = {};
 for (let i of mapsStr) {
@@ -6874,7 +6874,7 @@ function Kz_asahikawa02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.2280, 43.93407, 142.5118, 43.66072])
+  this.extent = transformEforMw([142.2280, 43.93407, 142.5118, 43.66072])
 }
 const kz_asahikawa02Obj = {};
 for (let i of mapsStr) {
@@ -6887,7 +6887,7 @@ function Kz_asahikawa03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.2280, 43.93407, 142.5118, 43.66072])
+  this.extent = transformEforMw([142.2280, 43.93407, 142.5118, 43.66072])
 }
 const kz_asahikawa03Obj = {};
 for (let i of mapsStr) {
@@ -6900,7 +6900,7 @@ function Kz_asahikawa04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.2280, 43.93407, 142.5118, 43.66072])
+  this.extent = transformEforMw([142.2280, 43.93407, 142.5118, 43.66072])
 }
 const kz_asahikawa04Obj = {};
 for (let i of mapsStr) {
@@ -6915,7 +6915,7 @@ function Kz_hakodate00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.4871, 41.92427, 140.8864, 41.65343])
+  this.extent = transformEforMw([140.4871, 41.92427, 140.8864, 41.65343])
 }
 const kz_hakodate00Obj = {};
 for (let i of mapsStr) {
@@ -6928,7 +6928,7 @@ function Kz_hakodate01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.4871, 41.92427, 140.8864, 41.65343])
+  this.extent = transformEforMw([140.4871, 41.92427, 140.8864, 41.65343])
 }
 const kz_hakodate01Obj = {};
 for (let i of mapsStr) {
@@ -6941,7 +6941,7 @@ function Kz_hakodate02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.4871, 41.92427, 140.8864, 41.65343])
+  this.extent = transformEforMw([140.4871, 41.92427, 140.8864, 41.65343])
 }
 const kz_hakodate02Obj = {};
 for (let i of mapsStr) {
@@ -6954,7 +6954,7 @@ function Kz_hakodate03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.4871, 41.92427, 140.8864, 41.65343])
+  this.extent = transformEforMw([140.4871, 41.92427, 140.8864, 41.65343])
 }
 const kz_hakodate03Obj = {};
 for (let i of mapsStr) {
@@ -6967,7 +6967,7 @@ function Kz_hakodate04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.4871, 41.92427, 140.8864, 41.65343])
+  this.extent = transformEforMw([140.4871, 41.92427, 140.8864, 41.65343])
 }
 const kz_hakodate04Obj = {};
 for (let i of mapsStr) {
@@ -6982,7 +6982,7 @@ function Kz_matsumoto00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.43027, 138.1433, 35.99328])
+  this.extent = transformEforMw([137.7309, 36.43027, 138.1433, 35.99328])
 }
 const kz_matsumoto00Obj = {};
 for (let i of mapsStr) {
@@ -6995,7 +6995,7 @@ function Kz_matsumoto01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.43027, 138.1433, 35.99328])
+  this.extent = transformEforMw([137.7309, 36.43027, 138.1433, 35.99328])
 }
 const kz_matsumoto01Obj = {};
 for (let i of mapsStr) {
@@ -7008,7 +7008,7 @@ function Kz_matsumoto02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.43027, 138.1433, 35.99328])
+  this.extent = transformEforMw([137.7309, 36.43027, 138.1433, 35.99328])
 }
 const kz_matsumoto02Obj = {};
 for (let i of mapsStr) {
@@ -7021,7 +7021,7 @@ function Kz_matsumoto03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.43027, 138.1433, 35.99328])
+  this.extent = transformEforMw([137.7309, 36.43027, 138.1433, 35.99328])
 }
 const kz_matsumoto03Obj = {};
 for (let i of mapsStr) {
@@ -7034,7 +7034,7 @@ function Kz_matsumoto04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.43027, 138.1433, 35.99328])
+  this.extent = transformEforMw([137.7309, 36.43027, 138.1433, 35.99328])
 }
 const kz_matsumoto04Obj = {};
 for (let i of mapsStr) {
@@ -7049,7 +7049,7 @@ function Kz_hirosaki00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.3426, 40.85047, 140.6422, 40.49216])
+  this.extent = transformEforMw([140.3426, 40.85047, 140.6422, 40.49216])
 }
 const kz_hirosaki00Obj = {};
 for (let i of mapsStr) {
@@ -7062,7 +7062,7 @@ function Kz_hirosaki01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.3426, 40.85047, 140.6422, 40.49216])
+  this.extent = transformEforMw([140.3426, 40.85047, 140.6422, 40.49216])
 }
 const kz_hirosaki01Obj = {};
 for (let i of mapsStr) {
@@ -7075,7 +7075,7 @@ function Kz_hirosaki02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.3426, 40.85047, 140.6422, 40.49216])
+  this.extent = transformEforMw([140.3426, 40.85047, 140.6422, 40.49216])
 }
 const kz_hirosaki02Obj = {};
 for (let i of mapsStr) {
@@ -7088,7 +7088,7 @@ function Kz_hirosaki03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.3426, 40.85047, 140.6422, 40.49216])
+  this.extent = transformEforMw([140.3426, 40.85047, 140.6422, 40.49216])
 }
 const kz_hirosaki03Obj = {};
 for (let i of mapsStr) {
@@ -7101,7 +7101,7 @@ function Kz_hirosaki04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.3426, 40.85047, 140.6422, 40.49216])
+  this.extent = transformEforMw([140.3426, 40.85047, 140.6422, 40.49216])
 }
 const kz_hirosaki04Obj = {};
 for (let i of mapsStr) {
@@ -7116,7 +7116,7 @@ function Kz_tomakomai00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([141.4510, 43.03548, 141.7712, 42.48350])
+  this.extent = transformEforMw([141.4510, 43.03548, 141.7712, 42.48350])
 }
 const kz_tomakomai00Obj = {};
 for (let i of mapsStr) {
@@ -7129,7 +7129,7 @@ function Kz_tomakomai01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([141.4510, 43.03548, 141.7712, 42.48350])
+  this.extent = transformEforMw([141.4510, 43.03548, 141.7712, 42.48350])
 }
 const kz_tomakomai01Obj = {};
 for (let i of mapsStr) {
@@ -7142,7 +7142,7 @@ function Kz_tomakomai02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([141.4510, 43.03548, 141.7712, 42.48350])
+  this.extent = transformEforMw([141.4510, 43.03548, 141.7712, 42.48350])
 }
 const kz_tomakomai02Obj = {};
 for (let i of mapsStr) {
@@ -7155,7 +7155,7 @@ function Kz_tomakomai03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([141.4510, 43.03548, 141.7712, 42.48350])
+  this.extent = transformEforMw([141.4510, 43.03548, 141.7712, 42.48350])
 }
 const kz_tomakomai03Obj = {};
 for (let i of mapsStr) {
@@ -7168,7 +7168,7 @@ function Kz_tomakomai04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([141.4510, 43.03548, 141.7712, 42.48350])
+  this.extent = transformEforMw([141.4510, 43.03548, 141.7712, 42.48350])
 }
 const kz_tomakomai04Obj = {};
 for (let i of mapsStr) {
@@ -7183,7 +7183,7 @@ function Kz_obihiro00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.9805, 43.01475, 143.2670, 42.83030])
+  this.extent = transformEforMw([142.9805, 43.01475, 143.2670, 42.83030])
 }
 const kz_obihiro00Obj = {};
 for (let i of mapsStr) {
@@ -7196,7 +7196,7 @@ function Kz_obihiro01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.9805, 43.01475, 143.2670, 42.83030])
+  this.extent = transformEforMw([142.9805, 43.01475, 143.2670, 42.83030])
 }
 const kz_obihiro01Obj = {};
 for (let i of mapsStr) {
@@ -7209,7 +7209,7 @@ function Kz_obihiro02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.9805, 43.01475, 143.2670, 42.83030])
+  this.extent = transformEforMw([142.9805, 43.01475, 143.2670, 42.83030])
 }
 const kz_obihiro02Obj = {};
 for (let i of mapsStr) {
@@ -7222,7 +7222,7 @@ function Kz_obihiro03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.9805, 43.01475, 143.2670, 42.83030])
+  this.extent = transformEforMw([142.9805, 43.01475, 143.2670, 42.83030])
 }
 const kz_obihiro03Obj = {};
 for (let i of mapsStr) {
@@ -7235,7 +7235,7 @@ function Kz_obihiro04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([142.9805, 43.01475, 143.2670, 42.83030])
+  this.extent = transformEforMw([142.9805, 43.01475, 143.2670, 42.83030])
 }
 const kz_obihiro04Obj = {};
 for (let i of mapsStr) {
@@ -7250,7 +7250,7 @@ function Kz_toyo00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.6748, 34.21472, 133.7977, 33.79234])
+  this.extent = transformEforMw([132.6748, 34.21472, 133.7977, 33.79234])
 }
 const kz_toyo00Obj = {};
 for (let i of mapsStr) {
@@ -7263,7 +7263,7 @@ function Kz_toyo01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.6748, 34.21472, 133.7977, 33.79234])
+  this.extent = transformEforMw([132.6748, 34.21472, 133.7977, 33.79234])
 }
 const kz_toyo01Obj = {};
 for (let i of mapsStr) {
@@ -7276,7 +7276,7 @@ function Kz_toyo02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.6748, 34.21472, 133.7977, 33.79234])
+  this.extent = transformEforMw([132.6748, 34.21472, 133.7977, 33.79234])
 }
 const kz_toyo02Obj = {};
 for (let i of mapsStr) {
@@ -7289,7 +7289,7 @@ function Kz_toyo03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.6748, 34.21472, 133.7977, 33.79234])
+  this.extent = transformEforMw([132.6748, 34.21472, 133.7977, 33.79234])
 }
 const kz_toyo03Obj = {};
 for (let i of mapsStr) {
@@ -7302,7 +7302,7 @@ function Kz_toyo04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.6748, 34.21472, 133.7977, 33.79234])
+  this.extent = transformEforMw([132.6748, 34.21472, 133.7977, 33.79234])
 }
 const kz_toyo04Obj = {};
 for (let i of mapsStr) {
@@ -7317,7 +7317,7 @@ function Kz_iga00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+  this.extent = transformEforMw([135.9853, 34.84156, 136.2532, 34.49986])
 }
 const kz_iga00Obj = {};
 for (let i of mapsStr) {
@@ -7330,7 +7330,7 @@ function Kz_iga01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+  this.extent = transformEforMw([135.9853, 34.84156, 136.2532, 34.49986])
 }
 const kz_iga01Obj = {};
 for (let i of mapsStr) {
@@ -7343,7 +7343,7 @@ function Kz_iga02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+  this.extent = transformEforMw([135.9853, 34.84156, 136.2532, 34.49986])
 }
 const kz_iga02Obj = {};
 for (let i of mapsStr) {
@@ -7356,7 +7356,7 @@ function Kz_iga03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+  this.extent = transformEforMw([135.9853, 34.84156, 136.2532, 34.49986])
 }
 const kz_iga03Obj = {};
 for (let i of mapsStr) {
@@ -7369,7 +7369,7 @@ function Kz_iga04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([135.9853, 34.84156, 136.2532, 34.49986])
+  this.extent = transformEforMw([135.9853, 34.84156, 136.2532, 34.49986])
 }
 const kz_iga04Obj = {};
 for (let i of mapsStr) {
@@ -7384,7 +7384,7 @@ function Kz_ina00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+  this.extent = transformEforMw([137.7309, 36.01677, 138.0103, 35.32910])
 }
 const kz_ina00Obj = {};
 for (let i of mapsStr) {
@@ -7397,7 +7397,7 @@ function Kz_ina01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+  this.extent = transformEforMw([137.7309, 36.01677, 138.0103, 35.32910])
 }
 const kz_ina01Obj = {};
 for (let i of mapsStr) {
@@ -7410,7 +7410,7 @@ function Kz_ina02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+  this.extent = transformEforMw([137.7309, 36.01677, 138.0103, 35.32910])
 }
 const kz_ina02Obj = {};
 for (let i of mapsStr) {
@@ -7423,7 +7423,7 @@ function Kz_ina03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+  this.extent = transformEforMw([137.7309, 36.01677, 138.0103, 35.32910])
 }
 const kz_ina03Obj = {};
 for (let i of mapsStr) {
@@ -7436,7 +7436,7 @@ function Kz_ina04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.7309, 36.01677, 138.0103, 35.32910])
+  this.extent = transformEforMw([137.7309, 36.01677, 138.0103, 35.32910])
 }
 const kz_ina04Obj = {};
 for (let i of mapsStr) {
@@ -7452,7 +7452,7 @@ function Kz_yonezawa00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+  this.extent = transformEforMw([139.9891, 38.17523, 140.2535, 37.83335])
 }
 const kz_yonezawa00Obj = {};
 for (let i of mapsStr) {
@@ -7465,7 +7465,7 @@ function Kz_yonezawa01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+  this.extent = transformEforMw([139.9891, 38.17523, 140.2535, 37.83335])
 }
 const kz_yonezawa01Obj = {};
 for (let i of mapsStr) {
@@ -7478,7 +7478,7 @@ function Kz_yonezawa02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+  this.extent = transformEforMw([139.9891, 38.17523, 140.2535, 37.83335])
 }
 const kz_yonezawa02Obj = {};
 for (let i of mapsStr) {
@@ -7491,7 +7491,7 @@ function Kz_yonezawa03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+  this.extent = transformEforMw([139.9891, 38.17523, 140.2535, 37.83335])
 }
 const kz_yonezawa03Obj = {};
 for (let i of mapsStr) {
@@ -7504,7 +7504,7 @@ function Kz_yonezawa04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.9891, 38.17523, 140.2535, 37.83335])
+  this.extent = transformEforMw([139.9891, 38.17523, 140.2535, 37.83335])
 }
 const kz_yonezawa04Obj = {};
 for (let i of mapsStr) {
@@ -7519,7 +7519,7 @@ function Kz_shunan00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+  this.extent = transformEforMw([131.4910, 34.17664, 132.0076, 33.83222])
 }
 const kz_shunan00Obj = {};
 for (let i of mapsStr) {
@@ -7532,7 +7532,7 @@ function Kz_shunan01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+  this.extent = transformEforMw([131.4910, 34.17664, 132.0076, 33.83222])
 }
 const kz_shunan01Obj = {};
 for (let i of mapsStr) {
@@ -7545,7 +7545,7 @@ function Kz_shunan02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+  this.extent = transformEforMw([131.4910, 34.17664, 132.0076, 33.83222])
 }
 const kz_shunan02Obj = {};
 for (let i of mapsStr) {
@@ -7558,7 +7558,7 @@ function Kz_shunan03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+  this.extent = transformEforMw([131.4910, 34.17664, 132.0076, 33.83222])
 }
 const kz_shunan03Obj = {};
 for (let i of mapsStr) {
@@ -7571,7 +7571,7 @@ function Kz_shunan04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4910, 34.17664, 132.0076, 33.83222])
+  this.extent = transformEforMw([131.4910, 34.17664, 132.0076, 33.83222])
 }
 const kz_shunan04Obj = {};
 for (let i of mapsStr) {
@@ -7587,7 +7587,7 @@ function Kz_omuta00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.2111, 33.18928, 130.7582, 32.32828])
 }
 const kz_omuta00Obj = {};
 for (let i of mapsStr) {
@@ -7600,7 +7600,7 @@ function Kz_omuta01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.2111, 33.18928, 130.7582, 32.32828])
 }
 const kz_omuta01Obj = {};
 for (let i of mapsStr) {
@@ -7613,7 +7613,7 @@ function Kz_omuta02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.2111, 33.18928, 130.7582, 32.32828])
 }
 const kz_omuta02Obj = {};
 for (let i of mapsStr) {
@@ -7626,7 +7626,7 @@ function Kz_omuta03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.2111, 33.18928, 130.7582, 32.32828])
 }
 const kz_omuta03Obj = {};
 for (let i of mapsStr) {
@@ -7639,7 +7639,7 @@ function Kz_omuta04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.2111, 33.18928, 130.7582, 32.32828])
 }
 const kz_omuta04Obj = {};
 for (let i of mapsStr) {
@@ -7652,7 +7652,7 @@ function Kz_omuta05 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.2111, 33.18928, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.2111, 33.18928, 130.7582, 32.32828])
 }
 const kz_omuta05Obj = {};
 for (let i of mapsStr) {
@@ -7667,7 +7667,7 @@ function Kz_yatsushiro00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.4852, 32.67615, 130.7582, 32.32828])
 }
 const kz_yatsushiro00Obj = {};
 for (let i of mapsStr) {
@@ -7680,7 +7680,7 @@ function Kz_yatsushiro01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.4852, 32.67615, 130.7582, 32.32828])
 }
 const kz_yatsushiro01Obj = {};
 for (let i of mapsStr) {
@@ -7693,7 +7693,7 @@ function Kz_yatsushiro02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.4852, 32.67615, 130.7582, 32.32828])
 }
 const kz_yatsushiro02Obj = {};
 for (let i of mapsStr) {
@@ -7706,7 +7706,7 @@ function Kz_yatsushiro03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.4852, 32.67615, 130.7582, 32.32828])
 }
 const kz_yatsushiro03Obj = {};
 for (let i of mapsStr) {
@@ -7719,7 +7719,7 @@ function Kz_yatsushiro04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.4852, 32.67615, 130.7582, 32.32828])
+  this.extent = transformEforMw([130.4852, 32.67615, 130.7582, 32.32828])
 }
 const kz_yatsushiro04Obj = {};
 for (let i of mapsStr) {
@@ -7734,7 +7734,7 @@ function Kz_iwatekennan00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+  this.extent = transformEforMw([140.9374, 39.53146, 141.2815, 38.81660])
 }
 const kz_iwatekennan00Obj = {};
 for (let i of mapsStr) {
@@ -7747,7 +7747,7 @@ function Kz_iwatekennan01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+  this.extent = transformEforMw([140.9374, 39.53146, 141.2815, 38.81660])
 }
 const kz_iwatekennan01Obj = {};
 for (let i of mapsStr) {
@@ -7760,7 +7760,7 @@ function Kz_iwatekennan02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+  this.extent = transformEforMw([140.9374, 39.53146, 141.2815, 38.81660])
 }
 const kz_iwatekennan02Obj = {};
 for (let i of mapsStr) {
@@ -7773,7 +7773,7 @@ function Kz_iwatekennan03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+  this.extent = transformEforMw([140.9374, 39.53146, 141.2815, 38.81660])
 }
 const kz_iwatekennan03Obj = {};
 for (let i of mapsStr) {
@@ -7786,7 +7786,7 @@ function Kz_iwatekennan04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.9374, 39.53146, 141.2815, 38.81660])
+  this.extent = transformEforMw([140.9374, 39.53146, 141.2815, 38.81660])
 }
 const kz_iwatekennan04Obj = {};
 for (let i of mapsStr) {
@@ -7801,7 +7801,7 @@ function Kz_muroran00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6648, 42.67570, 141.3413, 42.13549])
+  this.extent = transformEforMw([140.6648, 42.67570, 141.3413, 42.13549])
 }
 const kz_muroran00Obj = {};
 for (let i of mapsStr) {
@@ -7814,7 +7814,7 @@ function Kz_muroran01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6648, 42.67570, 141.3413, 42.13549])
+  this.extent = transformEforMw([140.6648, 42.67570, 141.3413, 42.13549])
 }
 const kz_muroran01Obj = {};
 for (let i of mapsStr) {
@@ -7827,7 +7827,7 @@ function Kz_muroran02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6648, 42.67570, 141.3413, 42.13549])
+  this.extent = transformEforMw([140.6648, 42.67570, 141.3413, 42.13549])
 }
 const kz_muroran02Obj = {};
 for (let i of mapsStr) {
@@ -7840,7 +7840,7 @@ function Kz_muroran03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6648, 42.67570, 141.3413, 42.13549])
+  this.extent = transformEforMw([140.6648, 42.67570, 141.3413, 42.13549])
 }
 const kz_muroran03Obj = {};
 for (let i of mapsStr) {
@@ -7853,7 +7853,7 @@ function Kz_muroran04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([140.6648, 42.67570, 141.3413, 42.13549])
+  this.extent = transformEforMw([140.6648, 42.67570, 141.3413, 42.13549])
 }
 const kz_muroran04Obj = {};
 for (let i of mapsStr) {
@@ -7868,7 +7868,7 @@ function Kz_syonai00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.6689, 39.02078, 140.0167, 38.66312])
+  this.extent = transformEforMw([139.6689, 39.02078, 140.0167, 38.66312])
 }
 const kz_syonai00Obj = {};
 for (let i of mapsStr) {
@@ -7881,7 +7881,7 @@ function Kz_syonai01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.6689, 39.02078, 140.0167, 38.66312])
+  this.extent = transformEforMw([139.6689, 39.02078, 140.0167, 38.66312])
 }
 const kz_syonai01Obj = {};
 for (let i of mapsStr) {
@@ -7894,7 +7894,7 @@ function Kz_syonai02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.6689, 39.02078, 140.0167, 38.66312])
+  this.extent = transformEforMw([139.6689, 39.02078, 140.0167, 38.66312])
 }
 const kz_syonai02Obj = {};
 for (let i of mapsStr) {
@@ -7907,7 +7907,7 @@ function Kz_syonai03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.6689, 39.02078, 140.0167, 38.66312])
+  this.extent = transformEforMw([139.6689, 39.02078, 140.0167, 38.66312])
 }
 const kz_syonai03Obj = {};
 for (let i of mapsStr) {
@@ -7920,7 +7920,7 @@ function Kz_syonai04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.6689, 39.02078, 140.0167, 38.66312])
+  this.extent = transformEforMw([139.6689, 39.02078, 140.0167, 38.66312])
 }
 const kz_syonai04Obj = {};
 for (let i of mapsStr) {
@@ -7935,7 +7935,7 @@ function Kz_kushiro00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([144.2340, 43.17967, 144.5149, 42.82175])
+  this.extent = transformEforMw([144.2340, 43.17967, 144.5149, 42.82175])
 }
 const kz_kushiro00Obj = {};
 for (let i of mapsStr) {
@@ -7948,7 +7948,7 @@ function Kz_kushiro01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([144.2340, 43.17967, 144.5149, 42.82175])
+  this.extent = transformEforMw([144.2340, 43.17967, 144.5149, 42.82175])
 }
 const kz_kushiro01Obj = {};
 for (let i of mapsStr) {
@@ -7961,7 +7961,7 @@ function Kz_kushiro02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([144.2340, 43.17967, 144.5149, 42.82175])
+  this.extent = transformEforMw([144.2340, 43.17967, 144.5149, 42.82175])
 }
 const kz_kushiro02Obj = {};
 for (let i of mapsStr) {
@@ -7974,7 +7974,7 @@ function Kz_kushiro03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([144.2340, 43.17967, 144.5149, 42.82175])
+  this.extent = transformEforMw([144.2340, 43.17967, 144.5149, 42.82175])
 }
 const kz_kushiro03Obj = {};
 for (let i of mapsStr) {
@@ -7987,7 +7987,7 @@ function Kz_kushiro04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([144.2340, 43.17967, 144.5149, 42.82175])
+  this.extent = transformEforMw([144.2340, 43.17967, 144.5149, 42.82175])
 }
 const kz_kushiro04Obj = {};
 for (let i of mapsStr) {
@@ -8003,7 +8003,7 @@ function Kz_aizu00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.7346, 37.67760, 140.1387, 37.37050])
+  this.extent = transformEforMw([139.7346, 37.67760, 140.1387, 37.37050])
 }
 const kz_aizu00Obj = {};
 for (let i of mapsStr) {
@@ -8016,7 +8016,7 @@ function Kz_aizu01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.7346, 37.67760, 140.1387, 37.37050])
+  this.extent = transformEforMw([139.7346, 37.67760, 140.1387, 37.37050])
 }
 const kz_aizu01Obj = {};
 for (let i of mapsStr) {
@@ -8029,7 +8029,7 @@ function Kz_aizu02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.7346, 37.67760, 140.1387, 37.37050])
+  this.extent = transformEforMw([139.7346, 37.67760, 140.1387, 37.37050])
 }
 const kz_aizu02Obj = {};
 for (let i of mapsStr) {
@@ -8042,7 +8042,7 @@ function Kz_aizu03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.7346, 37.67760, 140.1387, 37.37050])
+  this.extent = transformEforMw([139.7346, 37.67760, 140.1387, 37.37050])
 }
 const kz_aizu03Obj = {};
 for (let i of mapsStr) {
@@ -8055,7 +8055,7 @@ function Kz_aizu04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([139.7346, 37.67760, 140.1387, 37.37050])
+  this.extent = transformEforMw([139.7346, 37.67760, 140.1387, 37.37050])
 }
 const kz_aizu04Obj = {};
 for (let i of mapsStr) {
@@ -8070,7 +8070,7 @@ function Kz_yamaguchi2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.0586, 34.27869, 131.6633, 33.90474])
+  this.extent = transformEforMw([131.0586, 34.27869, 131.6633, 33.90474])
 }
 const kz_yamaguchi2manObj = {};
 for (let i of mapsStr) {
@@ -8083,7 +8083,7 @@ function Kz_yamaguchi00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.0586, 34.27869, 131.6633, 33.90474])
+  this.extent = transformEforMw([131.0586, 34.27869, 131.6633, 33.90474])
 }
 const kz_yamaguchi00Obj = {};
 for (let i of mapsStr) {
@@ -8096,7 +8096,7 @@ function Kz_yamaguchi01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.0586, 34.27869, 131.6633, 33.90474])
+  this.extent = transformEforMw([131.0586, 34.27869, 131.6633, 33.90474])
 }
 const kz_yamaguchi01Obj = {};
 for (let i of mapsStr) {
@@ -8109,7 +8109,7 @@ function Kz_yamaguchi02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.0586, 34.27869, 131.6633, 33.90474])
+  this.extent = transformEforMw([131.0586, 34.27869, 131.6633, 33.90474])
 }
 const kz_yamaguchi02Obj = {};
 for (let i of mapsStr) {
@@ -8122,7 +8122,7 @@ function Kz_yamaguchi03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.0586, 34.27869, 131.6633, 33.90474])
+  this.extent = transformEforMw([131.0586, 34.27869, 131.6633, 33.90474])
 }
 const kz_yamaguchi03Obj = {};
 for (let i of mapsStr) {
@@ -8135,7 +8135,7 @@ function Kz_yamaguchi04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.0586, 34.27869, 131.6633, 33.90474])
+  this.extent = transformEforMw([131.0586, 34.27869, 131.6633, 33.90474])
 }
 const kz_yamaguchi04Obj = {};
 for (let i of mapsStr) {
@@ -8150,7 +8150,7 @@ function Kz_sasebo2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.5855, 33.27797, 129.8887, 33.05671])
+  this.extent = transformEforMw([129.5855, 33.27797, 129.8887, 33.05671])
 }
 const kz_sasebo2manObj = {};
 for (let i of mapsStr) {
@@ -8163,7 +8163,7 @@ function Kz_sasebo00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.5855, 33.27797, 129.8887, 33.05671])
+  this.extent = transformEforMw([129.5855, 33.27797, 129.8887, 33.05671])
 }
 const kz_sasebo00Obj = {};
 for (let i of mapsStr) {
@@ -8176,7 +8176,7 @@ function Kz_sasebo01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.5855, 33.27797, 129.8887, 33.05671])
+  this.extent = transformEforMw([129.5855, 33.27797, 129.8887, 33.05671])
 }
 const kz_sasebo01Obj = {};
 for (let i of mapsStr) {
@@ -8189,7 +8189,7 @@ function Kz_sasebo02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.5855, 33.27797, 129.8887, 33.05671])
+  this.extent = transformEforMw([129.5855, 33.27797, 129.8887, 33.05671])
 }
 const kz_sasebo02Obj = {};
 for (let i of mapsStr) {
@@ -8202,7 +8202,7 @@ function Kz_sasebo03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.5855, 33.27797, 129.8887, 33.05671])
+  this.extent = transformEforMw([129.5855, 33.27797, 129.8887, 33.05671])
 }
 const kz_sasebo03Obj = {};
 for (let i of mapsStr) {
@@ -8217,7 +8217,7 @@ function Kz_tsu2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.3239, 34.94151, 136.8169, 34.39549])
+  this.extent = transformEforMw([136.3239, 34.94151, 136.8169, 34.39549])
 }
 const kz_tsu2manObj = {};
 for (let i of mapsStr) {
@@ -8230,7 +8230,7 @@ function Kz_tsu00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.3239, 34.94151, 136.8169, 34.39549])
+  this.extent = transformEforMw([136.3239, 34.94151, 136.8169, 34.39549])
 }
 const kz_tsu00Obj = {};
 for (let i of mapsStr) {
@@ -8243,7 +8243,7 @@ function Kz_tsu01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.3239, 34.94151, 136.8169, 34.39549])
+  this.extent = transformEforMw([136.3239, 34.94151, 136.8169, 34.39549])
 }
 const kz_tsu01Obj = {};
 for (let i of mapsStr) {
@@ -8256,7 +8256,7 @@ function Kz_tsu02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.3239, 34.94151, 136.8169, 34.39549])
+  this.extent = transformEforMw([136.3239, 34.94151, 136.8169, 34.39549])
 }
 const kz_tsu02Obj = {};
 for (let i of mapsStr) {
@@ -8269,7 +8269,7 @@ function Kz_tsu03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.3239, 34.94151, 136.8169, 34.39549])
+  this.extent = transformEforMw([136.3239, 34.94151, 136.8169, 34.39549])
 }
 const kz_tsu03Obj = {};
 for (let i of mapsStr) {
@@ -8282,7 +8282,7 @@ function Kz_tsu04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([136.3239, 34.94151, 136.8169, 34.39549])
+  this.extent = transformEforMw([136.3239, 34.94151, 136.8169, 34.39549])
 }
 const kz_tsu04Obj = {};
 for (let i of mapsStr) {
@@ -8297,7 +8297,7 @@ function Kz_matsue00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5854, 35.59292, 133.4077, 35.29653])
+  this.extent = transformEforMw([132.5854, 35.59292, 133.4077, 35.29653])
 }
 const kz_matsue00Obj = {};
 for (let i of mapsStr) {
@@ -8310,7 +8310,7 @@ function Kz_matsue01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5854, 35.59292, 133.4077, 35.29653])
+  this.extent = transformEforMw([132.5854, 35.59292, 133.4077, 35.29653])
 }
 const kz_matsue01Obj = {};
 for (let i of mapsStr) {
@@ -8323,7 +8323,7 @@ function Kz_matsue02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5854, 35.59292, 133.4077, 35.29653])
+  this.extent = transformEforMw([132.5854, 35.59292, 133.4077, 35.29653])
 }
 const kz_matsue02Obj = {};
 for (let i of mapsStr) {
@@ -8336,7 +8336,7 @@ function Kz_matsue03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5854, 35.59292, 133.4077, 35.29653])
+  this.extent = transformEforMw([132.5854, 35.59292, 133.4077, 35.29653])
 }
 const kz_matsue03Obj = {};
 for (let i of mapsStr) {
@@ -8349,7 +8349,7 @@ function Kz_matsue04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([132.5854, 35.59292, 133.4077, 35.29653])
+  this.extent = transformEforMw([132.5854, 35.59292, 133.4077, 35.29653])
 }
 const kz_matsue04Obj = {};
 for (let i of mapsStr) {
@@ -8363,7 +8363,7 @@ function Kz_saga2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([30.0980, 33.42484, 130.6478, 33.07065])
+  this.extent = transformEforMw([30.0980, 33.42484, 130.6478, 33.07065])
 }
 const kz_saga2manObj = {};
 for (let i of mapsStr) {
@@ -8376,7 +8376,7 @@ function Kz_saga00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([30.0980, 33.42484, 130.6478, 33.07065])
+  this.extent = transformEforMw([30.0980, 33.42484, 130.6478, 33.07065])
 }
 const kz_saga00Obj = {};
 for (let i of mapsStr) {
@@ -8389,7 +8389,7 @@ function Kz_saga01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([30.0980, 33.42484, 130.6478, 33.07065])
+  this.extent = transformEforMw([30.0980, 33.42484, 130.6478, 33.07065])
 }
 const kz_saga01Obj = {};
 for (let i of mapsStr) {
@@ -8402,7 +8402,7 @@ function Kz_saga02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([30.0980, 33.42484, 130.6478, 33.07065])
+  this.extent = transformEforMw([30.0980, 33.42484, 130.6478, 33.07065])
 }
 const kz_saga02Obj = {};
 for (let i of mapsStr) {
@@ -8415,7 +8415,7 @@ function Kz_saga03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([30.0980, 33.42484, 130.6478, 33.07065])
+  this.extent = transformEforMw([30.0980, 33.42484, 130.6478, 33.07065])
 }
 const kz_saga03Obj = {};
 for (let i of mapsStr) {
@@ -8428,7 +8428,7 @@ function Kz_saga04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([30.0980, 33.42484, 130.6478, 33.07065])
+  this.extent = transformEforMw([30.0980, 33.42484, 130.6478, 33.07065])
 }
 const kz_saga04Obj = {};
 for (let i of mapsStr) {
@@ -8442,7 +8442,7 @@ function Kz_nagasaki2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.7194, 33.01805, 130.1422, 32.63044])
+  this.extent = transformEforMw([129.7194, 33.01805, 130.1422, 32.63044])
 }
 const kz_nagasaki2manObj = {};
 for (let i of mapsStr) {
@@ -8455,7 +8455,7 @@ function Kz_nagasaki00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.7194, 33.01805, 130.1422, 32.63044])
+  this.extent = transformEforMw([129.7194, 33.01805, 130.1422, 32.63044])
 }
 const kz_nagasaki00Obj = {};
 for (let i of mapsStr) {
@@ -8468,7 +8468,7 @@ function Kz_nagasaki01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.7194, 33.01805, 130.1422, 32.63044])
+  this.extent = transformEforMw([129.7194, 33.01805, 130.1422, 32.63044])
 }
 const kz_nagasaki01Obj = {};
 for (let i of mapsStr) {
@@ -8481,7 +8481,7 @@ function Kz_nagasaki02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.7194, 33.01805, 130.1422, 32.63044])
+  this.extent = transformEforMw([129.7194, 33.01805, 130.1422, 32.63044])
 }
 const kz_nagasaki02Obj = {};
 for (let i of mapsStr) {
@@ -8494,7 +8494,7 @@ function Kz_nagasaki03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.7194, 33.01805, 130.1422, 32.63044])
+  this.extent = transformEforMw([129.7194, 33.01805, 130.1422, 32.63044])
 }
 const kz_nagasaki03Obj = {};
 for (let i of mapsStr) {
@@ -8507,7 +8507,7 @@ function Kz_nagasaki04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([129.7194, 33.01805, 130.1422, 32.63044])
+  this.extent = transformEforMw([129.7194, 33.01805, 130.1422, 32.63044])
 }
 const kz_nagasaki04Obj = {};
 for (let i of mapsStr) {
@@ -8522,7 +8522,7 @@ function Kz_oita00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4840, 33.35332, 131.8944, 33.15357])
+  this.extent = transformEforMw([131.4840, 33.35332, 131.8944, 33.15357])
 }
 const kz_oita00Obj = {};
 for (let i of mapsStr) {
@@ -8535,7 +8535,7 @@ function Kz_oita01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4840, 33.35332, 131.8944, 33.15357])
+  this.extent = transformEforMw([131.4840, 33.35332, 131.8944, 33.15357])
 }
 const kz_oita01Obj = {};
 for (let i of mapsStr) {
@@ -8548,7 +8548,7 @@ function Kz_oita02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4840, 33.35332, 131.8944, 33.15357])
+  this.extent = transformEforMw([131.4840, 33.35332, 131.8944, 33.15357])
 }
 const kz_oita02Obj = {};
 for (let i of mapsStr) {
@@ -8561,7 +8561,7 @@ function Kz_oita03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([131.4840, 33.35332, 131.8944, 33.15357])
+  this.extent = transformEforMw([131.4840, 33.35332, 131.8944, 33.15357])
 }
 const kz_oita03Obj = {};
 for (let i of mapsStr) {
@@ -8576,7 +8576,7 @@ function Kz_okinawas00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([127.600, 26.43582, 127.891, 25.98594])
+  this.extent = transformEforMw([127.600, 26.43582, 127.891, 25.98594])
 }
 const kz_okinawas00Obj = {};
 for (let i of mapsStr) {
@@ -8589,7 +8589,7 @@ function Kz_okinawas01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([127.600, 26.43582, 127.891, 25.98594])
+  this.extent = transformEforMw([127.600, 26.43582, 127.891, 25.98594])
 }
 const kz_okinawas01Obj = {};
 for (let i of mapsStr) {
@@ -8602,7 +8602,7 @@ function Kz_okinawas02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([127.600, 26.43582, 127.891, 25.98594])
+  this.extent = transformEforMw([127.600, 26.43582, 127.891, 25.98594])
 }
 const kz_okinawas02Obj = {};
 for (let i of mapsStr) {
@@ -8615,7 +8615,7 @@ function Kz_okinawas03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([127.600, 26.43582, 127.891, 25.98594])
+  this.extent = transformEforMw([127.600, 26.43582, 127.891, 25.98594])
 }
 const kz_okinawas03Obj = {};
 for (let i of mapsStr) {
@@ -8629,7 +8629,7 @@ function Kz_niigata2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+  this.extent = transformEforMw([137.99573, 38.0509, 139.4958, 36.93352])
 }
 const kz_niigata2manObj = {};
 for (let i of mapsStr) {
@@ -8642,7 +8642,7 @@ function Kz_niigata00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+  this.extent = transformEforMw([137.99573, 38.0509, 139.4958, 36.93352])
 }
 const kz_niigata00Obj = {};
 for (let i of mapsStr) {
@@ -8655,7 +8655,7 @@ function Kz_niigata01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+  this.extent = transformEforMw([137.99573, 38.0509, 139.4958, 36.93352])
 }
 const kz_niigata01Obj = {};
 for (let i of mapsStr) {
@@ -8668,7 +8668,7 @@ function Kz_niigata02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+  this.extent = transformEforMw([137.99573, 38.0509, 139.4958, 36.93352])
 }
 const kz_niigata02Obj = {};
 for (let i of mapsStr) {
@@ -8681,7 +8681,7 @@ function Kz_niigata03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+  this.extent = transformEforMw([137.99573, 38.0509, 139.4958, 36.93352])
 }
 const kz_niigata03Obj = {};
 for (let i of mapsStr) {
@@ -8694,7 +8694,7 @@ function Kz_niigata04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([137.99573, 38.0509, 139.4958, 36.93352])
+  this.extent = transformEforMw([137.99573, 38.0509, 139.4958, 36.93352])
 }
 const kz_niigata04Obj = {};
 for (let i of mapsStr) {
@@ -8711,7 +8711,7 @@ function Kz_fukuoka00 () {
     minZoom: 8,
     maxZoom: 16
   });
-  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+  this.extent = transformEforMw([130.12549,33.41993,131.1254516,34.003285])
 }
 const kz_fukuoka00Obj = {};
 for (let i of mapsStr) {
@@ -8724,7 +8724,7 @@ function Kz_fukuoka01 () {
     minZoom: 8,
     maxZoom: 16
   });
-  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+  this.extent = transformEforMw([130.12549,33.41993,131.1254516,34.003285])
 }
 const kz_fukuoka01Obj = {};
 for (let i of mapsStr) {
@@ -8737,7 +8737,7 @@ function Kz_fukuoka02 () {
     minZoom: 8,
     maxZoom: 16
   });
-  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+  this.extent = transformEforMw([130.12549,33.41993,131.1254516,34.003285])
 }
 const kz_fukuoka02Obj = {};
 for (let i of mapsStr) {
@@ -8750,7 +8750,7 @@ function Kz_fukuoka03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+  this.extent = transformEforMw([130.12549,33.41993,131.1254516,34.003285])
 }
 const kz_fukuoka03Obj = {};
 for (let i of mapsStr) {
@@ -8763,7 +8763,7 @@ function Kz_fukuoka04 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+  this.extent = transformEforMw([130.12549,33.41993,131.1254516,34.003285])
 }
 const kz_fukuoka04Obj = {};
 for (let i of mapsStr) {
@@ -8776,7 +8776,7 @@ function Kz_fukuoka05 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.12549,33.41993,131.1254516,34.003285])
+  this.extent = transformEforMw([130.12549,33.41993,131.1254516,34.003285])
 }
 const kz_fukuoka05Obj = {};
 for (let i of mapsStr) {
@@ -8790,7 +8790,7 @@ function Kz_kumamoto2man () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+  this.extent = transformEforMw([130.48717, 32.94715, 130.9162, 32.65805])
 }
 const kz_kumamoto2manObj = {};
 for (let i of mapsStr) {
@@ -8803,7 +8803,7 @@ function Kz_kumamoto00 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+  this.extent = transformEforMw([130.48717, 32.94715, 130.9162, 32.65805])
 }
 const kz_kumamoto00Obj = {};
 for (let i of mapsStr) {
@@ -8816,7 +8816,7 @@ function Kz_kumamoto01 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+  this.extent = transformEforMw([130.48717, 32.94715, 130.9162, 32.65805])
 }
 const kz_kumamoto01Obj = {};
 for (let i of mapsStr) {
@@ -8829,7 +8829,7 @@ function Kz_kumamoto02 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+  this.extent = transformEforMw([130.48717, 32.94715, 130.9162, 32.65805])
 }
 const kz_kumamoto02Obj = {};
 for (let i of mapsStr) {
@@ -8842,7 +8842,7 @@ function Kz_kumamoto03 () {
     minZoom: 8,
     maxZoom: 16
   })
-  this.extent = transformE([130.48717, 32.94715, 130.9162, 32.65805])
+  this.extent = transformEforMw([130.48717, 32.94715, 130.9162, 32.65805])
 }
 const kz_kumamoto03Obj = {};
 for (let i of mapsStr) {
