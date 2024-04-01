@@ -14,7 +14,11 @@ import TileLayer from "ol/layer/Tile";
 import Icon from 'ol/style/Icon.js';
 import VectorSource from "ol/source/Vector";
 import VectorLayer from "ol/layer/Vector";
-import {Heatmap } from 'ol/layer.js';
+import {Heatmap} from 'ol/layer.js';
+import MVTFormat from 'ol/format/MVT';
+import WebGLPointsLayer from 'ol/layer/WebGLPoints'
+// import * as flatgeobuf from 'flatgeobuf'
+
 const transformE = extent => {
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
@@ -41,7 +45,6 @@ function SyougakkoukuH22(){
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom:15,
-    // url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/syougakkouku/{z}/{x}/{y}.mvt"
     url: "https://kenzkenz.github.io/h22syougaku/{z}/{x}/{y}.mvt"
   });
   this.style = syougakkoukuStyleFunction(22);
@@ -61,7 +64,7 @@ function Syougakkouku(){
     // url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/syougakkouku/{z}/{x}/{y}.mvt"
     url: "https://kenzkenz.github.io/syougaku/{z}/{x}/{y}.mvt"
   });
-  this.style = syougakkoukuStyleFunction();
+  this.style = syougakkoukuStyleFunction(3);
 }
 export  const syougakkoukuObj = {};
 for (let i of mapsStr) {
@@ -69,8 +72,29 @@ for (let i of mapsStr) {
 }
 export const syougakkoukuSumm = "<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A27-v2_1.html' target='_blank'>国土数値情報　小学校区データ</a>";
 // ----------------------------------------------------------------------
-const d3syougakkoukuColor = d3.scaleOrdinal(d3.schemeCategory10);
-const d3tyuugakkoukuColor = d3.scaleOrdinal(d3.schemeCategory10);
+// 0から100の配列を作成する。
+const domain = [...Array(1000)].map((_, i) => i)
+const d3OridinalColor = d3.scaleOrdinal()
+    .domain(domain)
+    .range(["red", "green", "blue", "darkcyan", "coral"
+      , "wheat", "silver", "burlywood"
+      , "lavender", "teal", "tomato", "gray", "darkslategray"
+      , "orangered", "darkgray", "darkgreen"
+      , "skyblue", "chartreuse", "sienna", "orchid", "lightblue"
+      , "aquamarine", "sandybrown", "palegreen", "darkorange", "thistle"
+      , "dodgerblue", "lightgreen", "goldenrod", "magenta", "cornflowerblue"
+      , "crimson", "steelblue", "forestgreen", "mediumvioletred"
+      , "royalblue", "seagreen", "khaki", "deeppink", "midnightblue"
+      , "mediumseagreen", "hotpink", "navy", "mediumaquamarine", "gold"
+      , "palevioletred", "darkseagreen", "orange", "pink", "mediumblue"
+      , "springgreen", "peru", "fuchsia", "deepskyblue", "darkgoldenrod"
+      , "violet", "lightskyblue", "lawngreen", "chocolate", "plum"
+      , "greenyellow", "saddlebrown", "mediumorchid", "powderblue", "lime"
+      , "maroon", "darkorchid", "paleturquoise", "limegreen", "darkred"
+      , "darkviolet", "yellowgreen", "yellowgreen", "darkmagenta", "cyan"
+
+
+    ]);
 function syougakkoukuStyleFunction(year) {
   return function (feature, resolution) {
     const prop = feature.getProperties();
@@ -79,6 +103,10 @@ function syougakkoukuStyleFunction(year) {
     let text = ''
     if (year === 22 || year === 28) {
       text = prop["A27_003"];
+    } else if (year === 3) {
+      text = prop["P29_004"]
+    } else if (year === 30) {
+      text = prop["P29_004"]
     } else if (year === 280) {
       text = prop["A32_003"]
     } else {
@@ -86,13 +114,14 @@ function syougakkoukuStyleFunction(year) {
     }
     let rgb
     let rgba
-    // console.log(prop["id"])
-    if (prop["A27_005"]) {
-      rgb = d3.rgb(d3syougakkoukuColor(Number(prop["id"])));
-      rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+    if (prop["A27_005"] || prop["A32_005"] || prop["A32_006"]) {
+      const id = Math.round(Number(prop["id"].toString().slice(-3)))
+      // const id = Number(prop["id"])
+      // rgb = d3.rgb(d3syougakkoukuColor(Number(prop["id"])));
+      rgb = d3.rgb(d3OridinalColor(id))
+      rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)"
     } else {
-      rgb = d3.rgb(d3tyuugakkoukuColor(Number(prop["id"])));
-      rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+      rgba = "rgba(255,255,255,0)"
     }
     let style
     switch (geoType) {
@@ -110,7 +139,7 @@ function syougakkoukuStyleFunction(year) {
             width: 1
           }),
           text: new Text({
-            font: "10px sans-serif",
+            font: "12px sans-serif",
             text: text,
             offsetY: 10,
             stroke: new Stroke({
@@ -122,14 +151,14 @@ function syougakkoukuStyleFunction(year) {
         break;
       case "Polygon":
       case "MultiPolygon":
-        if (zoom > 9) {
+        if (zoom > 10) {
           style = new Style({
             fill: new Fill({
               color: rgba
             }),
             stroke: new Stroke({
-              color: "gray",
-              width: 1
+              color: "black",
+              width: 2
             }),
             zIndex: 0
           });
@@ -185,10 +214,9 @@ function Tyuugakkouku(){
   this.source = new VectorTileSource({
     format: new MVT(),
     maxZoom:15,
-    // url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt//tyuugakkouku/{z}/{x}/{y}.mvt"
     url: "https://kenzkenz.github.io/tyuugaku/{z}/{x}/{y}.mvt"
   });
-  this.style = syougakkoukuStyleFunction();
+  this.style = syougakkoukuStyleFunction(30);
 }
 export  const tyuugakkoukuObj = {};
 for (let i of mapsStr) {
@@ -2382,16 +2410,48 @@ function cityStyleFunction() {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
     const styles = [];
-    const rgb = cityColor(prop.N03_001)
-    const polygonStyle = new Style({
-      fill: new Fill({
-        color: rgb
-      }),
-      stroke: new Stroke({
-        color: "white",
-        width: 1
-      })
-    });
+    let id
+    if (prop.N03_007) {
+      id = Number(prop.N03_007.slice(0, 2))
+    } else {
+      id = 0
+    }
+    const rgb = d3.rgb(d3OridinalColor(id))
+    // const rgb = d3.rgb(cityColor(id))
+    const rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.8)"
+    // const polygonStyle = new Style({
+    //   fill: new Fill({
+    //     color: rgba
+    //   }),
+    //   stroke: new Stroke({
+    //     color: "white",
+    //     width: 1
+    //   })
+    // });
+    let polygonStyle
+    if (zoom > 10) {
+      polygonStyle = new Style({
+        fill: new Fill({
+          color: rgba
+        }),
+        stroke: new Stroke({
+          color: "black",
+          width: 2
+        }),
+        zIndex: 0
+      });
+    } else {
+      polygonStyle = new Style({
+        fill: new Fill({
+          color: rgba
+        }),
+        stroke: new Stroke({
+          color: "black",
+          width: 1
+        }),
+        zIndex: 0
+      });
+    }
     const text = prop.N03_004
     const textStyle = new Style({
       text: new Text({
@@ -2548,14 +2608,14 @@ function chyouzyuuStyleFunction() {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
     const styles = [];
-    const rgb = 'green'
+    const rgb = 'rgba(0,255,0,0.5)'
     const polygonStyle = new Style({
       fill: new Fill({
         color: rgb
       }),
       stroke: new Stroke({
         color: "black",
-        width: 2
+        width: 1
       })
     });
     const text = prop.A15_001
@@ -3081,7 +3141,7 @@ function Sizentikei0(name,minzoom,maxzoom,url){
 }
 export  const sizentikei0Obj = {};
 for (let i of mapsStr) {
-  sizentikei0Obj[i] = new VectorTileLayer(new Sizentikei0('sizentikei2',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
+  sizentikei0Obj[i] = new VectorTileLayer(new Sizentikei0('sizentikei2',1,16,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson"))
 }
 // 詳細版
 function Sizentikei(name,minzoom,maxzoom,url,zIndex){
@@ -3103,13 +3163,13 @@ function Sizentikei(name,minzoom,maxzoom,url,zIndex){
 }
 const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('sizentikei3',1,13,"https://maps.gsi.go.jp/xyz/experimental_landformclassification3/{z}/{x}/{y}.geojson",1001))
 // const sizentikeiObj1 = new VectorTileLayer(new Sizentikei('sizentikei3',1,18,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson",1001))
-const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('sizentikei4',1,14,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson",1002))
+const sizentikeiObj2 = new VectorTileLayer(new Sizentikei('sizentikei4',1,16,"https://maps.gsi.go.jp/xyz/experimental_landformclassification1/{z}/{x}/{y}.geojson",1002))
 export const sizentikeiObj = {}
 for (let i of mapsStr) {
   sizentikeiObj[i] = new LayerGroup({
     layers: [
-      sizentikeiObj2,
-      sizentikeiObj1
+      // sizentikeiObj2,
+      // sizentikeiObj1
     ]
   })
 }
@@ -3444,16 +3504,42 @@ function gunStyleFunction(irowake) {
     const zoom = getZoom(resolution);
     const prop = feature.getProperties();
     const styles = [];
-    const rgb = cityColor(prop[irowake])
-    const polygonStyle = new Style({
-      fill: new Fill({
-        color: rgb
-      }),
-      stroke: new Stroke({
-        color: "white",
-        width: 1
-      })
-    });
+    // const rgb = d3.rgb(cityColor(prop[irowake]))
+    const rgb = d3.rgb(d3OridinalColor(prop[irowake]))
+    const rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.8)"
+    // const polygonStyle = new Style({
+    //   fill: new Fill({
+    //     color: rgba
+    //   }),
+    //   stroke: new Stroke({
+    //     color: "white",
+    //     width: 1
+    //   })
+    // });
+    let polygonStyle
+    if (zoom > 10) {
+      polygonStyle = new Style({
+        fill: new Fill({
+          color: rgba
+        }),
+        stroke: new Stroke({
+          color: "black",
+          width: 2
+        }),
+        zIndex: 0
+      });
+    } else {
+      polygonStyle = new Style({
+        fill: new Fill({
+          color: rgba
+        }),
+        stroke: new Stroke({
+          color: "black",
+          width: 1
+        }),
+        zIndex: 0
+      });
+    }
     const text = prop.KUNI + prop.GUN
     const textStyle = new Style({
       text: new Text({
@@ -3570,20 +3656,46 @@ for (let i of mapsStr) {
     ]
   })
 }
+
+const source =  new VectorTileSource({
+  format: new MVT(),
+  maxZoom: 13,
+  url: "https://kenzkenz.github.io/rosen/{z}/{x}/{y}.mvt"
+});
+const source2 = new VectorTileSource({
+  format: new MVT(),
+  maxZoom: 13,
+  url: "https://kenzkenz.github.io/eki/{z}/{x}/{y}.mvt"
+});
+
 function Rosen() {
   this.name = "rosen";
   this.style = rosenStyleFunction();
-  this.source = new VectorTileSource({
-    format: new MVT(),
-    maxZoom: 13,
-    url: "https://kenzkenz.github.io/rosen/{z}/{x}/{y}.mvt"
-  });
+  this.source =source
+  // this.maxResolution = 76.437029 //zoom11
+  this.maxResolution = 152.874058 //zoom10
 }
 export const rosenObj = {};
 for (let i of mapsStr) {
   rosenObj[i] = new VectorTileLayer(new Rosen())
 }
 export const rosenSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N05-v2_0.html' target='_blank'>国土数値情報　鉄道データ</a>"
+
+function Rosenxyz () {
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/rosen/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 11
+  })
+  // this.useInterimTilesOnError = false
+  this.minResolution = 76.437029 //zoom11
+}
+export const rosenXyz0Obj = {};
+for (let i of mapsStr) {
+  rosenXyz0Obj[i] = new TileLayer(new Rosenxyz())
+}
+
 // ------------------------------------
 function rosenStyleFunction() {
   return function (feature, resolution) {
@@ -3608,17 +3720,14 @@ function rosenStyleFunction() {
 function Rosenhaisi() {
   this.name = "rosen";
   this.style = rosenhaisiStyleFunction();
-  this.source = new VectorTileSource({
-    format: new MVT(),
-    maxZoom: 13,
-    url: "https://kenzkenz.github.io/rosen/{z}/{x}/{y}.mvt"
-  });
+  this.source =source
+  this.maxResolution = 76.437029 //zoom11
 }
 export  const rosenhaisiObj = {};
 for (let i of mapsStr) {
   rosenhaisiObj[i] = new VectorTileLayer(new Rosenhaisi())
 }
-// export const rosenSumm = ""
+
 // ------------------------------------
 function rosenhaisiStyleFunction() {
   return function (feature, resolution) {
@@ -3633,26 +3742,26 @@ function rosenhaisiStyleFunction() {
   }
 }
 function Eki() {
+  // this.extent = transformE([130.46417593144741, 31.2717699691664,132.07855579563346, 32.99279597868028])
   this.name = "eki";
   this.style = ekiStyleFunction('blue',true);
-  this.source = new VectorTileSource({
-    format: new MVT(),
-    maxZoom: 13,
-    url: "https://kenzkenz.github.io/eki/{z}/{x}/{y}.mvt"
-  });
+  this.source = source2
+  // this.maxResolution = 76.437029 //zoom11
+  this.maxResolution = 38.218514 //zoom12
+  // this.maxResolution = 9.554629 //zoom14
 }
 export  const ekiObj = {};
 for (let i of mapsStr) {
   ekiObj[i] = new VectorTileLayer(new Eki())
 }
 function Ekihaisi() {
+  // this.extent = transformE([130.46417593144741, 31.2717699691664,132.07855579563346, 32.99279597868028])
   this.name = "eki";
   this.style = ekiStyleFunction('red');
-  this.source = new VectorTileSource({
-    format: new MVT(),
-    maxZoom: 13,
-    url: "https://kenzkenz.github.io/eki/{z}/{x}/{y}.mvt"
-  });
+  this.source = source2
+  // this.maxResolution = 76.437029 //zoom11
+  this.maxResolution = 38.218514 //zoom12
+  // this.maxResolution = 9.554629 //zoom14
 }
 export  const ekihaisiObj = {};
 for (let i of mapsStr) {
@@ -3660,8 +3769,7 @@ for (let i of mapsStr) {
 }
 //--------------------------
 function ekiStyleFunction(color,genzonEki) {
-  return function (feature, resolution) {
-    const zoom = getZoom(resolution);
+  return function (feature) {
     const prop = feature.getProperties();
     const text = prop.N05_011
     const genzon = prop["N05_005e"];
@@ -3673,16 +3781,9 @@ function ekiStyleFunction(color,genzonEki) {
           color: color,
         })
     });
-    const iconStyle2 = new Style({
-      image: new Icon({
-        anchor: [0.5, 0.7],
-        src: require('@/assets/icon/eki2.png'),
-        color: color,
-      })
-    });
     const textStyle = new Style({
       text: new Text({
-        font: "8px sans-serif",
+        font: "12px sans-serif",
         text: text,
         offsetY: 10,
         stroke: new Stroke({
@@ -3691,14 +3792,8 @@ function ekiStyleFunction(color,genzonEki) {
         })
       })
     });
-    if(zoom>=14) {
-      styles.push(iconStyle);
-    }else{
-      styles.push(iconStyle2);
-    }
-    if(zoom>=14) {
-      styles.push(textStyle);
-    }
+    styles.push(iconStyle)
+    styles.push(textStyle)
     if (genzonEki) {
       if (genzon === '9999') return styles;
     } else {
@@ -3713,10 +3808,12 @@ for (let i of mapsStr) {
     layers: [
       rosenhaisiObj[i],
       rosenObj[i],
+      rosenXyz0Obj[i],
       ekihaisiObj[i],
       ekiObj[i]
     ]
   })
+  rosen0Obj[i].values_['pointer'] = true
 }
 //----------------------
 function Bus() {
@@ -3727,12 +3824,33 @@ function Bus() {
     maxZoom: 13,
     url: "https://kenzkenz.github.io/bus/{z}/{x}/{y}.mvt"
   });
+  // this.maxResolution = 19.109258 //zoom13
+  // this.maxResolution = 38.218515 //zoom12
+  this.maxResolution = 76.437029 //zoom11
+  // this.maxResolution = 152.874058 //zoom10
 }
 export const busSumm = "<a href='https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N07-v2_0.html' target='_blank'>国土数値情報　バスデータ</a>"
 export  const busObj = {};
 for (let i of mapsStr) {
   busObj[i] = new VectorTileLayer(new Bus())
 }
+
+function Busxyz () {
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/bus/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 11
+  })
+  // this.useInterimTilesOnError = false
+  this.minResolution = 76.437029 //zoom11
+  // this.minResolution = 152.874058 //zoom10
+}
+export const busXyz0Obj = {};
+for (let i of mapsStr) {
+  busXyz0Obj[i] = new TileLayer(new Busxyz())
+}
+
 // ------------------------------------
 function busStyleFunction() {
   return function (feature, resolution) {
@@ -3755,7 +3873,8 @@ function Bustei() {
     maxZoom: 13,
     url: "https://kenzkenz.github.io/bustei/{z}/{x}/{y}.mvt"
   });
-  this.useInterimTilesOnError = false
+  // this.useInterimTilesOnError = false
+  this.maxResolution = 19.109258
 }
 export  const busteiObj = {};
 for (let i of mapsStr) {
@@ -3807,7 +3926,9 @@ for (let i of mapsStr) {
   bus0Obj[i] = new LayerGroup({
     layers: [
         busObj[i],
+      // busMiniObj[i],
       busteiObj[i],
+      busXyz0Obj[i]
     ]
   })
 }
@@ -4038,6 +4159,32 @@ function kyuusekkiFunction() {
     }
   }
 }
+// 全奥旧石器webgl----------------------------------------------------------------------
+function KyuusekkiWebGl() {
+  this.name = "kyuusekki";
+  this.style = kyuusekkiwebglstyle;
+  this.source= new VectorSource({
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/zenkokuiseki2.geojson',
+    // url:'https://openlayers.org/en/latest/examples/data/geojson/world-cities.geojson',
+    format: new GeoJSON()
+  })
+}
+const kyuusekkiwebglstyle = {
+  symbol: {
+    symbolType: 'image',
+    anchor: [0.5, 1],
+    src: require('@/assets/icon/whitepin.png'),
+    color: 'green',
+    size: 16
+  }
+}
+export  const kyuusekkiWebGlObj = {};
+for (let i of mapsStr) {
+  kyuusekkiWebGlObj[i] = new WebGLPointsLayer(new KyuusekkiWebGl())
+}
+
+
+
 // 国指定文化財等データベース
 function BunkazaiDb() {
   this.name = "bunkazaidb";
@@ -4337,7 +4484,22 @@ export const nihonisanObj = {};
 for (let i of mapsStr) {
   nihonisanObj[i] = new VectorLayer(new Nihonisan())
 }
-
+// 土木学会選奨土木遺産------------------------------------------------------
+function Dobokuisan () {
+  this.useInterimTilesOnError = false
+  this.name = 'dobokuisan'
+  this.source = new VectorSource({
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/dobokuisan.geojson',
+    format: new GeoJSON()
+  });
+  this.style = standardFunction('構造物名')
+}
+export const dobokuisanSumm = "<a href='https://note.com/htahathata/n/n2bd5e7877f93' target='_blank'>土木学会選奨土木遺産</a>"
+export const dobokuisanObj = {};
+for (let i of mapsStr) {
+  dobokuisanObj[i] = new VectorLayer(new Dobokuisan())
+}
+// 日本遺産ヒートマップ------------------------------------------------------
 function NihonisanHeatmap () {
   this.useInterimTilesOnError = false
   this.name = 'nihonisanheatmap'
@@ -4353,3 +4515,355 @@ export const nihonisanheatmapObj = {};
 for (let i of mapsStr) {
   nihonisanheatmapObj[i] = new Heatmap(new NihonisanHeatmap())
 }
+// 選挙区---------------------------------------------------------------
+function senkyoku2022() {
+  this.name = "senkyoku";
+  this.style = senkyokuStyleFunction();
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 13,
+    url: "https://kenzkenz.github.io/senkyoku2022/{z}/{x}/{y}.mvt"
+  });
+}
+export const senkyokuSumm = "<a href='https://nszw.jp/index.php/opendata?fbclid=IwAR2-LZqgPYEPuhAmfqFMKaghuOyAGdNLBPN4mUOhhciep8ZNsUIUnrr4V5E' target='_blank'>地域・交通データ研究所</a>"
+export  const senkyoku2022Obj = {};
+for (let i of mapsStr) {
+  senkyoku2022Obj[i] = new VectorTileLayer(new senkyoku2022())
+}
+//------------------------------------------
+const senkyokuColor = d3.scaleOrdinal(d3.schemeCategory10);
+function senkyokuStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    const rgb = senkyokuColor(prop.ken)
+    const style = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "black",
+        width: 1
+      }),
+    });
+    return style;
+  }
+}
+// 郵便区---------------------------------------------------------------
+function Yubinnku () {
+  this.useInterimTilesOnError = false
+  this.name = 'yubinku'
+  this.source = new VectorSource({
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/yubinku_editmini.geojson',
+    format: new GeoJSON()
+  });
+  this.style = yubinkuColorStyleFunction('name')
+}
+export const yubinkuSumm = "<a href='https://hanishina.github.io/maps/yubindata.html' target='_blank'>郵便番号境界データ</a>"
+export const yubinkuObj = {};
+for (let i of mapsStr) {
+  yubinkuObj[i] = new VectorLayer(new Yubinnku())
+}
+//------------------------------------------
+const yubinkuColor = d3.scaleOrdinal(d3.schemeCategory10);
+function yubinkuColorStyleFunction() {
+  return function (feature, resolution) {
+    const prop = feature.getProperties();
+    const rgb = yubinkuColor(prop.ken)
+    const zoom = getZoom(resolution);
+    const styles = []
+    const fillStyle = new Style({
+      fill: new Fill({
+        color: rgb
+      }),
+      stroke: new Stroke({
+        color: "black",
+        width: 1
+      }),
+    });
+    const textStyle = new Style({
+      text: new Text({
+        font: "12px sans-serif",
+        text: prop.fullcode + '\n\n' + prop.name,
+        offsetY: 12,
+        fill:  new Fill({
+          color:"black"
+        }),
+        stroke: new Stroke({
+          color: "white",
+          width: 3
+        }),
+        zIndex: 9
+      })
+    })
+    styles.push(fillStyle)
+    if (zoom>=11) styles.push(textStyle)
+    return styles;
+  }
+}
+
+
+// 地名---------------------------------------------------------------
+function chimei() {
+  this.useInterimTilesOnError = false
+  this.name = 'chimei'
+  this.source = new VectorTileSource({
+    format: new MVT(),
+    maxZoom: 13,
+    url: "https://kenzkenz.github.io/chimei/{z}/{x}/{y}.mvt"
+  });
+  this.style = standardFunction('名称');
+}
+export const chimeiSumm = "<a href='https://geoshape.ex.nii.ac.jp/nrct/' target='_blank'>日本歴史地名大系</a>"
+export const chimeiObj = {};
+for (let i of mapsStr) {
+  chimeiObj[i] = new VectorTileLayer(new chimei())
+}
+
+// 明治国道---------------------------------------------------------------
+function Meijikokudo () {
+  this.useInterimTilesOnError = false
+  this.name = 'meijikokudo'
+  this.source = new VectorSource({
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/meijikokudo.geojson',
+    format: new GeoJSON()
+  });
+  this.style = meijikokudoStyleFunction('Name')
+}
+export const meijikokudoSumm = "<a href='https://note.com/smatsu/n/n7fac14777686' target='_blank'>明治期における国道（明治国道）の比定路線および経過地</a>"
+export const meijikokudoObj = {};
+for (let i of mapsStr) {
+  meijikokudoObj[i] = new VectorLayer(new Meijikokudo())
+}
+export function meijikokudoStyleFunction(text) {
+  return function (feature, resolution) {
+    const zoom = getZoom(resolution);
+    const prop = feature.getProperties();
+    const geoType = feature.getGeometry().getType();
+    const styles = [];
+    switch (geoType){
+      case "MultiLineString":
+      case "LineString":
+        const lineStyle = new Style({
+          stroke: new Stroke({
+            color:"red",
+            width:6
+          })
+        });
+        styles.push(lineStyle)
+        break;
+      case "MultiPoint":
+      case "Point":
+        const iconStyle = new Style({
+          image: new Icon({
+            anchor: [0.5, 1],
+            src: require('@/assets/icon/whitepin.png'),
+            color: 'orange',
+          }),
+          zIndex: 9
+        });
+        const iconStyleLerge = new Style({
+          image: new Icon({
+            // anchor: [0.5, 1],
+            src: require('@/assets/icon/whitepinlarge.png'),
+            color: 'black',
+          }),
+          zIndex: 9
+        });
+        const textStyle = new Style({
+          text: new Text({
+            font: "12px sans-serif",
+            text: prop[text],
+            offsetY: 10,
+            fill:  new Fill({
+              color:"red"
+            }),
+            stroke: new Stroke({
+              color: "white",
+              width: 3
+            }),
+            zIndex: 9
+          })
+        })
+        // styles.push(iconStyle)
+        // if (zoom>=13) styles.push(iconStyleLerge)
+        if (zoom>=13) styles.push(textStyle)
+        break;
+      default:
+    }
+    return styles;
+  }
+}
+
+// // 鉄道テスト---------------------------------------------------------------
+// function Railroad () {
+//   this.useInterimTilesOnError = false
+//   this.name = 'railroad'
+//   this.source = new VectorSource({
+//     url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/eki5.geojson',
+//     format: new GeoJSON()
+//   });
+//   // this.style = railroadStyleFunction('black')
+// }
+// export const railroadSumm = "<a href='' target='_blank'></a>"
+// export const railroadObj = {};
+// for (let i of mapsStr) {
+//   railroadObj[i] = new VectorLayer(new Railroad())
+// }
+// function Railroadhaishi () {
+//   this.useInterimTilesOnError = false
+//   this.name = 'railroad'
+//   this.source = new VectorSource({
+//     url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/railroad.geojson',
+//     format: new GeoJSON()
+//   });
+//   this.style = railroadhaisiStyleFunction()
+// }
+// export const railroadHaishiObj = {};
+// for (let i of mapsStr) {
+//   railroadHaishiObj[i] = new VectorLayer(new Railroadhaishi())
+// }
+// function railroadStyleFunction(color) {
+//   return function (feature, resolution) {
+//     const prop = feature.getProperties();
+//     const zoom = getZoom(resolution);
+//     const genzon = prop["N05_005e"];
+//     const text = prop.N05_011
+//     let strokeColor;
+//     let strokeWidth;
+//     if (genzon === '9999') {
+//       strokeColor = "mediumblue";
+//       strokeWidth = zoom > 9 ? 6 : 2
+//     } else {
+//       // strokeColor = "red";
+//       // strokeWidth = zoom>9 ? 6 :2
+//     }
+//     const styles = []
+//     const strokeStyle = new Style({
+//       stroke: new Stroke({
+//         color: strokeColor,
+//         width: strokeWidth,
+//       })
+//     });
+//     const iconStyle = new Style({
+//       image: new Icon({
+//         anchor: [0.5, 0.7],
+//         src: require('@/assets/icon/eki.png'),
+//         color: color,
+//       })
+//     });
+//     const iconStyle2 = new Style({
+//       image: new Icon({
+//         anchor: [0.5, 0.7],
+//         src: require('@/assets/icon/eki2.png'),
+//         color: color,
+//       })
+//     });
+//     const textStyle = new Style({
+//       text: new Text({
+//         font: "8px sans-serif",
+//         text: text,
+//         offsetY: 10,
+//         stroke: new Stroke({
+//           color: "white",
+//           width: 3
+//         })
+//       })
+//     });
+//     if(zoom>=14) {
+//       styles.push(iconStyle);
+//     }else{
+//       // styles.push(iconStyle2);
+//     }
+//     if(zoom>=14) {
+//       styles.push(textStyle);
+//     }
+//     styles.push(strokeStyle)
+//     return styles;
+//   }
+// }
+// function railroadhaisiStyleFunction() {
+//   return function (feature, resolution) {
+//     const zoom = getZoom(resolution);
+//     const style = new Style({
+//       stroke: new Stroke({
+//         color: 'red',
+//         width: zoom>9 ? 6 :2,
+//       })
+//     });
+//     return style;
+//   }
+// }
+// export const railroad00Obj = {};
+// for (let i of mapsStr) {
+//   railroad00Obj[i] = new LayerGroup({
+//     layers: [
+//       // railroadHaishiObj[i],
+//       railroadObj[i],
+//     ]
+//   })
+// }
+
+
+// テスト---------------------------------------------------------------
+function Test() {
+  this.name = "senkyoku";
+  this.style = senkyokuStyleFunction();
+  this.source = new VectorTileSource({
+    format: new MVTFormat(),
+    maxZoom: 13,
+    url: "https://rinya-hyogo.geospatial.jp/2023/rinya/tile/tree_species/{z}/{x}/{y}.pbf"
+    // url:'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf'
+  });
+}
+export const testSumm = "<a href='' target='_blank'></a>"
+export  const testObj = {};
+for (let i of mapsStr) {
+  testObj[i] = new VectorTileLayer(new Test())
+}
+
+// WebGlのテスト--------------------------------------------------------------------
+function TestWebGl() {
+  this.style = webglstyle;
+  this.source= new VectorSource({
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/zenkokuiseki2.geojson',
+    // url:'https://openlayers.org/en/latest/examples/data/geojson/world-cities.geojson',
+    format: new GeoJSON()
+  })
+}
+const webglstyle = {
+  symbol: {
+    symbolType: 'image',
+    // anchor: [0.5, 0.7],
+    src: 'https://kenzkenz.xsrv.jp/open-hinata/img/redpinmini.png',
+    size: 32,
+    // color: 'blue'
+  }
+}
+export  const testWebGlObj = {};
+for (let i of mapsStr) {
+  testWebGlObj[i] = new WebGLPointsLayer(new TestWebGl())
+}
+// ---------------------------------------------------------------------------------
+// // data source for map
+// const source0 = new VectorSource({
+//   loader: async function () {
+//     // Fetch the flatgeobuffer
+//     const response = await fetch('https://wata909.github.io/fudepoly47/fude_tsukuba.fgb')
+//     // ...and parse all its features
+//     for await (let feature of flatgeobuf.deserialize(response.body)) {
+//       feature.getGeometry()//.transform('EPSG:4326', 'EPSG:3857')
+//       // add each feature to the map, after projecting it to
+//       this.addFeature(feature)
+//     }
+//   }
+// });
+// function Testfgb () {
+//   this.useInterimTilesOnError = false
+//   this.name = 'meijikokudo'
+//   this.source = source0
+//   this.style = meijikokudoStyleFunction('Name')
+// }
+// export  const testWebGlObj2 = {};
+// for (let i of mapsStr) {
+//   testWebGlObj2[i] = new VectorLayer(new Testfgb())
+// }

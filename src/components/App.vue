@@ -3,9 +3,29 @@
         <!--map01からmap04をループで作成-->
         <transition v-for="mapName in mapNames" :key="mapName">
             <div :id=mapName :style="mapSize[mapName]" v-show="mapFlg[mapName]">
+              <div>
+                <modal name="modal0" :width="300" :clickToClose="false">
+                  <div class="modal-body">
+                    読み込み中です。
+                  </div>
+                </modal>
+              </div>
+              <div id="modal">
+                <modal name="modal1" :width="300" :clickToClose="false">
+                  <div class="modal-body">
+                    <b-button class='olbtn' v-on:click="stanford">スタンフォード大学</b-button><br><br>
+                    <b-button class='olbtn' v-on:click="mapWarper">日本版 Map Warper </b-button><br><br>
+                    <b-button class='olbtn' v-on:click="hide">閉じる</b-button>
+                  </div>
+                </modal>
+              </div>
               <div :id="popup[mapName]" class="ol-popup">
                 <a href="#" :id="popupCloser[mapName]" class="ol-popup-closer"></a>
                 <div :id="popupContent[mapName]"></div>
+              </div>
+              <div :id="marker[mapName]" class="marker">
+              </div>
+              <div class="center-target">
               </div>
                 <div class="top-left-div">
                     <b-button v-if="mapName === 'map01'" class='olbtn' :size="btnSize" @click="openDialog(s_dialogs['menuDialog'])" style="margin-right:5px;"><i class="fa-solid fa-bars"></i></b-button>
@@ -47,6 +67,9 @@
   import * as Permalink from '../js/permalink'
   import Inobounce from '../js/inobounce'
   import * as MyMap from '../js/mymap'
+  import axios from "axios";
+  import * as permalink from "@/js/permalink";
+  import store from "@/js/store";
   export default {
     name: 'App',
     components: {
@@ -58,6 +81,7 @@
       return {
         mapNames: ['map01','map02','map03','map04'],
         btnSize: '',
+        marker:{map01: 'map01-marker',map02: 'map02-marker',map03: 'map03-marker',map04: 'map04-marker'},
         popup:{map01: 'map01-popup',map02: 'map02-popup',map03: 'map03-popup',map04: 'map04-popup'},
         popupCloser:{map01: 'map01-popup-closer',map02: 'map02-popup-closer',map03: 'map03-popup-closer',map04: 'map04-popup-closer'},
         popupContent:{map01: 'map01-popup-content',map02: 'map02-popup-content',map03: 'map03-popup-content',map04: 'map04-popup-content'},
@@ -82,12 +106,41 @@
       }
     },
     computed: {
+      s_dialogShow () { return this.$store.state.base.dialogShow},
+      s_suUrl () { return this.$store.state.base.suUrl},
+      s_mwId () { return this.$store.state.base.mwId},
       s_dialogs () { return this.$store.state.base.dialogs},
       s_splitFlg () { return this.$store.state.base.splitFlg},
       s_dialogMaxZindex () { return this.$store.state.base.dialogMaxZindex}
     },
+    watch: {
+      s_dialogShow(newValue, oldValue) {
+        if (newValue) {
+          this.$modal.show('modal1');
+          store.commit('base/updateDialogShow',false);
+        } else {
+          this.$modal.hide('modal1');
+        }
+      }
+    },
     methods: {
+      stanford: function () {
+        MyMap.history ('スタンフォード大学へ')
+        if(this.s_suUrl.includes('stanford')) {
+          window.open(this.s_suUrl, '_blank')
+        } else {
+          alert('スタンフォード大学にはありません。')
+        }
+      },
+      mapWarper: function () {
+        MyMap.history ('日本版mapwarperへ')
+        window.open('https://mapwarper.h-gis.jp/maps/' + this.s_mwId, '_blank');
+      },
+      hide : function () {
+        this.$modal.hide('modal1')
+      },
       home() {
+        MyMap.history ('説明画面へ')
         window.open('https://kenzkenz.xsrv.jp/open-hinata/open-hinata.html')
       },
       // レイヤーのダイアログを開く------------------------------------------------------------------
@@ -98,6 +151,7 @@
       },
       // 分割-------------------------------------------------------------------------------------
       splitMap () {
+        MyMap.history ('分割')
         this.$store.commit('base/incrSplitFlg');
         this.splitMap2();
         Permalink.moveEnd()
@@ -105,6 +159,7 @@
       // 分割その２
       splitMap2 () {
         const vm = this;
+        const isPortrait = window.matchMedia("(orientation: portrait)").matches
         const height = window.innerHeight + 'px';
         const height2 = window.innerHeight / 2 + 'px';
         switch (this.s_splitFlg) {
@@ -117,16 +172,35 @@
             vm.mapSize['map03'] = {top: 0, left: 0, width: 0, height: 0};
             vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
             break;
-          // 2画面（縦２画面）
+          // 2画面
           case 2:
-            vm.synchDivFlg = true;
-            vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = false; vm.mapFlg['map04'] = false;
-            vm.mapSize['map01'] = {top: 0, left: 0, width: '50%', height: height};
-            vm.mapSize['map02'] = {top: 0, left: '50%', width: '50%', height: height};
-            vm.mapSize['map03'] = {top: 0, left: 0, width: 0, height: 0};
-            vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
+            if (window.innerWidth > 850) {// 横２画面
+              vm.synchDivFlg = true;
+              vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = false; vm.mapFlg['map04'] = false;
+              vm.mapSize['map01'] = {top: 0, left: 0, width: '50%', height: height};
+              vm.mapSize['map02'] = {top: 0, left: '50%', width: '50%', height: height};
+              vm.mapSize['map03'] = {top: 0, left: 0, width: 0, height: 0};
+              vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
+            } else { // 縦2画面or横2画面
+              // alert(window.innerWidth)
+              if (isPortrait) { // 縦2画面
+                vm.synchDivFlg = true;
+                vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = false; vm.mapFlg['map04'] = false;
+                vm.mapSize['map01'] = {top: 0, left: 0, width: '100%', height: height2};
+                vm.mapSize['map02'] = {top: '50%', left: 0, width: '100%', height: height2};
+                vm.mapSize['map03'] = {top: 0, left: 0, width: 0, height: 0};
+                vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
+              } else {
+                vm.synchDivFlg = true;
+                vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = false; vm.mapFlg['map04'] = false;
+                vm.mapSize['map01'] = {top: 0, left: 0, width: '50%', height: height};
+                vm.mapSize['map02'] = {top: 0, left: '50%', width: '50%', height: height};
+                vm.mapSize['map03'] = {top: 0, left: 0, width: 0, height: 0};
+                vm.mapSize['map04'] = {top: 0, left: 0, width: 0, height: 0};
+              }
+            }
             break;
-          // 2画面（横２画面）
+          // 2画面（縦２画面）
           // case 3:
           //   vm.synchDivFlg = true;
           //   vm.mapFlg['map02'] = true; vm.mapFlg['map03'] = false; vm.mapFlg['map04'] = false;
@@ -180,28 +254,84 @@
     },
     mounted () {
       this.$nextTick(function () {
-        // ①map初期化-----------------------------
-        MyMap.initMap(this);
-        // ②パーマリンク------------------------------
-        Permalink.permalinkEventSet();
-        // ③画面分割-------------------------------
-        this.splitMap2();
-        // ④リサイズ---------------------------------
-        const resize = () => {
-          if (window.innerWidth < 1000) {
-            this.btnSize = 'sm'
-            this.toolTip = false
+        // http://localhost:8080/#Ldd6
+        // http://localhost:8080/#yweq
+        // 'http://localhost:8080/#9/130.69914/32.42704%3FS%3D1%26L%3D%5B%5B%7B%22id%22%3A%22mw5%22%2C%22ck%22%3Atrue%2C%22o%22%3A1%7D%2C%7B%22id%22%3A2%2C%22ck%22%3Atrue%2C%22o%22%3A1%2C%22c%22%3A%22%22%7D%5D%2C%5B%7B%22id%22%3A2%2C%22ck%22%3Atrue%2C%22o%22%3A1%2C%22c%22%3A%22%22%7D%5D%2C%5B%7B%22id%22%3A2%2C%22ck%22%3Atrue%2C%22o%22%3A1%2C%22c%22%3A%22%22%7D%5D%2C%5B%7B%22id%22%3A2%2C%22ck%22%3Atrue%2C%22o%22%3A1%2C%22c%22%3A%22%22%7D%5D%5D'
+        this.$modal.show('modal0');
+        const vm = this
+        const hash = window.location.hash.replace('#','')
+        let urlid
+        if (hash.length >= 5 && hash.substring(0,1) === 's') {
+          // 改善後の短縮URL 最初がsの５桁になっている。
+          urlid = hash.substring(1)
+        } else {
+          const zoomParameter = Number(hash.split('/')[0])
+          if (isNaN(zoomParameter)) {
+            urlid = hash
           } else {
-            this.btnSize = ''
-            this.toolTip = true
+            urlid = 999
           }
-          this.splitMap2()
-        };
-        resize();
-        window.onresize =  () => resize();
-        // ⑤縦バウンス無効化----------------------
-        // https://github.com/lazd/iNoBounce
-        Inobounce();
+        }
+        axios.get('https://kenzkenz.xsrv.jp/open-hinata/php/select.php',{
+          params: {
+            urlid: urlid
+          }
+        }).then(function (response) {
+          init(response)
+          console.log(response)
+          vm.$modal.hide('modal0');
+        }).finally(function () {
+
+        });
+
+        function init (response) {
+          // console.log(window.location.host.indexOf('localhost'))
+          // let host
+          // if (window.location.host.indexOf('localhost') !== -1) {
+          //   host = 'http://localhost:8080/'
+          // } else {
+          //   host = 'https://kenzkenz.xsrv.jp/open-hinata/'
+          // }
+          // if (response.data) {
+          //   const url = host + response.data
+          //   window.location.replace(url)
+          // }
+          // ①map初期化-----------------------------
+          MyMap.initMap(vm);
+          // ②パーマリンク------------------------------
+          Permalink.permalinkEventSet(response);
+          // ③画面分割-------------------------------
+          // this.splitMap2();
+          // ④リサイズ---------------------------------
+          const resize = () => {
+            if (window.innerWidth < 800) {
+              vm.btnSize = 'sm'
+              vm.toolTip = false
+              // alert(window.innerWidth)
+            } else {
+              vm.btnSize = ''
+              vm.toolTip = true
+            }
+            vm.splitMap2()
+          };
+          // setTimeout(function(){
+          resize()
+          // }, 300);
+          window.onresize =  () => {
+            setTimeout(function(){
+              resize()
+            }, 50);
+          };
+          window.addEventListener("orientationchange", function() {
+            /* 向き切り替え時の処理 */
+            setTimeout(function(){
+              resize()
+            }, 50);
+          });
+          // ⑤縦バウンス無効化----------------------
+          // https://github.com/lazd/iNoBounce
+          Inobounce();
+        }
       });
     }
   }
@@ -270,6 +400,45 @@
         user-select: none;
         /*cursor: grab;*/
     }
+    .marker{
+
+      position: absolute;
+      background-color: red;
+      /*background-image:url('https://kenzkenz.xsrv.jp/open-hinata/img/redpinmini.png');*/
+      padding: 8px;
+      bottom: -8px;
+      left: -8px;
+      border-radius: 8px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      pointer-events: none;
+
+      /*position: absolute;*/
+      /*background-image:url('https://kenzkenz.xsrv.jp/open-hinata/img/redpinmini.png');*/
+      /*background-repeat:  no-repeat;*/
+      /*width:16px;*/
+      /*height:16pX;*/
+      /*top: -8px;*/
+      /*left:-8px;*/
+      /*z-index: 999999;*/
+    }
+    .center-target{
+      position: absolute;
+      background-image:url('https://kenzkenz.xsrv.jp/open-hinata/img/target0.gif');
+      background-repeat:  no-repeat;
+      width:24px;
+      height:24pX;
+      pointer-events: none;
+      top: calc(50% - 12px);
+      left: calc(50% - 12px);
+      z-index: 1;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
     #lock{
         position: absolute;
         top: calc(50% - 15px);
@@ -319,6 +488,14 @@
     }
 </style>
 <style>
+/*hogeはテストのため。削除してもよい*/
+.hoge {
+  mix-blend-mode: multiply;
+  filter: grayScale(1);
+}
+    #modal .vm--container{
+      z-index: 10002;
+    }
     /*汎用的なスタイルはここに*/
     body{
         margin: 0;
@@ -539,32 +716,44 @@
     }
 
     .ol-target-overlay .ol-target
-    {	border: 1px solid transparent;
-      -webkit-box-shadow: 0 0 1px 1px #fff;
-      box-shadow: 0 0 1px 1px #fff;
-      display: block;
-      height: 20px;
-      width: 0;
-    }
-
-    .ol-target-overlay .ol-target:after,
-    .ol-target-overlay .ol-target:before
-    {	content:"";
-      border: 1px solid #369;
-      -webkit-box-shadow: 0 0 1px 1px #fff;
-      box-shadow: 0 0 1px 1px #fff;
-      display: block;
-      width: 20px;
-      height: 0;
+    {
+      width: 10px;
+      height: 10px;
+      background-color: green;
+      border-radius: 50%;
+      border: 1px solid white;
       position:absolute;
-      top:10px;
-      left:-9px;
+      top: -5px;
+      left: -5px;
     }
-    .ol-target-overlay .ol-target:after
-    {	-webkit-box-shadow: none;	box-shadow: none;
-      height: 20px;
-      width: 0;
-      top:0px;
-      left:0px;
-    }
+    /*十字にするときは以下を使う*/
+    /*.ol-target-overlay .ol-target*/
+    /*{	border: 1px solid transparent;*/
+    /*  -webkit-box-shadow: 0 0 1px 1px #fff;*/
+    /*  box-shadow: 0 0 1px 1px #fff;*/
+    /*  display: block;*/
+    /*  height: 20px;*/
+    /*  width: 0;*/
+    /*}*/
+
+    /*.ol-target-overlay .ol-target:after,*/
+    /*.ol-target-overlay .ol-target:before*/
+    /*{	content:"";*/
+    /*  border: 1px solid #369;*/
+    /*  -webkit-box-shadow: 0 0 1px 1px #fff;*/
+    /*  box-shadow: 0 0 1px 1px #fff;*/
+    /*  display: block;*/
+    /*  width: 20px;*/
+    /*  height: 0;*/
+    /*  position:absolute;*/
+    /*  top:10px;*/
+    /*  left:-9px;*/
+    /*}*/
+    /*.ol-target-overlay .ol-target:after*/
+    /*{	-webkit-box-shadow: none;	box-shadow: none;*/
+    /*  height: 20px;*/
+    /*  width: 0;*/
+    /*  top:0px;*/
+    /*  left:0px;*/
+    /*}*/
 </style>

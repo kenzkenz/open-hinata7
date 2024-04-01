@@ -18,15 +18,33 @@ import Crop from 'ol-ext/filter/Crop'
 import Mask from 'ol-ext/filter/Mask'
 import  * as MaskDep from './mask-dep'
 import  * as LayersMvt from './layers-mvt'
-import {hokkaidouTunamiTObj, hokkaidouTunamiTSumm, houmusyouObj, houmusyouSumm} from "./layers-mvt";
+import {kyuusekkiWebGlObj, meijikokudoSumm, railroad00Obj, railroadObj, rosen0Obj, testWebGlObj} from "./layers-mvt";
+// import {hokkaidouTunamiTObj, hokkaidouTunamiTSumm, houmusyouObj, houmusyouSumm} from "./layers-mvt";
 const mapsStr = ['map01','map02','map03','map04']
+const transformEforMw = extent => {
+  extent = [extent[0],extent[3],extent[2],extent[1]]
+  return transformExtent(extent,'EPSG:4326','EPSG:3857')
+};
 const transformE = extent => {
+  // extent = [extent[0],extent[3],extent[2],extent[1]]
   return transformExtent(extent,'EPSG:4326','EPSG:3857')
 };
 function flood(pixels, data) {
   const pixel = pixels[0]
   if (pixel[3]) {
-    const height = (pixel[0] * 256 * 256 + pixel[1] * 256 + pixel[2]) / 100
+    // let height = (pixel[0] * 256 * 256 + pixel[1] * 256 + pixel[2]) / 100
+    let height
+    if (pixel[3] === 255) {
+      // let r = pixel[0]
+      // if (r >= 128) {
+      //   r = r - 256
+      // }
+      // height = r * 256 * 256 + pixel[1] * 256 + pixel[2];
+      height = pixel[0] * 256 * 256 + pixel[1] * 256 + pixel[2];
+      height = (height < 8323072) ? height : height - 16777216;
+      height /= 100;
+    }
+    // console.log(height)
     if (height <= data.level) {
       let sinsui = - height + data.level
       const c = data.colors
@@ -40,7 +58,7 @@ function flood(pixels, data) {
         pixel[0] = c.m3.r; pixel[1] = c.m3.g; pixel[2] = c.m3.b; pixel[3] = c.m3.a*255
       } else if (sinsui >= 0.5) {
         pixel[0] = c.m0.r; pixel[1] = c.m0.g; pixel[2] = c.m0.b; pixel[3] = c.m0.a*255
-      } else {
+      } else if (sinsui >= 0.0) {
         pixel[0] = c.m00.r; pixel[1] = c.m00.g; pixel[2] = c.m00.b; pixel[3] = c.m00.a*255
       }
     } else {
@@ -50,9 +68,12 @@ function flood(pixels, data) {
   return pixel
 }
 //dem10---------------------------------------------------------------------------------
+// const url = 'https://cyberjapandata.gsi.go.jp/xyz/dem_png/{z}/{x}/{y}.png'
+const url = 'https://tiles.gsj.jp/tiles/elev/land/{z}/{y}/{x}.png'
 const elevation10 = new XYZ({
-  url:'https://cyberjapandata.gsi.go.jp/xyz/dem_png/{z}/{x}/{y}.png',
-  maxZoom:14,
+  url:url,
+  // maxZoom:14,
+  maxZoom:13,
   crossOrigin:'anonymous'
 });
 function Dem10 () {
@@ -60,6 +81,7 @@ function Dem10 () {
     sources:[elevation10],
     operation:flood
   })
+  this.maxResolution = 19.109258
 }
 export const flood10Obj = {}
 for (let i of mapsStr) {
@@ -69,6 +91,41 @@ for (let i of mapsStr) {
     event.data.colors = store.state.info.colors
   });
 }
+//----------------------------
+const elevation102 = new XYZ({
+  url:url,
+  maxZoom:11,
+  crossOrigin:'anonymous'
+});
+function Dem102 () {
+  this.source = new RasterSource({
+    sources:[elevation102],
+    operation:flood
+  })
+  this.minResolution = 19.109258
+  // this.minResolution = 19.109257
+  // this.minResolution = 9.554629
+}
+export const flood102Obj = {}
+for (let i of mapsStr) {
+  flood102Obj[i] = new ImageLaye(new Dem102())
+  flood102Obj[i].getSource().on('beforeoperations', function(event) {
+    event.data.level = Number(document.querySelector('#' + i  + " .flood-range10m").value)
+    event.data.colors = store.state.info.colors
+  });
+}
+
+// -------------
+const flood100Obj = {};
+for (let i of mapsStr) {
+  flood100Obj[i] = new LayerGroup({
+    layers: [
+      flood10Obj[i],
+      flood102Obj[i],
+    ]
+  })
+}
+
 //dem5---------------------------------------------------------------------------------
 const elevation5 = new XYZ({
   url:'https://cyberjapandata.gsi.go.jp/xyz/dem5a_png/{z}/{x}/{y}.png',
@@ -99,6 +156,7 @@ let floodSumm = ''
 // シームレス地質図-------------------------------------------------------------------------------
 const sources =new XYZ({
   url: 'https://gbank.gsj.jp/seamless/v2/api/1.2/tiles/{z}/{y}/{x}.png?layer=glf',
+  // 地理院10mdemは下記
   // url: 'https://gbank.gsj.jp/seamless/v2/api/1.2/tiles/{z}/{y}/{x}.png',
   crossOrigin: 'Anonymous',
   minZoom: 5,
@@ -106,6 +164,7 @@ const sources =new XYZ({
 })
 function seamless () {
   this.name = 'seamless'
+   // this.className = 'pointer'
   this.pointer = true
   this.source = new RasterSource({
     sources:[sources],
@@ -172,9 +231,10 @@ for (let i of mapsStr) {
 const stdSumm = '国土地理院作成のタイルです。<br><a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 淡色地図------------------------------------------------------------------------------------
 function Pale () {
+  // this.className = 'paler'
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png',
-    crossOrigin: 'Anonymous',
+    crossOrigin: 'anonymous',
     minZoom: 2,
     maxZoom: 18
   })
@@ -183,12 +243,6 @@ function Pale () {
 const paleObj = {};
 for (let i of mapsStr) {
   paleObj[i] = new TileLayer(new Pale())
-  // paleObj[i].on("precompose", function(evt){
-  //   evt.context.globalCompositeOperation = 'multiply';
-  // });
-  // paleObj[i].on("postcompose", function(evt){
-  //   evt.context.globalCompositeOperation = "source-over";
-  // });
 }
 const paleSumm = '国土地理院作成のタイルです。<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank">リンク</a>'
 // 白地図--------------------------------------------------------------------------------------
@@ -276,6 +330,10 @@ for (let i of mapsStr) {
 }
 // 明治期の低湿地---------------------------------------------------------------------------------
 function Sitti () {
+  this.name = 'sitti'
+     // this.className = 'pointer'
+ 
+  this.pointer = true
   this.source = new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/swale/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -424,6 +482,23 @@ for (let i of mapsStr) {
   kakegawaOrtObj[i] = new TileLayer(new KakegawaOrt())
 }
 const kakegawaOrtSumm = '<a href="https://www.city.kakegawa.shizuoka.jp/gyosei/docs/452145.html" target="_blank">令和4年度掛川市航空写真(オルソ画像)</a>'
+
+// 半田市航空写真----------------------------------------------------------------------------
+function HandaOrt () {
+  this.extent = transformE([136.8485, 34.9523, 136.9931, 34.8481])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/handasi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const handaOrtObj = {};
+for (let i of mapsStr) {
+  handaOrtObj[i] = new TileLayer(new HandaOrt())
+}
+const handaOrtSumm = '<a href="https://www.city.handa.lg.jp/kikaku/shise/johoseisaku/opendata/data_kokupict_2020.html" target="_blank">2020年（令和2年）行政活動情報・航空写真</a>'
+
 
 // 鹿児島市航空写真----------------------------------------------------------------------------
 function KagosimasiOrt () {
@@ -667,7 +742,7 @@ for (let i of mapsStr) {
 const hyougoCsSumm = '<a href="https://web.pref.hyogo.lg.jp/kk26/hyogo-geo.html" target="_blank">全国初「全県土分の高精度3次元データ」の公開について</a>';
 
 // 兵庫県CS立体図50cm ----------------------------------------------------------------------------
-function HyougoCsTest () {
+function HyougoCs50 () {
   this.extent = transformE([134.2669714033038, 34.17797854803047,135.47241581374712, 35.783161768341444])
   this.source = new XYZ({
     url: 'https://kenzkenz.xsrv.jp/tile/hyougo/cs50cm/{z}/{x}/{-y}.png',
@@ -676,18 +751,890 @@ function HyougoCsTest () {
     maxZoom: 19
   });
 }
-const hyougoCsTestObj = {};
+const hyougoCs50Obj = {};
 for (let i of mapsStr) {
-  hyougoCsTestObj[i] = new TileLayer(new HyougoCsTest())
+  hyougoCs50Obj[i] = new TileLayer(new HyougoCs50())
 }
-const hyougoCsSummTest = '';
+const hyougoCs50Summ = '<a href="https://web.pref.hyogo.lg.jp/kk26/hyogo-geo.html" target="_blank">全国初「全県土分の高精度3次元データ」の公開について</a>';
+// 兵庫県CS立体図50cm2 ----------------------------------------------------------------------------
+function HyougoCs50c2 () {
+  this.extent = transformE([134.2669714033038, 34.17797854803047,135.47241581374712, 35.783161768341444])
+  this.source = new XYZ({
+    url: 'https://rinya-hyogo.geospatial.jp/2023/rinya/tile/csmap/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 18
+  });
+}
+const hyougoCs50c2Obj = {};
+for (let i of mapsStr) {
+  hyougoCs50c2Obj[i] = new TileLayer(new HyougoCs50c2())
+}
+const hyougoCs50c2Summ = '<a href="https://www.geospatial.jp/ckan/dataset/csmap_hyogo" target="_blank">G空間情報センター</a>';
+// 兵庫県レーザ林相図 ----------------------------------------------------------------------------
+function HyougoRinsou () {
+  this.extent = transformE([134.2669714033038, 34.17797854803047,135.47241581374712, 35.783161768341444])
+  this.source = new XYZ({
+    url: 'https://rinya-hyogo.geospatial.jp/2023/rinya/tile/ls_standtype/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 18
+  });
+}
+const hyougoRinsouObj = {};
+for (let i of mapsStr) {
+  hyougoRinsouObj[i] = new TileLayer(new HyougoRinsou())
+}
+const hyougoRinsouSumm = '<a href="https://www.geospatial.jp/ckan/dataset/ls_standtype_hyogo" target="_blank">G空間情報センター</a>';
+// 栃木県CS立体図 ----------------------------------------------------------------------------
+function TochigiCs () {
+  this.extent = transformE([139.1989, 37.2099, 140.4764, 36.14784])
+  this.source = new XYZ({
+    url: 'https://rinya-tochigi.geospatial.jp/2023/rinya/tile/csmap/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 18
+  });
+}
+const tochigicsObj = {};
+for (let i of mapsStr) {
+  tochigicsObj[i] = new TileLayer(new TochigiCs())
+}
+const tochigicsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/csmap_tochigi" target="_blank">G空間情報センター</a>';
+// 栃木県レーザ林相図 ----------------------------------------------------------------------------
+function TochigiRinsou () {
+  this.extent = transformE([139.1989, 37.2099, 140.4764, 36.14784])
+  this.source = new XYZ({
+    url: 'https://rinya-tochigi.geospatial.jp/2023/rinya/tile/ls_standtype/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 18
+  });
+}
+const tochigiRinsouObj = {};
+for (let i of mapsStr) {
+  tochigiRinsouObj[i] = new TileLayer(new TochigiRinsou())
+}
+const tochigiRinsouSumm = '<a href="https://www.geospatial.jp/ckan/dataset/ls_standtype_tochigi" target="_blank">G空間情報センター</a>';
+
+
+// 高知県CS立体図 ----------------------------------------------------------------------------
+function KochiCs () {
+  this.extent = transformE([132.2401, 33.86599, 134.553, 32.6287])
+  this.source = new XYZ({
+    url: 'https://rinya-kochi.geospatial.jp/2023/rinya/tile/csmap/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 18
+  });
+}
+const kochiCsObj = {};
+for (let i of mapsStr) {
+  kochiCsObj[i] = new TileLayer(new KochiCs())
+}
+const kochiCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/csmap_kochi" target="_blank">G空間情報センター</a>';
+// 高知県レーザ林相図 ----------------------------------------------------------------------------
+function KochiRinsou () {
+  this.extent = transformE([132.2401, 33.86599, 134.553, 32.6287])
+  this.source = new XYZ({
+    url: 'https://rinya-kochi.geospatial.jp/2023/rinya/tile/ls_standtype/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 8,
+    maxZoom: 18
+  });
+}
+const kochiRinsouObj = {};
+for (let i of mapsStr) {
+  kochiRinsouObj[i] = new TileLayer(new KochiRinsou())
+}
+const kochiRinsouSumm = '<a href="https://www.geospatial.jp/ckan/dataset/ls_standtype_kochi" target="_blank">G空間情報センター</a>';
+
+
+// 大阪府CS立体図 ----------------------------------------------------------------------------
+function Chihayaakasakamura () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/chihayaakasakamura/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const chihayaakasakamuraObj = {};
+for (let i of mapsStr) {
+  chihayaakasakamuraObj[i] = new TileLayer(new Chihayaakasakamura())
+}
+const osakaSumm = '<a href="https://www.geospatial.jp/ckan/dataset/cs" target="_blank">G空間情報センター</a>';
+
+function Tondabayashishi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/tondabayashishi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tondabayashishiObj = {};
+for (let i of mapsStr) {
+  tondabayashishiObj[i] = new TileLayer(new Tondabayashishi())
+}
+
+function Daitoushi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/daitoushi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const daitoushiObj = {};
+for (let i of mapsStr) {
+  daitoushiObj[i] = new TileLayer(new Daitoushi())
+}
+function Hannanshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/hannanshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const hannanshiObj = {};
+for (let i of mapsStr) {
+  hannanshiObj[i] = new TileLayer(new Hannanshi())
+}
+function Higashiosakashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/higashiosakashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const higashiosakashiObj = {};
+for (let i of mapsStr) {
+  higashiosakashiObj[i] = new TileLayer(new Higashiosakashi())
+}
+function Hirakatashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/hirakatashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const hirakatashiObj = {};
+for (let i of mapsStr) {
+  hirakatashiObj[i] = new TileLayer(new Hirakatashi())
+}
+function Ibarakishi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/ibarakishi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const ibarakishiObj = {};
+for (let i of mapsStr) {
+  ibarakishiObj[i] = new TileLayer(new Ibarakishi())
+}
+function Ikedashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/ikedashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const ikedashiObj = {};
+for (let i of mapsStr) {
+  ikedashiObj[i] = new TileLayer(new Ikedashi())
+}
+function Habikinoshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/habikinoshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const habikinoshiObj = {};
+for (let i of mapsStr) {
+  habikinoshiObj[i] = new TileLayer(new Habikinoshi())
+}
+function Izumisanoshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/izumisanoshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const izumisanoshiObj = {};
+for (let i of mapsStr) {
+  izumisanoshiObj[i] = new TileLayer(new Izumisanoshi())
+}
+function Izumishi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/izumishi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const izumiObj = {};
+for (let i of mapsStr) {
+  izumiObj[i] = new TileLayer(new Izumishi())
+}
+function Kaizukashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/kaizukashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const kaizukashiObj = {};
+for (let i of mapsStr) {
+  kaizukashiObj[i] = new TileLayer(new Kaizukashi())
+}
+function Kashiwarashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/kashiwarashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const kashiwarashiObj = {};
+for (let i of mapsStr) {
+  kashiwarashiObj[i] = new TileLayer(new Kashiwarashi())
+}
+function Kananchou () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/kananchou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const kananchouObj = {};
+for (let i of mapsStr) {
+  kananchouObj[i] = new TileLayer(new Kananchou())
+}
+function Katanoshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/katanoshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const katanoshiObj = {};
+for (let i of mapsStr) {
+  katanoshiObj[i] = new TileLayer(new Katanoshi())
+}
+function Kawachinaganoshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/kawachinaganoshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const kawachinaganoshiObj = {};
+for (let i of mapsStr) {
+  kawachinaganoshiObj[i] = new TileLayer(new Kawachinaganoshi())
+}
+function Kishiwadashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/kishiwadashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const kishiwadashiObj = {};
+for (let i of mapsStr) {
+  kishiwadashiObj[i] = new TileLayer(new Kishiwadashi())
+}
+function Kumatorichou () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/kumatorichou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const kumatorichouObj = {};
+for (let i of mapsStr) {
+  kumatorichouObj[i] = new TileLayer(new Kumatorichou())
+}
+function Minoshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/minoshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const minoshiObj = {};
+for (let i of mapsStr) {
+  minoshiObj[i] = new TileLayer(new Minoshi())
+}
+function Misakichou () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/misakichou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const misakichouObj = {};
+for (let i of mapsStr) {
+  misakichouObj[i] = new TileLayer(new Misakichou())
+}
+function Neyagawashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/neyagawashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const neyagawashiObj = {};
+for (let i of mapsStr) {
+  neyagawashiObj[i] = new TileLayer(new Neyagawashi())
+}
+function Nosechou () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/nosechou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const nosechouObj = {};
+for (let i of mapsStr) {
+  nosechouObj[i] = new TileLayer(new Nosechou())
+}
+function Sakaishi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/sakaishi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const sakaishiObj = {};
+for (let i of mapsStr) {
+  sakaishiObj[i] = new TileLayer(new Sakaishi())
+}
+function Sennanshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/sennanshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const sennanshiObj = {};
+for (let i of mapsStr) {
+  sennanshiObj[i] = new TileLayer(new Sennanshi())
+}
+function Shimamotochou () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/shimamotochou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const shimamotochouObj = {};
+for (let i of mapsStr) {
+  shimamotochouObj[i] = new TileLayer(new Shimamotochou())
+}
+function Sijounawateshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/sijounawateshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const sijounawateshiObj = {};
+for (let i of mapsStr) {
+  sijounawateshiObj[i] = new TileLayer(new Sijounawateshi())
+}
+function Suitashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/suitashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const suitashiObj = {};
+for (let i of mapsStr) {
+  suitashiObj[i] = new TileLayer(new Suitashi())
+}
+function Taishichou () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/taishichou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const taishichouObj = {};
+for (let i of mapsStr) {
+  taishichouObj[i] = new TileLayer(new Taishichou())
+}
+function Takaishishi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/takaishishi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const takaishishiObj = {};
+for (let i of mapsStr) {
+  takaishishiObj[i] = new TileLayer(new Takaishishi())
+}
+function Takatukishi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/takatukishi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const takatukishiObj = {};
+for (let i of mapsStr) {
+  takatukishiObj[i] = new TileLayer(new Takatukishi())
+}
+function Toyonakashi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/toyonakashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const toyonakashiObj = {};
+for (let i of mapsStr) {
+  toyonakashiObj[i] = new TileLayer(new Toyonakashi())
+}
+function Toyonochou () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/toyonochou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const toyonochouObj = {};
+for (let i of mapsStr) {
+  toyonochouObj[i] = new TileLayer(new Toyonochou())
+}
+function Yaoshi () {
+  // this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/osaka/yaoshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const yaoshiObj = {};
+for (let i of mapsStr) {
+  yaoshiObj[i] = new TileLayer(new Yaoshi())
+}
+//----------------------
+// const osakaCsObj = {};
+// for (let i of mapsStr) {
+//   osakaCsObj[i] = new LayerGroup({
+//     layers: [
+//       chihayaakasakamuraObj[i],
+//       tondabayashishiObj[i],
+//       daitoushiObj[i],
+//       hannanshiObj[i],
+//       higashiosakashiObj[i],
+//       hirakatashiObj[i],
+//       ibarakishiObj[i],
+//       ikedashiObj[i],
+//       habikinoshiObj[i],
+//       izumisanoshiObj[i],
+//       izumiObj[i],
+//       kaizukashiObj[i],
+//       kashiwarashiObj[i],
+//       kananchouObj[i],
+//       katanoshiObj[i],
+//       kawachinaganoshiObj[i],
+//       kishiwadashiObj[i],
+//       kumatorichouObj[i],
+//       minoshiObj[i],
+//       misakichouObj[i],
+//       neyagawashiObj[i],
+//       nosechouObj[i],
+//       sakaishiObj[i],
+//       sennanshiObj[i],
+//       shimamotochouObj[i],
+//       sijounawateshiObj[i],
+//       suitashiObj[i],
+//       taishichouObj[i],
+//       takaishishiObj[i],
+//       takatukishiObj[i],
+//       toyonakashiObj[i],
+//       toyonochouObj[i],
+//       yaoshiObj[i]
+//     ]
+//   })
+// }
+// 大阪府CS立体図--------------------------------------------------------
+function OsakaCS () {
+  this.extent = transformE([134.9416, 35.10699,135.8409, 34.2379])
+  this.source = new XYZ({
+    url: 'https://xs489works.xsrv.jp/raster-tiles/pref-osaka/osaka-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 18
+  });
+}
+const osakaCsObj = {};
+for (let i of mapsStr) {
+  osakaCsObj[i] = new TileLayer(new OsakaCS())
+}
+const osakaCsSumm = '<a href="https://github.com/shi-works/aist-dem-with-cs-on-maplibre-gl-js" target="_blank">aist-dem-with-cs-on-maplibre-gl-jsaist-dem-with-cs-on-maplibre-gl-js</a>';
+
+// 和歌山県CS立体図--------------------------------------------------------
+function WakayamaCS () {
+  this.extent = transformE([134.95532947982784,34.40572624226317, 136.0375257154846,33.41823638210427])
+  this.source = new XYZ({
+    url: 'https://xs489works.xsrv.jp/raster-tiles/pref-wakayama/wakayamapc-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 18
+  });
+}
+const wakayamaCsObj = {};
+for (let i of mapsStr) {
+  wakayamaCsObj[i] = new TileLayer(new WakayamaCS())
+}
+const wakayamaCsSumm = '<a href="https://github.com/shi-works/aist-dem-with-cs-on-maplibre-gl-js" target="_blank">aist-dem-with-cs-on-maplibre-gl-jsaist-dem-with-cs-on-maplibre-gl-js</a>';
+
+
+
+
+
+
+
+
+// 東京都多摩地域陰陽図 ----------------------------------------------------------------------------
+function Tamainyou () {
+  this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tamainyou/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tamainyou00Obj = {};
+for (let i of mapsStr) {
+  tamainyou00Obj[i] = new TileLayer(new Tamainyou())
+}
+const tamainyouSumm = '<a href="https://www.geospatial.jp/ckan/dataset/tokyopc-tama-2023/resource/e0b49600-9394-4416-99eb-be766eb33006" target="_blank">G空間情報センター</a>';
+//------
+function Toushonyou01 () {
+  this.extent = transformE([139.3291, 34.80158, 139.4594, 34.67136])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyoinyou01Obj = {};
+for (let i of mapsStr) {
+  tousyoinyou01Obj[i] = new TileLayer(new Toushonyou01())
+}
+//------
+function Toushonyou02 () {
+  this.extent = transformE([138.9873, 34.5704, 139.3528, 34.16614])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyoinyou02Obj = {};
+for (let i of mapsStr) {
+  tousyoinyou02Obj[i] = new TileLayer(new Toushonyou02())
+}
+//------
+function Toushonyou03 () {
+  this.extent = transformE([139.4534, 34.13815, 139.5832, 34.03666])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyoinyou03Obj = {};
+for (let i of mapsStr) {
+  tousyoinyou03Obj[i] = new TileLayer(new Toushonyou03())
+}
+//------
+function Toushonyou04 () {
+  this.extent = transformE([139.5721, 33.90441, 139.6372, 33.84859])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyoinyou04Obj = {};
+for (let i of mapsStr) {
+  tousyoinyou04Obj[i] = new TileLayer(new Toushonyou04())
+}
+//------
+function Toushonyou05 () {
+  this.extent = transformE([139.6562, 33.16488, 139.8692, 33.03760])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou05/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyoinyou05Obj = {};
+for (let i of mapsStr) {
+  tousyoinyou05Obj[i] = new TileLayer(new Toushonyou05())
+}
+//------
+function Toushonyou06 () {
+  this.extent = transformE([139.7514, 32.47644, 139.7881, 32.43893])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou06/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyoinyou06Obj = {};
+for (let i of mapsStr) {
+  tousyoinyou06Obj[i] = new TileLayer(new Toushonyou06())
+}
+//----------------------
+const tamainyouObj = {};
+for (let i of mapsStr) {
+  tamainyouObj[i] = new LayerGroup({
+    layers: [
+      tamainyou00Obj[i],
+      tousyoinyou01Obj[i],
+      tousyoinyou02Obj[i],
+      tousyoinyou03Obj[i],
+      tousyoinyou04Obj[i],
+      tousyoinyou05Obj[i],
+      tousyoinyou06Obj[i],
+    ]
+  })
+}
+
+// 東京都多摩地域赤色立体地図 ----------------------------------------------------------------------------
+function Tamared () {
+  this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tamasekisyoku/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tamared00Obj = {};
+for (let i of mapsStr) {
+  tamared00Obj[i] = new TileLayer(new Tamared())
+}
+const tamaredSumm = '<a href="https://www.geospatial.jp/ckan/dataset/tokyopc-tama-2023/resource/b3f13db5-bfdb-4d94-91bd-0b0f617bc37e" target="_blank">G空間情報センター</a>';
+
+
+//------
+function Toushosekisyoku01 () {
+  this.extent = transformE([139.3291, 34.80158, 139.4594, 34.67136])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku01/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyosekisyoku01Obj = {};
+for (let i of mapsStr) {
+  tousyosekisyoku01Obj[i] = new TileLayer(new Toushosekisyoku01())
+}
+//------
+function Toushosekisyoku02 () {
+  this.extent = transformE([138.9873, 34.5704, 139.3528, 34.16614])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku02/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyosekisyoku02Obj = {};
+for (let i of mapsStr) {
+  tousyosekisyoku02Obj[i] = new TileLayer(new Toushosekisyoku02())
+}
+//------
+function Toushosekisyoku03 () {
+  this.extent = transformE([139.4534, 34.13815, 139.5832, 34.03666])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku03/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyosekisyoku03Obj = {};
+for (let i of mapsStr) {
+  tousyosekisyoku03Obj[i] = new TileLayer(new Toushosekisyoku03())
+}
+//------
+function Toushosekisyoku04 () {
+  this.extent = transformE([139.5721, 33.90441, 139.6372, 33.84859])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku04/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyosekisyoku04Obj = {};
+for (let i of mapsStr) {
+  tousyosekisyoku04Obj[i] = new TileLayer(new Toushosekisyoku04())
+}
+//------
+function Toushosekisyoku05 () {
+  this.extent = transformE([139.6562, 33.16488, 139.8692, 33.03760])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku05/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyosekisyoku05Obj = {};
+for (let i of mapsStr) {
+  tousyosekisyoku05Obj[i] = new TileLayer(new Toushosekisyoku05())
+}
+//------
+function Toushosekisyoku06 () {
+  this.extent = transformE([139.7514, 32.47644, 139.7881, 32.43893])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku06/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const tousyosekisyoku06Obj = {};
+for (let i of mapsStr) {
+  tousyosekisyoku06Obj[i] = new TileLayer(new Toushosekisyoku06())
+}
+//----------------------
+const tamaredObj = {};
+for (let i of mapsStr) {
+  tamaredObj[i] = new LayerGroup({
+    layers: [
+      tamared00Obj[i],
+      tousyosekisyoku01Obj[i],
+      tousyosekisyoku02Obj[i],
+      tousyosekisyoku03Obj[i],
+      tousyosekisyoku04Obj[i],
+      tousyosekisyoku05Obj[i],
+      tousyosekisyoku06Obj[i],
+    ]
+  })
+}
+
+// 能登CS立体図 ----------------------------------------------------------------------------
+function NotoCs () {
+  this.extent = transformE([136.5141, 37.55607,137.4426, 36.89691])
+  this.source = new XYZ({
+    url: 'https://www2.ffpri.go.jp/soilmap/tile/cs_noto/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const notoCsObj = {};
+for (let i of mapsStr) {
+  notoCsObj[i] = new TileLayer(new NotoCs())
+}
+const notoCsSumm = '<a href="https://www.ffpri.affrc.go.jp/press/2022/20220928/index.html\n" target="_blank">森林総合研究所</a>';
+
+// 能登西部赤色立体図 ----------------------------------------------------------------------------
+function NotoSeibu () {
+  this.extent = transformE([136.6591, 37.46178 ,137.19235, 36.91536])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/notoseibu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const notoSeibuObj = {};
+for (let i of mapsStr) {
+  notoSeibuObj[i] = new TileLayer(new NotoSeibu())
+}
+const notoSeubuSumm = '<a href="https://www.geospatial.jp/ckan/dataset/2024-notowest-mtopo" target="_blank">G空間情報センター</a>';
+
+
 
 // 長野県CS立体図----------------------------------------------------------------------------
 function NaganoCs () {
   this.extent = transformE([137.34924687267085, 35.181791181300085,138.7683143113627, 37.14523688239089])
   this.source = new XYZ({
     url: 'https://tile.geospatial.jp/CS/VER2/{z}/{x}/{y}.png',
-    crossOrigin: 'Anonymous',
+    // crossOrigin: 'Anonymous',
     minZoom: 10,
     maxZoom: 18
   });
@@ -712,6 +1659,22 @@ for (let i of mapsStr) {
   sizuokaCsObj[i] = new TileLayer(new SizuokaCs())
 }
 const sizuokaCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/shizuokakencsmap2" target="_blank">G空間情報センター</a>'
+// 静岡県CS立体図50cm----------------------------------------------------------------------------
+function SizuokaCs50cm () {
+  this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/sizuoka2/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 18
+  });
+}
+const sizuokaCs2Obj = {};
+for (let i of mapsStr) {
+  sizuokaCs2Obj[i] = new TileLayer(new SizuokaCs50cm())
+}
+const sizuokaCs2Summ = '<a href="https://www.geospatial.jp/ckan/dataset/shizuoka-2023-csmap" target="_blank">G空間情報センター</a>'
+
 // 広島県CS立体図----------------------------------------------------------------------------
 function HiroshimaCs () {
   this.extent = transformE([132.1650338172913, 34.69661995103654,133.3746349811554, 34.03206918961159])
@@ -789,39 +1752,605 @@ for (let i of mapsStr) {
   ehimeCsObj[i] = new TileLayer(new EhimeCs())
 }
 const ehimeCsSumm = '出典：<a href="https://www2.ffpri.go.jp/soilmap/index.html" target="_blank">森林総研・森林土壌デジタルマップ</a>'
-// 高知県CS立体図----------------------------------------------------------------------------
-function KochiCs () {
-  // this.extent = transformE([132.0778, 34.37512,134.2125, 32.83277])
+// 東京都CS立体図test----------------------------------------------------------------------------
+function TamaCs () {
+  this.extent = transformE([138.93110047834082,35.90551606609344, 139.60311090985996,35.49503296693065])
   this.source = new XYZ({
-    url: 'https://www2.ffpri.go.jp/soilmap/tile/cs_kochi/{z}/{x}/{y}.png',
-    // crossOrigin: 'Anonymous',
-    minZoom: 1,
-    maxZoom: 17
+    url: 'https://shiworks.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-tama-2023-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 19
   });
 }
-const kochiCsObj = {};
+const tamaCsObj = {};
 for (let i of mapsStr) {
-  kochiCsObj[i] = new TileLayer(new KochiCs())
+  tamaCsObj[i] = new TileLayer(new TamaCs())
 }
-const kochiCsSumm = '出典：<a href="https://www2.ffpri.go.jp/soilmap/index.html" target="_blank">森林総研・森林土壌デジタルマップ</a>'
+const tamaCsSumm = '<a href="https://github.com/shi-works/aist-dem-with-cs-on-maplibre-gl-js" target="_blank">aist-dem-with-cs-on-maplibre-gl-js</a>'
+// 伊豆大島
+function izuooshima () {
+  this.extent = transformE([139.34043993591177,34.804413371961076, 139.45518445569877,34.67391471650552])
+  this.source = new XYZ({
+    url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-01-2023-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 19
+  });
+}
+const izuooshimaCsObj = {};
+for (let i of mapsStr) {
+  izuooshimaCsObj[i] = new TileLayer(new izuooshima())
+}
+// 利島、新島、式根島、神津島
+function tomoshima () {
+  this.extent = transformE([138.98320733791348,34.56847662565042, 139.39485131984708,34.13658562384532])
+  this.source = new XYZ({
+    url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-02-2023-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 19
+  });
+}
+const tomoshimaCsObj = {};
+for (let i of mapsStr) {
+  tomoshimaCsObj[i] = new TileLayer(new tomoshima())
+}
+//三宅島
+function miyakejima () {
+  this.extent = transformE([139.46296685190651,34.13809622325495, 139.57339784444721,34.041136939996946])
+  this.source = new XYZ({
+    url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-03-2023-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 19
+  });
+}
+const miyakejimCsObj = {};
+for (let i of mapsStr) {
+  miyakejimCsObj[i] = new TileLayer(new miyakejima())
+}
+// 御蔵島
+function mikurajima () {
+  this.extent = transformE([139.57190963346537,33.90455655595973, 139.63541741005005,33.84863773109609])
+  this.source = new XYZ({
+    url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-04-2023-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 19
+  });
+}
+const mikurajimaCsObj = {};
+for (let i of mapsStr) {
+  mikurajimaCsObj[i] = new TileLayer(new mikurajima())
+}
+// 八丈島
+function hachijojima () {
+  this.extent = transformE([139.63696957828407,33.17531101027478, 139.86877396530423,33.03842021632886])
+  this.source = new XYZ({
+    url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-05-2023-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 19
+  });
+}
+const hachijojimaCsObj = {};
+for (let i of mapsStr) {
+  hachijojimaCsObj[i] = new TileLayer(new hachijojima())
+}
+// 青ヶ島
+function aogashima () {
+  this.extent = transformE([139.75174508612426,32.47625962061629, 139.78321093985278,32.440960255575675])
+  this.source = new XYZ({
+    url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-06-2023-cs-tiles/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 4,
+    maxZoom: 19
+  });
+}
+const aogashimaCsObj = {};
+for (let i of mapsStr) {
+  aogashimaCsObj[i] = new TileLayer(new aogashima())
+}
+
+const tokyoCsObj = {};
+for (let i of mapsStr) {
+  tokyoCsObj[i] = new LayerGroup({
+    layers: [
+      tamaCsObj[i],
+      izuooshimaCsObj[i],
+      tomoshimaCsObj[i],
+      miyakejimCsObj[i],
+      mikurajimaCsObj[i],
+      hachijojimaCsObj[i],
+      aogashimaCsObj[i]
+    ]
+  })
+}
 
 const cs00Obj = {}
 for (let i of mapsStr) {
   cs00Obj[i] = new LayerGroup({
     layers: [
+      tochigicsObj[i],
       gihuCsObj[i],
-      hyougoCsTestObj[i],
+      // hyougoCs50Obj[i],
+      hyougoCs50c2Obj[i],
       naganoCsObj[i],
-      sizuokaCsObj[i],
+      sizuokaCs2Obj[i],
       hiroshimaCsObj[i],
       okayamaCsObj[i],
       fukushimaCsObj[i],
       ehimeCsObj[i],
       kochiCsObj[i],
-      kumamotoCsObj[i]
+      kumamotoCsObj[i],
+      wakayamaCsObj[i],
+      osakaCsObj[i],
+      notoCsObj[i],
+
+      tamaCsObj[i],
+      izuooshimaCsObj[i],
+      tomoshimaCsObj[i],
+      miyakejimCsObj[i],
+      mikurajimaCsObj[i],
+      hachijojimaCsObj[i],
+      aogashimaCsObj[i]
+
     ]
   })
 }
+
+// 兵庫県遺跡----------------------------------------------------------------------------
+function Mayasanjyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/mayasanjyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const mayasanjyouObj = {};
+for (let i of mapsStr) {
+  mayasanjyouObj[i] = new TileLayer(new Mayasanjyou())
+}
+const hyougoIsekiSumm = '<a href="https://www.geospatial.jp/ckan/dataset/2021-2022-hyogo-shiseki" target="_blank">G空間情報センター</a>'
+
+
+function Takiyamajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/takiyamajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const takiyamajyouObj = {};
+for (let i of mapsStr) {
+  takiyamajyouObj[i] = new TileLayer(new Takiyamajyou())
+}
+
+
+function Yamashitajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/yamashitajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const yamashitajyouObj = {};
+for (let i of mapsStr) {
+  yamashitajyouObj[i] = new TileLayer(new Yamashitajyou())
+}
+
+function Arikoyamajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/arikoyamajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const arikoyamajyouObj = {};
+for (let i of mapsStr) {
+  arikoyamajyouObj[i] = new TileLayer(new Arikoyamajyou())
+}
+
+function Yagijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/yagijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const yagijyouObj = {};
+for (let i of mapsStr) {
+  yagijyouObj[i] = new TileLayer(new Yagijyou())
+}
+
+function Konosumiyamajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/konosumiyamajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const konosumiyamaObj = {};
+for (let i of mapsStr) {
+  konosumiyamaObj[i] = new TileLayer(new Konosumiyamajyou())
+}
+
+function Iwaojyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/iwaojyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const iwaojyouObj = {};
+for (let i of mapsStr) {
+  iwaojyouObj[i] = new TileLayer(new Iwaojyou())
+}
+
+function Kuroijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/kuroijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const kuroijyouObj = {};
+for (let i of mapsStr) {
+  kuroijyouObj[i] = new TileLayer(new Kuroijyou())
+}
+
+function Sasayamajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/sasayamajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const sasayamajyouObj = {};
+for (let i of mapsStr) {
+  sasayamajyouObj[i] = new TileLayer(new Sasayamajyou())
+}
+
+function Yakamijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/yakamijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const yakamijyouObj = {};
+for (let i of mapsStr) {
+  yakamijyouObj[i] = new TileLayer(new Yakamijyou())
+}
+
+function Sumotojyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/sumotojyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const sumotojyouObj = {};
+for (let i of mapsStr) {
+  sumotojyouObj[i] = new TileLayer(new Sumotojyou())
+}
+
+function Shirasujyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/shirasujyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const shirasujyouObj = {};
+for (let i of mapsStr) {
+  shirasujyouObj[i] = new TileLayer(new Shirasujyou())
+}
+
+function Yurakojyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/yurakojyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const yurakojyouuObj = {};
+for (let i of mapsStr) {
+  yurakojyouuObj[i] = new TileLayer(new Yurakojyou())
+}
+
+function Takenokuchijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/takenokuchijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const takenokuchiObj = {};
+for (let i of mapsStr) {
+  takenokuchiObj[i] = new TileLayer(new Takenokuchijyou())
+}
+
+function Takedajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/takedajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const takedajyouObj = {};
+for (let i of mapsStr) {
+  takedajyouObj[i] = new TileLayer(new Takedajyou())
+}
+
+function Ariokajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/ariokajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const ariokajyouObj = {};
+for (let i of mapsStr) {
+  ariokajyouObj[i] = new TileLayer(new Ariokajyou())
+}
+
+function Kanjyousanjyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/kanjyousanjyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const kanjyousanjyouObj = {};
+for (let i of mapsStr) {
+  kanjyousanjyouObj[i] = new TileLayer(new Kanjyousanjyou())
+}
+
+function Keirousanjyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/keirousanjyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const keirousanjyouObj = {};
+for (let i of mapsStr) {
+  keirousanjyouObj[i] = new TileLayer(new Keirousanjyou())
+}
+
+function Mikijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/mikijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const mikijyouObj = {};
+for (let i of mapsStr) {
+  mikijyouObj[i] = new TileLayer(new Mikijyou())
+}
+
+function Sasanomarujyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/sasanomarujyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const sasanomarujyouObj = {};
+for (let i of mapsStr) {
+  sasanomarujyouObj[i] = new TileLayer(new Sasanomarujyou())
+}
+
+function Kodanijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/kodanijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const kodanijyouObj = {};
+for (let i of mapsStr) {
+  kodanijyouObj[i] = new TileLayer(new Kodanijyou())
+}
+
+function Koudukijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/koudukijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const koudukijyouObj = {};
+for (let i of mapsStr) {
+  koudukijyouObj[i] = new TileLayer(new Koudukijyou())
+}
+
+function Kinoyamajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/kinoyamajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const kinoyamajyouObj = {};
+for (let i of mapsStr) {
+  kinoyamajyouObj[i] = new TileLayer(new Kinoyamajyou())
+}
+
+function Niisanjyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/niisanjyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const niisanjyouObj = {};
+for (let i of mapsStr) {
+  niisanjyouObj[i] = new TileLayer(new Niisanjyou())
+}
+
+function Akooujyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/akoujyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const akoujyouObj = {};
+for (let i of mapsStr) {
+  akoujyouObj[i] = new TileLayer(new Akooujyou())
+}
+
+function Oshiojyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/oshiojyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const oshiojyouObj = {};
+for (let i of mapsStr) {
+  oshiojyouObj[i] = new TileLayer(new Oshiojyou())
+}
+
+function Tyuudousisanjyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/tyuudoushisanjyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const tyuudousisanjyouObj = {};
+for (let i of mapsStr) {
+  tyuudousisanjyouObj[i] = new TileLayer(new Tyuudousisanjyou())
+}
+
+function Takakurayamajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/takakurayamajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const takakurayamajyouObj = {};
+for (let i of mapsStr) {
+  takakurayamajyouObj[i] = new TileLayer(new Takakurayamajyou())
+}
+
+function Shirohatajyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/shirohatajyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const shirohatajyouObj = {};
+for (let i of mapsStr) {
+  shirohatajyouObj[i] = new TileLayer(new Shirohatajyou())
+}
+
+function Himejijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/himejijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const himejijyouObj = {};
+for (let i of mapsStr) {
+  himejijyouObj[i] = new TileLayer(new Himejijyou())
+}
+
+function Akashijyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/akashijyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const akashijyouObj = {};
+for (let i of mapsStr) {
+  akashijyouObj[i] = new TileLayer(new Akashijyou())
+}
+
+function Rikanjyou () {
+  // this.extent = transformE([137.47545,34.59443,139.1504,35.64359])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/hyougoiseki/rikanjyou/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 20
+  });
+}
+const rikanjyouObj = {};
+for (let i of mapsStr) {
+  rikanjyouObj[i] = new TileLayer(new Rikanjyou())
+}
+
 
 // 日本CS立体図------------------------------------------------------------------------------
 function NihonCs () {
@@ -863,7 +2392,7 @@ function Jinsoku () {
     // url: 'https://aginfo.cgk.affrc.go.jp/ws/tmc/1.0.0/Kanto_Rapid-900913-L/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
     minZoom:1,
-    maxZoom:17
+    maxZoom:16
   });
 }
 const jinsokuObj = {};
@@ -1074,14 +2603,21 @@ function Mapwarper (url,bbox) {
     maxZoom: 18
   });
   //mymapのwatchLayerで実際にextentを作っている。
-  this.extent2 = transformE(bbox)
+  this.extent2 = transformEforMw(bbox)
+  // this.extent2 = transformE([bbox[0],bbox[3],bbox[2],bbox[1]])
+  // this.extent = transformE([139.53735724663997, 41.186004293591395,146.42212376570964, 46.26259923231669])
+
+  // this.maxResolution = 76.437029 //zoom11
+  this.maxResolution = 38.218514 //zoom12
+  // this.maxResolution = 9.554629 //zoom14
+  this.maxResolution = 1222.99 // zoom7
 }
 // 地図上に地区名を表示する。
 function Mw5center () {
   this.useInterimTilesOnError = false
   this.name = 'Mw5center'
   this.source = new VectorSource({
-    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/mw5center.geojson',
+    url:'https://kenzkenz.xsrv.jp/open-hinata/geojson/mw5centerNew.geojson',
     format: new GeoJSON()
   });
   this.maxResolution = 1222.99
@@ -1099,12 +2635,6 @@ for (let i of mapsStr) {
     const url = 'https://mapwarper.h-gis.jp/maps/tile/' + id + '/{z}/{x}/{y}.png'
     const bbox = mw5[j].extent
     const layer = new TileLayer(new Mapwarper(url,bbox))
-    // layer.on("precompose", function(evt){
-    //   evt.context.globalCompositeOperation = 'multiply';
-    // });
-    // layer.on("postcompose", function(evt){
-    //   evt.context.globalCompositeOperation = "source-over";
-    // });
     layerGroup.push(layer)
   }
   const mw5centerLayer = new VectorLayer(new Mw5center())
@@ -2001,7 +3531,10 @@ for (let i of mapsStr) {
 const kotizu44oitaSumm = SSK + '<br><a href="https://kenzkenz.github.io/bunkenzu/image/44oitaken.jpg" target="_blank">jpg</a>'
 // 45宮崎県古地図-------------------------------------------------------------------------------
 function Kotizu45miyazaki () {
-  this.extent = transformE([130.46417593144741, 31.2717699691664,132.07855579563346, 32.99279597868028])
+  // this.extent = transformE([130.46417593144741, 31.2717699691664,132.07855579563346, 32.99279597868028])
+  this.extent = transformE([130.4641759, 31.27176,132.078555, 32.992795])
+  // this.extent = transformE(_[130.4641759, 32.992795,132.078555, 31.27176])
+  // 131.2505095,32.83672077,131.5004935,32.67006007
   this.dep = MaskDep.miyazaki
   this.source = new XYZ({
     url: 'https://kenzkenz.github.io/bunkenzu/tile/45miyazakiken/{z}/{x}/{-y}.png',
@@ -2115,10 +3648,12 @@ const kotizu00Summ = SSK
 // 洪水浸水想定（想定最大規模）-------------------------------------------------------------------------------
 function Shinsuishin () {
   this.name = 'shinsuishin'
+  // this.className = 'pointer'
   this.pointer = true
+  // this.className = 'hoge'
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/{z}/{x}/{y}.png',
-    crossOrigin: 'Anonymous',
+    crossOrigin: 'anonymous',
     minZoom: 2,
     maxZoom: 17
   })
@@ -2131,6 +3666,7 @@ const shinsuishinSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/haza
 // 洪水浸水想定（計画規模）-------------------------------------------------------------------------------
 function ShinsuishinK () {
   this.name = 'shinsuishinK'
+  // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l1_shinsuishin_newlegend_kuni_data/{z}/{x}/{y}.png',
@@ -2147,6 +3683,7 @@ const shinsuishinKSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/haz
 // 津波浸水想定-------------------------------------------------------------------------------
 function Tsunami () {
   this.name = 'tunami'
+  // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/04_tsunami_newlegend_data/{z}/{x}/{y}.png',
@@ -2164,6 +3701,7 @@ const tunamiSumm =  '出典：<br><a href="https://disaportal.gsi.go.jp/hazardma
 // 浸水継続-------------------------------------------------------------------------------
 function Keizoku () {
   this.name = 'keizoku'
+  // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_keizoku_kuni_data/{z}/{x}/{y}.png',
@@ -2180,6 +3718,8 @@ const keizokuSumm =  '出典：<br><a href="https://disaportal.gsi.go.jp/hazardm
 // 高潮-------------------------------------------------------------------------------
 function Takasio () {
   this.name = 'takasio'
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/03_hightide_l2_shinsuishin_data/{z}/{x}/{y}.png',
@@ -2196,6 +3736,8 @@ const takasioSumm =  '出典：<br><a href="https://disaportal.gsi.go.jp/hazardm
 //ため池-------------------------------------------------------------------------------------------------
 function Tameike () {
   this.name = 'tameike'
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/data/raster/07_tameike/{z}/{x}/{y}.png',
@@ -2212,7 +3754,9 @@ const tameikeSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardma
 //家屋倒壊等氾濫想定区域（氾濫流）-------------------------------------------------------------------------------------------------
 function Toukai () {
   this.name = 'toukai'
-  // this.pointer = true
+  //    // this.className = 'pointer'
+ 
+  this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_kaokutoukai_hanran_data/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -2228,6 +3772,8 @@ const toukaiSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap
 // 土砂災害警戒区域（土石流-------------------------------------------------------------------------------
 function Dosya () {
   this.name = 'dosya'
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukeikaikuiki/{z}/{x}/{y}.png',
@@ -2244,6 +3790,8 @@ const dosyaSumm =  '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap
 // 土石流危険渓流-------------------------------------------------------------------------------
 function Doseki () {
   this.name = 'doseki'
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_dosekiryukikenkeiryu/{z}/{x}/{y}.png',
@@ -2260,6 +3808,8 @@ const dosekiSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/hazardm
 // 急傾斜地崩壊危険箇所-------------------------------------------------------------------------------
 function Kyuukeisya () {
   this.name = 'kyuukeisya'
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_kyukeisyachihoukai/{z}/{x}/{y}.png',
@@ -2276,6 +3826,8 @@ const kyuukeisyaSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/haz
 // 地すべり危険箇所-------------------------------------------------------------------------------
 function Zisuberi () {
   this.name = 'zisuberi'
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_jisuberikikenkasyo/{z}/{x}/{y}.png',
@@ -2292,6 +3844,8 @@ const zisuberiSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/hazar
 // 雪崩危険箇所-------------------------------------------------------------------------------
 function Nadare () {
   this.name = 'nadare'
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/05_nadarekikenkasyo/{z}/{x}/{y}.png',
@@ -2326,24 +3880,51 @@ const dosyaSaigaiSumm = '出典：<br><a href="https://disaportal.gsi.go.jp/haza
 // 大規模盛土造成地-------------------------------------------------------------------------------
 function Morido () {
   this.name = 'morido'
-  // this.pointer = true
+     // this.className = 'pointer'
+ 
+  this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportaldata.gsi.go.jp/raster/daikiboumoritsuzouseichi/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 1,
-    maxZoom: 17
+    maxZoom: 16
   })
 }
 const moridoObj = {};
 for (let i of mapsStr) {
   moridoObj[i] = new TileLayer(new Morido())
 }
-const moridoSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a><br><img width="300" src="https://kenzkenz.xsrv.jp/open-hinata/img/dosha_kiken.png">';
+const moridoSumm =   '出典：<br><a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>';
+// 地形区分に基づく液状化の発生傾向図-------------------------------------------------------------------------------
+function Ekizyouka () {
+  this.name = 'ekizyouka'
+     // this.className = 'pointer'
+ 
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_zenkoku/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 15
+  })
+}
+const ekizyoukaObj = {};
+for (let i of mapsStr) {
+  ekizyoukaObj[i] = new TileLayer(new Ekizyouka())
+}
+const ekizyouka0Summ =   '<div style=width:300px;font-size:smaller>これまでの地震において発生した液状化被害を地形区分ごとに集計し、全国を対象におよそ250m四方のメッシュごとに液状化の発生傾向の強弱を5段階で表したもの' +
+                         '<br>出典：<a href="https://disaportal.gsi.go.jp/hazardmap/copyright/opendata.html" target="_blank">ハザードマップポータルサイト</a>' +
+                         '<br> <img src="https://kenzkenz.xsrv.jp/open-hinata/img/ekijouka_legend.jpg" width="300px">' +
+                         '<br><a href="https://www.mlit.go.jp/toshi/content/001388130.pdf" target="_blank">詳しい凡例</a>' +
+                         '<br>本図は、地形が示す一般的な地盤特性に対応した相対的な液状化の発生傾向の強弱を表したものであり、特定の地震に対する液状化予測を示したものではありません。また、メッシュデータであることからメッシュの代表的な地形に対応した液状化発生傾向を示しており、個別の宅地に対応した液状化発生傾向を示したものではありません。' +
+                         '<br><a href="https://www.mlit.go.jp/toshi/toshi_tobou_tk_000038.html" target="_blank">詳しい解説</a></div>';
 
 // 液状化危険度分布図（北海道）-------------------------------------------------------------------------------
 function Ekizyouka01 () {
   this.name = 'ekizyouka01'
   this.extent = transformE([137.6910, 46.3139, 150.1357, 40.3532])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/01_hokkai/{z}/{x}/{y}.png',
@@ -2360,6 +3941,8 @@ for (let i of mapsStr) {
 function Ekizyouka02 () {
   this.name = 'ekizyouka02'
   this.extent = transformE([139.5370, 41.6491, 141.7808, 40.1541])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/02_aomori/{z}/{x}/{y}.png',
@@ -2376,6 +3959,8 @@ for (let i of mapsStr) {
 function Ekizyouka03 () {
   this.name = 'ekizyouka03'
   this.extent = transformE([140.5821, 40.4636, 142.1447, 38.6697])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/03_iwate/{z}/{x}/{y}.png',
@@ -2392,6 +3977,7 @@ for (let i of mapsStr) {
 function Ekizyouka04 () {
   this.name = 'ekizyouka04'
   this.extent = transformE([140.2651, 39.1124, 141.8108, 37.7088])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/04_miyagi/{z}/{x}/{y}.png',
@@ -2408,6 +3994,7 @@ for (let i of mapsStr) {
 function Ekizyouka05 () {
   this.name = 'ekizyouka05'
   this.extent = transformE([139.4931, 40.5570, 141.0978, 38.7591])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/05_akita/{z}/{x}/{y}.png',
@@ -2424,6 +4011,7 @@ for (let i of mapsStr) {
 function Ekizyouka06 () {
   this.name = 'ekizyouka06'
   this.extent = transformE([139.4480, 39.2208, 140.6762, 37.6211])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/06_yamagata/{z}/{x}/{y}.png',
@@ -2440,6 +4028,7 @@ for (let i of mapsStr) {
 function Ekizyouka07 () {
   this.name = 'ekizyouka07'
   this.extent = transformE([138.9991, 37.9656, 141.4728, 36.6989])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/07_fukushima/{z}/{x}/{y}.png',
@@ -2456,6 +4045,7 @@ for (let i of mapsStr) {
 function Ekizyouka08 () {
   this.name = 'ekizyouka08'
   this.extent = transformE([139.5564, 37.0056, 141.1669, 35.5497])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/08_ibaraki/{z}/{x}/{y}.png',
@@ -2472,6 +4062,7 @@ for (let i of mapsStr) {
 function Ekizyouka09 () {
   this.name = 'ekizyouka09'
   this.extent = transformE([139.2317, 37.1670, 140.3415, 36.1207])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/09_tochigi/{z}/{x}/{y}.png',
@@ -2488,6 +4079,7 @@ for (let i of mapsStr) {
 function Ekizyouka10 () {
   this.name = 'ekizyouka10'
   this.extent = transformE([138.1963, 37.0633, 139.7744, 35.8628])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/10_gumma/{z}/{x}/{y}.png',
@@ -2504,6 +4096,7 @@ for (let i of mapsStr) {
 function Ekizyouka12 () {
   this.name = 'ekizyouka12'
   this.extent = transformE([139.5378, 36.1762, 140.9576, 34.7437])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/12_chiba/{z}/{x}/{y}.png',
@@ -2520,6 +4113,7 @@ for (let i of mapsStr) {
 function Ekizyouka13 () {
   this.name = 'ekizyouka13'
   this.extent = transformE([139.1580, 35.88181,139.9529, 35.42777])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/13_tokyo/{z}/{x}/{y}.png',
@@ -2536,6 +4130,7 @@ for (let i of mapsStr) {
 function Ekizyouka14 () {
   this.name = 'ekizyouka14'
   this.extent = transformE([138.7795, 35.7182, 139.8748, 35.0473])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/14_kanagawa/{z}/{x}/{y}.png',
@@ -2552,6 +4147,7 @@ for (let i of mapsStr) {
 function Ekizyouka16 () {
   this.name = 'ekizyouka16'
   this.extent = transformE([136.6693, 37.0191, 137.8538, 36.2473])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/16_toyama/{z}/{x}/{y}.png',
@@ -2568,6 +4164,7 @@ for (let i of mapsStr) {
 function Ekizyouka17 () {
   this.name = 'ekizyouka17'
   this.extent = transformE([135.8825, 37.6381, 137.5069, 35.8833])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/17_ishikawa/{z}/{x}/{y}.png',
@@ -2584,6 +4181,7 @@ for (let i of mapsStr) {
 function Ekizyouka18 () {
   this.name = 'ekizyouka18'
   this.extent = transformE([135.1556, 36.3475, 136.9342, 35.3285])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/18_fukui/{z}/{x}/{y}.png',
@@ -2600,6 +4198,7 @@ for (let i of mapsStr) {
 function Ekizyouka19 () {
   this.name = 'ekizyouka19'
   this.extent = transformE([138.0878, 35.9940, 139.1827, 35.0511])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/19_yamanashi/{z}/{x}/{y}.png',
@@ -2616,6 +4215,7 @@ for (let i of mapsStr) {
 function Ekizyouka20 () {
   this.name = 'ekizyouka20'
   this.extent = transformE([137.3966, 37.0493, 138.8119, 35.1914])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/20_nagano/{z}/{x}/{y}.png',
@@ -2632,6 +4232,7 @@ for (let i of mapsStr) {
 function Ekizyouka21 () {
   this.name = 'ekizyouka21'
   this.extent = transformE([36.2129, 36.4803, 137.7623, 35.1056])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/21_gifu/{z}/{x}/{y}.png',
@@ -2648,6 +4249,7 @@ for (let i of mapsStr) {
 function Ekizyouka22 () {
   this.name = 'ekizyouka22'
   this.extent = transformE([137.2620, 35.6814, 139.3122, 34.4404])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/22_shizuoka/{z}/{x}/{y}.png',
@@ -2664,6 +4266,7 @@ for (let i of mapsStr) {
 function Ekizyouka23 () {
   this.name = 'ekizyouka23'
   this.extent = transformE([136.5246, 35.4556, 137.9580, 34.5257])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/23_aichi/{z}/{x}/{y}.png',
@@ -2680,6 +4283,7 @@ for (let i of mapsStr) {
 function Ekizyouka24 () {
   this.name = 'ekizyouka24'
   this.extent = transformE([135.7781, 35.2965, 137.1478, 33.5774])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/24_mie/{z}/{x}/{y}.png',
@@ -2696,6 +4300,7 @@ for (let i of mapsStr) {
 function Ekizyouka25 () {
   this.name = 'ekizyouka25'
   this.extent = transformE([135.7043, 35.7083, 136.4979, 34.7547])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/25_shiga/{z}/{x}/{y}.png',
@@ -2712,6 +4317,7 @@ for (let i of mapsStr) {
 function Ekizyouka26 () {
   this.name = 'ekizyouka26'
   this.extent = transformE([134.738, 35.8198, 136.1566, 34.6376])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/26_kyoto/{z}/{x}/{y}.png',
@@ -2728,6 +4334,7 @@ for (let i of mapsStr) {
 function Ekizyouka27 () {
   this.name = 'ekizyouka27'
   this.extent = transformE([134.9522, 35.1019,135.9050, 34.20368])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/27_osaka/{z}/{x}/{y}.png',
@@ -2744,6 +4351,7 @@ for (let i of mapsStr) {
 function Ekizyouka28 () {
   this.name = 'ekizyouka28'
   this.extent = transformE([133.9501, 35.7554, 135.5849, 34.1116])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/28_hyogo/{z}/{x}/{y}.png',
@@ -2760,6 +4368,7 @@ for (let i of mapsStr) {
 function Ekizyouka29 () {
   this.name = 'ekizyouka29'
   this.extent = transformE([135.5026, 34.79412, 136.2517, 33.79113])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/29_nara/{z}/{x}/{y}.png',
@@ -2776,6 +4385,7 @@ for (let i of mapsStr) {
 function Ekizyouka30 () {
   this.name = 'ekizyouka30'
   this.extent = transformE([134.9233, 34.41830, 136.18017, 33.41027])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/30_wakayama/{z}/{x}/{y}.png',
@@ -2792,6 +4402,7 @@ for (let i of mapsStr) {
 function Ekizyouka31 () {
   this.name = 'ekizyouka31'
   this.extent = transformE([132.9929, 35.63032, 134.5977, 35.09431])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/31_tottori/{z}/{x}/{y}.png',
@@ -2808,6 +4419,7 @@ for (let i of mapsStr) {
 function Ekizyouka32 () {
   this.name = 'ekizyouka32'
   this.extent = transformE([131.3381, 35.7297, 133.4505, 34.32081])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/32_shimane/{z}/{x}/{y}.png',
@@ -2824,6 +4436,7 @@ for (let i of mapsStr) {
 function Ekizyouka33 () {
   this.name = 'ekizyouka33'
   this.extent = transformE([133.1006, 35.37543, 134.5863, 34.26743])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/33_okayama/{z}/{x}/{y}.png',
@@ -2840,6 +4453,7 @@ for (let i of mapsStr) {
 function Ekizyouka34 () {
   this.name = 'ekizyouka34'
   this.extent = transformE([131.7342, 35.1221, 133.6072, 34.08762])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/34_hiroshima/{z}/{x}/{y}.png',
@@ -2856,6 +4470,7 @@ for (let i of mapsStr) {
 function Ekizyouka35 () {
   this.name = 'ekizyouka35'
   this.extent = transformE([130.7400, 34.75478, 132.5915, 33.73971])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/35_yamaguchi/{z}/{x}/{y}.png',
@@ -2872,6 +4487,7 @@ for (let i of mapsStr) {
 function Ekizyouka36 () {
   this.name = 'ekizyouka36'
   this.extent = transformE([133.4923, 34.28723, 134.9154, 33.35009])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/36_tokushima/{z}/{x}/{y}.png',
@@ -2888,6 +4504,7 @@ for (let i of mapsStr) {
 function Ekizyouka37 () {
   this.name = 'ekizyouka37'
   this.extent = transformE([133.3593, 34.55734, 134.5650, 33.97935])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/37_kagawa/{z}/{x}/{y}.png',
@@ -2904,6 +4521,7 @@ for (let i of mapsStr) {
 function Ekizyouka38 () {
   this.name = 'ekizyouka38'
   this.extent = transformE([131.8240, 34.33648, 133.9516, 32.77578])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/38_ehime/{z}/{x}/{y}.png',
@@ -2920,6 +4538,7 @@ for (let i of mapsStr) {
 function Ekizyouka39 () {
   this.name = 'ekizyouka39'
   this.extent = transformE([132.1797, 33.82657, 134.5602, 32.66275])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/39_kochi/{z}/{x}/{y}.png',
@@ -2936,6 +4555,7 @@ for (let i of mapsStr) {
 function Ekizyouka40 () {
   this.name = 'ekizyouka40'
   this.extent = transformE([129.7837, 34.09346, 131.2663, 32.93019])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/40_fukuoka/{z}/{x}/{y}.png',
@@ -2952,6 +4572,7 @@ for (let i of mapsStr) {
 function Ekizyouka41 () {
   this.name = 'ekizyouka41'
   this.extent = transformE([129.5852, 33.6536, 130.6883, 32.90807])
+     // this.className = 'pointer'
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/41_saga/{z}/{x}/{y}.png',
@@ -2968,6 +4589,8 @@ for (let i of mapsStr) {
 function Ekizyouka42 () {
   this.name = 'ekizyouka42'
   this.extent = transformE([129.5427, 33.1727, 130.4444, 32.55078])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/42_nagasaki/{z}/{x}/{y}.png',
@@ -2984,6 +4607,8 @@ for (let i of mapsStr) {
 function Ekizyouka43 () {
   this.name = 'ekizyouka43'
   this.extent = transformE([129.9055, 33.12824, 131.1854, 32.00339])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/43_kumamoto/{z}/{x}/{y}.png',
@@ -3000,6 +4625,8 @@ for (let i of mapsStr) {
 function Ekizyouka44 () {
   this.name = 'ekizyouka44'
   this.extent = transformE([130.7373, 33.76245, 132.1325, 32.5524])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/44_oita/{z}/{x}/{y}.png',
@@ -3016,6 +4643,8 @@ for (let i of mapsStr) {
 function Ekizyouka45 () {
   this.name = 'ekizyouka45'
   this.extent = transformE([130.6439, 32.91034, 131.9101, 31.26415])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/45_miyazaki/{z}/{x}/{y}.png',
@@ -3032,6 +4661,8 @@ for (let i of mapsStr) {
 function Ekizyouka46 () {
   this.name = 'ekizyouka46'
   this.extent = transformE([129.8308, 32.41219, 131.3349, 29.82761])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/46_kagoshima/{z}/{x}/{y}.png',
@@ -3048,6 +4679,8 @@ for (let i of mapsStr) {
 function Ekizyouka47 () {
   this.name = 'ekizyouka47'
   this.extent = transformE([122.5435, 27.5248, 132.9212, 22.7673])
+     // this.className = 'pointer'
+ 
   this.pointer = true
   this.source = new XYZ({
     url: 'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/47_okinawa/{z}/{x}/{y}.png',
@@ -3685,7 +5318,7 @@ function Kz_tohoku_pacific_coast00 () {
     url: 'https://ktgis.net/kjmapw/kjtilemap/tohoku_pacific_coast/00/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 8,
-    maxZoom: 16
+    maxZoom: 15
   })
   this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
 }
@@ -3698,7 +5331,7 @@ function Kz_tohoku_pacific_coast01 () {
     url: 'https://ktgis.net/kjmapw/kjtilemap/tohoku_pacific_coast/01/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 8,
-    maxZoom: 16
+    maxZoom: 15
   })
   this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
 }
@@ -3711,7 +5344,7 @@ function Kz_tohoku_pacific_coast02 () {
     url: 'https://ktgis.net/kjmapw/kjtilemap/tohoku_pacific_coast/02/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 8,
-    maxZoom: 16
+    maxZoom: 15
   })
   this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
 }
@@ -3724,7 +5357,7 @@ function Kz_tohoku_pacific_coast03 () {
     url: 'https://ktgis.net/kjmapw/kjtilemap/tohoku_pacific_coast/03/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 8,
-    maxZoom: 16
+    maxZoom: 15
   })
   this.extent = transformE([140.52184, 40.76320, 142.4267, 36.67445])
 }
@@ -4047,7 +5680,7 @@ function Kz_kanto00 () {
     url: 'https://ktgis.net/kjmapw/kjtilemap/kanto/00/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 8,
-    maxZoom: 16
+    maxZoom: 15
   })
   this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
 }
@@ -4060,7 +5693,7 @@ function Kz_kanto01 () {
     url: 'https://ktgis.net/kjmapw/kjtilemap/kanto/01/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 8,
-    maxZoom: 16
+    maxZoom: 15
   })
   this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
 }
@@ -4073,7 +5706,7 @@ function Kz_kanto02 () {
     url: 'https://ktgis.net/kjmapw/kjtilemap/kanto/02/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 8,
-    maxZoom: 16
+    maxZoom: 15
   })
   this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
 }
@@ -4086,7 +5719,7 @@ function Kz_kanto03 () {
     url: 'https://ktgis.net/kjmapw/kjtilemap/kanto/03/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
     minZoom: 8,
-    maxZoom: 16
+    maxZoom: 15
   })
   this.extent = transformE([138.1383, 37.24556, 141.1668, 34.60537])
 }
@@ -7652,7 +9285,7 @@ for (let i of mapsStr) {
     ]
   })
 }
-const tokyokasaiSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/" target="_blank">日本版MapWarper</a>';
+const tokyokasaiSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/layers/34" target="_blank">日本版MapWarper</a>';
 // OpenTopoMap------------------------------------------------------------------------------------
 function Otm () {
   this.source = new XYZ({
@@ -7682,6 +9315,7 @@ for (let i of mapsStr) {
 }
 // 今後30年間震度6以上の確率--------------------------------------------------------------------------------------
 function Jisin () {
+   // this.className = 'pointer'
   this.pointer = true
   this.name = 'jisin'
   this.source = new XYZ({
@@ -7696,7 +9330,6 @@ for (let i of mapsStr) {
   jisinObj[i] = new TileLayer(new Jisin())
 }
 const jisinSumm = '<a href="https://www.j-shis.bosai.go.jp/shm" target="_blank">地震ハザードステーション</a>'
-
 
 function Dokuji () {
   this.name = 'dokuji'
@@ -7714,6 +9347,2347 @@ for (let i of mapsStr) {
   dokujiObj[i] = new TileLayer(new Dokuji())
 }
 
+// 日本土壌インベントリー-------------------------------------------------------------------------------
+function Dojyou () {
+  this.name = 'dojyou'
+   // this.className = 'pointer'
+  this.pointer = true
+  this.source = new XYZ({
+    url: 'https://soil-inventory.rad.naro.go.jp/tile/figure/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 6,
+    maxZoom: 12
+  })
+  this.useInterimTilesOnError = false
+}
+const dojyouObj = {};
+for (let i of mapsStr) {
+  dojyouObj[i] = new TileLayer(new Dojyou())
+}
+const dojyouSumm = '出典：<br><a href="https://soil-inventory.rad.naro.go.jp/figure.html" target="_blank">日本土壌インベントリー</a>';
+
+// 米軍地図------------------------------------------------------------------------------------
+// 宮崎市
+function Usamiyazaki () {
+  this.extent = transformEforMw([131.3873056, 31.9487490, 131.47186495, 31.859091])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/usarmy/miyazaki/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 19
+  })
+}
+const usaMiyazakiObj = {};
+for (let i of mapsStr) {
+  usaMiyazakiObj[i] = new TileLayer(new Usamiyazaki())
+}
+const usaSumm = '<div>Courtesy of the University of Texas Libraries, <br>The University of Texas at Austin and Code for history/TilemapJP.<br>' +
+    '<a href="https://github.com/code4history/jcp_maps" target="_blank">Code for history</a>　' +
+    '<a href="https://maps.lib.utexas.edu/maps/ams/japan_city_plans/" target="_blank">Japan City Plans</a>' +
+    '</div>'
+// 延岡市
+function Usanobeoka () {
+  this.extent = transformEforMw([131.63757572120534, 32.62500535406083, 131.72436281180384, 32.54331840955494])
+  this.extent2 = transformEforMw([131.63757572120534, 32.62500535406083, 131.72436281180384, 32.54331840955494])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/usarmy/nobeoka/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 19
+  })
+}
+const usaNobeokaObj = {};
+for (let i of mapsStr) {
+  usaNobeokaObj[i] = new TileLayer(new Usanobeoka())
+}
+// 都城市
+function Usamiyakonojyou () {
+  this.extent = transformEforMw([131.01477802559293, 31.759362148868007, 131.10179776971427, 31.69135798671786])
+  this.extent2 = transformEforMw([131.01477802559293, 31.759362148868007, 131.10179776971427, 31.69135798671786])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/miyakonojo/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaMiyakonojyouObj = {};
+for (let i of mapsStr) {
+  usaMiyakonojyouObj[i] = new TileLayer(new Usamiyakonojyou())
+}
+// 鹿児島市
+function Usakagoshima () {
+  this.extent = transformEforMw([130.5199329928549, 31.625904260596627, 130.60040625640664, 31.53839471681782])
+  this.extent2 = transformEforMw([130.5199329928549, 31.625904260596627, 130.60040625640664, 31.53839471681782])
+  this.source = new XYZ({
+    url: 'https://kenzkenz2.xsrv.jp/usarmy/kagosima/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 1,
+    maxZoom: 19
+  })
+}
+const usaKagoshimaObj = {};
+for (let i of mapsStr) {
+  usaKagoshimaObj[i] = new TileLayer(new Usakagoshima())
+}
+// 室蘭市
+function Usamuroran () {
+  this.extent = transformEforMw([140.90440038348575, 42.38405121586513, 141.05923356332505, 42.29059914480226])
+  this.extent2 = transformEforMw([140.90440038348575, 42.38405121586513, 141.05923356332505, 42.29059914480226])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/muroran/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaMuroranObj = {};
+for (let i of mapsStr) {
+  usaMuroranObj[i] = new TileLayer(new Usamuroran())
+}
+// 明石市
+function Usaakashi () {
+  this.extent = transformEforMw([134.9178464474012, 34.710923217623645, 135.04999909886737, 34.6239626197396])
+  this.extent2 = transformEforMw([134.9178464474012, 34.710923217623645, 135.04999909886737, 34.6239626197396])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/akashi/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaAkashiObj = {};
+for (let i of mapsStr) {
+  usaAkashiObj[i] = new TileLayer(new Usaakashi())
+}
+// 相生市
+function Usaharima () {
+  this.extent = transformEforMw([134.40899456747056, 34.827906424389056, 134.51680327661515, 34.734588690535986])
+  this.extent2 = transformEforMw([134.40899456747056, 34.827906424389056, 134.51680327661515, 34.734588690535986])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/harima/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaHarimaObj = {};
+for (let i of mapsStr) {
+  usaHarimaObj[i] = new TileLayer(new Usaharima())
+}
+// 秋田市
+function Usaakita () {
+  this.extent = transformEforMw([140.0717562014137, 39.73918236291928, 140.14706081310268, 39.6820763867207])
+  this.extent2 = transformEforMw([140.0717562014137, 39.73918236291928, 140.14706081310268, 39.6820763867207])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/akita/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaAkitaObj = {};
+for (let i of mapsStr) {
+  usaAkitaObj[i] = new TileLayer(new Usaakita())
+}
+// 青森市
+function Usaaomori () {
+  this.extent = transformEforMw([140.70599744657008, 40.85260097581303, 140.79743395188777, 40.7935556203787])
+  this.extent2 = transformEforMw([140.70599744657008, 40.85260097581303, 140.79743395188777, 40.7935556203787])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/aomori/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaAomoriObj = {};
+for (let i of mapsStr) {
+  usaAomoriObj[i] = new TileLayer(new Usaaomori())
+}
+// 旭川市
+function Usaasahikawa () {
+  this.extent = transformEforMw([142.30618215432563, 43.8296431351975, 142.425113984255, 43.7268853650624])
+  this.extent2 = transformEforMw([142.30618215432563, 43.8296431351975, 142.425113984255, 43.7268853650624])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/asahikawa/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaAsahikawaObj = {};
+for (let i of mapsStr) {
+  usaAsahikawaObj[i] = new TileLayer(new Usaasahikawa())
+}
+// 千葉市
+function Usachiba () {
+  this.extent = transformEforMw([140.08764378681573,35.62917380173154, 140.15972144856843,35.554932756846156])
+  this.extent2 = transformEforMw([140.08764378681573,35.62917380173154, 140.15972144856843,35.554932756846156])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/chiba/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaChibaObj = {};
+for (let i of mapsStr) {
+  usaChibaObj[i] = new TileLayer(new Usachiba())
+}
+// 富士宮市
+function Usafujinomiya () {
+  this.extent = transformEforMw([138.5809732397614,35.25121212484136, 138.6515394767342,35.18069262503313])
+  this.extent2 = transformEforMw([138.5809732397614,35.25121212484136, 138.6515394767342,35.18069262503313])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/fujinomiya/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaFujinomiyaObj = {};
+for (let i of mapsStr) {
+  usaFujinomiyaObj[i] = new TileLayer(new Usafujinomiya())
+}
+// 福井市
+function Usafukui () {
+  this.extent = transformEforMw([136.16942055402976,36.0976050324894, 136.25602908312064,36.01592560352381])
+  this.extent2 = transformEforMw([136.16942055402976,36.0976050324894, 136.25602908312064,36.01592560352381])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/fukui/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaFukuiObj = {};
+for (let i of mapsStr) {
+  usaFukuiObj[i] = new TileLayer(new Usafukui())
+}
+// 福島市
+function Usafukushima () {
+  this.extent = transformEforMw([140.44319076482216,37.78090343507313, 140.5007616991178,37.72953717372495])
+  this.extent2 = transformEforMw([140.44319076482216,37.78090343507313, 140.5007616991178,37.72953717372495])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/fukushima/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaFukushimaObj = {};
+for (let i of mapsStr) {
+  usaFukushimaObj[i] = new TileLayer(new Usafukushima())
+}
+// 伏木
+function Usafushiki () {
+  this.extent = transformEforMw([137.02508679699687,36.8245491449906, 137.1126408047655,36.7604369200003])
+  this.extent2 = transformEforMw([137.02508679699687,36.8245491449906, 137.1126408047655,36.7604369200003])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/fushiki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaFushikiObj = {};
+for (let i of mapsStr) {
+  usaFushikiObj[i] = new TileLayer(new Usafushiki())
+}
+// 岐阜市
+function Usagifu () {
+  this.extent = transformEforMw([136.70751515094838,35.470986568936624, 136.82609225873549,35.37258621685527])
+  this.extent2 = transformEforMw([136.70751515094838,35.470986568936624, 136.82609225873549,35.37258621685527])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/gifu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaGifuObj = {};
+for (let i of mapsStr) {
+  usaGifuObj[i] = new TileLayer(new Usagifu())
+}
+// habu
+function Usahabu () {
+  this.extent = transformEforMw([133.1350108897345,34.32262791592599, 133.2262140428679,34.24586042631])
+  this.extent2 = transformEforMw([133.1350108897345,34.32262791592599, 133.2262140428679,34.24586042631])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/habu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHabuObj = {};
+for (let i of mapsStr) {
+  usaHabuObj[i] = new TileLayer(new Usahabu())
+}
+// 八戸市
+function Usahachinohe () {
+  this.extent = transformEforMw([141.4589812322207,40.56255590542611, 141.57631044226363,40.48799652674896])
+  this.extent2 = transformEforMw([141.4589812322207,40.56255590542611, 141.57631044226363,40.48799652674896])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hachinohe/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHachinoheObj = {};
+for (let i of mapsStr) {
+  usaHachinoheObj[i] = new TileLayer(new Usahachinohe())
+}
+// 萩市
+function Usahagi () {
+  this.extent = transformEforMw([131.3620548860769,34.4605107256224, 131.43111774489685,34.38617650807586])
+  this.extent2 = transformEforMw([131.3620548860769,34.4605107256224, 131.43111774489685,34.38617650807586])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hagi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHagiObj = {};
+for (let i of mapsStr) {
+  usaHagiObj[i] = new TileLayer(new Usahagi())
+}
+// 函館市
+function Usahakodate () {
+  this.extent = transformEforMw([140.68097748426095,41.82926676413055, 140.7901943531384,41.73143517073271])
+  this.extent2 = transformEforMw([140.68097748426095,41.82926676413055, 140.7901943531384,41.73143517073271])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hakodate/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHakodateObj = {};
+for (let i of mapsStr) {
+  usaHakodateObj[i] = new TileLayer(new Usahakodate())
+}
+// 半田市
+function Usahanda () {
+  this.extent = transformEforMw([136.89242595186886,34.945077593842996, 137.00722449770626,34.85734903493045])
+  this.extent2 = transformEforMw([136.89242595186886,34.945077593842996, 137.00722449770626,34.85734903493045])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/handa/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHandaObj = {};
+for (let i of mapsStr) {
+  usaHandaObj[i] = new TileLayer(new Usahanda())
+}
+// 東岩瀬
+function Usahigashiiwase () {
+  this.extent = transformEforMw([137.16815167238158,36.78583199289653, 137.25717016627235,36.71700039282162])
+  this.extent2 = transformEforMw([137.16815167238158,36.78583199289653, 137.25717016627235,36.71700039282162])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/higashiiwase/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHigashiiwaseObj = {};
+for (let i of mapsStr) {
+  usaHigashiiwaseObj[i] = new TileLayer(new Usahigashiiwase())
+}
+// 彦根市
+function Usahikone () {
+  this.extent = transformEforMw([136.1900204514088,35.32992409688262, 136.30520216294815,35.224721393195296])
+  this.extent2 = transformEforMw([136.1900204514088,35.32992409688262, 136.30520216294815,35.224721393195296])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hikone/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHikoneObj = {};
+for (let i of mapsStr) {
+  usaHikoneObj[i] = new TileLayer(new Usahikone())
+}
+// 姫路市
+function Usahimeji () {
+  this.extent = transformEforMw([134.64098624425583, 34.8708631072014, 134.7378282897613, 34.80268817759354])
+  this.extent2 = transformEforMw([134.64098624425583, 34.8708631072014, 134.7378282897613, 34.80268817759354])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/himeji/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaHimejiObj = {};
+for (let i of mapsStr) {
+  usaHimejiObj[i] = new TileLayer(new Usahimeji())
+}
+// 枚方市
+function Usahirakata () {
+  this.extent = transformEforMw([135.57194920276365,34.87011100775344, 135.68724932168683,34.800562973217296])
+  this.extent2 = transformEforMw([135.57194920276365,34.87011100775344, 135.68724932168683,34.800562973217296])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hirakata/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHirakataObj = {};
+for (let i of mapsStr) {
+  usaHirakataObj[i] = new TileLayer(new Usahirakata())
+}
+// 平塚市
+function Usahiratsuka () {
+  this.extent = transformEforMw([139.31229120023235,35.35904999646574, 139.3878805441378,35.28874804475291])
+  this.extent2 = transformEforMw([139.31229120023235,35.35904999646574, 139.3878805441378,35.28874804475291])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hiratsuka/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHiratsukaObj = {};
+for (let i of mapsStr) {
+  usaHiratsukaObj[i] = new TileLayer(new Usahiratsuka())
+}
+// 広町
+function Usahiromachi () {
+  this.extent = transformEforMw([132.5731525471544,34.26760068261592, 132.67292535809037,34.1905277967504])
+  this.extent2 = transformEforMw([132.5731525471544,34.26760068261592, 132.67292535809037,34.1905277967504])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hiromachi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHiromachiObj = {};
+for (let i of mapsStr) {
+  usaHiromachiObj[i] = new TileLayer(new Usahiromachi())
+}
+// 弘前市
+function Usahirosaki () {
+  this.extent = transformEforMw([140.4235199121323,40.631355509931836, 140.5010183369034,40.56109320751867])
+  this.extent2 = transformEforMw([140.4235199121323,40.631355509931836, 140.5010183369034,40.56109320751867])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hirosaki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHirosakiObj = {};
+for (let i of mapsStr) {
+  usaHirosakiObj[i] = new TileLayer(new Usahirosaki())
+}
+// 広島市
+function Usahiroshima() {
+  this.extent = transformEforMw([132.3884909359741,34.431458513241665, 132.52820720355984,34.330487127792665])
+  this.extent2 = transformEforMw([132.3884909359741,34.431458513241665, 132.52820720355984,34.330487127792665])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hiroshima/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHiroshimaObj = {};
+for (let i of mapsStr) {
+  usaHiroshimaObj[i] = new TileLayer(new Usahiroshima())
+}
+// 日立市
+function Usahitachi() {
+  this.extent = transformEforMw([140.57999833282472,36.64482954491233, 140.6999440377617,36.53230602703728])
+  this.extent2 = transformEforMw([140.57999833282472,36.64482954491233, 140.6999440377617,36.53230602703728])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hitachi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHitachiObj = {};
+for (let i of mapsStr) {
+  usaHitachiObj[i] = new TileLayer(new Usahitachi())
+}
+// 人吉市
+function Usahitoyoshi() {
+  this.extent = transformEforMw([130.73763423508643,32.2355050464609, 130.79378929829835,32.1887013821016])
+  this.extent2 = transformEforMw([130.73763423508643,32.2355050464609, 130.79378929829835,32.1887013821016])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/hitoyoshi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHitoyoshiObj = {};
+for (let i of mapsStr) {
+  usaHitoyoshiObj[i] = new TileLayer(new Usahitoyoshi())
+}
+// 一宮市
+function Usaichinomiya() {
+  this.extent = transformEforMw([136.73726867270835,35.34563130774367, 136.8879913849867,35.19549105733337])
+  this.extent2 = transformEforMw([136.73726867270835,35.34563130774367, 136.8879913849867,35.19549105733337])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/ichinomiya/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaIchinomiyaObj = {};
+for (let i of mapsStr) {
+  usaIchinomiyaObj[i] = new TileLayer(new Usaichinomiya())
+}
+// 諫早市
+function Usaisahaya() {
+  this.extent = transformEforMw([130.02394444628715,32.86659294976408, 130.108573505125,32.81428582145436])
+  this.extent2 = transformEforMw([130.02394444628715,32.86659294976408, 130.108573505125,32.81428582145436])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/isahaya/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaIsahayaObj = {};
+for (let i of mapsStr) {
+  usaIsahayaObj[i] = new TileLayer(new Usaisahaya())
+}
+// 飯塚市
+function Usaiizukz() {
+  this.extent = transformEforMw([130.65216494469635,33.671544924421084, 130.71290557949533,33.589367508699866])
+  this.extent2 = transformEforMw([130.65216494469635,33.671544924421084, 130.71290557949533,33.589367508699866])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/iizuka/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaIizukaObj = {};
+for (let i of mapsStr) {
+  usaIizukaObj[i] = new TileLayer(new Usaiizukz())
+}
+// 加治木
+function Usakajiki() {
+  this.extent = transformEforMw([130.6334297037225,31.757366116931934, 130.6942427581649,31.706007526498084])
+  this.extent2 = transformEforMw([130.6334297037225,31.757366116931934, 130.6942427581649,31.706007526498084])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kajiki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKajikiObj = {};
+for (let i of mapsStr) {
+  usaKajikiObj[i] = new TileLayer(new Usakajiki())
+}
+// 釜石市
+function Usakamaishi() {
+  this.extent = transformEforMw([141.83555625727507,39.29839433432599, 141.9190507416997,39.24137226047998])
+  this.extent2 = transformEforMw([141.83555625727507,39.29839433432599, 141.9190507416997,39.24137226047998])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kamaishi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKamaishiObj = {};
+for (let i of mapsStr) {
+  usaKamaishiObj[i] = new TileLayer(new Usakamaishi())
+}
+// 金沢市
+function Usakanazawa() {
+  this.extent = transformEforMw([136.57678119459374,36.616141434534484, 136.70692666986213,36.51525054188362])
+  this.extent2 = transformEforMw([136.57678119459374,36.616141434534484, 136.70692666986213,36.51525054188362])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kanazawa/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKanazawaObj = {};
+for (let i of mapsStr) {
+  usaKanazawaObj[i] = new TileLayer(new Usakanazawa())
+}
+// 苅田町
+function Usakanda() {
+  this.extent = transformEforMw([130.94005143590758,33.81584169930497, 131.02026222594566,33.747149681232116])
+  this.extent2 = transformEforMw([130.94005143590758,33.81584169930497, 131.02026222594566,33.747149681232116])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kanda/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKandaObj = {};
+for (let i of mapsStr) {
+  usaKandaObj[i] = new TileLayer(new Usakanda())
+}
+// 唐津市
+function Usakaratsu() {
+  this.extent = transformEforMw([129.921021511898,33.50559209417867, 130.005309930191,33.43203779434077])
+  this.extent2 = transformEforMw([129.921021511898,33.50559209417867, 130.005309930191,33.43203779434077])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/karatsu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKaratsuObj = {};
+for (let i of mapsStr) {
+  usaKaratsuObj[i] = new TileLayer(new Usakaratsu())
+}
+// 刈谷市
+function Usakariya() {
+  this.extent = transformEforMw([136.94200877634015,35.03318584159486, 137.0601647773119,34.959046536665284])
+  this.extent2 = transformEforMw([136.94200877634015,35.03318584159486, 137.0601647773119,34.959046536665284])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kariya/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKariyaObj = {};
+for (let i of mapsStr) {
+  usaKariyaObj[i] = new TileLayer(new Usakariya())
+}
+// 柏崎市
+function Usakashiwazaki() {
+  this.extent = transformEforMw([138.50568101943807,37.40203383548953, 138.59532647968607,37.342488307171394])
+  this.extent2 = transformEforMw([138.50568101943807,37.40203383548953, 138.59532647968607,37.342488307171394])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kashiwazaki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKashiwazakiObj = {};
+for (let i of mapsStr) {
+  usaKashiwazakiObj[i] = new TileLayer(new Usakashiwazaki())
+}
+// 川越市
+function Usakawagoe() {
+  this.extent = transformEforMw([139.4570958921943,35.942500179173905, 139.52681723332742,35.87309357493287])
+  this.extent2 = transformEforMw([139.4570958921943,35.942500179173905, 139.52681723332742,35.87309357493287])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kawagoe/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKawagoeObj = {};
+for (let i of mapsStr) {
+  usaKawagoeObj[i] = new TileLayer(new Usakawagoe())
+}
+// 豊田市（挙母）
+function Usakoromo() {
+  this.extent = transformEforMw([137.08772963931085,35.13859479723625, 137.1960466270638,35.027068132737384])
+  this.extent2 = transformEforMw([137.08772963931085,35.13859479723625, 137.1960466270638,35.027068132737384])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/koromo/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKoromoObj = {};
+for (let i of mapsStr) {
+  usaKoromoObj[i] = new TileLayer(new Usakoromo())
+}
+// 下松市
+function Usakudamtsu() {
+  this.extent = transformEforMw([131.8186521172428,34.038862259919966, 131.89699206649303,33.96796119128024])
+  this.extent2 = transformEforMw([131.8186521172428,34.038862259919966, 131.89699206649303,33.96796119128024])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kudamatsu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKudamatsuObj = {};
+for (let i of mapsStr) {
+  usaKudamatsuObj[i] = new TileLayer(new Usakudamtsu())
+}
+// 桑名市
+function Usakuwana() {
+  this.extent = transformEforMw([136.61704718511825,35.13788876963871, 136.77256971042877,34.97847375883852])
+  this.extent2 = transformEforMw([136.61704718511825,35.13788876963871, 136.77256971042877,34.97847375883852])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kuwana/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKuwanaObj = {};
+for (let i of mapsStr) {
+  usaKuwanaObj[i] = new TileLayer(new Usakuwana())
+}
+// 高知市
+function Usakochi () {
+  this.extent = transformEforMw([133.4697604427741, 33.593332069856146, 133.58746118164257, 33.48248877930844])
+  this.extent2 = transformEforMw([133.4697604427741, 33.593332069856146, 133.58746118164257, 33.48248877930844])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/kochi/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKochiObj = {};
+for (let i of mapsStr) {
+  usaKochiObj[i] = new TileLayer(new Usakochi())
+}
+// 甲府市
+function Usakofu () {
+  this.extent = transformEforMw([138.5192430532455, 35.713904772878024, 138.61371447806357, 35.62085584514263])
+  this.extent2 = transformEforMw([138.5192430532455, 35.713904772878024, 138.61371447806357, 35.62085584514263])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/kofu/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKofuObj = {};
+for (let i of mapsStr) {
+  usaKofuObj[i] = new TileLayer(new Usakofu())
+}
+// 小倉
+function Usakokura () {
+  this.extent = transformEforMw([130.83351113737584, 33.92073003726122, 130.95307633268283, 33.83365615261114])
+  this.extent2 = transformEforMw([130.83351113737584, 33.92073003726122, 130.95307633268283, 33.83365615261114])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/kokura/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKokuraObj = {};
+for (let i of mapsStr) {
+  usaKokuraObj[i] = new TileLayer(new Usakokura())
+}
+// 郡山市
+function Usakoriyama () {
+  this.extent = transformEforMw([140.33108953120356, 37.43688472335944, 140.4249240446428, 37.367662796402])
+  this.extent2 = transformEforMw([140.33108953120356, 37.43688472335944, 140.4249240446428, 37.367662796402])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/koriyama/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKoriyamaObj = {};
+for (let i of mapsStr) {
+  usaKoriyamaObj[i] = new TileLayer(new Usakoriyama())
+}
+// 豊田市挙母（ころも）
+// function Usakoromo () {
+//   this.extent = transformEforMw([137.0879820918465, 35.13749809828019, 137.19499150270465, 35.02774573542449])
+//   this.source = new XYZ({
+//     url: 'https://t.tilemap.jp/jcp_maps/koromo/{z}/{x}/{-y}.png',
+//     crossOrigin: 'Anonymous',
+//     minZoom: 11,
+//     maxZoom: 16
+//   })
+// }
+// const usaKoromoObj = {};
+// for (let i of mapsStr) {
+//   usaKoromoObj[i] = new TileLayer(new Usakoromo())
+// }
+// 熊本市
+function Usakumamoto () {
+  this.extent = transformEforMw([130.6754534531498, 32.83726270469704, 130.77889418491364, 32.75070766375866])
+  this.extent2 = transformEforMw([130.6754534531498, 32.83726270469704, 130.77889418491364, 32.75070766375866])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/kumamoto/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKumamotoObj = {};
+for (let i of mapsStr) {
+  usaKumamotoObj[i] = new TileLayer(new Usakumamoto())
+}
+// 久留米市
+function Usakurume () {
+  this.extent = transformEforMw([130.4842734730671, 33.33550789416525, 130.58554027442437, 33.26640037986165])
+  this.extent2 = transformEforMw([130.4842734730671, 33.33550789416525, 130.58554027442437, 33.26640037986165])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/kurume/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKurumeObj = {};
+for (let i of mapsStr) {
+  usaKurumeObj[i] = new TileLayer(new Usakurume())
+}
+// 釧路市
+function Usakushiro () {
+  this.extent = transformEforMw([144.34146030236244, 43.03742598091131, 144.44208605576515, 42.94577285147719])
+  this.extent2 = transformEforMw([144.34146030236244, 43.03742598091131, 144.44208605576515, 42.94577285147719])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/kushiro/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKushiroObj = {};
+for (let i of mapsStr) {
+  usaKushiroObj[i] = new TileLayer(new Usakushiro())
+}
+// 四日市市
+// function Usakuwana () {
+//   this.extent = transformEforMw([136.6158335235405, 35.13755358853798, 136.7740100946712, 34.979373034182586])
+//   this.source = new XYZ({
+//     url: 'https://t.tilemap.jp/jcp_maps/kuwana_tomita/{z}/{x}/{-y}.png',
+//     crossOrigin: 'Anonymous',
+//     minZoom: 11,
+//     maxZoom: 16
+//   })
+// }
+// const usaKuwanaObj = {};
+// for (let i of mapsStr) {
+//   usaKuwanaObj[i] = new TileLayer(new Usakuwana())
+// }
+// 京都市(北)
+function Usakyoto_north () {
+  this.extent = transformEforMw([135.69243533265592, 35.07483494738305, 135.80488895726202, 34.98779081635700])
+  this.extent2 = transformEforMw([135.69243533265592, 35.07483494738305, 135.80488895726202, 34.98779081635700])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/kyoto_north/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKyotoNorthObj = {};
+for (let i of mapsStr) {
+  usaKyotoNorthObj[i] = new TileLayer(new Usakyoto_north())
+}
+// 京都市(南)
+function Usakyoto_south () {
+  this.extent = transformEforMw([135.6943010138845, 34.996985089808334, 135.80539677017686, 34.916474628902776])
+  this.extent2 = transformEforMw([135.6943010138845, 34.996985089808334, 135.80539677017686, 34.916474628902776])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/kyoto_south/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaKyotoSouthObj = {};
+for (let i of mapsStr) {
+  usaKyotoSouthObj[i] = new TileLayer(new Usakyoto_south())
+}
+// 前橋市
+function Usamaebashi () {
+  this.extent = transformEforMw([139.03692848520149, 36.42476537937992, 139.10921177449703, 36.36642121340162])
+  this.extent2 = transformEforMw([139.03692848520149, 36.42476537937992, 139.10921177449703, 36.36642121340162])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/maebashi/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaMaebashiObj = {};
+for (let i of mapsStr) {
+  usaMaebashiObj[i] = new TileLayer(new Usamaebashi())
+}
+// 枕崎市
+function Usamakurazaki () {
+  this.extent = transformEforMw([130.27057404867296, 31.293447219997688, 130.3296372970093, 31.248059353360432])
+  this.extent2 = transformEforMw([130.27057404867296, 31.293447219997688, 130.3296372970093, 31.248059353360432])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/makurazaki/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaMakurazakiObj = {};
+for (let i of mapsStr) {
+  usaMakurazakiObj[i] = new TileLayer(new Usamakurazaki())
+}
+// 松江市
+function Usamatsue () {
+  this.extent = transformEforMw([132.99721215263972, 35.49991858248744, 133.10912531212935, 35.42483380090842])
+  this.extent2 = transformEforMw([132.99721215263972, 35.49991858248744, 133.10912531212935, 35.42483380090842])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/matsue/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaMatsueObj = {};
+for (let i of mapsStr) {
+  usaMatsueObj[i] = new TileLayer(new Usamatsue())
+}
+// 三原市
+function Usamihara () {
+  this.extent = transformEforMw([133.02333144783972, 34.425199058736396, 133.13130511283873, 34.356677113032205])
+  this.extent2 = transformEforMw([133.02333144783972, 34.425199058736396, 133.13130511283873, 34.356677113032205])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/mihara_itozaki/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaMiharaObj = {};
+for (let i of mapsStr) {
+  usaMiharaObj[i] = new TileLayer(new Usamihara())
+}
+// 水戸市
+function Usamito () {
+  this.extent = transformEforMw([140.4179578231387, 36.413769771836456, 140.545391585093, 36.350511004933594])
+  this.extent2 = transformEforMw([140.4179578231387, 36.413769771836456, 140.545391585093, 36.350511004933594])
+  this.source = new XYZ({
+    // url: 'https://t.tilemap.jp/jcp_maps/mito/{z}/{x}/{-y}.png',
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/mito/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    // minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaMitoObj = {};
+for (let i of mapsStr) {
+  usaMitoObj[i] = new TileLayer(new Usamito())
+}
+// 長野市
+function Usanagano () {
+  this.extent = transformEforMw([138.14073032198428, 36.69619682804296, 138.2340108459997, 36.615546045100615])
+  this.extent2 = transformEforMw([138.14073032198428, 36.69619682804296, 138.2340108459997, 36.615546045100615])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nagano/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNaganoObj = {};
+for (let i of mapsStr) {
+  usaNaganoObj[i] = new TileLayer(new Usanagano())
+}
+// 長岡市
+function Usanagaoka () {
+  this.extent = transformEforMw([138.81563140898004, 37.48632713465814, 138.87307359724298, 37.41690979613216])
+  this.extent2 = transformEforMw([138.81563140898004, 37.48632713465814, 138.87307359724298, 37.41690979613216])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nagaoka/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNagaokaObj = {};
+for (let i of mapsStr) {
+  usaNagaokaObj[i] = new TileLayer(new Usanagaoka())
+}
+// 長崎市
+function Usanagasaki () {
+  this.extent = transformEforMw([129.82426933289048, 32.80116245898009, 129.92143838942525, 32.69767898831918])
+  this.extent2 = transformEforMw([129.82426933289048, 32.80116245898009, 129.92143838942525, 32.69767898831918])
+  this.source = new XYZ({
+    // url: 'https://t.tilemap.jp/jcp_maps/nagasaki/{z}/{x}/{-y}.png',
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/nagasaki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    // minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNagasakiObj = {};
+for (let i of mapsStr) {
+  usaNagasakiObj[i] = new TileLayer(new Usanagasaki())
+}
+// 名古屋市(北東)
+function Usanagoya_ne () {
+  this.extent = transformEforMw([136.8897098705461, 35.22421193160979, 136.98818271993733, 35.13233810303973])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nagoya_ne/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNagoyaNeObj = {};
+for (let i of mapsStr) {
+  usaNagoyaNeObj[i] = new TileLayer(new Usanagoya_ne())
+}
+// 名古屋市(北西)
+function Usanagoya_nw () {
+  this.extent = transformEforMw([136.80611080422372, 35.225824131738065, 136.90547197474476, 35.13243456671647])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nagoya_nw/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNagoyaNwObj = {};
+for (let i of mapsStr) {
+  usaNagoyaNwObj[i] = new TileLayer(new Usanagoya_nw())
+}
+// 名古屋市(南東)
+function Usanagoya_se () {
+  this.extent = transformEforMw([136.88919877397763, 35.14167895962797, 136.98842441427456, 35.04951319684166])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nagoya_se/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNagoyaSeObj = {};
+for (let i of mapsStr) {
+  usaNagoyaSeObj[i] = new TileLayer(new Usanagoya_se())
+}
+// 名古屋市(南西)
+function Usanagoya_sw () {
+  this.extent = transformEforMw([136.80523113396558, 35.141184354273065, 136.90487806511402, 35.048543288426316])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nagoya_sw/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNagoyaSwObj = {};
+for (let i of mapsStr) {
+  usaNagoyaSwObj[i] = new TileLayer(new Usanagoya_sw())
+}
+// 七尾市
+function Usananao () {
+  this.extent = transformEforMw([136.90164078074454, 37.09788232838679, 137.0370105286217, 37.0228343649801])
+  this.extent2 = transformEforMw([136.90164078074454, 37.09788232838679, 137.0370105286217, 37.0228343649801])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nanao/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNanaoObj = {};
+for (let i of mapsStr) {
+  usaNanaoObj[i] = new TileLayer(new Usananao())
+}
+// 直江津
+function Usanaoetsu() {
+  this.extent = transformEforMw([138.20747979491517,37.20133085529935, 138.27912193297908,37.1554182778262])
+  this.extent2 = transformEforMw([138.20747979491517,37.20133085529935, 138.27912193297908,37.1554182778262])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/naoetsu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaNaoetsuObj = {};
+for (let i of mapsStr) {
+  usaNaoetsuObj[i] = new TileLayer(new Usanaoetsu())
+}
+// 新潟市
+function Usaniigata () {
+  this.extent = transformEforMw([138.99186708819562, 37.96788748388437, 139.0933551717966, 37.8983254944878])
+  this.extent2 = transformEforMw([138.99186708819562, 37.96788748388437, 139.0933551717966, 37.8983254944878])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/niigata/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNiigataObj = {};
+for (let i of mapsStr) {
+  usaNiigataObj[i] = new TileLayer(new Usaniigata())
+}
+// 新居浜市
+function Usaniihama () {
+  this.extent = transformEforMw([133.22255519907048, 34.00367828974015, 133.31210141758493, 33.92086221440381])
+  this.extent2 = transformEforMw([133.22255519907048, 34.00367828974015, 133.31210141758493, 33.92086221440381])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/niihama/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNiihamaObj = {};
+for (let i of mapsStr) {
+  usaNiihamaObj[i] = new TileLayer(new Usaniihama())
+}
+// 日光市
+function Usanikko () {
+  this.extent = transformEforMw([139.48407988645982, 36.78855612641945, 139.64399721124124, 36.71216243946745])
+  this.extent2 = transformEforMw([139.48407988645982, 36.78855612641945, 139.64399721124124, 36.71216243946745])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nikko/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNikkoObj = {};
+for (let i of mapsStr) {
+  usaNikkoObj[i] = new TileLayer(new Usanikko())
+}
+// 直方市
+function Usanogata () {
+  this.extent = transformEforMw([130.69598996782418, 33.77216740394658, 130.75809919977306, 33.71618955385571])
+  this.extent2 = transformEforMw([130.69598996782418, 33.77216740394658, 130.75809919977306, 33.71618955385571])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/nogata/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNogataObj = {};
+for (let i of mapsStr) {
+  usaNogataObj[i] = new TileLayer(new Usanogata())
+}
+// 沼津市
+function Usanumazu () {
+  this.extent = transformEforMw([138.8324112693624, 35.1277526279410, 138.89685871702, 35.06471308977173])
+  this.extent2 = transformEforMw([138.8324112693624, 35.1277526279410, 138.89685871702, 35.06471308977173])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/numazu/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaNumazuObj = {};
+for (let i of mapsStr) {
+  usaNumazuObj[i] = new TileLayer(new Usanumazu())
+}
+// 大垣市
+function Usaogaki () {
+  this.extent = transformEforMw([136.55413836399077, 35.40195135119643, 136.66695408681392, 35.33227207940551])
+  this.extent2 = transformEforMw([136.55413836399077, 35.40195135119643, 136.66695408681392, 35.33227207940551])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/ogaki/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaOgakiObj = {};
+for (let i of mapsStr) {
+  usaOgakiObj[i] = new TileLayer(new Usaogaki())
+}
+// 大分市
+function Usaoita () {
+  this.extent = transformEforMw([131.55698081039802, 33.27340799027354, 131.65331704103366, 33.203760920003575])
+  this.extent2 = transformEforMw([131.55698081039802, 33.27340799027354, 131.65331704103366, 33.203760920003575])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/oita/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaOitaObj = {};
+for (let i of mapsStr) {
+  usaOitaObj[i] = new TileLayer(new Usaoita())
+}
+// 岡山市
+function Usaokayama() {
+  this.extent = transformEforMw([133.87770654276844,34.708880685750856, 133.97912757114406,34.6163776195384])
+  this.extent2 = transformEforMw([133.87770654276844,34.708880685750856, 133.97912757114406,34.6163776195384])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/okayama/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaOkayamaObj = {};
+for (let i of mapsStr) {
+  usaOkayamaObj[i] = new TileLayer(new Usaokayama())
+}
+
+
+
+
+
+
+
+// 桶川市
+function Usaokegawa () {
+  this.extent = transformEforMw([139.52177323905948, 36.0269588999937, 139.6205921455574, 35.95245423653812])
+  this.extent2 = transformEforMw([139.52177323905948, 36.0269588999937, 139.6205921455574, 35.95245423653812])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/okegawa/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaOkegawaObj = {};
+for (let i of mapsStr) {
+  usaOkegawaObj[i] = new TileLayer(new Usaokegawa())
+}
+// 大湊
+function Usaominato () {
+  this.extent = transformEforMw([141.10173496456386, 41.30304157411669, 141.22543978543519, 41.20456356172045])
+  this.extent2 = transformEforMw([141.10173496456386, 41.30304157411669, 141.22543978543519, 41.20456356172045])
+  this.source = new XYZ({
+    // url: 'https://t.tilemap.jp/jcp_maps/ominato/{z}/{x}/{-y}.png',
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/ominato/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    // minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaOminatoObj = {};
+for (let i of mapsStr) {
+  usaOminatoObj[i] = new TileLayer(new Usaominato())
+}
+// 大村市
+function Usaomura () {
+  this.extent = transformEforMw([129.89270322251053, 32.95816906007779, 129.98746633755894, 32.8826256032659])
+  this.extent2 = transformEforMw([129.89270322251053, 32.95816906007779, 129.98746633755894, 32.8826256032659])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/omura/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaOmuraObj = {};
+for (let i of mapsStr) {
+  usaOmuraObj[i] = new TileLayer(new Usaomura())
+}
+// 大牟田市
+function Usaomuta () {
+  this.extent = transformEforMw([130.37973611582464, 33.056731972736316, 130.48797531951612, 32.98711858353457])
+  this.extent2 = transformEforMw([130.37973611582464, 33.056731972736316, 130.48797531951612, 32.98711858353457])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/omuta/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaOmutaObj = {};
+for (let i of mapsStr) {
+  usaOmutaObj[i] = new TileLayer(new Usaomuta())
+}
+// 山陽小野田市
+function Usaonoda () {
+  this.extent = transformEforMw([131.13791842343807,34.01405470527139, 131.20457467021942,33.944588710860714])
+  this.extent2 = transformEforMw([131.13791842343807,34.01405470527139, 131.20457467021942,33.944588710860714])
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/onoda/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaOnodaObj = {};
+for (let i of mapsStr) {
+  usaOnodaObj[i] = new TileLayer(new Usaonoda())
+}
+// 小樽市
+function Usaotaru () {
+  this.extent = transformEforMw([140.95003125711892, 43.2498339236171, 141.06840585812543, 43.1510898825083])
+  this.extent2 = transformEforMw([140.95003125711892, 43.2498339236171, 141.06840585812543, 43.1510898825083])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/otaru/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaOtaruObj = {};
+for (let i of mapsStr) {
+  usaOtaruObj[i] = new TileLayer(new Usaotaru())
+}
+// 大津市
+function Usaotsu_seta () {
+  this.extent = transformEforMw([135.8276778607642,35.04236537027731, 135.9406216590678,34.950260003281315])
+  this.extent2 = transformEforMw([135.8276778607642,35.04236537027731, 135.9406216590678,34.950260003281315])
+  this.source = new XYZ({
+    // url: 'https://t.tilemap.jp/jcp_maps/otsu_seta/{z}/{x}/{-y}.png',
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/otsu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    // minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaOtsusetaObj = {};
+for (let i of mapsStr) {
+  usaOtsusetaObj[i] = new TileLayer(new Usaotsu_seta())
+}
+// 留萌市
+function Usarumoi () {
+  this.extent = transformEforMw([141.6042188327817, 43.98252204659977, 141.70030494742667, 43.90720818339608])
+  this.extent2 = transformEforMw([141.6042188327817, 43.98252204659977, 141.70030494742667, 43.90720818339608])
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/rumoi/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaRumoiObj = {};
+for (let i of mapsStr) {
+  usaRumoiObj[i] = new TileLayer(new Usarumoi())
+}
+// 佐伯市
+function Usasaeki () {
+  this.extent = transformEforMw([131.85777088174342, 32.99383225285267, 131.93490104102835, 32.90668177072595])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/saeki/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaSaekiObj = {};
+for (let i of mapsStr) {
+  usaSaekiObj[i] = new TileLayer(new Usasaeki())
+}
+// 酒田市
+function Usasakata () {
+  this.extent = transformEforMw([139.79572723006245, 38.94697215540117, 139.86472236310482, 38.893991742680754])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/sakata/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaSakataObj = {};
+for (let i of mapsStr) {
+  usaSakataObj[i] = new TileLayer(new Usasakata())
+}
+// 札幌市
+function Usasapporo () {
+  this.extent = transformEforMw([141.2872269967413, 43.12652987403498, 141.4241048765094, 43.0095195482877])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/sapporo/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaSapporoObj = {};
+for (let i of mapsStr) {
+  usaSapporoObj[i] = new TileLayer(new Usasapporo())
+}
+// 佐世保市
+function Usasasebo () {
+  this.extent = transformEforMw([129.67363106960568, 33.21108635181264, 129.77110120410237, 33.10068154282844])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/sasebo/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaSaseboObj = {};
+for (let i of mapsStr) {
+  usaSaseboObj[i] = new TileLayer(new Usasasebo())
+}
+// 薩摩川内市
+function Usasatsuma_sendai () {
+  this.extent = transformEforMw([130.2660942035549, 31.84126574443949, 130.32700482335025, 31.789400580167452])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/satsuma_sendai/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaSatsumaSendaiObj = {};
+for (let i of mapsStr) {
+  usaSatsumaSendaiObj[i] = new TileLayer(new Usasatsuma_sendai())
+}
+// 仙台市
+function Usasendai () {
+  this.extent = transformEforMw([140.82992065404846, 38.293472864168336, 140.9386044338842, 38.20103124986022])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    // url: 'https://t.tilemap.jp/jcp_maps/sendai/{z}/{x}/{-y}.png',
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/sendai/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    // minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaSendaiObj = {};
+for (let i of mapsStr) {
+  usaSendaiObj[i] = new TileLayer(new Usasendai())
+}
+// 飾磨
+function Usashikama () {
+  this.extent = transformEforMw([134.57381908301352, 34.830801155046686, 134.69907891456126, 34.7487640772753])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/shikama/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaShikamaObj = {};
+for (let i of mapsStr) {
+  usaShikamaObj[i] = new TileLayer(new Usashikama())
+}
+// 島原市
+function Usashimabara () {
+  this.extent = transformEforMw([130.33991189911603, 32.80562992452464, 130.40247509494066, 32.75341095906735])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/shimabara/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaShimabaraObj = {};
+for (let i of mapsStr) {
+  usaShimabaraObj[i] = new TileLayer(new Usashimabara())
+}
+// 清水市
+function Usashimizu () {
+  this.extent = transformEforMw([138.44154622744944, 35.05407685272354, 138.53987265717413, 34.97184831284642])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/shimizu/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaShimizuObj = {};
+for (let i of mapsStr) {
+  usaShimizuObj[i] = new TileLayer(new Usashimizu())
+}
+// 下関市
+function Usashimonoseki_moji () {
+  this.extent = transformEforMw([130.86186034693543, 33.99364348447547, 130.99910898222745, 33.9010277531139])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/shimonoseki_moji/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaShimonosekiMojiObj = {};
+for (let i of mapsStr) {
+  usaShimonosekiMojiObj[i] = new TileLayer(new Usashimonoseki_moji())
+}
+// 吹田市
+function Usasuita () {
+  this.extent = transformEforMw([135.46811271576692, 34.81241595216801, 135.58729734389593, 34.73599802051933])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/suita/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaSuitaObj = {};
+for (let i of mapsStr) {
+  usaSuitaObj[i] = new TileLayer(new Usasuita())
+}
+// 高田市
+function Usatakada () {
+  this.extent = transformEforMw([138.2140323701369, 37.14730687866512, 138.28622804908625, 37.08329203410612])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/takada/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaTakadaObj = {};
+for (let i of mapsStr) {
+  usaTakadaObj[i] = new TileLayer(new Usatakada())
+}
+// 高松市
+function Usatakamatsu () {
+  this.extent = transformEforMw([133.99545893909394,34.39269918414061, 134.11711991669594,34.301570982649295])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/takamatsu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTakamatsuObj = {};
+for (let i of mapsStr) {
+  usaTakamatsuObj[i] = new TileLayer(new Usatakamatsu())
+}
+// 高砂市
+function Usatakasago () {
+  this.extent = transformEforMw([134.74741530689215,34.79614117291294, 134.91089795800664,34.698735552479135])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/takasago/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTakasagoObj = {};
+for (let i of mapsStr) {
+  usaTakasagoObj[i] = new TileLayer(new Usatakasago())
+}
+// 高崎市
+function Usatakasaki () {
+  this.extent = transformEforMw([138.97691229387246,36.35389563865152, 139.03623605175935,36.294564407602934])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/takasaki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTakasakiObj = {};
+for (let i of mapsStr) {
+  usaTakasakiObj[i] = new TileLayer(new Usatakasaki())
+}
+// 鳥羽市
+function Usatoba () {
+  this.extent = transformEforMw([136.80242859001117,34.5282360211439, 136.8797379004474,34.4474052593944])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/toba/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTobaObj = {};
+for (let i of mapsStr) {
+  usaTobaObj[i] = new TileLayer(new Usatoba())
+}
+// 玉野市
+function Usatomano () {
+  this.extent = transformEforMw([133.8988852990205,34.519890070517164, 133.99005626564573,34.436591886068825])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tomano/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTomanoObj = {};
+for (let i of mapsStr) {
+  usaTomanoObj[i] = new TileLayer(new Usatomano())
+}
+// 徳島市
+function Usatokushima () {
+  this.extent = transformEforMw([134.4936030594145,34.12235468581463, 134.61755866682876,34.02929803919676])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tokushima/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTokushimaObj = {};
+for (let i of mapsStr) {
+  usaTokushimaObj[i] = new TileLayer(new Usatokushima())
+}
+// 徳山
+function Usatokuyama () {
+  this.extent = transformEforMw([131.74538715278192,34.08462384762474, 131.84149338399453,33.99426773843973])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tokuyama/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTokuyamaObj = {};
+for (let i of mapsStr) {
+  usaTokuyamaObj[i] = new TileLayer(new Usatokuyama())
+}
+// 鳥取市
+function Usatottori () {
+  this.extent = transformEforMw([134.1900909428445,35.52696479360749, 134.28330172942555,35.46730267834758])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tottori/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTottoriObj = {};
+for (let i of mapsStr) {
+  usaTottoriObj[i] = new TileLayer(new Usatottori())
+}
+// 富山市
+function Usatoyama () {
+  this.extent = transformEforMw([137.1684165214623,36.72884284984751, 137.25429548970115,36.66525139660453])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/toyama/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaToyamaObj = {};
+for (let i of mapsStr) {
+  usaToyamaObj[i] = new TileLayer(new Usatoyama())
+}
+// 豊橋市(北)
+function Usatoyohasi_north () {
+  this.extent = transformEforMw([137.30419119783116,34.79819174398203, 137.4371489692516,34.699863481299786])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/toyohashi_north/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaToyohashiNorthObj = {};
+for (let i of mapsStr) {
+  usaToyohashiNorthObj[i] = new TileLayer(new Usatoyohasi_north())
+}
+// 豊橋市(南)
+function Usatoyohasi_south () {
+  this.extent = transformEforMw([137.3040570873804,34.77214256985337, 137.4375519711561,34.67231637720508])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/toyohashi_south/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaToyohashiSouthObj = {};
+for (let i of mapsStr) {
+  usaToyohashiSouthObj[i] = new TileLayer(new Usatoyohasi_south())
+}
+// 豊川市
+function Usatoyokawa () {
+  this.extent = transformEforMw([137.3300625528809,34.87697931243254, 137.4370303894993,34.78739376103327])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/toyokawa/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaToyokawaObj = {};
+for (let i of mapsStr) {
+  usaToyokawaObj[i] = new TileLayer(new Usatoyokawa())
+}
+// 土崎
+function Usatsuchizaki () {
+  this.extent = transformEforMw([140.0322280044941,39.77748578452113, 140.10570276186743,39.73013139828953])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tsuchizaki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTsuchizakiObj = {};
+for (let i of mapsStr) {
+  usaTsuchizakiObj[i] = new TileLayer(new Usatsuchizaki())
+}
+// 敦賀市
+function Usatsuruga () {
+  this.extent = transformEforMw([136.02015594007466,35.67725529086043, 136.1043337172458,35.61019094654843])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tsuruga/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTsurugaObj = {};
+for (let i of mapsStr) {
+  usaTsurugaObj[i] = new TileLayer(new Usatsuruga())
+}
+// 津山市
+function Usatsuyama () {
+  this.extent = transformEforMw([133.9546515527164,35.093894098921695, 134.05467984406104,35.028394837132595])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tsuyama/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTsuyamaObj = {};
+for (let i of mapsStr) {
+  usaTsuyamaObj[i] = new TileLayer(new Usatsuyama())
+}
+// 宇部市
+function Usaube () {
+  this.extent = transformEforMw([131.21090737917757,33.985496410975, 131.27556202748153,33.91514344585086])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/ube/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaUbeObj = {};
+for (let i of mapsStr) {
+  usaUbeObj[i] = new TileLayer(new Usaube())
+}
+// 魚津市
+function Usauotsu () {
+  this.extent = transformEforMw([137.359654715174,36.84154335048109, 137.4231533313926,36.78819929793053])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/uotsu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaUotsuObj = {};
+for (let i of mapsStr) {
+  usaUotsuObj[i] = new TileLayer(new Usauotsu())
+}
+// 宇都宮市
+function Usautsunomiya () {
+  this.extent = transformEforMw([139.80726931534997,36.60692094994177, 139.94236346625078,36.51922096392269])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/utsunomiya/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaUtsunomiyaObj = {};
+for (let i of mapsStr) {
+  usaUtsunomiyaObj[i] = new TileLayer(new Usautsunomiya())
+}
+// 会津若松市
+function Usawakamatsu () {
+  this.extent = transformEforMw([139.89971460019447, 37.5246569332612, 139.9580861738811, 37.4662552780602])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/wakamatsu/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaWakamatsuObj = {};
+for (let i of mapsStr) {
+  usaWakamatsuObj[i] = new TileLayer(new Usawakamatsu())
+}
+// 和歌山市
+function Usawakayama () {
+  this.extent = transformEforMw([135.10168442914156,34.278745841537926, 135.2230356116023,34.16603880752899])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/wakayama/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaWakayamaObj = {};
+for (let i of mapsStr) {
+  usaWakayamaObj[i] = new TileLayer(new Usawakayama())
+}
+// 山形市
+function Usayamagata () {
+  this.extent = transformEforMw([140.31046887145618,38.2869380235048, 140.37764680789093,38.223610501260254])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/yamagata/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaYamagataObj = {};
+for (let i of mapsStr) {
+  usaYamagataObj[i] = new TileLayer(new Usayamagata())
+}
+// 山口市
+function Usayamaguchi () {
+  this.extent = transformEforMw([131.44143730059048,34.20638353543529, 131.50447591796302,34.15296649850379])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/yamaguchi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaYamaguchiObj = {};
+for (let i of mapsStr) {
+  usaYamaguchiObj[i] = new TileLayer(new Usayamaguchi())
+}
+// 八幡
+function Usayawata () {
+  this.extent = transformEforMw([130.7352353711359,33.93668107746137, 130.8548940797083,33.848555614389184])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/yawata/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaYawataObj = {};
+for (let i of mapsStr) {
+  usaYawataObj[i] = new TileLayer(new Usayawata())
+}
+// 八代市
+function Usayatsushiro () {
+  this.extent = transformEforMw([130.56782128418257, 32.52529691909547, 130.64291911328604, 32.4722538224630])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/yatsushiro/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaYatsushiroObj = {};
+for (let i of mapsStr) {
+  usaYatsushiroObj[i] = new TileLayer(new Usayatsushiro())
+}
+// 四日市
+function Usayokkaichi () {
+  this.extent = transformEforMw([136.5812700596467,34.997838813507684, 136.66969176203165,34.92287302729859])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/yokkaichi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaYokkaichiObj = {};
+for (let i of mapsStr) {
+  usaYokkaichiObj[i] = new TileLayer(new Usayokkaichi())
+}
+// 米子市
+function Usayonago () {
+  this.extent = transformEforMw([133.28164837924874,35.480611440807465, 133.3806044575397,35.397899772912595])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/yonago/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaYonagoObj = {};
+for (let i of mapsStr) {
+  usaYonagoObj[i] = new TileLayer(new Usayonago())
+}
+// 善通寺市
+function Usazentsuji () {
+  this.extent = transformEforMw([133.74462727940428,34.25811177699647, 133.81558511889327,34.199615898483586])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/zentsuji/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaZentsujiObj = {};
+for (let i of mapsStr) {
+  usaZentsujiObj[i] = new TileLayer(new Usazentsuji())
+}
+
+
+
+
+
+// 高鍋町
+function Usatakanabe () {
+  this.extent = transformEforMw([131.49437198658654, 32.14926230220921, 131.55480667761816, 32.097161098583])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/takanabe/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaTakanabeObj = {};
+for (let i of mapsStr) {
+  usaTakanabeObj[i] = new TileLayer(new Usatakanabe())
+}
+// 高岡
+function Usatakaoka () {
+  this.extent = transformEforMw([136.95122553245773, 36.78462123872494, 137.07285137091316, 36.72027436365445])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://t.tilemap.jp/jcp_maps/takaoka/{z}/{x}/{-y}.png',
+    crossOrigin: 'Anonymous',
+    minZoom: 11,
+    maxZoom: 16
+  })
+}
+const usaTakaokaObj = {};
+for (let i of mapsStr) {
+  usaTakaokaObj[i] = new TileLayer(new Usatakaoka())
+}// 大宮
+function Usaomiya () {
+  this.extent = transformEforMw([139.58288807604737, 35.936471778972816, 139.68984384272522, 35.82067028475796])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/omiya/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaOmiyaObj = {};
+for (let i of mapsStr) {
+  usaOmiyaObj[i] = new TileLayer(new Usaomiya())
+}
+const usaTokyoSumm = '<a href="https://maps.lib.utexas.edu/maps/ams/japan_city_plans/index_tokyo.html" target="_blank">Tokyo City Plans</a>';
+// 板橋区
+function Usaitabashi () {
+  this.extent = transformEforMw([139.55659942810058, 35.84279388096407, 139.6851201552582, 35.74376046340615])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/itabashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaItabashiObj = {};
+for (let i of mapsStr) {
+  usaItabashiObj[i] = new TileLayer(new Usaitabashi())
+}
+// 川口市
+function Usakawaguchi () {
+  this.extent = transformEforMw([139.67232242769714, 35.8422159012266, 139.8030720705461, 35.74493041694202])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kawaguchi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKawaguchiObj = {};
+for (let i of mapsStr) {
+  usaKawaguchiObj[i] = new TileLayer(new Usakawaguchi())
+}
+// 松戸市
+function Usamatsudo () {
+  this.extent = transformEforMw([139.787265544735, 35.84270580004852, 139.92278817852593, 35.74447067756418])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/matsudo/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaMatsudoObj = {};
+for (let i of mapsStr) {
+  usaMatsudoObj[i] = new TileLayer(new Usamatsudo())
+}
+// 立川市
+function UsatachikawaObj () {
+  this.extent = transformEforMw([139.3257750300442, 35.7677794416578, 139.45130978801595, 35.66939179444587])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tachikawa/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTachikawaObj = {};
+for (let i of mapsStr) {
+  usaTachikawaObj[i] = new TileLayer(new UsatachikawaObj())
+}
+// 田無
+function Usatanashi () {
+  this.extent = transformEforMw([139.4374114036049, 35.768251043426986, 139.57501073772565, 35.6676261138138])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/tanashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaTanashiObj = {};
+for (let i of mapsStr) {
+  usaTanashiObj[i] = new TileLayer(new Usatanashi())
+}
+// 中野区
+function Usanakano () {
+  this.extent = transformEforMw([139.55876057440844, 35.766645453219354, 139.6859080105504, 35.66883929724342])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/nakano/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaNakanoObj = {};
+for (let i of mapsStr) {
+  usaNakanoObj[i] = new TileLayer(new Usanakano())
+}
+// 小石川
+function Usakoishikawa () {
+  this.extent = transformEforMw([139.67579968662739, 35.7659536404624, 139.8011419961023, 35.67149249224876])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/koishikawa/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKoishikawaObj = {};
+for (let i of mapsStr) {
+  usaKoishikawaObj[i] = new TileLayer(new Usakoishikawa())
+}
+// 本所
+function Usahonjo () {
+  this.extent = transformEforMw([139.78699439491749, 35.76692444138439, 139.92178432779318, 35.66956521078299])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/honjo/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaHonjoObj = {};
+for (let i of mapsStr) {
+  usaHonjoObj[i] = new TileLayer(new Usahonjo())
+}
+// 調布
+function Usachofu () {
+  this.extent = transformEforMw([139.43793800309393, 35.69264409802105, 139.5735330565283, 35.5942285900592])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/chofu/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaChofuObj = {};
+for (let i of mapsStr) {
+  usaChofuObj[i] = new TileLayer(new Usachofu())
+}
+// 世田谷区
+function Usasetagaya () {
+  this.extent = transformEforMw([139.55750953987325, 35.69020645502415, 139.68686778679574, 35.59558138323757])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/setagaya/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaSetagayaObj = {};
+for (let i of mapsStr) {
+  usaSetagayaObj[i] = new TileLayer(new Usasetagaya())
+}
+// 日本橋
+function Usanihonbashi () {
+  this.extent = transformEforMw([139.67133578494247, 35.691982412751216, 139.8057094274467, 35.59480793294374])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/nihonbashi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usanihonbasiObj = {};
+for (let i of mapsStr) {
+  usanihonbasiObj[i] = new TileLayer(new Usanihonbashi())
+}
+// 砂町
+function Usasunamachi () {
+  this.extent = transformEforMw([139.7912620438637, 35.6927029142241, 139.9203983379902, 35.595771132326846])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/sunamachi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaSunsmschiObj = {};
+for (let i of mapsStr) {
+  usaSunsmschiObj[i] = new TileLayer(new Usasunamachi())
+}
+// 田園調布
+function Usadenen () {
+  this.extent = transformEforMw([139.5552674729985, 35.61684183769074, 139.68731262280164, 35.520543926413254])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/denen/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaDenenObj = {};
+for (let i of mapsStr) {
+  usaDenenObj[i] = new TileLayer(new Usadenen())
+}
+// 大森
+function Usaomori () {
+  this.extent = transformEforMw([139.67116572453156, 35.61793041851628, 139.80602518214357, 35.53127408650961])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/omori/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaOmoriObj = {};
+for (let i of mapsStr) {
+  usaOmoriObj[i] = new TileLayer(new Usaomori())
+}
+// 川崎
+function Usakawasaki () {
+  this.extent = transformEforMw([139.67419982036674, 35.54299845717924, 139.80459004720768, 35.4553511140454])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/kawasaki/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaKawasakiObj = {};
+for (let i of mapsStr) {
+  usaKawasakiObj[i] = new TileLayer(new Usakawasaki())
+}
+// 横浜市
+function Usayokohama () {
+  this.extent = transformEforMw([139.55378204664274, 35.466367420903566, 139.689263106194, 35.37842491230309])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/yokohama/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaYokohamaObj = {};
+for (let i of mapsStr) {
+  usaYokohamaObj[i] = new TileLayer(new Usayokohama())
+}
+// 根岸湾
+function Usanegishi () {
+  this.extent = transformEforMw([139.56020459612833, 35.4006437745536, 139.68445926984774, 35.30432787941882])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/negishi/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaNegishiObj = {};
+for (let i of mapsStr) {
+  usaNegishiObj[i] = new TileLayer(new Usanegishi())
+}
+// 横須賀市
+function Usayokosuka () {
+  this.extent = transformEforMw([139.60289262315248, 35.342237358161995, 139.72813703199841, 35.24850065660095])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/yokosuka/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaYokosukaObj = {};
+for (let i of mapsStr) {
+  usaYokosukaObj[i] = new TileLayer(new Usayokosuka())
+}
+// 浦賀
+function Usauraga () {
+  this.extent = transformEforMw([139.65567449304083, 35.29220632171602, 139.75966105433923, 35.179361639527656])
+  this.extent2 = this.extent
+  this.source = new XYZ({
+    url: 'https://kenzkenz3.xsrv.jp/jcp_maps/uraga/{z}/{x}/{y}.png',
+    crossOrigin: 'Anonymous',
+    maxZoom: 16
+  })
+}
+const usaUragaObj = {};
+for (let i of mapsStr) {
+  usaUragaObj[i] = new TileLayer(new Usauraga())
+}
+export const usatokyoall = {};
+for (let i of mapsStr) {
+  usatokyoall[i] = new LayerGroup({
+    layers: [
+      usaOmiyaObj[i],
+      usaItabashiObj[i],
+      usaKawaguchiObj[i],
+      usaMatsudoObj[i],
+      usaTachikawaObj[i],
+      usaTanashiObj[i],
+      usaNakanoObj[i],
+      usaKoishikawaObj[i],
+      usaHonjoObj[i],
+      usaChofuObj[i],
+      usaSetagayaObj[i],
+      usanihonbasiObj[i],
+      usaSunsmschiObj[i],
+      usaDenenObj[i],
+      usaOmoriObj[i],
+      usaKawasakiObj[i],
+      usaYokohamaObj[i],
+      usaNegishiObj[i],
+      usaYokosukaObj[i],
+      usaUragaObj[i],
+    ]
+  })
+  // usatokyoall[i].values_['pointer'] = true
+}
+
+export const usaall = {};
+for (let i of mapsStr) {
+  usaall[i] = new LayerGroup({
+    layers: [
+      usaOmiyaObj[i],
+      usaItabashiObj[i],
+      usaKawaguchiObj[i],
+      usaMatsudoObj[i],
+      usaTachikawaObj[i],
+      usaTanashiObj[i],
+      usaNakanoObj[i],
+      usaKoishikawaObj[i],
+      usaHonjoObj[i],
+      usaChofuObj[i],
+      usaSetagayaObj[i],
+      usanihonbasiObj[i],
+      usaSunsmschiObj[i],
+      usaDenenObj[i],
+      usaOmoriObj[i],
+      usaKawasakiObj[i],
+      usaYokohamaObj[i],
+      usaNegishiObj[i],
+      usaYokosukaObj[i],
+      usaUragaObj[i],
+      usaMiyazakiObj[i],
+      usaNobeokaObj[i],
+      usaMiyakonojyouObj[i],
+      usaTakanabeObj[i],
+      usaAkashiObj[i],
+      usaHarimaObj[i],
+      usaAkitaObj[i],
+      usaAomoriObj[i],
+      usaAsahikawaObj[i],
+      usaChibaObj[i],
+      usaFujinomiyaObj[i],
+      usaFukuiObj[i],
+      usaFukushimaObj[i],
+      usaFushikiObj[i],
+      usaGifuObj[i],
+      usaHabuObj[i],
+      usaHachinoheObj[i],
+      usaHagiObj[i],
+      usaHakodateObj[i],
+      usaHandaObj[i],
+      usaHigashiiwaseObj[i],
+      usaHikoneObj[i],
+      usaHimejiObj[i],
+      usaHirakataObj[i],
+      usaHiratsukaObj[i],
+      usaHiromachiObj[i],
+      usaHirosakiObj[i],
+      usaHiroshimaObj[i],
+      usaHitachiObj[i],
+      usaHitoyoshiObj[i],
+      usaIchinomiyaObj[i],
+      usaIsahayaObj[i],
+      usaIizukaObj[i],
+      usaKagoshimaObj[i],
+      usaKajikiObj[i],
+      usaKamaishiObj[i],
+      usaKanazawaObj[i],
+      usaKandaObj[i],
+      usaKaratsuObj[i],
+      usaKariyaObj[i],
+      usaKashiwazakiObj[i],
+      usaKawagoeObj[i],
+      usaKochiObj[i],
+      usaKofuObj[i],
+      usaKokuraObj[i],
+      usaKoriyamaObj[i],
+      usaKoromoObj[i],
+      usaKumamotoObj[i],
+      usaKudamatsuObj[i],
+      usaKurumeObj[i],
+      usaKushiroObj[i],
+      usaKuwanaObj[i],
+      usaKyotoNorthObj[i],
+      usaKyotoSouthObj[i],
+      usaMaebashiObj[i],
+      usaMakurazakiObj[i],
+      usaMatsueObj[i],
+      usaMiharaObj[i],
+      usaMitoObj[i],
+      usaMuroranObj[i],
+      usaNaganoObj[i],
+      usaNagaokaObj[i],
+      usaNagasakiObj[i],
+      usaNagoyaNeObj[i],
+      usaNagoyaNwObj[i],
+      usaNagoyaSeObj[i],
+      usaNagoyaSwObj[i],
+      usaNanaoObj[i],
+      usaNaoetsuObj[i],
+      usaNiigataObj[i],
+      usaNiihamaObj[i],
+      usaNikkoObj[i],
+      usaNogataObj[i],
+      usaNumazuObj[i],
+      usaOgakiObj[i],
+      usaOitaObj[i],
+      usaOkayamaObj[i],
+      usaOkegawaObj[i],
+      usaOminatoObj[i],
+      usaOmuraObj[i],
+      usaOmutaObj[i],
+      usaOnodaObj[i],
+      usaOtaruObj[i],
+      usaOtsusetaObj[i],
+      usaRumoiObj[i],
+      usaSaekiObj[i],
+      usaSakataObj[i],
+      usaSapporoObj[i],
+      usaSaseboObj[i],
+      usaSatsumaSendaiObj[i],
+      usaSendaiObj[i],
+      usaShikamaObj[i],
+      usaShimabaraObj[i],
+      usaShimizuObj[i],
+      usaShimonosekiMojiObj[i],
+      usaSuitaObj[i],
+      usaTakadaObj[i],
+      usaTakamatsuObj[i],
+      usaTakaokaObj[i],
+      usaTakasagoObj[i],
+      usaTakasakiObj[i],
+      usaTobaObj[i],
+      usaTomanoObj[i],
+      usaTokushimaObj[i],
+      usaTokuyamaObj[i],
+      usaTottoriObj[i],
+      usaToyamaObj[i],
+      usaToyohashiNorthObj[i],
+      usaToyohashiSouthObj[i],
+      usaToyokawaObj[i],
+      usaTsuchizakiObj[i],
+      usaTsurugaObj[i],
+      usaTsuyamaObj[i],
+      usaUbeObj[i],
+      usaUotsuObj[i],
+      usaUtsunomiyaObj[i],
+      usaWakamatsuObj[i],
+      usaWakayamaObj[i],
+      usaYamagataObj[i],
+      usaYamaguchiObj[i],
+      usaYawataObj[i],
+      usaYatsushiroObj[i],
+      usaYokkaichiObj[i],
+      usaYonagoObj[i],
+      usaZentsujiObj[i]
+    ]
+  })
+  // usaall[i].values_['pointer'] = true
+}
+
 // ここにレイヤーを全部書く。クリックするとストアのlayerListに追加されていく-------------------------
 const layers =
   [
@@ -7727,10 +11701,9 @@ const layers =
         { text: '陰影起伏図', data: { id: 'inei', layer: ineiObj, opacity: 1, summary: stdSumm } },
         { text: '傾斜量図', data: { id: 'keisya', layer: keisyaObj, opacity: 1, summary: stdSumm } },
         { text: '明治期の低湿地', data: { id: 'sitti', layer: sittiObj, opacity: 1, summary: stdSumm } },
-
         { text: '治水地形分類図 更新版（2007年以降）', data: { id: 'tisui2007', layer: tisui2007Obj, opacity: 1, summary: tisui2007Summ } },
-        { text: '地形分類（自然地形）', data: { id: 'sizen0', layer: LayersMvt.sizentikei0Obj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
-        { text: '地形分類（自然地形『詳細版』）', data: { id: 'sizen', layer: LayersMvt.sizentikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
+        { text: '地形分類（自然地形）', data: { id: 'sizen', layer: LayersMvt.sizentikei0Obj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
+        // { text: '地形分類（自然地形『詳細版』）', data: { id: 'sizen', layer: LayersMvt.sizentikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm} },
         { text: '地形分類（人工地形）', data: { id: "zinkoutikei", layer: LayersMvt.zinkoutikeiObj, opacity: 1, summary: LayersMvt.sizentikeiSumm } },
       ]},
     { text: '航空写真',
@@ -7744,23 +11717,22 @@ const layers =
         { text: '深谷市航空写真', data: { id: 'fukayaOrt', layer: fukayaOrtObj, opacity: 1, zoom:13,center:[139.26120936870575, 36.18044647223677], summary: fukayaOrtSumm } },
         { text: '厚木市航空写真', data: { id: 'atugiOrt', layer: atugiOrtObj, opacity: 1, zoom:12,center:[139.30477798325904, 35.45374856324422], summary: atugiOrtSumm } },
         { text: '掛川市航空写真', data: { id: 'kakegawaOrt', layer: kakegawaOrtObj, opacity: 1, zoom:12,center:[138.01527201622224, 34.76907462604038], summary: kakegawaOrtSumm } },
+        { text: '半田市航空写真', data: { id: 'handaOrt', layer: handaOrtObj, opacity: 1, zoom:13,center:[136.938067, 34.89169], summary: handaOrtSumm } },
         { text: '富田林市航空写真', data: { id: 'tondaOrt', layer: tondaOrtObj, opacity: 1, zoom:13,center:[135.60006642031433, 34.50010582072453], summary: tondaOrtSumm } },
         { text: '鹿児島市航空写真', data: { id: 'kagosimasiort', layer: kagosimasiOrtObj, opacity: 1, zoom:12,center:[130.51208842259823, 31.58146097086727], summary: kagosimasiOrtSumm } },
         { text: 'PLATEAUオルソ', data: { id: 'plateauOrt', layer: plateauOrtObj, opacity: 1, summary: plateauOrtObjSumm } },
-
       ]},
     { text: '過去の航空写真',
       children: [
         // { text: '2010年航空写真', data: { id: 'sp10', layer: sp10Obj, opacity: 1, summary: sp10Summ } },
-        { text: '87~90年航空写真', data: { id: 'sp87', layer: sp87Obj, opacity: 1, summary: sp87Summ } },
-        { text: '84~86年航空写真', data: { id: 'sp84', layer: sp84Obj, opacity: 1, summary: sp84Summ } },
-        { text: '79~83年航空写真', data: { id: 'sp79', layer: sp79Obj, opacity: 1, summary: sp79Summ } },
-        { text: '74~78年航空写真(全国)', data: { id: 'sp74', layer: sp74Obj, opacity: 1, summary: sp74Summ } },
-        { text: '61~64年航空写真', data: { id: 'sp61', layer: sp61Obj, opacity: 1, summary: sp61Summ } },
-        { text: '45~50年航空写真', data: { id: 'sp45', layer: sp45Obj, opacity: 1, summary: sp45Summ } },
-        { text: '36~42年航空写真', data: { id: 'sp36', layer: sp36Obj, opacity: 1, summary: sp36Summ } },
-        { text: '28年航空写真', data: { id: 'sp28', layer: sp28Obj, opacity: 1, summary: sp28Summ } },
-
+        { text: '1987~90年航空写真(一部)', data: { id: 'sp87', layer: sp87Obj, opacity: 1, summary: sp87Summ } },
+        { text: '1984~86年航空写真(一部)', data: { id: 'sp84', layer: sp84Obj, opacity: 1, summary: sp84Summ } },
+        { text: '1979~83年航空写真(一部)', data: { id: 'sp79', layer: sp79Obj, opacity: 1, summary: sp79Summ } },
+        { text: '1974~78年航空写真(全国)', data: { id: 'sp74', layer: sp74Obj, opacity: 1, summary: sp74Summ } },
+        { text: '1961~64年航空写真(一部)', data: { id: 'sp61', layer: sp61Obj, opacity: 1, summary: sp61Summ } },
+        { text: '1945~50年航空写真(一部)', data: { id: 'sp45', layer: sp45Obj, opacity: 1, summary: sp45Summ } },
+        { text: '1936~42年航空写真(一部)', data: { id: 'sp36', layer: sp36Obj, opacity: 1, summary: sp36Summ } },
+        { text: '1928年航空写真(大阪府)', data: { id: 'sp28', layer: sp28Obj, opacity: 1, summary: sp28Summ } },
       ]},
     { text: '立体図、地質図等',
       children: [
@@ -7770,32 +11742,235 @@ const layers =
         { text: 'エコリス植生図', data: { id: 'ecoris', layer: ecorisObj, opacity: 1, summary: ecorisSumm } },
         // { text: '日本CS立体図', data: { id: 'jcs', layer: nihonCsObj, opacity: 1, summary: nihonCsSumm } },
         // { text: '全国CS立体図10m', data: { id: 'cs10', layer: cs10mObj, opacity: 1, summary: cs10mSumm } },
-        { text: 'CS立体図全部', data: { id: 'cs00', layer: cs00Obj, opacity: 1, summary: gihuCsSumm } },
-
+        { text: '東京都陰陽図', data: { id: 'tamainyou', layer: tamainyouObj, opacity: 1, zoom:11, center:[139.25439119338986, 35.6997080831123], summary: tamainyouSumm } },
+        { text: '東京都赤色立体地図', data: { id: 'tamared', layer: tamaredObj, opacity: 1, zoom:11, center:[139.25439119338986, 35.6997080831123], summary: tamaredSumm } },
+        { text: '東京都CS立体図テスト', data: { id: 'tamacs', layer: tokyoCsObj, opacity: 1, zoom:11, center:[139.25439119338986, 35.6997080831123], summary: tamaCsSumm } },
+        { text: 'CS立体図全部', data: { id: 'cs00', layer: cs00Obj, opacity: 1, summary: tamainyouSumm } },
+        { text: '栃木県CS立体図', data: { id: 'tochigcs', layer: tochigicsObj, opacity: 1, zoom:10, center:[139.7261306915493, 36.67065922020146], summary: tochigicsSumm } },
         { text: '岐阜県CS立体図', data: { id: 'gcs', layer: gihuCsObj, opacity: 1, zoom:9, center:[137.03491577372932, 35.871742161031975], summary: gihuCsSumm } },
-        { text: '兵庫県CS立体図', data: { id: 'hyougocs', layer: hyougoCsObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCsSumm } },
-        { text: '兵庫県CS立体図50cm', data: { id: 'hyougocs50cm', layer: hyougoCsTestObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCsSummTest } },
+        { text: '兵庫県CS立体図2010〜2018', data: { id: 'hyougocs', layer: hyougoCsObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCsSumm } },
+        // { text: '兵庫県CS立体図50cm', data: { id: 'hyougocs50cm', layer: hyougoCs50Obj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCs50Summ } },
+        { text: '兵庫県CS立体図50cm', data: { id: 'hyougocs50cm2', layer: hyougoCs50c2Obj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoCs50c2Summ } },
         { text: '長野県CS立体図', data: { id: 'naganocs', layer: naganoCsObj, opacity: 1, zoom:9, center:[138.14880751631608, 36.19749617538284], summary: naganoCsSumm } },
-        { text: '静岡県CS立体図', data: { id: 'sizuokacs', layer: sizuokaCsObj, opacity: 1, zoom:9, center:[138.26385867875933, 35.01475223050842], summary: sizuokaCsSumm } },
+        { text: '静岡県CS立体図', data: { id: 'sizuokacs2', layer: sizuokaCs2Obj, opacity: 1, zoom:9, center:[138.26385867875933, 35.01475223050842], summary: sizuokaCs2Summ } },
         { text: '広島県CS立体図', data: { id: 'hiroshimacs', layer: hiroshimaCsObj, opacity: 1, zoom:9, center:[132.77140492854667, 34.41276234214364], summary: hiroshimaCsSumm } },
         { text: '岡山県CS立体図', data: { id: 'okayamacs', layer: okayamaCsObj, opacity: 1, zoom:9, center:[133.5767769813538, 34.736393137403084], summary: okayamaCsSumm } },
         { text: '福島県CS立体図', data: { id: 'fukushimacs', layer: fukushimaCsObj, opacity: 1, zoom:9, center:[140.6180906295776, 37.49835474973223], summary: fukushimaCsSumm } },
         { text: '愛媛県CS立体図', data: { id: 'ehimeocs', layer: ehimeCsObj, opacity: 1, zoom:9, center:[132.77042984962463, 33.49503407703915], summary: ehimeCsSumm } },
         { text: '高知県CS立体図', data: { id: 'kochiocs', layer: kochiCsObj, opacity: 1, zoom:9, center:[133.00989747047424, 33.4075764357881], summary: kochiCsSumm } },
         { text: '熊本県・大分県CS立体図', data: { id: 'kumamotocs', layer: kumamotoCsObj, opacity: 1, zoom:9, center:[131.08264176666347, 32.86696607176184], summary: kumamotoCsSumm } },
+        { text: '大阪府CS立体図', data: { id: 'osakacs', layer: osakaCsObj, opacity: 1, zoom:9, center:[135.5167507309548, 34.68490347466543], summary: osakaCsSumm } },
+        { text: '和歌山県CS立体図', data: { id: 'wakayamacs', layer: wakayamaCsObj, opacity: 1, zoom:9, center:[135.52473298498347,33.913180427499256], summary: wakayamaCsSumm } },
+
+
+        { text: '能登CS立体図', data: { id: 'notocs', layer: notoCsObj, opacity: 1, zoom:9, center:[136.9312018478913, 37.22961765479215], summary: notoCsSumm } },
+        { text: '能登西部赤色立体地図', data: { id: 'notoseibu', layer: notoSeibuObj, opacity: 1, zoom:9, center:[136.9312018478913, 37.22961765479215], summary: notoSeubuSumm } },
+        { text: '兵庫県遺跡立体図',
+          children: [
+            { text: '摩耶山城', data: { id: 'mayasanjyou', layer: mayasanjyouObj, opacity: 1, zoom:17, center:[135.20985199593505, 34.72741190512792], summary: hyougoIsekiSumm } },
+            { text: '滝山城', data: { id: 'takiyamajyou', layer: takiyamajyouObj, opacity: 1, zoom:16, center:[135.1897115742397, 34.708324634323816], summary: hyougoIsekiSumm } },
+            { text: '山下城', data: { id: 'yamasitajyou', layer: yamashitajyouObj, opacity: 1, zoom:17, center:[135.4093350403387, 34.900789307859384], summary: hyougoIsekiSumm } },
+            { text: '有子山城', data: { id: 'arikoyamajyou', layer: arikoyamajyouObj, opacity: 1, zoom:17, center:[134.87834538212564, 35.45526548044384], summary: hyougoIsekiSumm } },
+            { text: '八木城', data: { id: 'yagijyou', layer: yagijyouObj, opacity: 1, zoom:17, center:[134.71133629505152, 35.389083335934004], summary: hyougoIsekiSumm } },
+            { text: '此隅山城', data: { id: 'konosumiyamajyou', layer: konosumiyamaObj, opacity: 1, zoom:17, center:[134.87248539581336, 35.487058618648106], summary: hyougoIsekiSumm } },
+            { text: '岩尾城', data: { id: 'iwaojyou', layer: iwaojyouObj, opacity: 1, zoom:17, center:[134.97477380615132, 35.09959197988046], summary: hyougoIsekiSumm } },
+            { text: '黒井城', data: { id: 'kuroijyou', layer: kuroijyouObj, opacity: 1, zoom:17, center:[135.104463141811, 35.17901861202279], summary: hyougoIsekiSumm } },
+            { text: '篠山城', data: { id: 'sasayamajyou', layer: sasayamajyouObj, opacity: 1, zoom:17, center:[135.2176231845597, 35.07313601425689], summary: hyougoIsekiSumm } },
+            { text: '八上城', data: { id: 'yakamijyou', layer: yakamijyouObj, opacity: 1, zoom:17, center:[135.2552485425144, 35.06204731412491], summary: hyougoIsekiSumm } },
+            { text: '洲本城', data: { id: 'sumotojyou', layer: sumotojyouObj, opacity: 1, zoom:17, center:[134.90319944266878, 34.337478918073074], summary: hyougoIsekiSumm } },
+            { text: '白巣城', data: { id: 'shirasujyou', layer: shirasujyouObj, opacity: 1, zoom:17, center:[134.8259033029899, 34.38150414125458], summary: hyougoIsekiSumm } },
+            { text: '由良古城', data: { id: 'yurakojyou', layer: yurakojyouuObj, opacity: 1, zoom:17, center:[134.9480666440312, 34.2959981627496], summary: hyougoIsekiSumm } },
+            { text: '炬口城', data: { id: 'takenokuchijyou', layer: takenokuchiObj, opacity: 1, zoom:17, center:[134.8898952135649, 34.35267276116555], summary: hyougoIsekiSumm } },
+            { text: '竹田城・観音寺山城', data: { id: 'takedajyou', layer: takedajyouObj, opacity: 1, zoom:17, center:[134.82901156539475, 35.30050695947483], summary: hyougoIsekiSumm } },
+            { text: '有岡城', data: { id: 'ariokajyou', layer: ariokajyouObj, opacity: 1, zoom:17, center:[135.42095254641023, 34.78123344214727], summary: hyougoIsekiSumm } },
+            { text: '感状山城', data: { id: 'kanjyousanjyou', layer: kanjyousanjyouObj, opacity: 1, zoom:17, center:[134.45129592319765, 34.88099338453634], summary: hyougoIsekiSumm } },
+            { text: '鶏籠山城（龍野古城）', data: { id: 'keirousanjyou', layer: keirousanjyouObj, opacity: 1, zoom:17, center:[134.54521904569506, 34.87164477770631], summary: hyougoIsekiSumm } },
+            { text: '三木城', data: { id: 'mikijyou', layer: mikijyouObj, opacity: 1, zoom:17, center:[134.98743099511933, 34.79910988651466], summary: hyougoIsekiSumm } },
+            { text: '篠の丸城', data: { id: 'sasanomarujyou', layer: sasanomarujyouObj, opacity: 1, zoom:17, center:[134.53574276742006, 35.01356494052959], summary: hyougoIsekiSumm } },
+            { text: '小谷城', data: { id: 'kodanijyou', layer: kodanijyouObj, opacity: 1, zoom:17, center:[134.8319333497427, 34.945512107423895], summary: hyougoIsekiSumm } },
+            { text: '上月城', data: { id: 'koudukijyou', layer: koudukijyouObj, opacity: 1, zoom:17, center:[134.32357851200157, 34.97535169002647], summary: hyougoIsekiSumm } },
+            { text: '城山城', data: { id: 'kinoyamajyou', layer: kinoyamajyouObj, opacity: 1, zoom:17, center:[134.52762221800918, 34.89462795246601], summary: hyougoIsekiSumm } },
+            { text: '仁井山城', data: { id: 'niisanjyou', layer: niisanjyouObj, opacity: 1, zoom:17, center:[134.33284507693375, 34.9790563824087], summary: hyougoIsekiSumm } },
+            { text: '赤穂城', data: { id: 'akoujyou', layer: akoujyouObj, opacity: 1, zoom:17, center:[134.3888453601225, 34.74598150175633], summary: hyougoIsekiSumm } },
+            { text: '置塩城', data: { id: 'oshiojyou', layer: oshiojyouObj, opacity: 1, zoom:17, center:[134.6830576345791, 34.92332845324563], summary: hyougoIsekiSumm } },
+            { text: '中道子山城', data: { id: 'tyuudousisanjyou', layer: tyuudousisanjyouObj, opacity: 1, zoom:17, center:[134.85475696735378, 34.83149611922066], summary: hyougoIsekiSumm } },
+            { text: '播磨高倉山城', data: { id: 'takakurayamajyou', layer: takakurayamajyouObj, opacity: 1, zoom:17, center:[134.355514070868, 34.978895498696204], summary: hyougoIsekiSumm } },
+            { text: '白旗城', data: { id: 'shirohatajyou', layer: shirohatajyouObj, opacity: 1, zoom:17, center:[134.38063468592168, 34.90809762405915], summary: hyougoIsekiSumm } },
+            { text: '姫路城', data: { id: 'himejijyou', layer: himejijyouObj, opacity: 1, zoom:17, center:[134.69313061573334, 34.83893632057601], summary: hyougoIsekiSumm } },
+            { text: '明石城', data: { id: 'akashijyou', layer: akashijyouObj, opacity: 1, zoom:17, center:[134.9927713856956, 34.65286024595012], summary: hyougoIsekiSumm } },
+            { text: '利神城', data: { id: 'rikanjyou', layer: rikanjyouObj, opacity: 1, zoom:17, center:[134.37733576935972, 35.04615261130358], summary: hyougoIsekiSumm } },
+          ]},
+        { text: '栃木県レーザ林相図', data: { id: 'tochigirinsou', layer: tochigiRinsouObj, opacity: 1, zoom:10, center:[139.7261306915493, 36.67065922020146], summary: tochigiRinsouSumm } },
+        { text: '兵庫県レーザ林相図', data: { id: 'hyougorinsou', layer: hyougoRinsouObj, opacity: 1, zoom:9, center:[134.8428381533734, 35.05148520051671], summary: hyougoRinsouSumm } },
+        { text: '高知県レーザ林相図', data: { id: 'kochirinsou', layer: kochiRinsouObj, opacity: 1, zoom:9, center:[133.00989747047424, 33.4075764357881], summary: kochiRinsouSumm } },
         { text: '都市圏活断層図', data: { id: 'katudansou', layer: katudansouObj, opacity: 1, summary: katudansouSumm } }
       ]},
     { text: '古地図',
       children: [
         { text: '<i class="fa-solid fa-layer-group"></i>戦前地形図5万分の１', data: { id: 'mw5', layer: mw5Obj, opacity: 1, summary: mw5Summ } },
         { text: '<i class="fa-solid fa-layer-group"></i>戦前地形図20万分の１', data: { id: 'mw20', layer: mw20Obj, opacity: 1, summary: mw20Summ } },
-        { text: '迅速測図 (関東)', data: { id: 'jinsoku', layer: jinsokuObj, opacity: 1, zoom: 9, center: [139.8089637733657, 35.86926927958841], summary: jinsokuSumm } },
+        { text: '米軍作成地図（1945-46年）',
+          children: [
+            { text: '米軍作成地図全て', data: { id: 'usaall', layer: usaall, opacity: 1, summary: usaSumm } },
+            { text: '東京近郊',
+              children: [
+                { text: '東京近郊全て', data: { id: 'usatokyoall', layer: usatokyoall, opacity: 1, zoom:10,center:[139.65686651442184, 35.552882260038075], summary: usaTokyoSumm } },
+                { text: '大宮米軍作成地図', data: { id: 'usaomiya', layer: usaOmiyaObj, opacity: 1, zoom:14,center:[139.63251296613643, 35.876025497773384], summary: usaTokyoSumm } },
+                { text: '板橋区米軍作成地図', data: { id: 'usaitabashi', layer: usaItabashiObj, opacity: 1, zoom:14,center:[139.61849535541944, 35.797866810695794], summary: usaTokyoSumm } },
+                { text: '川口市米軍作成地図', data: { id: 'usakawaguchi', layer: usaKawaguchiObj, opacity: 1, zoom:14,center:[139.7334924865508, 35.79428379294109], summary: usaTokyoSumm } },
+                { text: '松戸市米軍作成地図', data: { id: 'usamatsudo', layer: usaMatsudoObj, opacity: 1, zoom:13,center:[139.8530762251244, 35.79492536816880], summary: usaTokyoSumm } },
+                { text: '立川市米軍作成地図', data: { id: 'usatachikawa', layer: usaTachikawaObj, opacity: 1, zoom:13,center:[139.3875530091797, 35.71856514447444], summary: usaTokyoSumm } },
+                { text: '田無米軍作成地図', data: { id: 'usatanashi', layer: usaTanashiObj, opacity: 1, zoom:13,center:[139.50560187394277, 35.72109326452845], summary: usaTokyoSumm } },
+                { text: '中野区米軍作成地図', data: { id: 'usanakano', layer: usaNakanoObj, opacity: 1, zoom:13,center:[139.62314364904967, 35.719457869098505], summary: usaTokyoSumm } },
+                { text: '小石川米軍作成地図', data: { id: 'usakoishikawa', layer: usaKoishikawaObj, opacity: 1, zoom:13,center:[139.73703426713533, 35.7185987830848], summary: usaTokyoSumm } },
+                { text: '本所米軍作成地図', data: { id: 'usakhonjo', layer: usaHonjoObj, opacity: 1, zoom:13,center:[139.8537749065638, 35.72008151795424], summary: usaTokyoSumm } },
+                { text: '調布米軍作成地図', data: { id: 'usachofu', layer: usaChofuObj, opacity: 1, zoom:13,center:[139.50768013134692, 35.643256956027614], summary: usaTokyoSumm } },
+                { text: '世田谷区米軍作成地図', data: { id: 'usasetagaya', layer: usaSetagayaObj, opacity: 1, zoom:13,center:[139.62305669322697, 35.645359274837645], summary: usaTokyoSumm } },
+                { text: '日本橋米軍作成地図', data: { id: 'usanihonbashi', layer: usanihonbasiObj, opacity: 1, zoom:13,center:[139.7398253215855, 35.64437732773173], summary: usaTokyoSumm } },
+                { text: '砂町米軍作成地図', data: { id: 'usasunamchi', layer: usaSunsmschiObj, opacity: 1, zoom:13,center:[139.8582897765936, 35.64538270628067], summary: usaTokyoSumm } },
+                { text: '田園調布米軍作成地図', data: { id: 'usadenen', layer: usaDenenObj, opacity: 1, zoom:13,center:[139.6237637151641, 35.56511036689082], summary: usaTokyoSumm } },
+                { text: '大森米軍作成地図', data: { id: 'usaomori', layer: usaOmoriObj, opacity: 1, zoom:13,center:[139.74264525367397, 35.5761836146853], summary: usaTokyoSumm } },
+                { text: '川崎市米軍作成地図', data: { id: 'usakawasaki', layer: usaKawasakiObj, opacity: 1, zoom:13,center:[139.73957397123897, 35.504646225388285], summary: usaTokyoSumm } },
+                { text: '横浜市米軍作成地図', data: { id: 'usayokohama', layer: usaYokohamaObj, opacity: 1, zoom:13,center:[139.62557405313535, 35.4220680115813], summary: usaTokyoSumm } },
+                { text: '根岸湾米軍作成地図', data: { id: 'usanegishi', layer: usaNegishiObj, opacity: 1, zoom:13,center:[139.6245118983649, 35.3534616425364], summary: usaTokyoSumm } },
+                { text: '横須賀市米軍作成地図', data: { id: 'usayokosuka', layer: usaYokosukaObj, opacity: 1, zoom:13,center:[139.66859266242002, 35.295497235733876], summary: usaTokyoSumm } },
+                { text: '浦賀米軍作成地図', data: { id: 'usauraga', layer: usaUragaObj, opacity: 1, zoom:13,center:[139.70842683884126, 35.23419363359322], summary: usaTokyoSumm } },
+              ]},
+            { text: '宮崎市米軍作成地図', data: { id: 'usamiyazaki', layer: usaMiyazakiObj, opacity: 1, zoom:14,center:[131.423860,31.911069], summary: usaSumm } },
+            { text: '延岡市米軍作成地図', data: { id: 'usanobeoka', layer: usaNobeokaObj, opacity: 1, zoom:14,center:[131.664854,32.582407], summary: usaSumm } },
+            { text: '都城市米軍作成地図', data: { id: 'usamiyakonojyou', layer: usaMiyakonojyouObj, opacity: 1, zoom:14,center:[131.061498,31.719552], summary: usaSumm } },
+            { text: '高鍋町米軍作成地図', data: { id: 'usatakanabe', layer: usaTakanabeObj, opacity: 1, zoom:14,center:[131.52414538936347, 32.1261147281202], summary: usaSumm } },
+            { text: '明石市米軍作成地図', data: { id: 'usaakashi', layer: usaAkashiObj, opacity: 1, zoom:14,center:[134.9791309948764, 34.66807915925325], summary: usaSumm } },
+            { text: '相生市米軍作成地図', data: { id: 'usaharima', layer: usaHarimaObj, opacity: 1, zoom:14,center:[134.46288962129597, 34.780312495944486], summary: usaSumm } },
+            { text: '秋田市米軍作成地図', data: { id: 'usaakita', layer: usaAkitaObj, opacity: 1, zoom:14,center:[140.11091310026987, 39.70899544076053], summary: usaSumm } },
+            { text: '青森市米軍作成地図', data: { id: 'usaaomori', layer: usaAomoriObj, opacity: 1, zoom:14,center:[140.7524244729611, 40.819023796881424], summary: usaSumm } },
+            { text: '旭川市米軍作成地図', data: { id: 'usaasahikawa', layer: usaAsahikawaObj, opacity: 1, zoom:13,center:[142.36557699075144, 43.78019047117567], summary: usaSumm } },
+            { text: '千葉市米軍作成地図', data: { id: 'usachiba', layer: usaChibaObj, opacity: 1, zoom:13,center:[140.12210078492558,35.59113599378088], summary: usaSumm } },
+            { text: '富士宮市米軍作成地図', data: { id: 'usafujinomiya', layer: usaFujinomiyaObj, opacity: 1, zoom:13,center:[138.61428493462185,35.21314988685175], summary: usaSumm } },
+            { text: '福井市米軍作成地図', data: { id: 'usafukui', layer: usaFukuiObj, opacity: 1, zoom:13,center:[136.2106789636491,36.05392741288527], summary: usaSumm } },
+            { text: '福島市米軍作成地図', data: { id: 'usafukushima', layer: usaFukushimaObj, opacity: 1, zoom:14,center:[140.47085372749729,37.75306326329961], summary: usaSumm } },
+            { text: '伏木米軍作成地図', data: { id: 'usafushiki', layer: usaFushikiObj, opacity: 1, zoom:13,center:[137.0709559239128,36.7876063088969], summary: usaSumm } },
+            { text: '岐阜市米軍作成地図', data: { id: 'usagifu', layer: usaGifuObj, opacity: 1, zoom:13,center:[136.76804322068296,35.418236377211514], summary: usaSumm } },
+            { text: 'habu米軍作成地図', data: { id: 'usahabu', layer: usaHabuObj, opacity: 1, zoom:13,center:[133.18127966579368,34.282840107503404], summary: usaSumm } },
+            { text: '八戸市米軍作成地図', data: { id: 'usahachinohe', layer: usaHachinoheObj, opacity: 1, zoom:13,center:[141.51631881433207,40.522195948389765], summary: usaSumm } },
+            { text: '萩市米軍作成地図', data: { id: 'usahagi', layer: usaHagiObj, opacity: 1, zoom:13,center:[131.3970999585132,34.42180725609259], summary: usaSumm } },
+            { text: '函館市米軍作成地図', data: { id: 'usahakodate', layer: usaHakodateObj, opacity: 1, zoom:13,center:[140.73365472820896,41.77975007932184], summary: usaSumm } },
+            { text: '半田市米軍作成地図', data: { id: 'usahanda', layer: usaHandaObj, opacity: 1, zoom:13,center:[136.9475976502007,34.90102924710665], summary: usaSumm } },
+            { text: '東岩瀬米軍作成地図', data: { id: 'usahigashiiwase', layer: usaHigashiiwaseObj, opacity: 1, zoom:13,center:[137.21245170702377,36.74666702147539], summary: usaSumm } },
+            { text: '彦根市米軍作成地図', data: { id: 'usahikone', layer: usaHikoneObj, opacity: 1, zoom:13,center:[136.24997686711507,35.27597497139901], summary: usaSumm } },
+            { text: '姫路市米軍作成地図', data: { id: 'usahimeji', layer: usaHimejiObj, opacity: 1, zoom:14,center:[134.68832514215669, 34.83637849131375], summary: usaSumm } },
+            { text: '枚方市米軍作成地図', data: { id: 'usahirakata', layer: usaHirakataObj, opacity: 1, zoom:13,center:[135.63009211813176,34.83600809872786], summary: usaSumm } },
+            { text: '平塚市米軍作成地図', data: { id: 'usahiratsuka', layer: usaHiratsukaObj, opacity: 1, zoom:13,center:[139.35032827682477,35.326659354548326], summary: usaSumm } },
+            { text: '広町米軍作成地図', data: { id: 'usahiromachi', layer: usaHiromachiObj, opacity: 1, zoom:13,center:[132.62376883178564,34.22853865918846], summary: usaSumm } },
+            { text: '弘前市米軍作成地図', data: { id: 'usahirosaki', layer: usaHirosakiObj, opacity: 1, zoom:13,center:[140.4660467245356,40.59536455981228], summary: usaSumm } },
+            { text: '広島市米軍作成地図', data: { id: 'usahiroshima', layer: usaHiroshimaObj, opacity: 1, zoom:13,center:[132.45940741905858,34.38430250312719], summary: usaSumm } },
+            { text: '日立市米軍作成地図', data: { id: 'usahitachi', layer: usaHitachiObj, opacity: 1, zoom:13,center:[140.64746386086617,36.58995567109659], summary: usaSumm } },
+            { text: '人吉市米軍作成地図', data: { id: 'usahitoyoshi', layer: usaHitoyoshiObj, opacity: 1, zoom:13,center:[130.7638637946117,32.21172762895705], summary: usaSumm } },
+            { text: '一宮市米軍作成地図', data: { id: 'usaichinomiya', layer: usaIchinomiyaObj, opacity: 1, zoom:13,center:[136.81835453343757,35.273135052975476], summary: usaSumm } },
+            { text: '諫早市米軍作成地図', data: { id: 'usaisahaya', layer: usaIsahayaObj, opacity: 1, zoom:14,center:[130.06467120006434,32.840319404702896], summary: usaSumm } },
+            { text: '飯塚市米軍作成地図', data: { id: 'usaiizuka', layer: usaIizukaObj, opacity: 1, zoom:13,center:[130.68341804413788,33.62572602992823], summary: usaSumm } },
+            { text: '鹿児島市米軍作成地図', data: { id: 'usakagoshima', layer: usaKagoshimaObj, opacity: 1, zoom:14,center:[130.557143,31.596715], summary: usaSumm } },
+            { text: '加治木米軍作成地図', data: { id: 'usakajiki', layer: usaKajikiObj, opacity: 1, zoom:13,center:[130.66446755589058,31.731392530986824], summary: usaSumm } },
+            { text: '釜石市米軍作成地図', data: { id: 'usakamaishi', layer: usaKamaishiObj, opacity: 1, zoom:13,center:[141.88005611648893,39.2710739865191], summary: usaSumm } },
+            { text: '金沢市米軍作成地図', data: { id: 'usakanazawa', layer: usaKanazawaObj, opacity: 1, zoom:13,center:[136.64052992680297,36.56502443349926], summary: usaSumm } },
+            { text: '苅田町米軍作成地図', data: { id: 'usakanda', layer: usaKandaObj, opacity: 1, zoom:13,center:[130.98089142092059,33.7813309163833], summary: usaSumm } },
+            { text: '唐津市米軍作成地図', data: { id: 'usakaratsu', layer: usaKaratsuObj, opacity: 1, zoom:13,center:[129.96561321298074,33.465292184809414], summary: usaSumm } },
+            { text: '刈谷市米軍作成地図', data: { id: 'usakariya', layer: usaKariyaObj, opacity: 1, zoom:13,center:[137.00314168420758,34.995909254763504], summary: usaSumm } },
+            { text: '柏崎市米軍作成地図', data: { id: 'usakashiwazaki', layer: usaKashiwazakiObj, opacity: 1, zoom:13,center:[138.55256871522744,37.37081589632646], summary: usaSumm } },
+            { text: '川越市米軍作成地図', data: { id: 'usakawagoe', layer: usaKawagoeObj, opacity: 1, zoom:13,center:[139.4874263117347,35.90666555259706], summary: usaSumm } },
+            { text: '高知市米軍作成地図', data: { id: 'usakochi', layer: usaKochiObj, opacity: 1, zoom:14,center:[133.52569693330742, 33.5356571682687], summary: usaSumm } },
+            { text: '甲府市米軍作成地図', data: { id: 'usakofu', layer: usaKofuObj, opacity: 1, zoom:14,center:[138.56572282398247, 35.665528114360654], summary: usaSumm } },
+            { text: '小倉米軍作成地図', data: { id: 'usakokura', layer: usaKokuraObj, opacity: 1, zoom:14,center:[130.89175739435885, 33.875396768025425], summary: usaSumm } },
+            { text: '郡山市米軍作成地図', data: { id: 'usakoriyama', layer: usaKoriyamaObj, opacity: 1, zoom:14,center:[140.3779026527439, 37.40162906062439], summary: usaSumm } },
+            { text: '豊田市（挙母）米軍作成地図', data: { id: 'usakoromo', layer: usaKoromoObj, opacity: 1, zoom:13,center:[137.1415158375926, 35.08114508362503], summary: usaSumm } },
+            { text: '熊本市米軍作成地図', data: { id: 'usakumamoto', layer: usaKumamotoObj, opacity: 1, zoom:14,center:[130.72708829149786, 32.7910432578403], summary: usaSumm } },
+            { text: '下松市米軍作成地図', data: { id: 'usakudamatsu', layer: usaKudamatsuObj, opacity: 1, zoom:13,center:[131.86076536167369,34.00346970333018], summary: usaSumm } },
+            { text: '久留米市米軍作成地図', data: { id: 'usakurume', layer: usaKurumeObj, opacity: 1, zoom:14,center:[130.53467486266592, 33.30051990907333], summary: usaSumm } },
+            { text: '釧路市米軍作成地図', data: { id: 'usakushiro', layer: usaKushiroObj, opacity: 1, zoom:14,center:[144.3922583910218, 42.991142090958704], summary: usaSumm } },
+            { text: '桑名市米軍作成地図', data: { id: 'usakuwana', layer: usaKuwanaObj, opacity: 1, zoom:12,center:[136.69065236490493,35.052347350793326], summary: usaSumm } },
+            // { text: '四日市市米軍作成地図', data: { id: 'usakuwana', layer: usaKuwanaObj, opacity: 1, zoom:14,center:[136.6955319616198, 35.055844548035935], summary: usaSumm } },
+            { text: '京都市(北)米軍作成地図', data: { id: 'usakyouton', layer: usaKyotoNorthObj, opacity: 1, zoom:14,center:[135.7494983835389, 35.030220302258456], summary: usaSumm } },
+            { text: '京都市(南)米軍作成地図', data: { id: 'usakyoutos', layer: usaKyotoSouthObj, opacity: 1, zoom:14,center:[135.74980960473547, 34.95640834372388], summary: usaSumm } },
+            { text: '前橋市米軍作成地図', data: { id: 'usamaebashi', layer: usaMaebashiObj, opacity: 1, zoom:14,center:[139.0727755381333, 36.39605054722378], summary: usaSumm } },
+
+            { text: '枕崎市米軍作成地図', data: { id: 'usamakurazaki', layer: usaMakurazakiObj, opacity: 1, zoom:14,center:[130.30038244328387, 31.270012367923414], summary: usaSumm } },
+            { text: '松江市米軍作成地図', data: { id: 'usamatsue', layer: usaMatsueObj, opacity: 1, zoom:14,center:[133.053093295256, 35.46251193542868], summary: usaSumm } },
+            { text: '三原市米軍作成地図', data: { id: 'usamihara', layer: usaMiharaObj, opacity: 1, zoom:14,center:[133.0774957701907, 34.390898812899636], summary: usaSumm } },
+            { text: '水戸市米軍作成地図', data: { id: 'usamito', layer: usaMitoObj, opacity: 1, zoom:14,center:[140.48173740075157, 36.38037853073381], summary: usaSumm } },
+            { text: '室蘭市米軍作成地図', data: { id: 'usamuroran', layer: usaMuroranObj, opacity: 1, zoom:14,center:[140.973774,42.315226], summary: usaSumm } },
+            { text: '長野市米軍作成地図', data: { id: 'usanagano', layer: usaNaganoObj, opacity: 1, zoom:14,center:[138.187731396683, 36.65512364316453], summary: usaSumm } },
+            { text: '長岡市米軍作成地図', data: { id: 'usanagaoka', layer: usaNagaokaObj, opacity: 1, zoom:14,center:[138.84329973607316, 37.45145164776194], summary: usaSumm } },
+            { text: '長崎市米軍作成地図', data: { id: 'usanagasaki', layer: usaNagasakiObj, opacity: 1, zoom:14,center:[129.87212858240002, 32.747839083905205], summary: usaSumm } },
+            { text: '名古屋市(北東)米軍作成地図', data: { id: 'usanagoyane', layer: usaNagoyaNeObj, opacity: 1, zoom:14,center:[136.93452147990334, 35.17629876022909], summary: usaSumm } },
+            { text: '名古屋市(北西)米軍作成地図', data: { id: 'usanagoyanw', layer: usaNagoyaNwObj, opacity: 1, zoom:14,center:[136.85534126297378, 35.1785642711219], summary: usaSumm } },
+            { text: '名古屋市(南東)米軍作成地図', data: { id: 'usanagoyase', layer: usaNagoyaSeObj, opacity: 1, zoom:14,center:[136.93568212675797, 35.09505908560605], summary: usaSumm } },
+            { text: '名古屋市(南西)米軍作成地図', data: { id: 'usanagoyasw', layer: usaNagoyaSwObj, opacity: 1, zoom:14,center:[136.85412914541158, 35.094951542207966], summary: usaSumm } },
+            { text: '七尾市米軍作成地図', data: { id: 'usananao', layer: usaNanaoObj, opacity: 1, zoom:14,center:[136.96881281560698, 37.05827293337302], summary: usaSumm } },
+            { text: '直江津米軍作成地図', data: { id: 'usanaoetsu', layer: usaNaoetsuObj, opacity: 1, zoom:14,center:[138.24547898530528,37.177349448305165], summary: usaSumm } },
+            { text: '新潟市米軍作成地図', data: { id: 'usaniigata', layer: usaNiigataObj, opacity: 1, zoom:14,center:[139.0429256190031, 37.932997833768894], summary: usaSumm } },
+            { text: '新居浜市米軍作成地図', data: { id: 'usaniihama', layer: usaNiihamaObj, opacity: 1, zoom:14,center:[133.26587220410875, 33.96146527435721], summary: usaSumm } },
+            { text: '日光市米軍作成地図', data: { id: 'usanikko', layer: usaNikkoObj, opacity: 1, zoom:14,center:[139.56377233960583, 36.74662439517668], summary: usaSumm } },
+            { text: '直方市米軍作成地図', data: { id: 'usanogata', layer: usaNogataObj, opacity: 1, zoom:14,center:[130.72768294954415, 33.74312474926823], summary: usaSumm } },
+            { text: '沼津市米軍作成地図', data: { id: 'usanumazu', layer: usaNumazuObj, opacity: 1, zoom:14,center:[138.86309171717926, 35.09615226654185], summary: usaSumm } },
+            { text: '大垣市米軍作成地図', data: { id: 'usaogaki', layer: usaOgakiObj, opacity: 1, zoom:14,center:[136.61090834738715, 35.36468691139373], summary: usaSumm } },
+            { text: '大分市米軍作成地図', data: { id: 'usaoita', layer: usaOitaObj, opacity: 1, zoom:14,center:[131.60517876529113, 33.238415284332405], summary: usaSumm } },
+            { text: '岡山市米軍作成地図', data: { id: 'usaokayama', layer: usaOkayamaObj, opacity: 1, zoom:13,center:[133.92910837974713,34.66464622516263], summary: usaSumm } },
+            { text: '桶川市米軍作成地図', data: { id: 'usaokegawa', layer: usaOkegawaObj, opacity: 1, zoom:14,center:[139.56942365239257, 35.988723657710864], summary: usaSumm } },
+            { text: '大湊米軍作成地図', data: { id: 'usaominato', layer: usaOminatoObj, opacity: 1, zoom:14,center:[141.15905377121211, 41.25461787936507], summary: usaSumm } },
+            { text: '大村市米軍作成地図', data: { id: 'usaomura', layer: usaOmuraObj, opacity: 1, zoom:13,center:[129.93903301882477, 32.919417815308535], summary: usaSumm } },
+            { text: '大牟田市米軍作成地図', data: { id: 'usaomuta', layer: usaOmutaObj, opacity: 1, zoom:13,center:[130.4333615206594, 33.020604146271396], summary: usaSumm } },
+            { text: '山陽小野田米軍作成地図', data: { id: 'usaonoda', layer: usaOnodaObj, opacity: 1, zoom:13,center:[131.1720054858628,33.97864306325491], summary: usaSumm } },
+            { text: '小樽市米軍作成地図', data: { id: 'usaotaru', layer: usaOtaruObj, opacity: 1, zoom:14,center:[141.00512785359837, 43.19779582176179], summary: usaSumm } },
+            { text: '大津市米軍作成地図', data: { id: 'usaotsu', layer: usaOtsusetaObj, opacity: 1, zoom:13,center:[135.88738651564472,34.99386058351061], summary: usaSumm } },
+
+            { text: '留萌市米軍作成地図', data: { id: 'usarumoi', layer: usaRumoiObj, opacity: 1, zoom:14,center:[141.65109378807819, 43.94296342232849], summary: usaSumm } },
+            { text: '佐伯市米軍作成地図', data: { id: 'usasaeki', layer: usaSaekiObj, opacity: 1, zoom:14,center:[131.8954672040914, 32.94667882024817], summary: usaSumm } },
+            { text: '酒田市米軍作成地図', data: { id: 'usasakata', layer: usaSakataObj, opacity: 1, zoom:14,center:[139.83048760293357, 38.919514066325235], summary: usaSumm } },
+            { text: '札幌市米軍作成地図', data: { id: 'usasapporo', layer: usaSapporoObj, opacity: 1, zoom:14,center:[141.35536412397946, 43.06892636116322], summary: usaSumm } },
+            { text: '佐世保市米軍作成地図', data: { id: 'usasasebo', layer: usaSaseboObj, opacity: 1, zoom:14,center:[129.72231852764406, 33.16528142168997], summary: usaSumm } },
+            { text: '薩摩川内市米軍作成地図', data: { id: 'usasatsumasendai', layer: usaSatsumaSendaiObj, opacity: 1, zoom:14,center:[130.29517169620925, 31.81471115754637], summary: usaSumm } },
+            { text: '仙台市米軍作成地図', data: { id: 'usasendai', layer: usaSendaiObj, opacity: 1, zoom:14,center:[140.87982181166603, 38.250530381152004], summary: usaSumm } },
+            { text: '飾磨米軍作成地図', data: { id: 'usashikama', layer: usaShikamaObj, opacity: 1, zoom:14,center:[134.63829226160837, 34.789644593059805], summary: usaSumm } },
+            { text: '島原市米軍作成地図', data: { id: 'usashimabara', layer: usaShimabaraObj, opacity: 1, zoom:14,center:[130.37058698251488, 32.788236967096566], summary: usaSumm } },
+            { text: '清水市米軍作成地図', data: { id: 'usashimizu', layer: usaShimizuObj, opacity: 1, zoom:14,center:[138.48768826913263, 35.01215927716039], summary: usaSumm } },
+            { text: '下関市米軍作成地図', data: { id: 'usashimonosekimoji', layer: usaShimonosekiMojiObj, opacity: 1, zoom:14,center:[130.9410210521442, 33.957283505139145], summary: usaSumm } },
+            { text: '吹田市米軍作成地図', data: { id: 'usasuita', layer: usaSuitaObj, opacity: 1, zoom:14,center:[135.51694635419656, 34.75931078354789], summary: usaSumm } },
+            { text: '高田市米軍作成地図', data: { id: 'usatakada', layer: usaTakadaObj, opacity: 1, zoom:14,center:[138.2511152508723, 37.11354699331529], summary: usaSumm } },
+            { text: '高松市米軍作成地図', data: { id: 'usatakamatsu', layer: usaTakamatsuObj, opacity: 1, zoom:13,center:[134.05388952137886,34.34442660061306], summary: usaSumm } },
+            { text: '高岡市米軍作成地図', data: { id: 'usatakaoka', layer: usaTakaokaObj, opacity: 1, zoom:14,center:[137.00668763864041, 36.75067513135035], summary: usaSumm } },
+            { text: '高砂市米軍作成地図', data: { id: 'usatakasago', layer: usaTakasagoObj, opacity: 1, zoom:13,center:[134.82664843174436,34.750039504290655], summary: usaSumm } },
+            { text: '高崎市米軍作成地図', data: { id: 'usatakasaki', layer: usaTakasakiObj, opacity: 1, zoom:14,center:[139.00683032377682,36.324418813774386], summary: usaSumm } },
+            { text: '鳥羽市米軍作成地図', data: { id: 'usatoba', layer: usaTobaObj, opacity: 1, zoom:13,center:[136.8424350785728,34.485381104923874], summary: usaSumm } },
+            { text: '玉野市米軍作成地図', data: { id: 'usatamano', layer: usaTomanoObj, opacity: 1, zoom:13,center:[133.94636844521116,34.47585731928116], summary: usaSumm } },
+            { text: '徳島市米軍作成地図', data: { id: 'usatokushima', layer: usaTokushimaObj, opacity: 1, zoom:13,center:[134.55547223365653,34.07551033482953], summary: usaSumm } },
+            { text: '徳山米軍作成地図', data: { id: 'usatokuyama', layer: usaTokuyamaObj, opacity: 1, zoom:13,center:[131.7947351047902,34.038920505197396], summary: usaSumm } },
+            { text: '鳥取市米軍作成地図', data: { id: 'usatottori', layer: usaTottoriObj, opacity: 1, zoom:13,center:[134.23728038714805,35.496239582858124], summary: usaSumm } },
+            { text: '富山市米軍作成地図', data: { id: 'usatoyama', layer: usaToyamaObj, opacity: 1, zoom:13,center:[137.21574611118686,36.69559772020091], summary: usaSumm } },
+            { text: '豊橋市(北)米軍作成地図', data: { id: 'usatoyohashinorth', layer: usaToyohashiNorthObj, opacity: 1, zoom:13,center:[137.3720054883547,34.750659858319224], summary: usaSumm } },
+            { text: '豊橋市(南)米軍作成地図', data: { id: 'usatoyohashisouth', layer: usaToyohashiSouthObj, opacity: 1, zoom:13,center:[137.37198134847353,34.72454442489634], summary: usaSumm } },
+            { text: '豊川市米軍作成地図', data: { id: 'usatoyokawa', layer: usaToyokawaObj, opacity: 1, zoom:13,center:[137.38635675568545,34.830923964961485], summary: usaSumm } },
+            { text: '土崎米軍作成地図', data: { id: 'usatsuchizaki', layer: usaTsuchizakiObj, opacity: 1, zoom:14,center:[140.06804454729837,39.753546265267914], summary: usaSumm } },
+            { text: '敦賀市米軍作成地図', data: { id: 'usatsuruga', layer: usaTsurugaObj, opacity: 1, zoom:13,center:[136.0618823951671,35.6431835898338], summary: usaSumm } },
+            { text: '津山市米軍作成地図', data: { id: 'usatsuyama', layer: usaTsuyamaObj, opacity: 1, zoom:13,center:[134.00492553738704,35.059401209339356], summary: usaSumm } },
+            { text: '宇部市米軍作成地図', data: { id: 'usaube', layer: usaUbeObj, opacity: 1, zoom:13,center:[131.2445335630451,33.94980711428086], summary: usaSumm } },
+            { text: '魚津市米軍作成地図', data: { id: 'usauotsu', layer: usaUotsuObj, opacity: 1, zoom:14,center:[137.39223081421213,36.81205945149324], summary: usaSumm } },
+            { text: '宇都宮市米軍作成地図', data: { id: 'usautsunomiya', layer: usaUtsunomiyaObj, opacity: 1, zoom:13,center:[139.87653065763703,36.561033237402626], summary: usaSumm } },
+            { text: '会津若松市米軍作成地図', data: { id: 'usawakamatsu', layer: usaWakamatsuObj, opacity: 1, zoom:14,center:[139.9299974105249, 37.494923943160856], summary: usaSumm } },
+            { text: '和歌山市米軍作成地図', data: { id: 'usawakayama', layer: usaWakayamaObj, opacity: 1, zoom:13,center:[135.1655773300853,34.22291018083982], summary: usaSumm } },
+            { text: '山形市米軍作成地図', data: { id: 'usayamagata', layer: usaYamagataObj, opacity: 1, zoom:13,center:[140.34409170256237,38.25508396491401], summary: usaSumm } },
+            { text: '山口市米軍作成地図', data: { id: 'usayamaguchi', layer: usaYamaguchiObj, opacity: 1, zoom:14,center:[131.4732550050297,34.176828138789446], summary: usaSumm } },
+            { text: '八幡米軍作成地図', data: { id: 'usayawata', layer: usaYawataObj, opacity: 1, zoom:13,center:[130.79150945737285,33.89149366978582], summary: usaSumm } },
+            { text: '八代市米軍作成地図', data: { id: 'usayatsushiro', layer: usaYatsushiroObj, opacity: 1, zoom:14,center:[130.60432480777075, 32.49776723135341], summary: usaSumm } },
+            { text: '四日市米軍作成地図', data: { id: 'usayokkaichi', layer: usaYokkaichiObj, opacity: 1, zoom:13,center:[136.6262647864238,34.959540987684704], summary: usaSumm } },
+            { text: '米子市米軍作成地図', data: { id: 'usayonago', layer: usaYonagoObj, opacity: 1, zoom:13,center:[133.3321087774459,35.4387576040568], summary: usaSumm } },
+            { text: '善通寺市米軍作成地図', data: { id: 'usazentsuji', layer: usaZentsujiObj, opacity: 1, zoom:13,center:[133.78125150239816,34.22985354430732], summary: usaSumm } },
+          ]},
+        { text: '迅速測図 (関東:明治初期〜中期)', data: { id: 'jinsoku', layer: jinsokuObj, opacity: 1, zoom: 9, center: [139.8089637733657, 35.86926927958841], summary: jinsokuSumm } },
         { text: '東京5000分の1明治17年', data: { id: 'tokyo5000', layer: tokyo5000Obj, opacity: 1, zoom: 14, center: [139.7579477727413, 35.6843002871569], summary: tokyo5000Summ } },
         { text: '〔江戸切絵図〕. 麻布絵図', data: { id: 'edokirie', layer: edokirieObj, opacity: 1, zoom: 15, center: [139.73059032411857, 35.654628169454355], summary: edokirieSumm } },
         { text: 'Shinsen zoho Kyo oezu.', data: { id: 'kyo', layer: kyoObj, opacity: 1, zoom: 13, center: [135.75815091851297, 35.007713081235536], summary: kyoSumm } },
         { text: '明治東京全図明治9年', data: { id: 'meijitokyo', layer: meijitokyoObj, opacity: 1, zoom: 13, center: [139.7613472707328, 35.674408991579426], summary: meijitokyoSumm } },
         { text: '承応年間飫肥城下図(宮崎県)', data: { id: 'obi', layer: obiObj, opacity: 1, zoom: 15, center: [131.3502,31.6289], summary: obiSumm } },
-
         { text: '東西蝦夷山川地理取調図', data: { id: 'ezosansen', layer: ezosansenObj, opacity: 1, zoom: 8, center: [142.6944008210318, 43.241646716680606], summary: ezosansenSumm } },
         { text: '東西蝦夷山川地理取調図2', data: { id: 'ezosansen2', layer: ezosansen2Obj, opacity: 1, zoom: 8, center: [142.6944008210318, 43.241646716680606], summary: ezosansenSumm2 } },
         { text: '大正13,14年古地図',
@@ -7975,7 +12150,7 @@ const layers =
               ]},
             { text: '函館',
               children: [
-                { text: '函館19159年', data: { id: 'kzhakodate00', layer: kz_hakodate00Obj, opacity: 1, zoom: 11, center: [140.72930936750572, 41.76792949052427], summary: kzSumm } },
+                { text: '函館1915年', data: { id: 'kzhakodate00', layer: kz_hakodate00Obj, opacity: 1, zoom: 11, center: [140.72930936750572, 41.76792949052427], summary: kzSumm } },
                 { text: '函館1951-1955年', data: { id: 'kzhakodate01', layer: kz_hakodate01Obj, opacity: 1, zoom: 11, center: [140.72930936750572, 41.76792949052427], summary: kzSumm } },
                 { text: '函館1968年', data: { id: 'kzhakodate02', layer: kz_hakodate02Obj, opacity: 1, zoom: 11, center: [140.72930936750572, 41.76792949052427], summary: kzSumm } },
                 { text: '函館1986-1989年', data: { id: 'kzhakodate03', layer: kz_hakodate03Obj, opacity: 1, zoom: 11, center: [140.72930936750572, 41.76792949052427], summary: kzSumm } },
@@ -8370,9 +12545,11 @@ const layers =
              ]}
           ]}
       ]},
-    { text: '市町村、郡',
+    { text: '市町村、郡、地名',
       children: [
         // { text: '幕末の郡(国で色分け)', data: { id: "gunbakumatu", layer: LayersMvt.gunbakumatuObj, opacity: 1, summary: LayersMvt.gunSumm } },
+        { text: '地名', data: { id: "chimei", layer: LayersMvt.chimeiObj, opacity: 1, summary: LayersMvt.chimeiSumm } },
+
         { text: '明治中期の郡(県で色分け)', data: { id: "gun", layer: LayersMvt.gunObj, opacity: 1, summary: LayersMvt.gunSumm } },
         { text: '明治中期の郡(国で色分け)', data: { id: "gunkuni", layer: LayersMvt.gunkuniObj, opacity: 1, summary: LayersMvt.gunSumm } },
         { text: 'T09市町村', data: { id: "cityT9", layer: LayersMvt.cityT9Obj, opacity: 1, summary: LayersMvt.cityT9Summ } },
@@ -8387,7 +12564,10 @@ const layers =
     ]},
     { text: '各種地域',
       children: [
-        { text: '鳥獣保護区', data: { id: "chyouzyuuh27", layer: LayersMvt.chyouzyuuH27Obj, opacity: 1, summary: LayersMvt.chyouzyuuH27Obj } },
+        { text: '選挙区（20022年）', data: { id: "senkyoku2022", layer: LayersMvt.senkyoku2022Obj, opacity: 1, summary: LayersMvt.senkyokuSumm} },
+        { text: '郵便区（区域調整版）', data: { id: "yubinku", layer: LayersMvt.yubinkuObj, opacity: 1, summary: LayersMvt.yubinkuSumm} },
+
+        { text: '鳥獣保護区', data: { id: "chyouzyuuh27", layer: LayersMvt.chyouzyuuH27Obj, opacity: 1, summary: LayersMvt.chyouzyuuH27Summ } },
         { text: '農業地域', data: { id: "nouhyouh27", layer: LayersMvt.nougyouH27Obj, opacity: 1, summary: LayersMvt.nougyouH27Summ } },
         { text: '農業集落境界', data: { id: "kyoukai", layer: LayersMvt.kyoukaiObj, opacity: 1, summary: LayersMvt.kyoukaiSumm } },
         { text: '医療圏',
@@ -8534,8 +12714,8 @@ const layers =
       ]},
     { text: '海面上昇シミュレーション　　　　　',
       children: [
-        { text: '海面上昇シミュ5Mdem', data: { id: 'flood5m', layer: flood5Obj, opacity: 1, summary: floodSumm, component: {name: 'flood5m', values:[]}} },
-        { text: '海面上昇シミュ10Mdem', data: { id: 'flood10m', layer: flood10Obj, opacity: 1, summary: floodSumm, component: {name: 'flood10m', values:[]}} },
+        // { text: '海面上昇シミュ5Mdem', data: { id: 'flood5m', layer: flood5Obj, opacity: 1, summary: floodSumm, component: {name: 'flood5m', values:[]}} },
+        { text: '海面上昇シミュ', data: { id: 'flood10m', layer: flood100Obj, opacity: 1, summary: floodSumm, component: {name: 'flood10m', values:[]}} },
       ]},
     { text: 'ハザードマップ',
       children: [
@@ -8546,9 +12726,8 @@ const layers =
         { text: '高潮浸水想定', data: { id: 'takasio', layer: takasioObj, opacity: 1, summary: takasioSumm } },
         { text: 'ため池決壊による浸水想定区域', data: { id: 'tameike', layer: tameikeObj, opacity: 1, summary: tameikeSumm } },
         { text: '家屋倒壊等氾濫想定区域（氾濫流）', data: { id: 'toukai', layer: toukaiObj, opacity: 1, summary: toukaiSumm } },
-
         { text: '筑後川浸水推定図2023/7/11', data: { id: 'sinsuisuitei', layer: sinsuisuiteiObj, center:[130.61658037551376, 33.34398451546858], zoom:13, opacity: 1, summary: stdSumm } },
-
+        { text: '地形区分に基づく液状化の発生傾向図', data: { id: 'ekizyouka', layer: ekizyoukaObj, opacity: 1, summary: ekizyouka0Summ } },
         { text: '液状化危険度分布図',
           children: [
               //新潟と埼玉は作っていない。
@@ -8598,7 +12777,6 @@ const layers =
             { text: '液状化危険度分布図（宮崎県）', data: { id: 'ekizyouka', layer: ekizyouka45Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（鹿児島県）', data: { id: 'ekizyouka46', layer: ekizyouka46Obj, opacity: 1, summary: ekizyoukaSumm } },
             { text: '液状化危険度分布図（沖縄県）', data: { id: 'ekizyouka47', layer: ekizyouka47Obj, opacity: 1, summary: ekizyoukaSumm } },
-
           ]},
         { text: '土砂災害',
           children: [
@@ -8629,7 +12807,6 @@ const layers =
         { text: '今後30年間震度6以上の確率', data: { id: 'jisin', layer: jisinObj, opacity: 1, summary: jisinSumm } },
         { text: '北海道太平洋沿岸の津波浸水想定', data: { id: "hokkaidouTunamiT", layer: LayersMvt.hokkaidouTunamiTObj, opacity: 1, summary: LayersMvt.hokkaidouTunamiTSumm } },
         { text: '北海道日本海沿岸の津波浸水想定', data: { id: "hokkaidouTunami", layer: LayersMvt.hokkaidouTunamiObj, opacity: 1, summary: LayersMvt.hokkaidouTunamiSumm } },
-
         { text: '宮崎市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyazakisiHm', layer: miyazakisiHmObj, opacity: 1, zoom: 13, center: [131.42054548436312, 31.907339493919977], summary: miyazakisiHmSumm } },
         { text: '都城市洪水ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'miyakonozyousiHm', layer: miyakonozyousiHmObj, opacity: 1, zoom: 13, center: [131.07797970576192, 31.78882205640913], summary: miyakonozyousiHmSumm } },
         { text: '日向市防災ﾊｻﾞｰﾄﾞﾏｯﾌﾟ', data: { id: 'hyuugasiHm', layer: hyuugasiHmObj, opacity: 1, zoom: 13, center: [131.6400086045909, 32.395198966795306], summary: hyuugasiHmSumm } },
@@ -8639,30 +12816,39 @@ const layers =
         { text: '日本遺産', data: { id: "nihonisan", layer: LayersMvt.nihonisanObj, opacity: 1, summary: LayersMvt.nihonisanSumm } },
         { text: '日本遺産(ヒートマップ)', data: { id: "nihonisanheatmap", layer: LayersMvt.nihonisanheatmapObj, opacity: 1, summary: LayersMvt.nihonisanheatmapSumm } },
         { text: '国指定文化財等データベース', data: { id: "bunkazaidb", layer: LayersMvt.bunkazaidbObj, opacity: 1, summary: LayersMvt.bunkazaidbSumm } },
-        { text: '全国旧石器時代遺跡', data: { id: "kyuusekki", layer: LayersMvt.kyuusekkiObj, opacity: 1, summary: LayersMvt.kyuusekkiSumm } },
+        { text: '全国旧石器時代遺跡', data: { id: "kyuusekki", layer: LayersMvt.kyuusekkiWebGlObj, opacity: 1, summary: LayersMvt.kyuusekkiSumm } },
         // { text: '全国旧石器時代遺跡(ヒートマップ)', data: { id: "kyuusekkihm", layer: LayersMvt.kyuusekkiHmObj, opacity: 1, summary: LayersMvt.kyuusekkiSumm } },
-
         // { text: '全国縄文・弥生集落遺跡', data: { id: "yayoiiseki", layer: LayersMvt.yayoiisekiObj, opacity: 1, summary: LayersMvt.yayoiisekiSumm } },
         { text: '北海道埋蔵文化財包蔵地', data: { id: "hokkaidoumaibun", layer: LayersMvt.hokkaidoumaibunObj, opacity: 1, summary: LayersMvt.hokkaidoumaibunSumm } },
-
         { text: '東京都文化財', data: { id: "tokyobunkazai", layer: LayersMvt.tokyobunkazaiObj, opacity: 1, summary: LayersMvt.tokyobunkazaiSumm } },
         { text: '富山県埋蔵文化財', data: { id: "toyamamaibun", layer: LayersMvt.toyamamaibunObj, opacity: 1, summary: LayersMvt.toyamamaibunSumm } },
         { text: '岡山県埋蔵文化財', data: { id: "okayamamai", layer: LayersMvt.okayamamaiiObj, opacity: 1, summary: LayersMvt.okayamamaiSumm } },
         { text: '熊本県遺跡', data: { id: "kumamotomai", layer: LayersMvt.kumamotomaiObj, opacity: 1, summary: LayersMvt.kumamotomaiSumm } },
-       ]},
+        { text: '土木学会選奨土木遺産', data: { id: "dobokuisan", layer: LayersMvt.dobokuisanObj, opacity: 1, summary: LayersMvt.dobokuisanSumm } },
+
+      ]},
+    { text: '道、鉄道等',
+      children: [
+        { text: '明治期における国道の比定路線', data: { id: "meijikokudo", layer: LayersMvt.meijikokudoObj, opacity: 1, summary: LayersMvt.meijikokudoSumm} },
+        { text: '鉄道（廃線は赤色）', data: { id: "rosen", layer: LayersMvt.rosen0Obj, opacity: 1, summary: LayersMvt.rosenSumm} },
+
+        // { text: 'test', data: { id: "railroad", layer: LayersMvt.railroadObj, opacity: 1, summary: LayersMvt.railroadSumm} },
+
+        { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
+        { text: 'バスルートと停留所', data: { id: "bus", layer: LayersMvt.bus0Obj, opacity: 1, summary: LayersMvt.busSumm} },
+      ]},
     { text: 'その他',
       children: [
         { text: 'ラスタータイルtest', data: { id: "dokuji", layer: dokujiObj, opacity: 1, summary: LayersMvt.busSumm, component: {name: 'dokuji', values:[]}} },
-        { text: 'バスルートと停留所', data: { id: "bus", layer: LayersMvt.bus0Obj, opacity: 1, summary: LayersMvt.busSumm} },
-        { text: '鉄道（廃線は赤色）', data: { id: "rosen", layer: LayersMvt.rosen0Obj, opacity: 1, summary: LayersMvt.rosenSumm} },
-        { text: '道の駅', data: { id: "mitinoekiH30", layer: LayersMvt.mitinoekiH30Obj, opacity: 1, summary: LayersMvt.mitinoekiH30Summ } },
+        { text: ' test', data: { id: "test", layer: LayersMvt.testWebGlObj, opacity: 1, summary: LayersMvt.testSumm} },
+        { text: '日本土壌インベントリー', data: { id: "dojyou", layer: dojyouObj, opacity: 1, summary: dojyouSumm } },
         { text: '夜の明かり', data: { id: "japanLight", layer: LayersMvt.japanLightObj, opacity: 1, summary: LayersMvt.japanLightSumm } },
         { text: '河川中心線', data: { id: "suiro", layer: LayersMvt.suiroObj, opacity: 1, summary: LayersMvt.suiroSumm } },
         { text: '竜巻', data: { id: "tatumakiH23", layer: LayersMvt.tatumakiH23Obj, opacity: 1, summary: LayersMvt.tatumakiH23Summ } },
         { text: 'ダム', data: { id: "damh26", layer: LayersMvt.damh26Obj, opacity: 1, summary: LayersMvt.damh26Summ } },
         { text: '湖沼', data: { id: "kosyouH17", layer: LayersMvt.kosyouH17Obj, opacity: 1, summary: LayersMvt.kosyouH17Summ } },
         { text: '土地利用図（1982～1983年）', data: { id: "totiriyouzu", layer: totiriyouzuObj, opacity: 1, summary: totiriyouzuSumm } },
-        { text: '法務省地図', data: { id: "houmusyou", layer: houmusyouObj, opacity: 1, summary: houmusyouSumm } },
+        // { text: '法務省地図', data: { id: "houmusyou", layer: houmusyouObj, opacity: 1, summary: houmusyouSumm } },
         { text: 'OpenTopoMap', data: { id: "otm", layer: otmObj, opacity: 1, summary: otmSumm } },
       ]},
   ];

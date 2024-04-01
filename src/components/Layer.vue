@@ -16,7 +16,7 @@
               <label :for='"checkbox2" + item.id'>
                 <div class="check2-div" >
                   <input :id='"checkbox2" + item.id' type="checkbox" class='check-box' v-model="item.multipli" @change="multipliLayer(item)">
-                  <b-popover   content="下の背景と合成します。"
+                  <b-popover   content="合成します。"
                                :target='"checkbox2" + item.id'
                                triggers="hover"
                                placement="left"
@@ -56,18 +56,22 @@
         });
       },
       opacityChange (item) {
+        MyMap.history ('透過-' + item.title)
         MyMap.opacityChange(item);
         permalink.moveEnd()
       },
       checkLayer (item) {
+        MyMap.history ('不可視')
         MyMap.checkLayer(item, this.s_layerList, this.mapName);
         permalink.moveEnd()
       },
       multipliLayer (item) {
+        MyMap.history ('合成')
         MyMap.multipliLayer(item, this.s_layerList, this.mapName);
         permalink.moveEnd()
       },
       removeLayer (item) {
+        MyMap.history ('リセット3')
         MyMap.removeLayer(item, this.s_layerList, this.mapName)
       },
       infoOpen (e,item) {
@@ -141,6 +145,7 @@
           //newLayerList,oldLayerListは配列になっている。
           const map = this.$store.state.base.maps[this.mapName];
           if (map) MyMap.watchLayer(map, this.mapName, newLayerList,oldLayerList);
+          if (this.mapName === 'map01') MyMap.history ('順番変更')
           permalink.moveEnd()
         }
       )

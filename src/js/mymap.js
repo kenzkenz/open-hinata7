@@ -7,11 +7,10 @@ import View from 'ol/View'
 import { transform, fromLonLat } from 'ol/proj'
 import { ScaleLine } from 'ol/control';
 import Toggle from 'ol-ext/control/Toggle'
-import Target from 'ol-ext/control/Target'
 import Colorize from 'ol-ext/filter/Colorize'
 import Synchronize from 'ol-ext/interaction/Synchronize'
 import Lego from 'ol-ext/filter/Lego'
-import Notification from './notification'
+import Notification from 'ol-ext/control/Notification'
 import * as Layers from './layers'
 import * as PopUp from './popup'
 import {defaults as defaultInteractions, DragRotateAndZoom} from 'ol/interaction';
@@ -21,6 +20,7 @@ import axios from "axios";
 let maxZndex = 0;
 let legoFilter = null;
 import DragAndDrop from 'ol/interaction/DragAndDrop.js';
+import PinchRotate from 'ol/interaction/PinchRotate';
 import {GPX, GeoJSON, IGC, KML, TopoJSON} from 'ol/format.js';
 import {standardFunction} from "@/js/layers-mvt";
 export function initMap (vm) {
@@ -40,7 +40,7 @@ export function initMap (vm) {
         const container = document.getElementById(maps[i].mapName + '-popup');
         const content = document.getElementById(maps[i].mapName  + '-popup-content');
         const closer = document.getElementById(maps[i].mapName  + '-popup-closer');
-        const overlay =[]
+        const overlay = []
         overlay[i] = new Overlay({
             element: container,
             autoPan: {
@@ -54,6 +54,15 @@ export function initMap (vm) {
             closer.blur();
             return false;
         };
+        const markerElement = document.getElementById(maps[i].mapName + '-marker');
+        const marker = []
+        marker[i] = new Overlay({
+            element: markerElement
+        });
+        markerElement.onclick = () => {
+            marker[i].setPosition(undefined);
+            return false;
+        };
         // マップ作製
         const mapName = maps[i].mapName;
         const map = new Map({
@@ -61,15 +70,23 @@ export function initMap (vm) {
                 new DragRotateAndZoom()
             ]),
             // layers: [maps[i].layer],
-            overlays: [overlay[i]],
+            overlays: [overlay[i],marker[i]],
             target: mapName,
             view: view01
         });
         // マップをストアに登録
         store.commit('base/setMap', {mapName: maps[i].mapName, map});
+        //デフォルトで設定されているインタラクション（PinchRotate）を使用不可に
+        const interactions = map.getInteractions().getArray();
+        const pinchRotateInteraction = interactions.filter(function(interaction) {
+            return interaction instanceof PinchRotate;
+        })[0];
+        pinchRotateInteraction.setActive(false);
+        // marker[i].setPosition(fromLonLat([140.097, 37.856]));
+
         // コントロール追加---------------------------------------------------------------------------
-        const centerTarget = new Target({composite: 'difference'})
-        map.addControl(centerTarget);
+        // const centerTarget = new Target({composite: 'difference'})
+        // map.addControl(centerTarget);
         // map.removeControl(centerTarget)
         map.addControl(new ScaleLine());
         const notification = new Notification();
@@ -154,9 +171,9 @@ export function initMap (vm) {
         // フィーチャーにマウスがあたったとき
         map.on("pointermove",function(evt){
             //少しでも処理を早めるためにMw5レイヤーがあったら抜ける。-----------
-            const layers00 = evt.map.getLayers().getArray();
-            let mw5 = layers00.find(el => el.get('mw'));
-            if (mw5) return //ここで抜ける
+            // const layers00 = evt.map.getLayers().getArray();
+            // let mw5 = layers00.find(el => el.get('mw'));
+            // if (mw5) return //ここで抜ける
             //----------------------------------------------------------
             document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "default"
             const map = evt.map;
@@ -173,23 +190,28 @@ export function initMap (vm) {
             if (feature) {
                 document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "pointer"
             }
-            //   //----------------------------------
-            //   // 特定のラスターでカーソルを変える
-            const pixel = (map).getPixelFromCoordinate(evt.coordinate);
-            const layers = [];
-            // マウスがあたった箇所のレイヤーを複数取得する
-            try {
-                (map).forEachLayerAtPixel(pixel,function(layer){
-                    layers.push(layer);
-                });
-            } catch (error) {}
-
-            const tgtLayers = layers.filter(el => el.get('pointer'));
-            if (tgtLayers.length>0) {
-                // if (map.getView().getZoom() >= 10) {
-                document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "pointer"
-                // }
-            }
+            // ----------------------------------
+            // 特定のラスターでカーソルを変える
+            // OL6ではバグのため動かない。無理やり動かすにはlayer.jsのレイヤーにthis.className = 'hoge'と
+            // 入れるといいが今度は合成が効かなくなる
+            // const pixel = (map).getPixelFromCoordinate(evt.coordinate);
+            // const layers = [];
+            // const layers00 = evt.map.getLayers().getArray();
+            // let mw5 = layers00.find(el => el.get('mw'));
+            // if (mw5) return
+            // if (!mw5) {
+            //     try {
+            //         (map).forEachLayerAtPixel(evt.pixel,function(layer){
+            //             layers.push(layer);
+            //         });
+            //     } catch (error) {}
+            // }
+            // const tgtLayers = layers.filter(function(layer) {
+            //     return layer.get('pointer');
+            // })
+            // if (tgtLayers.length>0) {
+            //     document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "pointer"
+            // }
         });
         // シングルクリック------------------------------------------------------------------------------------
         // 洪水,津波,継続用-----------------------------------------------------------------
@@ -226,14 +248,19 @@ export function initMap (vm) {
             layersObj.forEach(object =>{
                 console.log(object.layer.get('name'))
                 const getColor0 =  (event,server,popup,zoom) =>{
-                    const z = zoom
+                    let z
+                    if (zoom) {
+                        z= zoom
+                    } else {
+                        z = Math.floor(map.getView().getZoom());
+                    }
                     const coord = event.coordinate
                     const R = 6378137;// 地球の半径(m);
                     const x = ( 0.5 + coord[ 0 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
                     const y = ( 0.5 - coord[ 1 ] / ( 2 * R * Math.PI ) ) * Math.pow( 2, z );
                     const e = event;
                     // const server = 'https://disaportaldata.gsi.go.jp/raster/01_flood_l2_shinsuishin/'
-                    document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "wait"
+                    // document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "wait"
                     getColor( x, y, z, server,   function( rgb ) {
                         const coordinate = evt.coordinate;
                         popup(rgb,coordinate)
@@ -244,7 +271,7 @@ export function initMap (vm) {
                         } else {
                             overlay[i].setPosition(coordinate);
                         }
-                        document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "default"
+                        // document.querySelector('#' + mapName + ' .ol-viewport').style.cursor = "default"
                     } );
                 }
                 switch (object.layer.get('name')){
@@ -282,6 +309,9 @@ export function initMap (vm) {
                         break;
                     case 'tameike':
                         getColor0(evt,'https://disaportal.gsi.go.jp/data/raster/07_tameike/',PopUp.popUpTameike,17)
+                        break;
+                    case 'ekizyouka':
+                        getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_zenkoku/',PopUp.popUpEkizyouka,15)
                         break;
                     case 'ekizyouka01':
                         getColor0(evt,'https://disaportal.gsi.go.jp/raster/08_03_ekijoka_pref/01_hokkai/',PopUp.popUpEkizyouka01,15)
@@ -421,6 +451,15 @@ export function initMap (vm) {
                     case 'jisin':
                         getColor0(evt,'https://maps.gsi.go.jp/xyz/jishindo_yosoku/',PopUp.popUpJisin,15)
                         break;
+                    case 'morido':
+                        getColor0(evt,'https://disaportaldata.gsi.go.jp/raster/daikiboumoritsuzouseichi/',PopUp.popUpMorido,15)
+                        break;
+                    case 'dojyou':
+                        getColor0(evt,'https://soil-inventory.rad.naro.go.jp/tile/figure/',PopUp.popUpDojyou,12)
+                        break;
+                    case 'sitti':
+                        getColor0(evt,'https://cyberjapandata.gsi.go.jp/xyz/swale/',PopUp.popUpTisitu,16)
+                        break;
                     default:
                 }
             });
@@ -518,6 +557,46 @@ export function initMap (vm) {
 //             }
 //         })
         //------------------------------------------------------------------------------------------------------
+        // 米軍地形図用
+        map.on('singleclick', function (evt) {
+            const layers = map.getLayers().getArray();
+            //  洪水浸水想定と重ねるときは動作させない
+            const hazardLayers = layers.filter(el => el.get('pointer'));
+            if (hazardLayers.length>0) return
+
+            const resultUsaAll = layers.find(el => el === Layers.usaall[mapName]);
+            const resultUsatokyoall = layers.find(el => el === Layers.usatokyoall[mapName]);
+            let gLayers;
+            if (resultUsaAll || resultUsatokyoall) {
+                if (resultUsaAll) gLayers = Layers.usaall[mapName].values_.layers.array_;
+                if (resultUsatokyoall) gLayers = Layers.usatokyoall[mapName].values_.layers.array_;
+                console.log(gLayers.length)
+                const lon = evt.coordinate[0], lat = evt.coordinate[1];
+                for (let i in gLayers) {
+                    const extent2 = gLayers[i].values_['extent2'];
+                    if(extent2) {
+                        const lonMin = extent2[0], lonMax = extent2[2], latMin = extent2[1], latMax = extent2[3];
+                        if (lonMin < lon && lonMax > lon) {
+                            if (latMin < lat && latMax > lat) {
+                                maxZndex++
+                                gLayers[i].setZIndex(maxZndex)
+
+                                // if (gLayers[i].getZIndex()) {
+                                //     gLayers[i].setZIndex(undefined)
+                                // } else {
+                                //     maxZndex++
+                                //     gLayers[i].setZIndex(maxZndex)
+                                // }
+
+                            } else {
+                                gLayers[i].setZIndex(undefined)
+                            }
+                        }
+                    }
+                }
+            }
+        })
+        //------------------------------------------------------------------------------------------------------
         // 旧版地形図用
         map.on('singleclick', function (evt) {
 
@@ -535,12 +614,9 @@ export function initMap (vm) {
             // }
             //------------------------------------------------------
 
-            console.log(transform(evt.coordinate, "EPSG:3857", "EPSG:4326"));
+            console.log(JSON.stringify(transform(evt.coordinate, "EPSG:3857", "EPSG:4326")));
             const map = evt.map;
-            //  洪水浸水想定と重ねるときは動作させない
-            const layers0 = map.getLayers().getArray();
-            const hazardLayers = layers0.filter(el => el.get('pointer'));
-            if (hazardLayers.length>0) return
+
             // ここまで
             const option = {
                 layerFilter: function (layer) {
@@ -555,18 +631,10 @@ export function initMap (vm) {
                 const prop = feature.getProperties();
                 const uri = prop.uri
                 const title = prop.title
-                if(uri.includes('stanford')) {
-                    if (confirm('スタンフォード大学のサイトを表示しますか？')) {
-                        window.open(uri, '_blank');
-                        return;
-                    }
-                } else {
-                    notification.show('「' +title + '」の地図はスタンフォード大学にありません。',5000)
-                    return;
-                }
-                // return
-
-                //------------------------------------------------------
+                const mwId = prop.id
+                store.commit('base/updateDialogShow',true)
+                store.commit('base/updateSuUrl', uri)
+                store.commit('base/updateMwId', mwId)
             }
             // 普通のフィーチャー用
             const pixel00 = (evt.map).getPixelFromCoordinate(evt.coordinate);
@@ -580,6 +648,12 @@ export function initMap (vm) {
                 PopUp.popUp(evt.map,layers00,features,overlay[i],evt,content)
                 return
             }
+
+            //  洪水浸水想定と重ねるときは動作させない
+            const layers0 = map.getLayers().getArray();
+            const hazardLayers = layers0.filter(el => el.get('pointer'));
+            if (hazardLayers.length>0) return
+
             const layers = map.getLayers().getArray();
             const result5 = layers.find(el => el === Layers.mw5Obj[mapName]);
             const result20 = layers.find(el => el === Layers.mw20Obj[mapName]);
@@ -643,19 +717,15 @@ export function initMap (vm) {
                     vm.zoom[mapName] = 'zoom=' + zoom
                 }
             } );
-
             // const zoom = String(Math.floor(map.getView().getZoom() * 100) / 100)
             // vm.zoom[mapName] = 'zoom=' + zoom
         }
-        const win = window.navigator.userAgent.includes('Win')
+        // const win = window.navigator.userAgent.includes('Win')
         map.on('moveend', function (event) {
             getElevation(event)
-
-            map.render();
-
+            // map.render();
         });
         map.on("pointermove",function(event){
-            // if (win)
             getElevation(event)
         });
         // ****************
@@ -667,7 +737,8 @@ export function initMap (vm) {
         // ****************
         function getElev( rx, ry, z, then ) {
             // const elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/'
-            const elevServer = 'https://tiles.gsj.jp/tiles/elev/mixed/'
+            // const elevServer = 'https://tiles.gsj.jp/tiles/elev/mixed/'
+            const elevServer = 'https://tiles.gsj.jp/tiles/elev/land/'
             const x = Math.floor( rx )				// タイルX座標
             const y = Math.floor( ry )				// タイルY座標
             const i = ( rx - x ) * 256			// タイル内i座標
@@ -696,78 +767,78 @@ export function initMap (vm) {
 
         // 要素をドラッグする。
         //要素の取得
-        // const elements = document.querySelectorAll(".ol-scale-line, .ol-zoom, .zoom-div")
-        const elements = document.querySelectorAll(".ol-scale-line")
-        //要素内のクリックされた位置を取得するグローバル（のような）変数
-        let x;
-        let y;
-        //マウスが要素内で押されたとき、又はタッチされたとき発火
-        for(let i = 0; i < elements.length; i++) {
-            elements[i].addEventListener("mousedown", mdown, false);
-            elements[i].addEventListener("touchstart", mdown, false);
-        }
+        // // const elements = document.querySelectorAll(".ol-scale-line, .ol-zoom, .zoom-div")
+        // const elements = document.querySelectorAll(".ol-scale-line")
+        // //要素内のクリックされた位置を取得するグローバル（のような）変数
+        // let x;
+        // let y;
+        // //マウスが要素内で押されたとき、又はタッチされたとき発火
+        // for(let i = 0; i < elements.length; i++) {
+        //     elements[i].addEventListener("mousedown", mdown, false);
+        //     elements[i].addEventListener("touchstart", mdown, false);
+        // }
 
         //マウスが押された際の関数
-        function mdown(e) {
-            //クラス名に .drag を追加
-            this.classList.add("drag");
-            //タッチデイベントとマウスのイベントの差異を吸収
-            if(e.type === "mousedown") {
-                const event = e;
-            } else {
-                const  event = e.changedTouches[0];
-            }
-            //要素内の相対座標を取得
-            x = event.pageX - this.offsetLeft;
-            y = event.pageY - this.offsetTop;
-            //ムーブイベントにコールバック
-            document.body.addEventListener("mousemove", mmove, false);
-            document.body.addEventListener("touchmove", mmove, false);
-        }
+        // function mdown(e) {
+        //     //クラス名に .drag を追加
+        //     this.classList.add("drag");
+        //     //タッチデイベントとマウスのイベントの差異を吸収
+        //     if(e.type === "mousedown") {
+        //         const event = e;
+        //     } else {
+        //         const  event = e.changedTouches[0];
+        //     }
+        //     //要素内の相対座標を取得
+        //     x = event.pageX - this.offsetLeft;
+        //     y = event.pageY - this.offsetTop;
+        //     //ムーブイベントにコールバック
+        //     document.body.addEventListener("mousemove", mmove, false);
+        //     document.body.addEventListener("touchmove", mmove, false);
+        // }
 
         //マウスカーソルが動いたときに発火
-        function mmove(e) {
-            //ドラッグしている要素を取得
-            const drag = document.getElementsByClassName("drag")[0];
-            //同様にマウスとタッチの差異を吸収
-            if(e.type === "mousemove") {
-                const event = e;
-            } else {
-                const event = e.changedTouches[0];
-            }
-            //フリックしたときに画面を動かさないようにデフォルト動作を抑制
-            e.preventDefault();
-            //マウスが動いた場所に要素を動かす
-            // console.log(drag.parentNode.parentNode.clientHeight)
-            let top = event.pageY - y
-            const left = event.pageX - x
-            // console.log(top)
-            // if (top >= drag.parentNode.clientHeight - drag.clientHeight || top - drag.parentNode.clientHeight - drag.clientHeight === 0) {
-            //   top = drag.parentNode.clientHeight - drag.clientHeight
-            //   document.body.addEventListener("mouseleave", mup, false);
-            //   document.body.addEventListener("touchleave", mup, false);
-            //   return
-            // }
-            drag.style.top = top + "px";
-            drag.style.left = left + "px";
-            //マウスボタンが離されたとき、またはカーソルが外れたとき発火
-            drag.addEventListener("mouseup", mup, false);
-            document.body.addEventListener("mouseleave", mup, false);
-            drag.addEventListener("touchend", mup, false);
-            document.body.addEventListener("touchleave", mup, false);
-        }
-
-        //マウスボタンが上がったら発火
-        function mup(e) {
-            var drag = document.getElementsByClassName("drag")[0];
-            //ムーブベントハンドラの消去
-            document.body.removeEventListener("mousemove", mmove, false);
-            drag.removeEventListener("mouseup", mup, false);
-            document.body.removeEventListener("touchmove", mmove, false);
-            drag.removeEventListener("touchend", mup, false);
-            //クラス名 .drag も消す
-            drag.classList.remove("drag");
-        }
+        // function mmove(e) {
+        //     //ドラッグしている要素を取得
+        //     const drag = document.getElementsByClassName("drag")[0];
+        //     //同様にマウスとタッチの差異を吸収
+        //     if(e.type === "mousemove") {
+        //         const event = e;
+        //     } else {
+        //         const event = e.changedTouches[0];
+        //     }
+        //     //フリックしたときに画面を動かさないようにデフォルト動作を抑制
+        //     e.preventDefault();
+        //     //マウスが動いた場所に要素を動かす
+        //     // console.log(drag.parentNode.parentNode.clientHeight)
+        //     let top = event.pageY - y
+        //     const left = event.pageX - x
+        //     // console.log(top)
+        //     // if (top >= drag.parentNode.clientHeight - drag.clientHeight || top - drag.parentNode.clientHeight - drag.clientHeight === 0) {
+        //     //   top = drag.parentNode.clientHeight - drag.clientHeight
+        //     //   document.body.addEventListener("mouseleave", mup, false);
+        //     //   document.body.addEventListener("touchleave", mup, false);
+        //     //   return
+        //     // }
+        //     drag.style.top = top + "px";
+        //     drag.style.left = left + "px";
+        //     //マウスボタンが離されたとき、またはカーソルが外れたとき発火
+        //     drag.addEventListener("mouseup", mup, false);
+        //     document.body.addEventListener("mouseleave", mup, false);
+        //     drag.addEventListener("touchend", mup, false);
+        //     document.body.addEventListener("touchleave", mup, false);
+        // }
+        //
+        // //マウスボタンが上がったら発火
+        // function mup(e) {
+        //     var drag = document.getElementsByClassName("drag")[0];
+        //     //ムーブベントハンドラの消去
+        //     document.body.removeEventListener("mousemove", mmove, false);
+        //     drag.removeEventListener("mouseup", mup, false);
+        //     document.body.removeEventListener("touchmove", mmove, false);
+        //     drag.removeEventListener("touchend", mup, false);
+        //     //クラス名 .drag も消す
+        //     drag.classList.remove("drag");
+        // }
     }
 }
 
@@ -813,7 +884,27 @@ export function resize () {
     store.state.base.maps.map04.updateSize()
 }
 
+export function history (layer,url) {
+    const ua = navigator.userAgent
+    const width = window.screen.width;
+    const height = window.screen.height;
+    const referrer = document.referrer
+    axios
+        .get('https://kenzkenz.xsrv.jp/open-hinata/php/layer.php',{
+            params: {
+                layer: layer,
+                screen: width + ' x ' + height,
+                ua: ua,
+                referrer:referrer,
+                url: url
+            }
+        })
+}
+
 export function watchLayer (map, thisName, newLayerList,oldLayerList) {
+    console.log(newLayerList[0][0].title)
+    const layer = newLayerList[0][0].title
+    history (layer)
     // store.commit('base/updateFirstFlg')
     //[0]はレイヤーリスト。[1]はlength
     // 逆ループ
@@ -849,17 +940,17 @@ export function watchLayer (map, thisName, newLayerList,oldLayerList) {
             const gLayers = layer.values_.layers.array_;
             for (let j in gLayers) {
                 if (newLayerList[0][i].multipli===false || newLayerList[0][i].multipli===undefined){
-                    gLayers[j].on("precompose", function(evt){
+                    gLayers[j].on("prerender", function(evt){
                         evt.context.globalCompositeOperation = 'source-over';
                     });
-                    gLayers[j].on("postcompose", function(evt){
+                    gLayers[j].on("postrender", function(evt){
                         evt.context.globalCompositeOperation = '';
                     });
                 } else {
-                    gLayers[j].on("precompose", function(evt){
+                    gLayers[j].on("prerender", function(evt){
                         evt.context.globalCompositeOperation = 'multiply';
                     });
-                    gLayers[j].on("postcompose", function(evt){
+                    gLayers[j].on("postrender", function(evt){
                         evt.context.globalCompositeOperation = 'source-over';
                     });
                 }
@@ -867,21 +958,26 @@ export function watchLayer (map, thisName, newLayerList,oldLayerList) {
         }
 
         if (newLayerList[0][i].multipli===false || newLayerList[0][i].multipli===undefined) {
-            layer.on("precompose", function(evt){
+            layer.on("prerender", function(evt){
                 evt.context.globalCompositeOperation = 'source-over';
             });
-            layer.on("postcompose", function(evt){
+            layer.on("postrender", function(evt){
                 evt.context.globalCompositeOperation = '';
             });
         }else{
-            layer.on("precompose", function(evt){
+            layer.on("prerender", function(evt){
                 evt.context.globalCompositeOperation = 'multiply';
             });
-            layer.on("postcompose", function(evt){
+            layer.on("postrender", function(evt){
                 evt.context.globalCompositeOperation = 'source-over';
             });
         }
-
+        // グループレイヤーのとき
+        if (layer.values_.layers) {
+            layer.values_.layers.getArray(0).forEach(object =>{
+                object.setOpacity(newLayerList[0][i].opacity)
+            })
+        }
         layer.setOpacity(newLayerList[0][i].opacity)
         // 新規追加したレイヤーだけにズームとセンターを設定する。
         if(!store.state.base.firstFlg) {
@@ -897,6 +993,12 @@ export function watchLayer (map, thisName, newLayerList,oldLayerList) {
 }
 
 export function opacityChange (item) {
+    // グループレイヤーのとき
+    if (item.layer.values_.layers) {
+        item.layer.values_.layers.getArray(0).forEach(object =>{
+            object.setOpacity(item.opacity)
+        })
+    }
     item.layer.setOpacity(item.opacity);
 }
 
@@ -920,17 +1022,17 @@ export function multipliLayer (item, layerList, name) {
         const gLayers = item.layer.values_.layers.array_;
         for (let i in gLayers) {
             if (item.multipli===false) {
-                gLayers[i].on("precompose", function(evt){
+                gLayers[i].on("prerender", function(evt){
                     evt.context.globalCompositeOperation = 'source-over';
                 });
-                gLayers[i].on("postcompose", function(evt){
+                gLayers[i].on("postrender", function(evt){
                     evt.context.globalCompositeOperation = '';
                 });
             }else{
-                gLayers[i].on("precompose", function(evt){
+                gLayers[i].on("prerender", function(evt){
                     evt.context.globalCompositeOperation = 'multiply';
                 });
-                gLayers[i].on("postcompose", function(evt){
+                gLayers[i].on("postrender", function(evt){
                     evt.context.globalCompositeOperation = 'source-over';
                 });
             }
@@ -938,17 +1040,21 @@ export function multipliLayer (item, layerList, name) {
     }
 
     if (item.multipli===false) {
-        item.layer.on("precompose", function(evt){
+        console.log(9999)
+        item.layer.on("prerender", function(evt){
             evt.context.globalCompositeOperation = 'source-over';
         });
-        item.layer.on("postcompose", function(evt){
+        item.layer.on("postrender", function(evt){
             evt.context.globalCompositeOperation = '';
         });
-    }else{
-        item.layer.on("precompose", function(evt){
+    } else {
+        console.log(8888)
+        console.log(item.layer)
+        // item.layer.className = 'hoge'
+        item.layer.on("prerender", function(evt){
             evt.context.globalCompositeOperation = 'multiply';
         });
-        item.layer.on("postcompose", function(evt){
+        item.layer.on("postrender", function(evt){
             evt.context.globalCompositeOperation = 'source-over';
         });
     }
@@ -977,10 +1083,19 @@ export function legoRemove (name) {
 }
 export function addressSerch (name,address) {
     const map = store.state.base.maps[name];
+    const marker1 = store.state.base.maps['map01'].overlays_.getArray()[1]
+    const marker2 = store.state.base.maps['map02'].overlays_.getArray()[1]
+    const marker3 = store.state.base.maps['map03'].overlays_.getArray()[1]
+    const marker4 = store.state.base.maps['map04'].overlays_.getArray()[1]
+    console.log(address)
     if (address === '') {
-        const lonLat = [140.097, 37.856]
-        map.getView().setCenter(transform(lonLat, "EPSG:4326", "EPSG:3857"));
-        map.getView().setZoom(6)
+        // const lonLat = [140.097, 37.856]
+        // map.getView().setCenter(transform(lonLat, "EPSG:4326", "EPSG:3857"));
+        // map.getView().setZoom(6)
+        marker1.setPosition(undefined);
+        marker2.setPosition(undefined);
+        marker3.setPosition(undefined);
+        marker4.setPosition(undefined);
     } else {
         axios
             .get('https://msearch.gsi.go.jp/address-search/AddressSearch?q=' + address)
@@ -988,9 +1103,12 @@ export function addressSerch (name,address) {
                 const lonLat = response.data[0].geometry.coordinates
                 map.getView().setCenter(transform(lonLat, "EPSG:4326", "EPSG:3857"));
                 map.getView().setZoom(14)
+                marker1.setPosition(transform(lonLat, "EPSG:4326", "EPSG:3857"));
+                marker2.setPosition(transform(lonLat, "EPSG:4326", "EPSG:3857"));
+                marker3.setPosition(transform(lonLat, "EPSG:4326", "EPSG:3857"));
+                marker4.setPosition(transform(lonLat, "EPSG:4326", "EPSG:3857"));
             })
             .catch(function (error) {
-                console.log(error);
             })
             .finally(function () {
             });

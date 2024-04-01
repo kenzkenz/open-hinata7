@@ -1,6 +1,7 @@
 import store from './store'
 import { transform, fromLonLat } from 'ol/proj.js'
 import axios from 'axios'
+import figureRGB from './figureRGB'
 export function popUp(map,layers,features,overlay,evt,content) {
   let cont
   const coordinate = evt.coordinate;
@@ -39,6 +40,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
             '設置主体=' + prop.A27_006 + '<br>' +
             '名称＝' + prop.A27_007 + '<br>' +
             '所在地＝' + prop.A27_008 + '<br>' +
+            'id＝' + prop.id + '<br>'+
             streetView +
             '</div>'
       }
@@ -49,6 +51,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
                     '設置主体=' + prop.A27_002 + '<br>' +
                     '名称＝' + prop.A27_004 + '<br>' +
                     '所在地＝' + prop.A27_005 + '<br>'+
+                    'id＝' + prop.id + '<br>'+
                     streetView +
                '</div>'
       } else {
@@ -66,6 +69,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
                     '設置主体=' + prop.A32_002 + '<br>' +
                     '名称＝' + prop.A32_004 + '<br>' +
                     '所在地＝' + prop.A32_005 + '<br>' +
+                    'id＝' + prop.id + '<br>'+
                      streetView +
                     '</div>'
       } else {
@@ -81,6 +85,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
         cont = '<div style=width:200px>市区町村コード＝' + prop.A32_001 + '<br>' +
             '設置主体=' + prop.A32_002 + '<br>' +
             '名称＝' + prop.A32_003 + '<br>' +
+            'id＝' + prop.id + '<br>'+
             streetView +
             '</div>'
       } else {
@@ -96,6 +101,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
         cont = '<div style=width:200px>市区町村コード＝' + prop.A32_001 + '<br>' +
             '設置主体=' + prop.A32_002 + '<br>' +
             '名称＝' + prop.A32_003 + '<br>' +
+            'id＝' + prop.id + '<br>'+
             streetView +
             '</div>'
       } else {
@@ -414,7 +420,9 @@ export function popUp(map,layers,features,overlay,evt,content) {
       }
       cont = '<div style=width:300px>分類名=' + landFormName + '<hr>' +
              '成り立ち=' + naritachi + '<hr>' +
-             'リスク=' + risk + '</div>'
+             'リスク=' + risk + '<hr>' +
+             streetView +
+             '</div>'
       break
     case 'densyou':
       console.log(prop.geometry.extent_[0])
@@ -479,6 +487,15 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'kiseikukan':
       cont = '<div style=width:200px>' + prop.A1 + prop.A2 + '</div>'
       break
+    case 'railroad':
+      if (geoType === 'LineString') {
+        cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
+            '路線名=' + prop.N05_002 + '</div>'
+      } else {
+        cont = '<div style=width:200px>' +
+            '駅名=' + prop.N05_011 + '</div>'
+      }
+      break
     case 'rosen':
         cont = '<div style=width:200px>運営会社=' + prop.N05_003 + '<hr>' +
             '路線名=' + prop.N05_002 + '</div>'
@@ -497,7 +514,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
     case 'bustei':
       cont = '<div style=width:200px>事業者名=' + prop.P11_002 + '<hr>' +
           'バス停名=' + prop.P11_001 + '<hr>' +
-          'バス系統=' + prop.P11_003_01 + '<hr>' +
+          // 'バス系統=' + prop.P11_003_01 + '<hr>' +
           streetView +
           '</div>'
       break
@@ -570,6 +587,7 @@ export function popUp(map,layers,features,overlay,evt,content) {
           '重文指定年月日=' + prop.重文指定年月日 + '<hr>' +
           '都道府県=' + prop.都道府県 + '<hr>' +
           '所在地=' + prop.所在地 + '<hr>' +
+          streetView +
           '</div>'
       break
     case 'toyamamaibun':
@@ -640,25 +658,46 @@ export function popUp(map,layers,features,overlay,evt,content) {
             '</div>'
       }
       break
+    case 'chimei':
+    case 'dobokuisan':
     case 'draganddrop':
-      cont = '<div style=width:300px;max-height:500px;overflow:scroll; font-size:small;>'
+      cont = '<div style=width:300px;max-height:500px;overflow:scroll;font-size:small;>'
       Object.keys(prop).forEach(function(key) {
         if (key !== 'geometry') {
-          cont += key + '=' + prop[key] + '<hr>'
+          // cont += key + '=' + prop[key] + '<hr>'
+          cont += key + '=' + prop[key] + '<br>'
         }
       })
       cont += streetView +'<div>'
       break
     case 'nihonisanheatmap':
     case 'nihonisan':
-      cont = '<div style=width:300px;font-size:small;>' +
+      cont = '<div style=width:200px;font-size:small;>' +
           '名称=<a href="https://japan-heritage.bunka.go.jp/ja/stories/story' +  ('000' + prop.jhno).slice(-3) + '/" target="_blank" >' + prop.name + '</a><hr>' +
-          // '名称=<a href="' + prop.url + '" target="_blank" >' + prop.name + '</a><hr>' +
-          '読み=' + prop.yomi + '<hr>' +
-          '所在地=' + prop.spot + '<hr>' +
-          '指定等=' + prop.status + '<hr>' +
-          '<a href="' + prop.image + '" target="_blank"><img width="300px" src="' + prop.image + '"></a><hr>' +
+          '読み=' + prop.yomi + '<br>' +
+          '所在地=' + prop.spot + '<br>' +
+          '指定等=' + prop.status + '<br>' +
+          '<a href="' + prop.image + '" target="_blank"><img width="200px" src="' + prop.image + '"></a><hr>' +
           streetView +
+          '</div>'
+      break
+    case 'senkyoku':
+      cont = '<div style=width:150px;>' +
+          '選挙区=' + prop.kuname +
+          '</div>'
+      break
+    case 'yubinku':
+      cont = '<div style=width:200px;>' +
+          '郵便番号=' + prop.fullcode + '<br>' +
+          '郵便区名=' + prop.name + '<br>' +
+          '読み=' + prop.yomi + '<br>' +
+          '都道府県=' + prop.ken + '<br>' +
+          '地域=' + prop.area +
+          '</div>'
+      break
+    case 'meijikokudo':
+      cont = '<div style=width:200px;>' +
+          '名称=' + prop.Name + '<br>' +
           '</div>'
       break
   }
@@ -877,7 +916,25 @@ export function popUpTameike(rgba) {
   }
   store.commit('base/popUpContUpdate',cont)
 }
-
+//----------------------------------------------------------------------------------------
+export function popUpEkizyouka(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if(r===200 && g===0 && b===255) {
+    cont = "<div style=width:200px>埋立地や旧河道</div>"
+  }else if(r===255 && g===40 && b===0) {
+    cont = "<div style=width:200px>干拓地や自然堤防など</div>"
+  }else if(r===255 && g===170 && b===0) {
+    cont = "<div style=width:200px>緩勾配の谷底低地、緩勾配の扇状地など</div>"
+  }else if(r===255 && g===245 && b===0) {
+    cont = "<div style=width:200px>急勾配の谷底低地、急勾配の扇状地など</div>"
+  }else if(r===200 && g===200 && b===203) {
+    cont = "<div style=width:200px>山地や丘陵など</div>"
+  }
+  store.commit('base/popUpContUpdate',cont)
+}
 //----------------------------------------------------------------------------------------
 export function popUpEkizyouka01(rgba) {
   const r = rgba[0]
@@ -1706,6 +1763,94 @@ export function popUpJisin(rgba) {
     cont = "<div style=width:200px>高い 3%〜6%</div>"
   } else if (r === 254 && g === 254 && b === 189) {
     cont = "<div style=width:200px>やや高い 0.1%〜3%</div>"
+  }
+  store.commit('base/popUpContUpdate', cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpMorido(rgba,coordinate) {
+  const lonLat = transform([coordinate[0],coordinate[1]], "EPSG:3857", "EPSG:4326")
+  const lon = lonLat[0]
+  const lat = lonLat[1]
+  const streetView = '<a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=' + lat + ',' + lon + '&hl=ja" target="_blank">Street Viewを開く</a></div>'
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  if (r === 155 && g === 255 && b === 155) {
+    cont = "<div style=width:200px>盛土区分＝谷埋め型</div>"
+  } else if (r === 155 && g === 155 && b === 255) {
+    cont = "<div style=width:200px>盛土区分＝腹付け型</div>"
+  } else if (r === 254 && g === 229 && b === 149) {
+    cont = "<div style=width:200px>高い 3%〜6%</div>"
+  } else if (r === 254 && g === 254 && b === 189) {
+    cont = "<div style=width:200px>やや高い 0.1%〜3%</div>"
+  }
+  cont += streetView
+  store.commit('base/popUpContUpdate', cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpDojyou(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  let url
+  let a
+  const result = figureRGB.find((value) =>{
+    return value[0] === r && value[1] === g && value[2] === b
+  })
+  if (result) {
+    if (result[3].slice(0,1) === 'A' ||
+        result[3].slice(0,1) === 'B' ||
+        result[3].slice(0,1) === 'C') {
+      url = result[3].slice(0,1)
+      a = "<a href='https://soil-inventory.rad.naro.go.jp/explain/" + url + ".html' target='_blank'>" + result[4] + "</a>"
+    } else if(result[3].slice(0,1) === 'Z') {
+      a = result[4]
+    } else {
+      url = result[3].slice(0,2)
+      a = "<a href='https://soil-inventory.rad.naro.go.jp/explain/" + url + ".html' target='_blank'>" + result[4] + "</a>"
+    }
+    cont = "<div style=width:300px;font-size:small>" +
+        "土壌分類名：" + a +
+        "<br>土壌分類記号：" + result[3] +
+        "<br>" + result[5] +
+        "</div>"
+  }
+  store.commit('base/popUpContUpdate', cont)
+}
+//----------------------------------------------------------------------------------------
+export function popUpTisitu(rgba) {
+  const r = rgba[0]
+  const g = rgba[1]
+  const b = rgba[2]
+  let cont
+  const figureRGB =[
+        [254,227,200,"砂礫地","土地の表面が砂と小石のところ。砂や礫でできた荒地、風の運搬作用によって砂が堆積してできた砂丘も含む。",""],
+        [254,200,200,"泥地","常にぬかるんでいて植物が存在せず、通過が困難な土地。",""],
+        [228,172,123,"泥炭地","｢泥炭地｣と記された範囲。",""],
+        [200,200,228,"湿地","概ね湿潤で葦(あし)などの植物が生えるような土地のこと。",""],
+        [209,234,255,"干潟・砂浜","満潮時には、海面に没する地形。",""],
+        [147,200,254,"河川、湖沼、海面","河川や水路、湖沼と記された範囲及び、河口部から海上の範囲。養魚場や貯木場、小規模な農業用の池なども含む。",""],
+        [251,247,176,"田（水田、陸田）","水田は稲や蓮などを栽培する田で四季を通じて水がある土地のこと。陸田は稲を栽培する田で冬季に水が涸れ、歩けるような土地のこと。乾田とも言う。",""],
+        [225,227,118,"深田","膝ぐらいまでぬかる泥深い田もしくは小舟を用いて耕作するような田のこと。沼田とも言う。",""],
+        [227,227,200,"塩田","海水から食塩を取るために設けた砂浜の設備。",""],
+        [162,222,162,"草地","牧草を栽培する土地や｢草｣と記された範囲。ただし、山地や台地上のものは取得しない。",""],
+        [173,200,147,"荒地","開墾されたことがないまたは、かつては開墾されていたが長期間荒れ果てたところ。ただし、山地や台地上のものは取得しない。",""],
+        [119,227,201,"ヨシ（芦葦）","蘆｣、｢芦｣、｢葦｣、｢葮｣、｢蓮｣と記された範囲。または芦葦記号。",""],
+        [173,255,173,"茅","茅｣、｢萱｣と記された範囲。",""],
+        [144,73,11,"堤防","河川の氾濫や海水の浸入を防ぐため、河岸･海岸に沿って設けた土石の構築物。",""],
+      ]
+
+  const result = figureRGB.find((value) =>{
+    return value[0] === r && value[1] === g && value[2] === b
+  })
+  if (result) {
+
+    cont = "<div style=width:300px;font-size:small>" +
+        result[3] + "<hr>" +
+        "説明＝" + result[4] +
+        "</div>"
   }
   store.commit('base/popUpContUpdate', cont)
 }

@@ -6,6 +6,9 @@ Vue.use(Vuex);
 const moduleBase = {
   namespaced: true,
   state: {
+    dialogShow: false,
+    suUrl: '',
+    mwId: '',
     zyougen:100000,
     colorArr: {
       map01: [],
@@ -40,6 +43,7 @@ const moduleBase = {
     dialogMaxZindex:1,
     splitFlg: 1,
     firstFlg: true,
+    increment: 0,
     popUpCont: ''
   },
   getters: {
@@ -70,11 +74,21 @@ const moduleBase = {
         layerListArr2.push(layerList2)
       }
       // console.log(layerListArr2);
+      // console.log(JSON.stringify(layerListArr2))
       return JSON.stringify(layerListArr2)
       // return layerListArr2
     }
   },
   mutations: {
+    updateDialogShow (state, payload) {
+      state.dialogShow = payload
+    },
+    updateSuUrl (state, payload) {
+      state.suUrl = payload
+    },
+    updateMwId (state, payload) {
+      state.mwId = payload
+    },
     updateZyougen (state, payload) {
       state.zyougen = payload
     },
@@ -96,6 +110,10 @@ const moduleBase = {
     //------------------------------------------------------------------------------------
     updateFirstFlg (state, payload) {
       state.firstFlg = payload
+    },
+    //------------------------------------------------------------------------------------
+    increment (state) {
+      state.increment++
     },
     // マップを登録------------------------------------------------------------------------------
     setMap (state,payload) {
@@ -208,7 +226,8 @@ const moduleInfo = {
       m5: {r: 255,g: 0,b:0,a:145/255 },
       m3: {r: 255,g: 13,b:13,a:179/255 },
       m0: {r: 255,g: 125,b:45,a:179/255 },
-      m00: {r: 232,g: 226,b:8,a:166/255 }
+      m00: {r: 232,g: 226,b:8,a:166/255 },
+      m000: {r: 0,g: 0,b:0,a:0 }
     }
   },
   getters: {
