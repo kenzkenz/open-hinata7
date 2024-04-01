@@ -788,7 +788,7 @@ for (let i of mapsStr) {
 const hyougoRinsouSumm = '<a href="https://www.geospatial.jp/ckan/dataset/ls_standtype_hyogo" target="_blank">G空間情報センター</a>';
 // 栃木県CS立体図 ----------------------------------------------------------------------------
 function TochigiCs () {
-  this.extent = transformE([139.1989, 37.2099, 140.4764, 36.14784])
+  this.extent = transformEforMw([139.1989, 37.2099, 140.4764, 36.14784])
   this.source = new XYZ({
     url: 'https://rinya-tochigi.geospatial.jp/2023/rinya/tile/csmap/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -803,7 +803,7 @@ for (let i of mapsStr) {
 const tochigicsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/csmap_tochigi" target="_blank">G空間情報センター</a>';
 // 栃木県レーザ林相図 ----------------------------------------------------------------------------
 function TochigiRinsou () {
-  this.extent = transformE([139.1989, 37.2099, 140.4764, 36.14784])
+  this.extent = transformEforMw([139.1989, 37.2099, 140.4764, 36.14784])
   this.source = new XYZ({
     url: 'https://rinya-tochigi.geospatial.jp/2023/rinya/tile/ls_standtype/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -820,7 +820,7 @@ const tochigiRinsouSumm = '<a href="https://www.geospatial.jp/ckan/dataset/ls_st
 
 // 高知県CS立体図 ----------------------------------------------------------------------------
 function KochiCs () {
-  this.extent = transformE([132.2401, 33.86599, 134.553, 32.6287])
+  this.extent = transformEforMw([132.2401, 33.86599, 134.553, 32.6287])
   this.source = new XYZ({
     url: 'https://rinya-kochi.geospatial.jp/2023/rinya/tile/csmap/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -835,7 +835,7 @@ for (let i of mapsStr) {
 const kochiCsSumm = '<a href="https://www.geospatial.jp/ckan/dataset/csmap_kochi" target="_blank">G空間情報センター</a>';
 // 高知県レーザ林相図 ----------------------------------------------------------------------------
 function KochiRinsou () {
-  this.extent = transformE([132.2401, 33.86599, 134.553, 32.6287])
+  this.extent = transformEforMw([132.2401, 33.86599, 134.553, 32.6287])
   this.source = new XYZ({
     url: 'https://rinya-kochi.geospatial.jp/2023/rinya/tile/ls_standtype/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1326,7 +1326,7 @@ for (let i of mapsStr) {
 // }
 // 大阪府CS立体図--------------------------------------------------------
 function OsakaCS () {
-  this.extent = transformE([134.9416, 35.10699,135.8409, 34.2379])
+  this.extent = transformEforMw([134.9416, 35.10699,135.8409, 34.2379])
   this.source = new XYZ({
     url: 'https://xs489works.xsrv.jp/raster-tiles/pref-osaka/osaka-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1342,7 +1342,7 @@ const osakaCsSumm = '<a href="https://github.com/shi-works/aist-dem-with-cs-on-m
 
 // 和歌山県CS立体図--------------------------------------------------------
 function WakayamaCS () {
-  this.extent = transformE([134.95532947982784,34.40572624226317, 136.0375257154846,33.41823638210427])
+  this.extent = transformEforMw([134.95532947982784,34.40572624226317, 136.0375257154846,33.41823638210427])
   this.source = new XYZ({
     url: 'https://xs489works.xsrv.jp/raster-tiles/pref-wakayama/wakayamapc-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1356,16 +1356,9 @@ for (let i of mapsStr) {
 }
 const wakayamaCsSumm = '<a href="https://github.com/shi-works/aist-dem-with-cs-on-maplibre-gl-js" target="_blank">aist-dem-with-cs-on-maplibre-gl-jsaist-dem-with-cs-on-maplibre-gl-js</a>';
 
-
-
-
-
-
-
-
 // 東京都多摩地域陰陽図 ----------------------------------------------------------------------------
 function Tamainyou () {
-  this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.extent = transformEforMw([138.9259, 35.90926,139.6112, 35.46722])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tamainyou/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1380,7 +1373,7 @@ for (let i of mapsStr) {
 const tamainyouSumm = '<a href="https://www.geospatial.jp/ckan/dataset/tokyopc-tama-2023/resource/e0b49600-9394-4416-99eb-be766eb33006" target="_blank">G空間情報センター</a>';
 //------
 function Toushonyou01 () {
-  this.extent = transformE([139.3291, 34.80158, 139.4594, 34.67136])
+  this.extent = transformEforMw([139.3291, 34.80158, 139.4594, 34.67136])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou01/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1394,7 +1387,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushonyou02 () {
-  this.extent = transformE([138.9873, 34.5704, 139.3528, 34.16614])
+  this.extent = transformEforMw([138.9873, 34.5704, 139.3528, 34.16614])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou02/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1408,7 +1401,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushonyou03 () {
-  this.extent = transformE([139.4534, 34.13815, 139.5832, 34.03666])
+  this.extent = transformEforMw([139.4534, 34.13815, 139.5832, 34.03666])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou03/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1422,7 +1415,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushonyou04 () {
-  this.extent = transformE([139.5721, 33.90441, 139.6372, 33.84859])
+  this.extent = transformEforMw([139.5721, 33.90441, 139.6372, 33.84859])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou04/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1436,7 +1429,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushonyou05 () {
-  this.extent = transformE([139.6562, 33.16488, 139.8692, 33.03760])
+  this.extent = transformEforMw([139.6562, 33.16488, 139.8692, 33.03760])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou05/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1450,7 +1443,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushonyou06 () {
-  this.extent = transformE([139.7514, 32.47644, 139.7881, 32.43893])
+  this.extent = transformEforMw([139.7514, 32.47644, 139.7881, 32.43893])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyoinyou06/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1480,7 +1473,7 @@ for (let i of mapsStr) {
 
 // 東京都多摩地域赤色立体地図 ----------------------------------------------------------------------------
 function Tamared () {
-  this.extent = transformE([138.9259, 35.90926,139.6112, 35.46722])
+  this.extent = transformEforMw([138.9259, 35.90926,139.6112, 35.46722])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tamasekisyoku/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1497,7 +1490,7 @@ const tamaredSumm = '<a href="https://www.geospatial.jp/ckan/dataset/tokyopc-tam
 
 //------
 function Toushosekisyoku01 () {
-  this.extent = transformE([139.3291, 34.80158, 139.4594, 34.67136])
+  this.extent = transformEforMw([139.3291, 34.80158, 139.4594, 34.67136])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku01/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1511,7 +1504,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushosekisyoku02 () {
-  this.extent = transformE([138.9873, 34.5704, 139.3528, 34.16614])
+  this.extent = transformEforMw([138.9873, 34.5704, 139.3528, 34.16614])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku02/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1525,7 +1518,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushosekisyoku03 () {
-  this.extent = transformE([139.4534, 34.13815, 139.5832, 34.03666])
+  this.extent = transformEforMw([139.4534, 34.13815, 139.5832, 34.03666])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku03/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1539,7 +1532,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushosekisyoku04 () {
-  this.extent = transformE([139.5721, 33.90441, 139.6372, 33.84859])
+  this.extent = transformEforMw([139.5721, 33.90441, 139.6372, 33.84859])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku04/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1553,7 +1546,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushosekisyoku05 () {
-  this.extent = transformE([139.6562, 33.16488, 139.8692, 33.03760])
+  this.extent = transformEforMw([139.6562, 33.16488, 139.8692, 33.03760])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku05/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1567,7 +1560,7 @@ for (let i of mapsStr) {
 }
 //------
 function Toushosekisyoku06 () {
-  this.extent = transformE([139.7514, 32.47644, 139.7881, 32.43893])
+  this.extent = transformEforMw([139.7514, 32.47644, 139.7881, 32.43893])
   this.source = new XYZ({
     url: 'https://kenzkenz2.xsrv.jp/tokyo/tousyosekisyoku06/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
@@ -1597,7 +1590,7 @@ for (let i of mapsStr) {
 
 // 能登CS立体図 ----------------------------------------------------------------------------
 function NotoCs () {
-  this.extent = transformE([136.5141, 37.55607,137.4426, 36.89691])
+  this.extent = transformEforMw([136.5141, 37.55607,137.4426, 36.89691])
   this.source = new XYZ({
     url: 'https://www2.ffpri.go.jp/soilmap/tile/cs_noto/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1613,7 +1606,7 @@ const notoCsSumm = '<a href="https://www.ffpri.affrc.go.jp/press/2022/20220928/i
 
 // 能登西部赤色立体図 ----------------------------------------------------------------------------
 function NotoSeibu () {
-  this.extent = transformE([136.6591, 37.46178 ,137.19235, 36.91536])
+  this.extent = transformEforMw([136.6591, 37.46178 ,137.19235, 36.91536])
   this.source = new XYZ({
     url: 'https://kenzkenz3.xsrv.jp/notoseibu/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1677,7 +1670,7 @@ const sizuokaCs2Summ = '<a href="https://www.geospatial.jp/ckan/dataset/shizuoka
 
 // 広島県CS立体図----------------------------------------------------------------------------
 function HiroshimaCs () {
-  this.extent = transformE([132.1650338172913, 34.69661995103654,133.3746349811554, 34.03206918961159])
+  this.extent = transformEforMw([132.1650338172913, 34.69661995103654,133.3746349811554, 34.03206918961159])
   this.source = new XYZ({
     url: 'https://www2.ffpri.go.jp/soilmap/tile/cs_hiroshima/{z}/{x}/{y}.png',
     // crossOrigin: 'Anonymous',
@@ -1709,7 +1702,7 @@ const okayamaCsSumm = '出典：<a href="https://www2.ffpri.go.jp/soilmap/index.
 
 // 熊本県・大分県CS立体図----------------------------------------------------------------------------
 function KumamotoCs () {
-  this.extent = transformE([130.6688, 33.39105,131.5633, 32.53706])
+  this.extent = transformEforMw([130.6688, 33.39105,131.5633, 32.53706])
   this.source = new XYZ({
     url: 'https://www2.ffpri.go.jp/soilmap/tile/cs_kumamoto_oita/{z}/{x}/{y}.png',
     // crossOrigin: 'Anonymous',
@@ -1739,7 +1732,7 @@ for (let i of mapsStr) {
 const fukushimaCsSumm = '出典：<a href="https://www2.ffpri.go.jp/soilmap/index.html" target="_blank">森林総研・森林土壌デジタルマップ</a>'
 // 愛媛県CS立体図----------------------------------------------------------------------------
 function EhimeCs () {
-  this.extent = transformE([132.0778, 34.37512,134.2125, 32.83277])
+  this.extent = transformEforMw([132.0778, 34.37512,134.2125, 32.83277])
   this.source = new XYZ({
     url: 'https://www2.ffpri.go.jp/soilmap/tile/cs_ehime/{z}/{x}/{y}.png',
     // crossOrigin: 'Anonymous',
@@ -1754,7 +1747,7 @@ for (let i of mapsStr) {
 const ehimeCsSumm = '出典：<a href="https://www2.ffpri.go.jp/soilmap/index.html" target="_blank">森林総研・森林土壌デジタルマップ</a>'
 // 東京都CS立体図test----------------------------------------------------------------------------
 function TamaCs () {
-  this.extent = transformE([138.93110047834082,35.90551606609344, 139.60311090985996,35.49503296693065])
+  this.extent = transformEforMw([138.93110047834082,35.90551606609344, 139.60311090985996,35.49503296693065])
   this.source = new XYZ({
     url: 'https://shiworks.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-tama-2023-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1769,7 +1762,7 @@ for (let i of mapsStr) {
 const tamaCsSumm = '<a href="https://github.com/shi-works/aist-dem-with-cs-on-maplibre-gl-js" target="_blank">aist-dem-with-cs-on-maplibre-gl-js</a>'
 // 伊豆大島
 function izuooshima () {
-  this.extent = transformE([139.34043993591177,34.804413371961076, 139.45518445569877,34.67391471650552])
+  this.extent = transformEforMw([139.34043993591177,34.804413371961076, 139.45518445569877,34.67391471650552])
   this.source = new XYZ({
     url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-01-2023-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1783,7 +1776,7 @@ for (let i of mapsStr) {
 }
 // 利島、新島、式根島、神津島
 function tomoshima () {
-  this.extent = transformE([138.98320733791348,34.56847662565042, 139.39485131984708,34.13658562384532])
+  this.extent = transformEforMw([138.98320733791348,34.56847662565042, 139.39485131984708,34.13658562384532])
   this.source = new XYZ({
     url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-02-2023-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1797,7 +1790,7 @@ for (let i of mapsStr) {
 }
 //三宅島
 function miyakejima () {
-  this.extent = transformE([139.46296685190651,34.13809622325495, 139.57339784444721,34.041136939996946])
+  this.extent = transformEforMw([139.46296685190651,34.13809622325495, 139.57339784444721,34.041136939996946])
   this.source = new XYZ({
     url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-03-2023-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1811,7 +1804,7 @@ for (let i of mapsStr) {
 }
 // 御蔵島
 function mikurajima () {
-  this.extent = transformE([139.57190963346537,33.90455655595973, 139.63541741005005,33.84863773109609])
+  this.extent = transformEforMw([139.57190963346537,33.90455655595973, 139.63541741005005,33.84863773109609])
   this.source = new XYZ({
     url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-04-2023-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1825,7 +1818,7 @@ for (let i of mapsStr) {
 }
 // 八丈島
 function hachijojima () {
-  this.extent = transformE([139.63696957828407,33.17531101027478, 139.86877396530423,33.03842021632886])
+  this.extent = transformEforMw([139.63696957828407,33.17531101027478, 139.86877396530423,33.03842021632886])
   this.source = new XYZ({
     url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-05-2023-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -1839,7 +1832,7 @@ for (let i of mapsStr) {
 }
 // 青ヶ島
 function aogashima () {
-  this.extent = transformE([139.75174508612426,32.47625962061629, 139.78321093985278,32.440960255575675])
+  this.extent = transformEforMw([139.75174508612426,32.47625962061629, 139.78321093985278,32.440960255575675])
   this.source = new XYZ({
     url: 'https://xs489works.xsrv.jp/raster-tiles/tokyo-digitaltwin/tokyopc-shima-06-2023-cs-tiles/{z}/{x}/{y}.png',
     crossOrigin: 'Anonymous',
@@ -9138,7 +9131,7 @@ for (let i of mapsStr) {
 const meijitokyoSumm = '出典：<br><a href="https://mapwarper.h-gis.jp/maps/4152" target="_blank">日本版 Map Warper</a>';
 // 飫肥城---------------------------------------------------------------
 function Obi() {
-  this.extent = transformE([131.3322, 31.63742,131.3794, 31.61850]);
+  this.extent = transformEforMw([131.3322, 31.63742,131.3794, 31.61850]);
   this.source = new XYZ({
     url: 'https://mtile.pref.miyazaki.lg.jp/tile/obikotizu/{z}/{x}/{-y}.png',
     crossOrigin: 'Anonymous',
